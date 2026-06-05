@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="FullCircle Financial Group — Breyon Miller, The Financial Architect. LLC formation, IUL, business credit, tax strategy, asset protection, and estate planning for high-income professionals.">
+<meta name="author" content="Breyon Miller — FullCircle Financial Group">
+<title>FullCircle Financial Group | The Financial Architect</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0D1B3E;
+  --navy2:#111D3C;
+  --navy3:#162247;
+  --navy4:#0A1530;
+  --gold:#C9A84C;
+  --gold2:#E8C96A;
+  --gold3:#F0D98A;
+  --gold-pale:#F5EFE0;
+  --cream:#F0E8D0;
+  --white:#FAFAF8;
+  --muted:rgba(245,239,224,0.55);
+  --muted2:rgba(245,239,224,0.3);
+  --max:1200px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 4rem;
+  background:rgba(10,21,48,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(201,168,76,0.12);
+  transition:padding 0.3s;
+}
+.nav-logo{display:flex;align-items:center;gap:0.8rem;}
+.nav-logo img{height:36px;object-fit:contain;}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--white);letter-spacing:0.02em;}
+.nav-links{display:flex;align-items:center;gap:2.5rem;}
+.nav-links a{font-size:0.7rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  background:var(--gold);color:var(--navy4);
+  padding:0.65rem 1.5rem;text-decoration:none;
+  transition:background 0.3s,transform 0.2s;
+}
+.nav-cta:hover{background:var(--gold2);transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{width:24px;height:2px;background:var(--gold);transition:all 0.3s;}
+
+/* HERO */
+#hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--navy4);
+  position:relative;overflow:hidden;
+  padding-top:80px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 100%,rgba(201,168,76,0.1) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 0%,rgba(201,168,76,0.05) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+.hero-content{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:6rem 4rem 6rem 5rem;
+}
+.hero-eyebrow{
+  font-size:0.58rem;font-weight:700;letter-spacing:0.5em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:1.2rem;
+  animation:fadeUp 0.8s 0.2s both;
+}
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,4vw,3.8rem);
+  font-weight:700;color:var(--white);
+  line-height:1.05;margin-bottom:0.4rem;
+  animation:fadeUp 0.8s 0.35s both;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:clamp(1rem,2vw,1.4rem);
+  color:var(--gold2);font-weight:400;
+  margin-bottom:2rem;
+  animation:fadeUp 0.8s 0.5s both;
+}
+.hero-rule{width:55px;height:1px;background:var(--gold);opacity:0.5;margin-bottom:1.8rem;animation:fadeUp 0.8s 0.6s both;}
+.hero-tagline{
+  font-size:0.85rem;font-weight:300;
+  color:var(--muted);line-height:1.9;
+  max-width:420px;margin-bottom:2.5rem;
+  animation:fadeUp 0.8s 0.7s both;
+}
+.hero-tagline strong{color:var(--gold2);font-weight:600;}
+.hero-pillars{
+  display:flex;flex-wrap:wrap;gap:0.5rem;
+  margin-bottom:3rem;
+  animation:fadeUp 0.8s 0.85s both;
+}
+.hero-pill{
+  font-size:0.55rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;
+  border:1px solid rgba(201,168,76,0.4);color:var(--gold);
+  padding:0.4rem 1rem;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.8s 1s both;}
+.btn-primary{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  background:var(--gold);color:var(--navy4);
+  padding:1rem 2rem;text-decoration:none;
+  transition:background 0.3s,transform 0.2s;display:inline-block;
+}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn-secondary{
+  font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  border:1px solid rgba(201,168,76,0.5);color:var(--gold);
+  padding:1rem 2rem;text-decoration:none;
+  transition:all 0.3s;display:inline-block;
+}
+.btn-secondary:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);}
+.hero-photo{
+  position:relative;overflow:hidden;
+  min-height:100%;
+}
+.hero-photo img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  display:block;
+  filter:contrast(1.05) brightness(0.88);
+}
+.hero-photo::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to right,var(--navy4) 0%,rgba(10,21,48,0.15) 30%,transparent 55%),
+    linear-gradient(to top,var(--navy4) 0%,transparent 20%);
+}
+.hero-photo::after{
+  content:'';position:absolute;
+  left:0;top:10%;bottom:10%;width:1px;
+  background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+  z-index:2;opacity:0.35;
+}
+.hero-stats{
+  display:flex;gap:2.5rem;margin-top:0.5rem;
+  animation:fadeUp 0.8s 1.1s both;
+}
+.hero-stat{display:flex;flex-direction:column;gap:0.2rem;}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--gold);}
+.hero-stat-label{font-size:0.55rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+
+/* SECTIONS */
+section{padding:6rem 2rem;}
+.container{max-width:var(--max);margin:0 auto;}
+.section-eyebrow{
+  font-size:0.58rem;font-weight:700;letter-spacing:0.45em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:0.8rem;
+}
+.section-rule{width:50px;height:1px;background:var(--gold);opacity:0.5;margin-bottom:1.2rem;}
+.section-rule.center{margin-left:auto;margin-right:auto;}
+
+/* PROBLEM */
+#problem{background:var(--navy2);}
+.problem-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:400;line-height:1.2;
+  max-width:680px;margin:0 auto 0.8rem;
+  text-align:center;
+}
+.problem-headline em{font-style:italic;color:var(--gold2);}
+.problem-sub{
+  font-size:0.82rem;font-weight:300;color:var(--muted);
+  text-align:center;max-width:520px;margin:0 auto 3.5rem;line-height:1.8;
+}
+.problem-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:rgba(201,168,76,0.1);
+  border:1px solid rgba(201,168,76,0.1);
+  max-width:960px;margin:0 auto 3rem;
+}
+.problem-card{
+  background:var(--navy2);
+  padding:2rem 1.5rem;
+  transition:background 0.3s;
+  position:relative;
+}
+.problem-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.problem-card:hover{background:rgba(201,168,76,0.04);}
+.problem-card:hover::after{opacity:1;}
+.problem-icon{font-size:1.8rem;margin-bottom:0.8rem;}
+.problem-label{font-size:0.6rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.problem-text{font-size:0.74rem;font-weight:300;color:var(--muted);line-height:1.7;}
+.problem-quote{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(1rem,2vw,1.3rem);
+  color:var(--muted);text-align:center;
+  max-width:560px;margin:0 auto;
+}
+.problem-quote em{color:var(--gold2);font-style:normal;font-weight:600;}
+
+/* BLUEPRINT */
+#blueprint{background:var(--navy4);text-align:center;}
+.blueprint-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:400;line-height:1.2;
+  max-width:600px;margin:0 auto 0.8rem;
+}
+.blueprint-headline em{font-style:italic;color:var(--gold2);}
+.blueprint-sub{font-size:0.82rem;font-weight:300;color:var(--muted);max-width:480px;margin:0 auto 3.5rem;line-height:1.8;}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:900px;margin:0 auto 2.5rem;}
+.pillar{
+  border:1px solid rgba(201,168,76,0.2);
+  padding:2.5rem 2rem;
+  position:relative;
+  background:rgba(201,168,76,0.02);
+  transition:all 0.3s;
+}
+.pillar:hover{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.45);transform:translateY(-4px);}
+.pillar-num{
+  font-family:'Playfair Display',serif;
+  font-size:3rem;font-weight:700;
+  color:rgba(201,168,76,0.15);
+  position:absolute;top:1rem;right:1.5rem;
+  line-height:1;
+}
+.pillar-label{font-size:0.58rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
+.pillar-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;color:var(--white);margin-bottom:0.8rem;}
+.pillar-text{font-size:0.75rem;font-weight:300;color:var(--muted);line-height:1.8;}
+.blueprint-note{font-size:0.8rem;font-weight:300;color:var(--muted);font-style:italic;}
+.blueprint-note strong{color:var(--gold2);font-style:normal;}
+
+/* SERVICES */
+#services{background:var(--navy2);}
+.services-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:400;line-height:1.2;
+  max-width:600px;margin:0 auto 0.8rem;
+  text-align:center;
+}
+.services-sub{font-size:0.82rem;font-weight:300;color:var(--muted);text-align:center;max-width:500px;margin:0 auto 3.5rem;line-height:1.8;}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;max-width:1100px;margin:0 auto;
+}
+.service-card{
+  background:rgba(201,168,76,0.02);
+  border:1px solid rgba(201,168,76,0.15);
+  padding:2.5rem 2rem;
+  transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.service-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));
+  transform:scaleX(0);transition:transform 0.4s;
+}
+.service-card:hover{background:rgba(201,168,76,0.05);border-color:rgba(201,168,76,0.35);transform:translateY(-4px);}
+.service-card:hover::before{transform:scaleX(1);}
+.service-icon{font-size:2rem;margin-bottom:1rem;}
+.service-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--white);margin-bottom:0.7rem;}
+.service-text{font-size:0.74rem;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:1.2rem;}
+.service-bullets{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
+.service-bullets li{
+  font-size:0.7rem;font-weight:400;color:rgba(245,239,224,0.6);
+  padding-left:1rem;position:relative;
+}
+.service-bullets li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:0.65rem;}
+
+/* DIFFERENCE */
+#difference{
+  background:var(--navy4);
+  position:relative;overflow:hidden;
+}
+.difference-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;align-items:center;
+  max-width:var(--max);margin:0 auto;
+}
+.difference-content{}
+.difference-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:400;line-height:1.2;
+  margin-bottom:1.5rem;
+}
+.difference-headline em{font-style:italic;color:var(--gold2);}
+.difference-body{font-size:0.82rem;font-weight:300;color:var(--muted);line-height:1.9;margin-bottom:2.5rem;}
+.difference-points{display:flex;flex-direction:column;gap:1.5rem;}
+.diff-point{display:flex;align-items:flex-start;gap:1.2rem;}
+.diff-point-icon{
+  width:40px;height:40px;flex-shrink:0;
+  border:1px solid rgba(201,168,76,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+}
+.diff-point-text{}
+.diff-point-title{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;}
+.diff-point-body{font-size:0.75rem;font-weight:300;color:var(--muted);line-height:1.7;}
+.difference-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+}
+.diff-stat{
+  border:1px solid rgba(201,168,76,0.2);
+  padding:2rem 1.5rem;
+  background:rgba(201,168,76,0.02);
+  text-align:center;
+}
+.diff-stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;font-weight:700;color:var(--gold);
+  margin-bottom:0.4rem;
+}
+.diff-stat-label{font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+
+/* WHO WE SERVE */
+#serve{background:var(--navy2);text-align:center;}
+.serve-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:400;line-height:1.2;
+  max-width:600px;margin:0 auto 0.8rem;
+}
+.serve-sub{font-size:0.82rem;font-weight:300;color:var(--muted);max-width:480px;margin:0 auto 3.5rem;line-height:1.8;}
+.serve-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1.5rem;max-width:1100px;margin:0 auto;
+}
+.serve-card{
+  border:1px solid rgba(201,168,76,0.15);
+  padding:2rem 1.5rem;
+  background:rgba(201,168,76,0.02);
+  transition:all 0.3s;text-align:left;
+}
+.serve-card:hover{background:rgba(201,168,76,0.05);border-color:rgba(201,168,76,0.4);transform:translateY(-4px);}
+.serve-avatar{font-size:2rem;margin-bottom:0.8rem;}
+.serve-type{font-size:0.58rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.serve-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--white);margin-bottom:0.6rem;}
+.serve-income{font-size:0.68rem;font-weight:600;color:var(--gold2);margin-bottom:0.8rem;}
+.serve-text{font-size:0.72rem;font-weight:300;color:var(--muted);line-height:1.7;}
+
+/* RESULTS */
+#results{background:var(--navy4);text-align:center;}
+.results-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:400;line-height:1.2;
+  max-width:600px;margin:0 auto 0.8rem;
+}
+.results-sub{font-size:0.82rem;font-weight:300;color:var(--muted);max-width:480px;margin:0 auto 3.5rem;line-height:1.8;}
+.results-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;max-width:1000px;margin:0 auto 3rem;
+}
+.result-card{
+  border:1px solid rgba(201,168,76,0.2);
+  padding:2.5rem 2rem;
+  background:rgba(201,168,76,0.02);
+  text-align:left;position:relative;
+}
+.result-quote-mark{
+  font-family:'Playfair Display',serif;
+  font-size:4rem;color:rgba(201,168,76,0.15);
+  line-height:1;margin-bottom:0.5rem;
+}
+.result-text{font-size:0.8rem;font-weight:300;color:var(--muted);line-height:1.8;font-style:italic;margin-bottom:1.5rem;}
+.result-text strong{color:var(--gold2);font-style:normal;font-weight:600;}
+.result-rule{width:30px;height:1px;background:var(--gold);opacity:0.5;margin-bottom:0.8rem;}
+.result-name{font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.result-role{font-size:0.65rem;font-weight:300;color:var(--muted);}
+.result-metric{
+  display:flex;gap:2rem;flex-wrap:wrap;
+  justify-content:center;max-width:700px;margin:0 auto;
+}
+.metric{text-align:center;}
+.metric-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--gold);}
+.metric-label{font-size:0.6rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem;}
+
+/* MEET BREYON */
+#about{background:var(--navy2);}
+.about-inner{
+  display:grid;grid-template-columns:1fr 1.4fr;
+  gap:6rem;align-items:center;
+  max-width:var(--max);margin:0 auto;
+}
+.about-photo-wrap{
+  position:relative;
+}
+.about-photo-frame{
+  position:relative;
+  border:1px solid rgba(201,168,76,0.25);
+}
+.about-photo-frame img{
+  width:100%;display:block;
+  filter:contrast(1.05) brightness(0.9);
+  object-fit:cover;
+}
+.about-photo-frame::after{
+  content:'';
+  position:absolute;bottom:-16px;right:-16px;
+  width:100%;height:100%;
+  border:1px solid rgba(201,168,76,0.12);
+  z-index:-1;
+}
+.about-gold-accent{
+  position:absolute;top:2rem;left:-16px;
+  width:3px;height:60px;
+  background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+}
+.about-content{}
+.about-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:400;line-height:1.2;
+  margin-bottom:1.5rem;
+}
+.about-headline em{font-style:italic;color:var(--gold2);}
+.about-body{font-size:0.82rem;font-weight:300;color:var(--muted);line-height:1.9;margin-bottom:1.5rem;}
+.about-creds{
+  display:flex;flex-wrap:wrap;gap:0.5rem;
+  margin-bottom:2rem;
+}
+.cred-tag{
+  font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  border:1px solid rgba(201,168,76,0.35);color:var(--gold);
+  padding:0.4rem 0.8rem;
+}
+.about-team{
+  border:1px solid rgba(201,168,76,0.15);
+  padding:1.5rem 2rem;
+  background:rgba(201,168,76,0.02);
+}
+.about-team-label{font-size:0.6rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
+.about-team-members{display:flex;flex-direction:column;gap:0.6rem;}
+.team-member{font-size:0.78rem;font-weight:400;color:var(--muted);}
+.team-member strong{color:var(--white);font-weight:600;}
+
+/* CTA */
+#cta{
+  background:var(--navy4);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(201,168,76,0.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cta-headline{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:400;line-height:1.15;
+  max-width:700px;margin:0 auto 1.5rem;
+  position:relative;z-index:1;
+}
+.cta-headline em{font-style:italic;color:var(--gold2);}
+.cta-sub{
+  font-size:0.85rem;font-weight:300;color:var(--muted);
+  max-width:520px;margin:0 auto 3rem;line-height:1.9;
+  position:relative;z-index:1;
+}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;margin-bottom:2rem;}
+.cta-note{font-size:0.65rem;font-weight:400;color:var(--muted2);position:relative;z-index:1;letter-spacing:0.1em;}
+
+/* FOOTER */
+footer{
+  background:var(--navy4);
+  border-top:1px solid rgba(201,168,76,0.12);
+  padding:3rem 2rem;
+}
+.footer-inner{
+  max-width:var(--max);margin:0 auto;
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:3rem;
+}
+.footer-brand{}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--white);margin-bottom:0.8rem;}
+.footer-tagline{font-size:0.72rem;font-weight:300;color:var(--muted);line-height:1.7;max-width:280px;margin-bottom:1.2rem;}
+.footer-email{font-size:0.7rem;color:var(--gold);text-decoration:none;}
+.footer-col-title{font-size:0.6rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.footer-links a{font-size:0.72rem;font-weight:300;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-bottom{
+  max-width:var(--max);margin:2rem auto 0;
+  padding-top:1.5rem;
+  border-top:1px solid rgba(201,168,76,0.08);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-copy{font-size:0.62rem;font-weight:300;color:var(--muted2);}
+.footer-disclaimer{font-size:0.58rem;font-weight:300;color:rgba(245,239,224,0.25);max-width:500px;text-align:right;line-height:1.6;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.75s ease,transform 0.75s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+.d4{transition-delay:0.4s;}.d5{transition-delay:0.5s;}.d6{transition-delay:0.6s;}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  #hero{grid-template-columns:1fr;}
+  .hero-photo{display:none;}
+  .hero-content{padding:5rem 2rem 4rem;}
+  .problem-grid{grid-template-columns:repeat(2,1fr);}
+  .pillars{grid-template-columns:1fr 1fr;}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .serve-grid{grid-template-columns:repeat(2,1fr);}
+  .results-grid{grid-template-columns:1fr 1fr;}
+  .difference-inner{grid-template-columns:1fr;gap:3rem;}
+  .about-inner{grid-template-columns:1fr;gap:3rem;}
+  .about-photo-wrap{max-width:400px;}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:2rem;}
+}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .problem-grid{grid-template-columns:1fr;}
+  .pillars{grid-template-columns:1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .serve-grid{grid-template-columns:1fr 1fr;}
+  .results-grid{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr;}
+  .difference-stats{grid-template-columns:1fr 1fr;}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center;}
+  .footer-disclaimer{text-align:center;}
+}
+@media(max-width:480px){
+  .serve-grid{grid-template-columns:1fr;}
+  .hero-stats{flex-wrap:wrap;gap:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-text">FullCircle Financial Group</div>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#difference">Why FCFG</a>
+    <a href="#serve">Who We Serve</a>
+    <a href="#results">Results</a>
+    <a href="#about">About</a>
+    <a href="intake-form.html" class="nav-cta">Start Your Blueprint</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">FullCircle Financial Group</div>
+    <div class="hero-name">Breyon Miller</div>
+    <div class="hero-title">The Financial Architect</div>
+    <div class="hero-rule"></div>
+    <div class="hero-tagline">
+      Building <strong>protected, scalable financial systems</strong> for high-income professionals who are ready to stop earning — and start owning.
+    </div>
+    <div class="hero-pillars">
+      <span class="hero-pill">Protection</span>
+      <span class="hero-pill">Structure</span>
+      <span class="hero-pill">Capital</span>
+      <span class="hero-pill">Legacy</span>
+    </div>
+    <div class="hero-btns">
+      <a href="intake-form.html" class="btn-primary">Start Your Blueprint</a>
+      <a href="#services" class="btn-secondary">See All Services</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">30+</div>
+        <div class="hero-stat-label">Years in Industry</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">Service Disciplines</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">1</div>
+        <div class="hero-stat-label">Unified System</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="../Headshot .png" alt="Breyon Miller — The Financial Architect">
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-eyebrow reveal d1" style="text-align:center;">The Problem</div>
+    <div class="section-rule center reveal d1"></div>
+    <h2 class="problem-headline reveal d2">Most high earners have income.<br>The wealthy have <em>a system.</em></h2>
+    <p class="problem-sub reveal d3">You've built the income. You're doing the work. But without the right financial architecture behind it, every dollar you earn is at risk — from taxes, from lawsuits, from volatility, from time.</p>
+    <div class="problem-grid reveal d3">
+      <div class="problem-card">
+        <div class="problem-icon">📊</div>
+        <div class="problem-label">High Taxes</div>
+        <div class="problem-text">Paying the maximum with no strategy to legally redirect or protect your earnings. Writing a check to the IRS every April with nothing left to show for it.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">⚠️</div>
+        <div class="problem-label">No Protection</div>
+        <div class="problem-text">Personal assets fully exposed to lawsuits, client disputes, and liability claims. One judgment can reach your home, your car, your savings — everything.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">💧</div>
+        <div class="problem-label">No Liquidity</div>
+        <div class="problem-text">No access to capital when the market slows, an opportunity hits, or an emergency arrives. Forced to drain savings or use personal credit when income dips.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🏗️</div>
+        <div class="problem-label">No Structure</div>
+        <div class="problem-text">Business and personal finances mixed. No entity separation. No business credit identity. Building on a foundation that can't hold real wealth.</div>
+      </div>
+    </div>
+    <p class="problem-quote reveal d4">"You don't have a money problem. You have a <em>structure problem.</em>"<br><span style="font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(201,168,76,0.5);font-style:normal;display:block;margin-top:1rem;">— Breyon Miller</span></p>
+  </div>
+</section>
+
+<!-- BLUEPRINT -->
+<section id="blueprint">
+  <div class="container">
+    <div class="section-eyebrow reveal d1">The Blueprint</div>
+    <div class="section-rule center reveal d1"></div>
+    <h2 class="blueprint-headline reveal d2">Three pillars.<br><em>One complete system.</em></h2>
+    <p class="blueprint-sub reveal d3">Every client gets a custom financial architecture built on the same three-pillar foundation. Each layer is designed to work with the others — compounding your wealth, not competing with it.</p>
+    <div class="pillars">
+      <div class="pillar reveal d2">
+        <div class="pillar-num">I</div>
+        <div class="pillar-label">Pillar One</div>
+        <div class="pillar-title">Structure & Scale</div>
+        <div class="pillar-text">LLC formation, holding company design, entity separation, business address, EIN, operating agreement. The legal foundation that makes everything else work.</div>
+      </div>
+      <div class="pillar reveal d3">
+        <div class="pillar-num">II</div>
+        <div class="pillar-label">Pillar Two</div>
+        <div class="pillar-title">Protection & Privacy</div>
+        <div class="pillar-text">Asset protection, trust formation, anonymity structures, estate planning. Your personal wealth, completely separated from business risk.</div>
+      </div>
+      <div class="pillar reveal d4">
+        <div class="pillar-num">III</div>
+        <div class="pillar-label">Pillar Three</div>
+        <div class="pillar-title">Capital & Leverage</div>
+        <div class="pillar-text">IUL policy, business credit build, tax strategy. A private capital reserve you control — tax-free, no credit check, no bank required.</div>
+      </div>
+    </div>
+    <p class="blueprint-note reveal d5"><strong>Each layer is built intentionally.</strong> Together, they compound your wealth.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-eyebrow reveal d1" style="text-align:center;">Services</div>
+    <div class="section-rule center reveal d1"></div>
+    <h2 class="services-headline reveal d2">One firm.<br>Every financial discipline.</h2>
+    <p class="services-sub reveal d3">Most advisors do one thing and send you somewhere else for the rest. We do it all — and we make sure it all works together as a unified system.</p>
+    <div class="services-grid">
+      <div class="service-card reveal d2">
+        <div class="service-icon">🏛️</div>
+        <div class="service-title">LLC & Entity Formation</div>
+        <div class="service-text">The legal foundation of your financial system. We form the right entity, in the right state, with the right structure — built for protection and tax efficiency from day one.</div>
+        <ul class="service-bullets">
+          <li>Single-member & multi-member LLC</li>
+          <li>Holding company structure</li>
+          <li>Operating agreement & EIN</li>
+          <li>Business address & bank setup</li>
+        </ul>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="service-icon">🛡️</div>
+        <div class="service-title">Asset Protection</div>
+        <div class="service-text">Your name shouldn't be on everything. We separate personal assets from business liability using entity structures, privacy strategies, and charging order protection.</div>
+        <ul class="service-bullets">
+          <li>Wyoming LLC for privacy & protection</li>
+          <li>Holding company + operating LLC</li>
+          <li>Land trust for real estate</li>
+          <li>Anonymity structure design</li>
+        </ul>
+      </div>
+      <div class="service-card reveal d4">
+        <div class="service-icon">📈</div>
+        <div class="service-title">IUL — Indexed Universal Life</div>
+        <div class="service-text">Tax-free capital you can access at any time — no bank, no credit check, no approval. Grows with the market, protected from losses, and builds a death benefit for your family.</div>
+        <ul class="service-bullets">
+          <li>Needs analysis & carrier selection</li>
+          <li>Policy design for cash value growth</li>
+          <li>Tax-free access strategy</li>
+          <li>Ongoing policy reviews</li>
+        </ul>
+      </div>
+      <div class="service-card reveal d2">
+        <div class="service-icon">💳</div>
+        <div class="service-title">Business Credit</div>
+        <div class="service-text">Build a business credit profile from scratch — without touching your personal score. Access $50,000–$200,000 in business funding through a proven tier system.</div>
+        <ul class="service-bullets">
+          <li>D-U-N-S registration & bureau setup</li>
+          <li>Tier 1 net-30 vendor accounts</li>
+          <li>Tier 2 & 3 revolving credit</li>
+          <li>Business line of credit strategy</li>
+        </ul>
+      </div>
+      <div class="service-card reveal d3">
+        <div class="service-icon">📋</div>
+        <div class="service-title">Tax Strategy</div>
+        <div class="service-text">Proactive, year-round tax planning with our in-house CPA and tax strategist — not reactive April filing. Legal tax reduction through entity elections, deductions, and retirement stacking.</div>
+        <ul class="service-bullets">
+          <li>S-Corp election for SE tax reduction</li>
+          <li>QBI deduction optimization</li>
+          <li>Quarterly planning sessions</li>
+          <li>Year-end tax minimization</li>
+        </ul>
+      </div>
+      <div class="service-card reveal d4">
+        <div class="service-icon">🏛️</div>
+        <div class="service-title">Estate Planning</div>
+        <div class="service-text">You've built it — now make sure it survives you. Trust formation, beneficiary audits, business succession, and generational transfer planning coordinated with our estate attorney partners.</div>
+        <ul class="service-bullets">
+          <li>Revocable living trust</li>
+          <li>Beneficiary alignment audit</li>
+          <li>Business succession planning</li>
+          <li>Generational wealth structure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENCE -->
+<section id="difference">
+  <div class="container">
+    <div class="difference-inner">
+      <div class="difference-content">
+        <div class="section-eyebrow reveal d1">The Difference</div>
+        <div class="section-rule reveal d1"></div>
+        <h2 class="difference-headline reveal d2">Why FullCircle is<br><em>unlike anything else.</em></h2>
+        <p class="difference-body reveal d3">After 30 years in financial services, I've seen every product sold in isolation, every advisor who does one thing, and every client who pays the price for the gaps in between. FullCircle was built to close every gap — under one roof, in one coordinated system.</p>
+        <div class="difference-points">
+          <div class="diff-point reveal d3">
+            <div class="diff-point-icon">⏱️</div>
+            <div class="diff-point-text">
+              <div class="diff-point-title">30+ Years of Real-World Experience</div>
+              <div class="diff-point-body">Not a course. Not a certification. Three decades of building financial systems, watching what works, and knowing exactly what happens when the structure isn't right.</div>
+            </div>
+          </div>
+          <div class="diff-point reveal d4">
+            <div class="diff-point-icon">🧮</div>
+            <div class="diff-point-text">
+              <div class="diff-point-title">In-House CPA & Tax Strategist</div>
+              <div class="diff-point-body">Your tax strategy is not an afterthought. Our in-house team works year-round alongside your financial blueprint — coordinated, proactive, and built into the system.</div>
+            </div>
+          </div>
+          <div class="diff-point reveal d5">
+            <div class="diff-point-icon">🔄</div>
+            <div class="diff-point-text">
+              <div class="diff-point-title">Full Circle — Zero Gaps</div>
+              <div class="diff-point-body">LLC. IUL. Business credit. Tax strategy. Asset protection. Estate planning. Real estate. Personal credit. Every discipline, fully integrated. No referral-and-forget.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="difference-stats reveal d3">
+        <div class="diff-stat">
+          <div class="diff-stat-num">$40K</div>
+          <div class="diff-stat-label">Avg. Annual Tax Savings</div>
+        </div>
+        <div class="diff-stat">
+          <div class="diff-stat-num">90</div>
+          <div class="diff-stat-label">Days to Business Credit</div>
+        </div>
+        <div class="diff-stat">
+          <div class="diff-stat-num">60</div>
+          <div class="diff-stat-label">Days to Full Structure</div>
+        </div>
+        <div class="diff-stat">
+          <div class="diff-stat-num">$0</div>
+          <div class="diff-stat-label">IUL Market Loss Floor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section id="serve">
+  <div class="container">
+    <div class="section-eyebrow reveal d1">Who We Serve</div>
+    <div class="section-rule center reveal d1"></div>
+    <h2 class="serve-headline reveal d2">Built for high earners<br>who are ready to build a system.</h2>
+    <p class="serve-sub reveal d3">If you're making great money but don't have the structure, protection, and capital system behind it — you're the client we built this for.</p>
+    <div class="serve-grid">
+      <div class="serve-card reveal d2">
+        <div class="serve-avatar">🏠</div>
+        <div class="serve-type">Primary Niche</div>
+        <div class="serve-title">Real Estate Professionals</div>
+        <div class="serve-income">$150K – $500K / Year</div>
+        <div class="serve-text">Agents, brokers, investors. High income, high liability, volatile cash flow. You need structure, protection, and capital access — before the slow season hits.</div>
+      </div>
+      <div class="serve-card reveal d3">
+        <div class="serve-avatar">🎬</div>
+        <div class="serve-type">Fast-Growing</div>
+        <div class="serve-title">Content Creators & Influencers</div>
+        <div class="serve-income">$120K – $1M+ / Year</div>
+        <div class="serve-text">Brand deals, courses, AdSense — all 1099, all irregular. No entity, no structure, massive tax exposure. We build the system behind the brand.</div>
+      </div>
+      <div class="serve-card reveal d4">
+        <div class="serve-avatar">🩺</div>
+        <div class="serve-type">High Liability</div>
+        <div class="serve-title">Healthcare Professionals</div>
+        <div class="serve-income">$200K – $600K / Year</div>
+        <div class="serve-text">Private practice physicians, dentists, therapists. High income, high malpractice exposure, high taxes. Asset protection and tax strategy are mission-critical.</div>
+      </div>
+      <div class="serve-card reveal d5">
+        <div class="serve-avatar">🏗️</div>
+        <div class="serve-type">Scaling</div>
+        <div class="serve-title">Business Owners</div>
+        <div class="serve-income">$300K – $3M / Year</div>
+        <div class="serve-text">2–20 employees, growing fast, financial structure is a mess. You need a holding company, business credit, tax strategy, and a succession plan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="container">
+    <div class="section-eyebrow reveal d1">Client Results</div>
+    <div class="section-rule center reveal d1"></div>
+    <h2 class="results-headline reveal d2">Real outcomes.<br>Real clients.</h2>
+    <p class="results-sub reveal d3">These are not projections. These are the results our clients have experienced after implementing the FullCircle blueprint.</p>
+    <div class="results-grid">
+      <div class="result-card reveal d2">
+        <div class="result-quote-mark">"</div>
+        <div class="result-text">I went from paying <strong>$40K in taxes</strong> with nothing to show for it, to having an IUL, a trust, and an LLC — all in 60 days. This changed everything.</div>
+        <div class="result-rule"></div>
+        <div class="result-name">Client — Real Estate Agent</div>
+        <div class="result-role">Foundation Blueprint</div>
+      </div>
+      <div class="result-card reveal d3">
+        <div class="result-quote-mark">"</div>
+        <div class="result-text">Breyon helped me get <strong>$120,000 in business credit</strong> within 90 days. No personal guarantee. I scaled my team and funded two deals I would have missed.</div>
+        <div class="result-rule"></div>
+        <div class="result-name">Client — Independent Contractor</div>
+        <div class="result-role">Full Financial Architecture</div>
+      </div>
+      <div class="result-card reveal d4">
+        <div class="result-quote-mark">"</div>
+        <div class="result-text">I pulled <strong>$25,000 from my IUL</strong> during a slow quarter. No credit check. No bank. No stress. The policy kept growing while I used the money. This is the system I always needed.</div>
+        <div class="result-rule"></div>
+        <div class="result-name">Client — Insurance Producer</div>
+        <div class="result-role">Full Financial Architecture</div>
+      </div>
+    </div>
+    <div class="result-metric reveal d4">
+      <div class="metric"><div class="metric-num">$40K+</div><div class="metric-label">Average Tax Savings</div></div>
+      <div class="metric"><div class="metric-num">90</div><div class="metric-label">Days to $120K Credit</div></div>
+      <div class="metric"><div class="metric-num">60</div><div class="metric-label">Days to Full Structure</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-photo-wrap reveal d2">
+        <div class="about-photo-frame">
+          <img src="../Headshot .png" alt="Breyon Miller — The Financial Architect">
+        </div>
+        <div class="about-gold-accent"></div>
+      </div>
+      <div class="about-content">
+        <div class="section-eyebrow reveal d1">Meet the Architect</div>
+        <div class="section-rule reveal d1"></div>
+        <h2 class="about-headline reveal d2">Breyon Miller —<br><em>30 years of building<br>what the wealthy own.</em></h2>
+        <p class="about-body reveal d3">For over three decades, I've worked at every level of the financial services industry — life insurance, asset protection, business credit, personal credit, real estate strategy, and estate planning. I've sat across from high earners who were doing everything right and still bleeding money through the gaps in their financial picture.</p>
+        <p class="about-body reveal d4">FullCircle Financial Group is the answer to every gap I spent 30 years watching clients pay for. We don't sell products. We design systems — coordinated, intentional, and built to last across generations.</p>
+        <p class="about-body reveal d4">With our in-house CPA and tax strategist now part of the team, we are the only firm in our market that offers complete financial architecture — structure, protection, capital, and tax strategy — under one roof, fully integrated.</p>
+        <div class="about-creds reveal d4">
+          <span class="cred-tag">30+ Years Experience</span>
+          <span class="cred-tag">Life Insurance</span>
+          <span class="cred-tag">Asset Protection</span>
+          <span class="cred-tag">Business Credit</span>
+          <span class="cred-tag">Estate Planning</span>
+          <span class="cred-tag">Tax Strategy</span>
+          <span class="cred-tag">Real Estate</span>
+        </div>
+        <div class="about-team reveal d5">
+          <div class="about-team-label">The FullCircle Team</div>
+          <div class="about-team-members">
+            <div class="team-member"><strong>Breyon Miller</strong> — Financial Architect | Structure, Protection & Capital</div>
+            <div class="team-member"><strong>In-House CPA</strong> — Tax Strategist | Year-Round Tax Planning</div>
+            <div class="team-member"><strong>Estate Attorney Partners</strong> — Trust & Succession Planning</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-bg"></div>
+  <div class="container" style="text-align:center;position:relative;z-index:1;">
+    <div class="section-eyebrow reveal d1">Your Next Step</div>
+    <div class="section-rule center reveal d1"></div>
+    <h2 class="cta-headline reveal d2">The time to build your foundation<br>is <em>before</em> anything goes wrong.</h2>
+    <p class="cta-sub reveal d3">Before the lawsuit. Before the tax bill. Before the slow season. Before the health scare. The clients who are protected are the ones who built the system before they needed it.</p>
+    <div class="cta-btns reveal d4">
+      <a href="intake-form.html" class="btn-primary">Start Your Blueprint →</a>
+      <a href="mailto:fullcirclefcllc@gmail.com" class="btn-secondary">Send a Message</a>
+    </div>
+    <p class="cta-note reveal d5">Free discovery consultation · No pressure · Your answers reviewed before we talk</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">FullCircle Financial Group</div>
+      <p class="footer-tagline">Building protected, scalable financial systems for high-income professionals who are ready to stop earning — and start owning.</p>
+      <a href="mailto:fullcirclefcllc@gmail.com" class="footer-email">fullcirclefcllc@gmail.com</a>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">LLC & Entity Formation</a></li>
+        <li><a href="#services">Asset Protection</a></li>
+        <li><a href="#services">IUL Insurance</a></li>
+        <li><a href="#services">Business Credit</a></li>
+        <li><a href="#services">Tax Strategy</a></li>
+        <li><a href="#services">Estate Planning</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Who We Serve</div>
+      <ul class="footer-links">
+        <li><a href="#serve">Real Estate Professionals</a></li>
+        <li><a href="#serve">Content Creators</a></li>
+        <li><a href="#serve">Healthcare Professionals</a></li>
+        <li><a href="#serve">Business Owners</a></li>
+        <li><a href="#serve">1099 Earners</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Get Started</div>
+      <ul class="footer-links">
+        <li><a href="intake-form.html">Start Your Blueprint</a></li>
+        <li><a href="mailto:fullcirclefcllc@gmail.com">Contact Breyon</a></li>
+        <li><a href="#about">About FCFG</a></li>
+        <li><a href="#results">Client Results</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 FullCircle Financial Group. All rights reserved. Breyon Miller, The Financial Architect.</div>
+    <div class="footer-disclaimer">FullCircle Financial Group provides financial education, strategy, and coordination services. We are not licensed attorneys. Trust and estate documents are drafted by licensed estate planning attorneys. Insurance products subject to carrier approval and state licensing.</div>
+  </div>
+</footer>
+
+<script>
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Mobile menu
+function toggleMenu(){
+  const links = document.querySelector('.nav-links');
+  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+  links.style.position = 'fixed';
+  links.style.top = '70px';
+  links.style.left = '0';
+  links.style.right = '0';
+  links.style.flexDirection = 'column';
+  links.style.background = 'rgba(10,21,48,0.98)';
+  links.style.padding = '2rem';
+  links.style.gap = '1.5rem';
+  links.style.borderBottom = '1px solid rgba(201,168,76,0.15)';
+}
+
+// Smooth nav scroll hide/show
+let lastY = 0;
+window.addEventListener('scroll',()=>{
+  const nav = document.querySelector('nav');
+  const y = window.scrollY;
+  nav.style.padding = y > 50 ? '0.8rem 4rem' : '1.2rem 4rem';
+  lastY = y;
+});
+</script>
+</body>
+</html>

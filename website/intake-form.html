@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Start Your Financial Blueprint — FullCircle Financial Group">
+<title>Start Your Blueprint | FullCircle Financial Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0D1B3E;--navy2:#111D3C;--navy4:#0A1530;
+  --gold:#C9A84C;--gold2:#E8C96A;
+  --white:#FAFAF8;--muted:rgba(245,239,224,0.6);
+  --muted2:rgba(245,239,224,0.3);
+  --error:#E07070;--success:#70C490;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:var(--navy4);color:var(--white);min-height:100vh;}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 3rem;
+  background:rgba(10,21,48,0.95);
+  border-bottom:1px solid rgba(201,168,76,0.12);
+  position:sticky;top:0;z-index:100;
+}
+.nav-brand{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:600;color:var(--white);text-decoration:none;}
+.nav-back{font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+.nav-back:hover{color:var(--gold);}
+
+/* LAYOUT */
+.page{max-width:720px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+/* HEADER */
+.form-header{text-align:center;margin-bottom:3rem;}
+.form-eyebrow{font-size:0.58rem;font-weight:700;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
+.form-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.2;margin-bottom:0.8rem;}
+.form-title em{font-style:italic;color:var(--gold2);}
+.form-sub{font-size:0.78rem;font-weight:300;color:var(--muted);line-height:1.8;max-width:500px;margin:0 auto;}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:3rem;}
+.progress-steps{display:flex;justify-content:space-between;margin-bottom:0.8rem;position:relative;}
+.progress-steps::before{
+  content:'';position:absolute;top:14px;left:14px;right:14px;height:1px;
+  background:rgba(201,168,76,0.15);z-index:0;
+}
+.step-dot{
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  position:relative;z-index:1;flex:1;
+}
+.dot-circle{
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid rgba(201,168,76,0.25);
+  background:var(--navy4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.6rem;font-weight:700;color:var(--muted2);
+  transition:all 0.4s;
+}
+.step-dot.active .dot-circle{border-color:var(--gold);background:rgba(201,168,76,0.1);color:var(--gold);}
+.step-dot.done .dot-circle{border-color:var(--gold);background:var(--gold);color:var(--navy4);}
+.dot-label{font-size:0.55rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);text-align:center;transition:color 0.4s;}
+.step-dot.active .dot-label{color:var(--gold);}
+.step-dot.done .dot-label{color:rgba(201,168,76,0.6);}
+.progress-bar{height:2px;background:rgba(201,168,76,0.1);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 0.5s ease;width:0%;}
+
+/* FORM SECTIONS */
+.form-section{display:none;animation:fadeIn 0.4s ease;}
+.form-section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.section-title{
+  font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;
+  color:var(--white);margin-bottom:0.4rem;
+}
+.section-subtitle{font-size:0.74rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:2rem;}
+.section-rule{width:40px;height:1px;background:var(--gold);opacity:0.5;margin-bottom:1.2rem;}
+
+/* FORM FIELDS */
+.field{margin-bottom:1.5rem;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+label{
+  display:block;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;
+}
+label .optional{color:var(--muted2);font-weight:400;letter-spacing:0;text-transform:none;}
+input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{
+  width:100%;padding:0.85rem 1rem;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(201,168,76,0.2);
+  color:var(--white);font-family:'Montserrat',sans-serif;font-size:0.8rem;font-weight:300;
+  outline:none;transition:border-color 0.3s,background 0.3s;
+  appearance:none;-webkit-appearance:none;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--gold);background:rgba(201,168,76,0.04);
+}
+input::placeholder,textarea::placeholder{color:var(--muted2);}
+select option{background:var(--navy2);color:var(--white);}
+textarea{resize:vertical;min-height:90px;line-height:1.6;}
+
+/* RADIO / CHECKBOX GROUPS */
+.radio-group,.check-group{display:flex;flex-direction:column;gap:0.5rem;}
+.radio-group.inline,.check-group.inline{flex-direction:row;flex-wrap:wrap;gap:0.5rem;}
+.radio-option,.check-option{
+  display:flex;align-items:center;gap:0.7rem;
+  padding:0.7rem 1rem;
+  border:1px solid rgba(201,168,76,0.15);
+  cursor:pointer;transition:all 0.25s;
+  font-size:0.75rem;font-weight:400;color:var(--muted);
+}
+.radio-option:hover,.check-option:hover{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.04);color:var(--white);}
+.radio-option input,.check-option input{
+  width:14px;height:14px;accent-color:var(--gold);
+  flex-shrink:0;background:transparent;border:1px solid var(--gold);
+}
+.radio-option.selected,.check-option.selected{
+  border-color:var(--gold);background:rgba(201,168,76,0.08);color:var(--white);
+}
+
+/* SCALE SLIDER */
+.scale-wrap{margin-top:0.5rem;}
+.scale-labels{display:flex;justify-content:space-between;font-size:0.6rem;color:var(--muted2);margin-bottom:0.4rem;}
+input[type=range]{
+  width:100%;-webkit-appearance:none;appearance:none;
+  height:3px;background:rgba(201,168,76,0.2);outline:none;
+  border:none;padding:0;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--gold);cursor:pointer;
+  border:2px solid var(--navy4);
+}
+.scale-value{text-align:center;font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);margin-top:0.5rem;font-weight:700;}
+
+/* PAIN POINT GRID */
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.pain-card{
+  display:flex;align-items:flex-start;gap:0.8rem;
+  padding:1rem 1rem;
+  border:1px solid rgba(201,168,76,0.15);
+  cursor:pointer;transition:all 0.25s;
+}
+.pain-card:hover{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.04);}
+.pain-card.selected{border-color:var(--gold);background:rgba(201,168,76,0.08);}
+.pain-card input{width:14px;height:14px;accent-color:var(--gold);flex-shrink:0;margin-top:2px;}
+.pain-card-text{font-size:0.72rem;font-weight:400;color:var(--muted);line-height:1.5;}
+.pain-card.selected .pain-card-text{color:var(--white);}
+
+/* NAVIGATION BUTTONS */
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(201,168,76,0.1);}
+.btn-back{
+  font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--muted);background:transparent;border:1px solid rgba(201,168,76,0.2);
+  padding:0.9rem 1.8rem;cursor:pointer;transition:all 0.3s;font-family:'Montserrat',sans-serif;
+}
+.btn-back:hover{color:var(--gold);border-color:rgba(201,168,76,0.5);}
+.btn-next{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  background:var(--gold);color:var(--navy4);border:none;
+  padding:0.9rem 2rem;cursor:pointer;transition:all 0.3s;font-family:'Montserrat',sans-serif;
+}
+.btn-next:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-next:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.step-counter{font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted2);}
+
+/* VALIDATION */
+.field-error{font-size:0.65rem;color:var(--error);margin-top:0.4rem;display:none;}
+.field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--error);}
+.field.has-error .field-error{display:block;}
+
+/* SUCCESS SCREEN */
+#success{display:none;text-align:center;padding:4rem 2rem;}
+.success-icon{font-size:3rem;margin-bottom:1.5rem;}
+.success-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;margin-bottom:1rem;}
+.success-title em{font-style:italic;color:var(--gold2);}
+.success-body{font-size:0.8rem;font-weight:300;color:var(--muted);line-height:1.9;max-width:480px;margin:0 auto 2rem;}
+.success-next{
+  display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  background:var(--gold);color:var(--navy4);padding:1rem 2rem;text-decoration:none;
+  transition:background 0.3s;
+}
+.success-next:hover{background:var(--gold2);}
+
+/* HIGHLIGHT BOX */
+.info-box{
+  border:1px solid rgba(201,168,76,0.2);background:rgba(201,168,76,0.03);
+  padding:1.2rem 1.5rem;margin-bottom:2rem;
+}
+.info-box-text{font-size:0.74rem;font-weight:300;color:var(--muted);line-height:1.7;}
+.info-box-text strong{color:var(--gold2);}
+
+@media(max-width:600px){
+  nav{padding:1rem 1.5rem;}
+  .page{padding:2rem 1rem 4rem;}
+  .field-row{grid-template-columns:1fr;}
+  .pain-grid{grid-template-columns:1fr;}
+  .radio-group.inline{flex-direction:column;}
+  .dot-label{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">FullCircle Financial Group</a>
+  <a href="index.html" class="nav-back">← Back to Site</a>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="form-header">
+    <div class="form-eyebrow">Your Financial Blueprint Starts Here</div>
+    <h1 class="form-title">Tell us about<br><em>your situation.</em></h1>
+    <p class="form-sub">Takes 5–7 minutes. Your answers are reviewed by Breyon personally before your discovery call — so every conversation is built around your specific financial picture, not a generic pitch.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-steps">
+      <div class="step-dot active" id="dot-1"><div class="dot-circle">1</div><div class="dot-label">You</div></div>
+      <div class="step-dot" id="dot-2"><div class="dot-circle">2</div><div class="dot-label">Structure</div></div>
+      <div class="step-dot" id="dot-3"><div class="dot-circle">3</div><div class="dot-label">Pain Points</div></div>
+      <div class="step-dot" id="dot-4"><div class="dot-circle">4</div><div class="dot-label">Goals</div></div>
+      <div class="step-dot" id="dot-5"><div class="dot-circle">5</div><div class="dot-label">Ready</div></div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <form id="intake-form" novalidate>
+
+    <!-- SECTION 1: ABOUT YOU -->
+    <div class="form-section active" id="section-1">
+      <div class="section-title">Let's start with you.</div>
+      <div class="section-rule"></div>
+      <p class="section-subtitle">Basic information so Breyon knows who he's talking to before the call.</p>
+
+      <div class="field-row">
+        <div class="field" id="f-fname">
+          <label>First Name</label>
+          <input type="text" name="firstName" placeholder="First name" required>
+          <div class="field-error">Please enter your first name.</div>
+        </div>
+        <div class="field" id="f-lname">
+          <label>Last Name</label>
+          <input type="text" name="lastName" placeholder="Last name" required>
+          <div class="field-error">Please enter your last name.</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" id="f-email">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="your@email.com" required>
+          <div class="field-error">Please enter a valid email address.</div>
+        </div>
+        <div class="field" id="f-phone">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" placeholder="(555) 000-0000" required>
+          <div class="field-error">Please enter your phone number.</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-profession">
+        <label>What is your profession or business?</label>
+        <input type="text" name="profession" placeholder="e.g. Real estate agent, consultant, business owner, content creator…" required>
+        <div class="field-error">Please describe your profession.</div>
+      </div>
+
+      <div class="field">
+        <label>How do you receive your income?</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this,'incomeType','1099')">
+            <input type="radio" name="incomeType" value="1099"> 1099 / Self-employed / Contractor
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'incomeType','w2')">
+            <input type="radio" name="incomeType" value="w2"> W2 (employee)
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'incomeType','both')">
+            <input type="radio" name="incomeType" value="both"> Both W2 and 1099
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'incomeType','business')">
+            <input type="radio" name="incomeType" value="business"> Business revenue (I own the business)
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'incomeType','commission')">
+            <input type="radio" name="incomeType" value="commission"> Commission-based
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Approximate annual gross income</label>
+        <div class="radio-group inline">
+          <label class="radio-option" onclick="selectRadio(this,'income','under75k')">
+            <input type="radio" name="income" value="under75k"> Under $75K
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'income','75-150k')">
+            <input type="radio" name="income" value="75-150k"> $75K – $150K
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'income','150-250k')">
+            <input type="radio" name="income" value="150-250k"> $150K – $250K
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'income','250-500k')">
+            <input type="radio" name="income" value="250-500k"> $250K – $500K
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'income','500kplus')">
+            <input type="radio" name="income" value="500kplus"> $500K+
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>How consistent is your income?</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this,'consistency','consistent')">
+            <input type="radio" name="consistency" value="consistent"> Very consistent — same amount each month
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'consistency','mostly')">
+            <input type="radio" name="consistency" value="mostly"> Mostly consistent with seasonal variation
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'consistency','variable')">
+            <input type="radio" name="consistency" value="variable"> Highly variable — big months and slow months
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>How did you hear about FullCircle Financial Group? <span class="optional">(optional)</span></label>
+        <select name="source">
+          <option value="" disabled selected>Select one</option>
+          <option>Referral from a friend or colleague</option>
+          <option>Instagram</option>
+          <option>Facebook</option>
+          <option>LinkedIn</option>
+          <option>YouTube</option>
+          <option>Google search</option>
+          <option>Podcast or event</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field" id="f-referral" style="display:none;">
+        <label>Who referred you? <span class="optional">(optional)</span></label>
+        <input type="text" name="referredBy" placeholder="Their name">
+      </div>
+
+      <div class="form-nav">
+        <div class="step-counter">Step 1 of 5</div>
+        <button type="button" class="btn-next" onclick="nextSection(1)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2: CURRENT STRUCTURE -->
+    <div class="form-section" id="section-2">
+      <div class="section-title">Your current financial structure.</div>
+      <div class="section-rule"></div>
+      <p class="section-subtitle">Breyon uses this to immediately identify where the gaps are before your call — so your time together is focused on solutions, not discovery.</p>
+
+      <div class="field">
+        <label>Do you have a business entity?</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this,'entity','none')">
+            <input type="radio" name="entity" value="none"> No — I operate as a sole proprietor
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'entity','smllc')">
+            <input type="radio" name="entity" value="smllc"> Yes — Single-member LLC
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'entity','mmllc')">
+            <input type="radio" name="entity" value="mmllc"> Yes — Multi-member LLC
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'entity','scorp')">
+            <input type="radio" name="entity" value="scorp"> Yes — S-Corp or C-Corp
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'entity','unsure')">
+            <input type="radio" name="entity" value="unsure"> Not sure
+          </label>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Business address = your home address?</label>
+          <div class="radio-group">
+            <label class="radio-option" onclick="selectRadio(this,'homeAddress','yes')">
+              <input type="radio" name="homeAddress" value="yes"> Yes
+            </label>
+            <label class="radio-option" onclick="selectRadio(this,'homeAddress','no')">
+              <input type="radio" name="homeAddress" value="no"> No
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Separate business bank account?</label>
+          <div class="radio-group">
+            <label class="radio-option" onclick="selectRadio(this,'bizBank','yes')">
+              <input type="radio" name="bizBank" value="yes"> Yes
+            </label>
+            <label class="radio-option" onclick="selectRadio(this,'bizBank','no')">
+              <input type="radio" name="bizBank" value="no"> No — use personal accounts
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Business credit profile status</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this,'bizCredit','established')">
+            <input type="radio" name="bizCredit" value="established"> Yes — established business credit
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'bizCredit','starting')">
+            <input type="radio" name="bizCredit" value="starting"> Just getting started
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'bizCredit','none')">
+            <input type="radio" name="bizCredit" value="none"> No — I use personal credit for business expenses
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'bizCredit','unknown')">
+            <input type="radio" name="bizCredit" value="unknown"> I don't know what a D-U-N-S number is
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Life insurance coverage</label>
+        <div class="radio-group inline">
+          <label class="radio-option" onclick="selectRadio(this,'insurance','none')">
+            <input type="radio" name="insurance" value="none"> None
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'insurance','term')">
+            <input type="radio" name="insurance" value="term"> Term only
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'insurance','whole')">
+            <input type="radio" name="insurance" value="whole"> Whole life
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'insurance','iul')">
+            <input type="radio" name="insurance" value="iul"> IUL
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'insurance','employer')">
+            <input type="radio" name="insurance" value="employer"> Employer group only
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Estate plan status</label>
+        <div class="radio-group inline">
+          <label class="radio-option" onclick="selectRadio(this,'estate','none')">
+            <input type="radio" name="estate" value="none"> None
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'estate','will')">
+            <input type="radio" name="estate" value="will"> Will only
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'estate','trust')">
+            <input type="radio" name="estate" value="trust"> Will + Trust
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'estate','unsure')">
+            <input type="radio" name="estate" value="unsure"> Not sure
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Current tax approach</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this,'taxApproach','none')">
+            <input type="radio" name="taxApproach" value="none"> I just pay what I owe in April — no strategy
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'taxApproach','cpa-file')">
+            <input type="radio" name="taxApproach" value="cpa-file"> I have a CPA but they just file — no proactive planning
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'taxApproach','cpa-strategy')">
+            <input type="radio" name="taxApproach" value="cpa-strategy"> I have proactive year-round tax strategy in place
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'taxApproach','diy')">
+            <input type="radio" name="taxApproach" value="diy"> I file my own taxes (TurboTax, etc.)
+          </label>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn-back" onclick="prevSection(2)">← Back</button>
+        <div class="step-counter">Step 2 of 5</div>
+        <button type="button" class="btn-next" onclick="nextSection(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: PAIN POINTS -->
+    <div class="form-section" id="section-3">
+      <div class="section-title">Where does it hurt?</div>
+      <div class="section-rule"></div>
+      <p class="section-subtitle">Select everything that applies to your situation. The more honest you are, the more targeted Breyon's blueprint will be.</p>
+
+      <div class="info-box">
+        <div class="info-box-text">In 30 years of doing this, I've learned that most high earners share the same pain — they just haven't had someone explain it to them clearly. <strong>Select every box that describes your situation.</strong></div>
+      </div>
+
+      <div class="field">
+        <label>Which of these describes your situation? <span class="optional">(select all that apply)</span></label>
+        <div class="pain-grid">
+          <div class="pain-card" onclick="toggleCheck(this,'pain','tax')">
+            <input type="checkbox" name="pain" value="tax"> <div class="pain-card-text">💊 I'm paying too much in taxes with no strategy — just writing a check every April</div>
+          </div>
+          <div class="pain-card" onclick="toggleCheck(this,'pain','mixed')">
+            <input type="checkbox" name="pain" value="mixed"> <div class="pain-card-text">🔀 My business and personal finances are completely mixed</div>
+          </div>
+          <div class="pain-card" onclick="toggleCheck(this,'pain','exposed')">
+            <input type="checkbox" name="pain" value="exposed"> <div class="pain-card-text">⚠️ My personal assets feel exposed — I have no real protection from a lawsuit</div>
+          </div>
+          <div class="pain-card" onclick="toggleCheck(this,'pain','liquidity')">
+            <input type="checkbox" name="pain" value="liquidity"> <div class="pain-card-text">💧 When income slows, I have no backup capital — I stress or dip into savings</div>
+          </div>
+          <div class="pain-card" onclick="toggleCheck(this,'pain','personal-credit')">
+            <input type="checkbox" name="pain" value="personal-credit"> <div class="pain-card-text">💳 I'm using personal credit for business and it's affecting my personal score</div>
+          </div>
+          <div class="pain-card" onclick="toggleCheck(this,'pain','no-system')">
+            <input type="checkbox" name="pain" value="no-system"> <div class="pain-card-text">🏗️ I'm making good money but I don't have a real financial system behind it</div>
+          </div>
+          <div class="pain-card" onclick="toggleCheck(this,'pain','legacy')">
+            <input type="checkbox" name="pain" value="legacy"> <div class="pain-card-text">🌿 I've built something but have no plan for what happens to it when I'm gone</div>
+          </div>
+          <div class="pain-card" onclick="toggleCheck(this,'pain','scale')">
+            <input type="checkbox" name="pain" value="scale"> <div class="pain-card-text">📈 I want to scale but don't have the capital structure or credit to do it</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>What triggered you to reach out right now?</label>
+        <textarea name="trigger" placeholder="e.g. Got a big tax bill. A friend got sued. Had a slow quarter with no backup. Just hit a new income level and want to get serious…"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Urgency level — how critical is this right now?</label>
+        <div class="scale-wrap">
+          <div class="scale-labels"><span>Not urgent yet</span><span>I need this handled now</span></div>
+          <input type="range" name="urgency" min="1" max="10" value="5" oninput="document.getElementById('urgency-val').innerText=this.value">
+          <div class="scale-value" id="urgency-val">5</div>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn-back" onclick="prevSection(3)">← Back</button>
+        <div class="step-counter">Step 3 of 5</div>
+        <button type="button" class="btn-next" onclick="nextSection(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 4: GOALS -->
+    <div class="form-section" id="section-4">
+      <div class="section-title">Where are you going?</div>
+      <div class="section-rule"></div>
+      <p class="section-subtitle">Your goals shape your blueprint. Be specific — vague answers get vague blueprints.</p>
+
+      <div class="field" id="f-goal12">
+        <label>What do you want your financial life to look like in 12 months?</label>
+        <textarea name="goal12" placeholder="e.g. LLC active, IUL funded, paying $15K less in taxes, $50K in business credit, home purchased…" required></textarea>
+        <div class="field-error">Please share your 12-month goal.</div>
+      </div>
+
+      <div class="field">
+        <label>What does financial freedom mean to you personally? <span class="optional">(optional)</span></label>
+        <textarea name="freedomDef" placeholder="e.g. Not having to worry about a slow month. Having assets that grow without me working. Leaving something real for my family…"></textarea>
+      </div>
+
+      <div class="field" id="f-topgoal">
+        <label>The #1 outcome you want from FullCircle Financial Group</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this,'topGoal','tax')">
+            <input type="radio" name="topGoal" value="tax"> Reduce what I pay in taxes — legally and significantly
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'topGoal','protect')">
+            <input type="radio" name="topGoal" value="protect"> Protect my personal assets from business liability
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'topGoal','capital')">
+            <input type="radio" name="topGoal" value="capital"> Build a capital reserve I can access anytime (IUL)
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'topGoal','credit')">
+            <input type="radio" name="topGoal" value="credit"> Build business credit and access $50K–$200K in funding
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'topGoal','structure')">
+            <input type="radio" name="topGoal" value="structure"> Get the full system — LLC, IUL, credit, tax, trust
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'topGoal','legacy')">
+            <input type="radio" name="topGoal" value="legacy"> Build a legacy my family can inherit — protected
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Which services are you most interested in? <span class="optional">(select all that apply)</span></label>
+        <div class="check-group">
+          <label class="check-option" onclick="toggleCheck(this,'services','llc')">
+            <input type="checkbox" name="services" value="llc"> LLC / Entity Formation
+          </label>
+          <label class="check-option" onclick="toggleCheck(this,'services','holding')">
+            <input type="checkbox" name="services" value="holding"> Holding Company Structure
+          </label>
+          <label class="check-option" onclick="toggleCheck(this,'services','iul')">
+            <input type="checkbox" name="services" value="iul"> IUL — Indexed Universal Life Insurance
+          </label>
+          <label class="check-option" onclick="toggleCheck(this,'services','biz-credit')">
+            <input type="checkbox" name="services" value="biz-credit"> Business Credit Build
+          </label>
+          <label class="check-option" onclick="toggleCheck(this,'services','tax')">
+            <input type="checkbox" name="services" value="tax"> Tax Strategy (in-house CPA)
+          </label>
+          <label class="check-option" onclick="toggleCheck(this,'services','asset')">
+            <input type="checkbox" name="services" value="asset"> Asset Protection
+          </label>
+          <label class="check-option" onclick="toggleCheck(this,'services','estate')">
+            <input type="checkbox" name="services" value="estate"> Estate Planning / Trust
+          </label>
+          <label class="check-option" onclick="toggleCheck(this,'services','real-estate')">
+            <input type="checkbox" name="services" value="real-estate"> Real Estate Structure
+          </label>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn-back" onclick="prevSection(4)">← Back</button>
+        <div class="step-counter">Step 4 of 5</div>
+        <button type="button" class="btn-next" onclick="nextSection(4)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 5: DECISION READINESS -->
+    <div class="form-section" id="section-5">
+      <div class="section-title">One last thing.</div>
+      <div class="section-rule"></div>
+      <p class="section-subtitle">This helps Breyon understand how to structure your call so it's the most useful 30 minutes you've spent on your finances.</p>
+
+      <div class="field">
+        <label>Who makes financial decisions in your household?</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this,'decisionMaker','solo')">
+            <input type="radio" name="decisionMaker" value="solo"> I make decisions independently
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'decisionMaker','joint')">
+            <input type="radio" name="decisionMaker" value="joint"> I make decisions jointly with my spouse/partner
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'decisionMaker','partner')">
+            <input type="radio" name="decisionMaker" value="partner"> My spouse/partner is more involved in financial decisions
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>If we identify the right blueprint for your situation, are you ready to move forward within 30 days?</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this,'readiness','yes')">
+            <input type="radio" name="readiness" value="yes"> Yes — if it makes sense, I'm ready to start
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'readiness','maybe')">
+            <input type="radio" name="readiness" value="maybe"> Possibly — I'd need to review my budget first
+          </label>
+          <label class="radio-option" onclick="selectRadio(this,'readiness','research')">
+            <input type="radio" name="readiness" value="research"> I'm still researching — not ready to commit yet
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Best days and times to reach you</label>
+        <div class="field-row">
+          <div>
+            <div class="check-group inline">
+              <label class="check-option" onclick="toggleCheck(this,'days','mon')"><input type="checkbox" name="days" value="mon"> Mon</label>
+              <label class="check-option" onclick="toggleCheck(this,'days','tue')"><input type="checkbox" name="days" value="tue"> Tue</label>
+              <label class="check-option" onclick="toggleCheck(this,'days','wed')"><input type="checkbox" name="days" value="wed"> Wed</label>
+              <label class="check-option" onclick="toggleCheck(this,'days','thu')"><input type="checkbox" name="days" value="thu"> Thu</label>
+              <label class="check-option" onclick="toggleCheck(this,'days','fri')"><input type="checkbox" name="days" value="fri"> Fri</label>
+              <label class="check-option" onclick="toggleCheck(this,'days','sat')"><input type="checkbox" name="days" value="sat"> Sat</label>
+            </div>
+          </div>
+          <div>
+            <div class="check-group">
+              <label class="check-option" onclick="toggleCheck(this,'times','morning')"><input type="checkbox" name="times" value="morning"> Morning (before noon)</label>
+              <label class="check-option" onclick="toggleCheck(this,'times','afternoon')"><input type="checkbox" name="times" value="afternoon"> Afternoon (12–5pm)</label>
+              <label class="check-option" onclick="toggleCheck(this,'times','evening')"><input type="checkbox" name="times" value="evening"> Evening (after 5pm)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Anything else Breyon should know before your call? <span class="optional">(optional)</span></label>
+        <textarea name="additionalNotes" placeholder="Share anything specific — a situation, a concern, a question, context that would help Breyon come prepared…"></textarea>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box-text">By submitting, you'll receive a confirmation and Breyon will personally review your answers before reaching out to schedule your discovery call. <strong>No spam. No pressure. Just a conversation.</strong></div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn-back" onclick="prevSection(5)">← Back</button>
+        <div class="step-counter">Step 5 of 5</div>
+        <button type="button" class="btn-next" onclick="submitForm()" id="submit-btn">Submit My Blueprint →</button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS -->
+  <div id="success">
+    <div class="success-icon">✅</div>
+    <h2 class="success-title">You're in.<br><em>Your blueprint is being prepared.</em></h2>
+    <p class="success-body">Breyon has received your answers and will review your financial picture personally before reaching out. Expect a call or message within 24–48 hours to schedule your discovery call.<br><br>In the meantime — take a look at the services that are most relevant to what you shared.</p>
+    <a href="index.html#services" class="success-next">Explore All Services →</a>
+    <p style="margin-top:2rem;font-size:0.7rem;color:var(--muted2);">Questions before the call? Email <a href="mailto:fullcirclefcllc@gmail.com" style="color:var(--gold);">fullcirclefcllc@gmail.com</a></p>
+  </div>
+
+</div>
+
+<script>
+let currentSection = 1;
+const totalSections = 5;
+
+function updateProgress(section){
+  const pct = ((section-1)/(totalSections-1))*100;
+  document.getElementById('progress-fill').style.width = pct+'%';
+  for(let i=1;i<=totalSections;i++){
+    const dot = document.getElementById('dot-'+i);
+    dot.className = 'step-dot';
+    if(i<section) dot.classList.add('done');
+    else if(i===section) dot.classList.add('active');
+    if(i===section || i<section){
+      dot.querySelector('.dot-circle').innerHTML = i<section ? '✓' : i;
+    } else {
+      dot.querySelector('.dot-circle').innerHTML = i;
+    }
+  }
+}
+
+function showSection(n){
+  document.querySelectorAll('.form-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('section-'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  updateProgress(n);
+  currentSection = n;
+}
+
+function validateSection(n){
+  let valid = true;
+  if(n===1){
+    const fname = document.querySelector('[name=firstName]');
+    const lname = document.querySelector('[name=lastName]');
+    const email = document.querySelector('[name=email]');
+    const phone = document.querySelector('[name=phone]');
+    const prof = document.querySelector('[name=profession]');
+    if(!fname.value.trim()){setError('f-fname',true);valid=false;}else setError('f-fname',false);
+    if(!lname.value.trim()){setError('f-lname',true);valid=false;}else setError('f-lname',false);
+    if(!email.value.match(/^[^@]+@[^@]+\.[^@]+$/)){setError('f-email',true);valid=false;}else setError('f-email',false);
+    if(!phone.value.trim()){setError('f-phone',true);valid=false;}else setError('f-phone',false);
+    if(!prof.value.trim()){setError('f-profession',true);valid=false;}else setError('f-profession',false);
+  }
+  if(n===4){
+    const goal = document.querySelector('[name=goal12]');
+    if(!goal.value.trim()){setError('f-goal12',true);valid=false;}else setError('f-goal12',false);
+  }
+  return valid;
+}
+
+function setError(fieldId, show){
+  const f = document.getElementById(fieldId);
+  if(!f) return;
+  if(show) f.classList.add('has-error');
+  else f.classList.remove('has-error');
+}
+
+function nextSection(n){
+  if(!validateSection(n)) return;
+  if(n<totalSections) showSection(n+1);
+}
+
+function prevSection(n){
+  if(n>1) showSection(n-1);
+}
+
+function submitForm(){
+  if(!validateSection(5)) return;
+  document.getElementById('intake-form').style.display='none';
+  document.getElementById('success').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function selectRadio(el, name, value){
+  document.querySelectorAll(`[name=${name}]`).forEach(r=>{
+    r.closest('.radio-option').classList.remove('selected');
+  });
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+  if(name==='source' && value==='Referral from a friend or colleague'){
+    document.getElementById('f-referral').style.display='block';
+  }
+}
+
+function toggleCheck(el, name, value){
+  el.classList.toggle('selected');
+  el.querySelector('input').checked = el.classList.contains('selected');
+}
+
+// Source dropdown handler
+document.querySelector('[name=source]').addEventListener('change', function(){
+  document.getElementById('f-referral').style.display =
+    this.value.includes('Referral') ? 'block' : 'none';
+});
+
+updateProgress(1);
+</script>
+</body>
+</html>
