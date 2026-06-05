@@ -12,15 +12,16 @@ Read this file at the start of every session. This is the full context of who Br
 **Brand:** The Financial Architect  
 **Email:** fullcirclefcllc@gmail.com  
 **GitHub:** fullcirclefcllc  
+**Calendly:** https://calendly.com/fullcircle-credit/45mins  
 
 I have **30+ years of experience** in:
 - Life insurance (IUL, whole life, term)
 - Asset protection (LLC, holding company, trusts)
-- Business credit building
+- Business credit building (uses DisputeFox software for credit repair fulfillment)
 - Personal credit optimization
 - Real estate strategy
-- Estate planning (recently added)
-- Tax strategy (recently added — partnered with in-house CPA and tax strategist)
+- Estate planning (attorney partner referral)
+- Tax strategy (in-house CPA and tax strategist partner)
 
 ---
 
@@ -30,14 +31,18 @@ FullCircle Financial Group is a **financial architecture firm** — we don't sel
 
 **Core tagline:** "Building protected, scalable financial systems for high-income professionals who are ready to stop earning — and start owning."
 
-**The 3-Pillar Blueprint:**
-1. **Structure** — LLC, Holding Company, entity separation
-2. **Protection** — Asset shielding, trusts, privacy/anonymity
-3. **Capital** — IUL, business credit, tax strategy
+**Brand voice:** "Protection · Structure · Leverage · Scale"
 
-**New capability (recently added):**
-- In-house CPA and tax strategist partnership
-- Estate planning coordination with attorney partners
+**The 4-Pillar Framework (in order):**
+1. **Protection** — Asset shielding, trusts, anonymity, life insurance
+2. **Structure** — LLC, Holding Company, entity separation
+3. **Leverage** — IUL, business credit, tax strategy
+4. **Scale** — Fractional CFO, retainer, succession, legacy
+
+**Additional services:**
+- Credit repair (FCRA disputes, CFPB complaints, ChexSystems — fulfillment via DisputeFox)
+- Fractional CFO retainer ($750–$3,000/mo based on client tier)
+- Architect's Circle community ($197/mo recurring)
 
 ---
 
@@ -55,103 +60,96 @@ FullCircle Financial Group is a **financial architecture firm** — we don't sel
 
 ---
 
-## Pricing (Current)
+## Pricing Architecture
 
-| Package | Price | Deposit |
+### Self-Liquidating Funnel (front-end to back-end)
+
+| Tier | Product | Price |
 |---|---|---|
-| Strategy Session | $750 | Full upfront |
-| Foundation Blueprint | $4,500 | $2,250 deposit |
-| Full Financial Architecture | $12,500 | $5,000 deposit |
+| Entry | The Financial Architect's Playbook (book) | $7 |
+| Order Bump | Tax Savings Toolkit (calculator + templates) | $27 |
+| Upsell 1 | Architect's Audit (recorded walkthrough + workbook) | $97 |
+| Upsell 2 | Blueprint Mini-Course (DIY templates + group Q&A) | $497 |
 
-**À La Carte:**
-- LLC Formation: $997
-- Holding Company: $1,500
-- Business Credit (90-day): $2,500
-- IUL Consultation: $500 + commission
-- Tax Strategy Session: $1,500
-- Asset Protection Review: $1,000
-- Trust Coordination: $1,500
+### High-Ticket Installs (back-end)
+
+| Package | Price | Deposit | Best For |
+|---|---|---|---|
+| Profit Protection Audit | $1,497 | Full upfront | Quick-close diagnostic; upsell hook |
+| Foundation | $2,997 | 50% deposit | Getting started, single-pillar entry |
+| Blueprint | $7,500 | 50% deposit | 2–3 pillar implementation, core offer |
+| Done With You (Premium) | $15,000 | 50% deposit | Full 4-pillar architecture, high earners |
+
+### À La Carte Services
+
+| Service | Investment |
+|---|---|
+| LLC Formation | $1,500 |
+| Holding Company setup | $2,000+ |
+| Business Credit System (90-day) | $2,500–$5,000 |
+| Personal Credit Optimization | $750+ |
+| Trust Formation | $1,500–$3,000+ (complexity-based) |
+| IUL Consultation + Application | Commission-based |
+| Tax Strategy Session | $1,500 |
+| Asset Protection Review | $1,000 |
+| Done-For-You Business Launch (LLC + EIN + banking + credit) | $1,500 flat |
+
+### Fractional CFO Retainers (monthly)
+- Foundation: $750/mo (clients <$150K)
+- Blueprint: $1,500/mo (core market)
+- Done With You: $3,000/mo ($300K+ clients)
+
+### Architect's Circle Community
+- $197/mo — ongoing access, Q&A, group accountability
 
 ---
 
-## Current Revenue Goal
+## Revenue Goal
 
-**$50,000 in 14 days** (Sprint started June 4, 2026, ends June 17, 2026)
-
+**$50,000 by June 17, 2026** (sprint started June 4, 2026)  
 Track in: `07_Operations/lead-pipeline.md`  
 Sprint plan: `07_Operations/14-day-sprint-plan.md`
 
+**Fastest path:** 10 × Profit Protection Audit ($14,970) + 5 × Foundation ($14,985) + 2 × Blueprint ($15,000) + misc = $50K+
+
 ---
 
-## What Has Been Built in This Repo
+## Current Clients & Prospects
 
-### Corporate Governance (`01_Corporate-Governance/`)
-- Formation docs folder, registered agent template
-- Compliance calendar (annual, quarterly, monthly)
-- Banking/account registry
+### Active Clients
+- **Talita** (family unit: Talita + son Kalvin + husband Jameson) — **Active engagement.** Holding company formation, multiple LLCs, IUL/whole life placement, business credit build, trust restructuring. Folder: `02_Clients/Talita/`
+- **Cullin** — Folder exists at `02_Clients/Cullin/`. Status needs confirmation.
 
-### Client System (`02_Clients/`)
-- `_templates/client-intake-form.md` — full intake form
-- `_templates/financial-snapshot.md` — income, assets, liabilities, credit, tax picture
-- `_templates/progress-tracker.md` — milestone checklist for all 3 pillars
-- `_templates/service-agreement.md` — service agreement template
-- `_templates/pre-intake-survey.md` — 5-section pre-call survey
-- `_templates/post-service-survey.md` — 30/90/180/365-day review
-- `Cullin/` — first client folder (profile is empty, needs to be filled)
+### Active Prospects
+- **Josie** (Crystal Clear Motors) — Warm lead via AJ at Rize Mortgage. Calendly booking experience in place.
 
-### Research (`03_Research/`)
-- `Market-Intelligence/growth-opportunities-report.md` — verified market data (IUL: $3.8B, 24% market share; Trusts: $284.5B; QBI deduction at 23% pending)
-- IUL Products, LLC Strategy, Business Credit, Tax Strategy, Asset Protection, Market Intelligence folders with research notes
-
-### Services / SOPs (`04_Services/`)
-- LLC formation SOP
-- Holding company SOP
-- Asset protection review SOP
-- Trust setup SOP
-- IUL consultation SOP
-- Business credit build SOP (full tier system)
-
-### Marketing Materials (`05_Templates-and-Proposals/marketing/`)
-- IUL marketing (hooks, Reels scripts, email sequences, objection handlers)
-- Asset protection marketing
-- Business credit marketing
-- Tax strategy marketing
-- Estate planning marketing
-- Personal credit & real estate marketing
-
-### Proposals (`05_Templates-and-Proposals/proposals/`)
-- `proposal-template.md` — ready-to-customize proposal
-
-### Brand (`06_Brand/`)
-- `brand-guide.md` — colors, fonts, voice
-- `expert-positioning-strategy.md` — 30-year authority framework, 4 pillars, platform strategy
-- `ideal-client-avatar.md` — 4 detailed avatars with psychology, scoring matrix
-- Logos: `FCFG logo.png`, `logo FCFA copy.png`
-- Headshot: `Headshot .png`
-- Presentations: HTML slide decks (Financial Architect + Hidden Cost of Success)
-
-### Operations (`07_Operations/`)
-- `pricing-and-packages.md` — pricing set
-- `onboarding-workflow.md` — 5-phase workflow
-- `pipeline-flow.md` — 12-stage CRM pipeline (Awareness → Referral Advocate)
-- `lead-pipeline.md` — active sprint tracker
-- `14-day-sprint-plan.md` — day-by-day plan to $50K
-- `gap-analysis.md` — process gaps identified and fixed
-- `vendor-partner-list.md` — partners to fill in
-- `referral-process.md` — referral tracking and scripts
-
-### Website (`website/`)
-- `index.html` — full branded website (10 sections, mobile responsive)
-- `intake-form.html` — 5-step interactive digital intake form with validation
+### Strategic Partners
+- **AJ** (Owner, Rize Mortgage) — 8-pillar formal collaboration proposal delivered. Spoke at AJ's event (well-received). Warm intro to Josie came through this relationship. Partnership covers: client referrals, co-hosted events, content collaboration, done-with-you partner program, joint mastermind, co-branded media (podcast), shared client portal, community/charity initiative.
 
 ---
 
 ## Brand Identity
 
-**Colors:** Navy `#0D1B3E` (primary), Gold `#C9A84C` (accent), Gold Light `#E8C96A`  
-**Fonts:** Playfair Display (serif headings), Montserrat (body)  
-**Voice:** Confident, authoritative, education-first. Never salesy. Reveals problems, doesn't pitch products.  
-**Positioning:** 30 years experience + in-house CPA + full-circle service = the only complete financial architecture firm in the market.
+**Colors (exact hex values):**
+- Navy (primary): `#0A1F44`
+- Gold (accent): `#C9A646`
+- Cream (secondary): `#F5EFE0`
+
+**Typography:**
+- Display / Headings: **Cinzel** (serif — formal, architectural authority)
+- Body: **Cormorant Garamond** (elegant serif — premium, readable)
+- Eyebrow Labels: Cormorant Garamond, all-caps, wide letter-spacing
+
+**Visual motif:** Orbital ring — represents the interconnected full-circle financial system. Appears as rings/orbits in presentations and branded assets.
+
+**Logo files:**
+- `06_Brand/logos/FCFG logo.png` — Primary logo, dark backgrounds
+- `06_Brand/logos/logo FCFA copy.png` — Secondary / alternate mark
+- `FCFG logo.png` — Root copy
+
+**Headshot:** `06_Brand/headshots/Headshot .png` (note the space in filename)
+
+**Voice:** Confident, authoritative, education-first. Never salesy. Reveals problems, doesn't pitch products.
 
 ---
 
@@ -162,6 +160,7 @@ Sprint plan: `07_Operations/14-day-sprint-plan.md`
 - "Before the lawsuit. Before the tax bill. Before the slow season."
 - "We don't sell products. We design financial systems."
 - "In 30 years I've seen what happens without the right structure. This is the fix."
+- "Find $15K–$50K in hidden leakage or it's free." (Profit Protection Audit hook)
 
 ---
 
@@ -173,20 +172,55 @@ Sprint plan: `07_Operations/14-day-sprint-plan.md`
 
 ---
 
-## Current Clients
+## Products Built (Full Inventory)
 
-- **Cullin** — folder exists at `02_Clients/Cullin/`, profile is empty. Confirm status (warm lead or paying client?).
+### Digital Presentations (HTML)
+- `06_Brand/presentations/FullCircle Financial Group – The Financial Architect.html` — Main event presentation
+- `06_Brand/presentations/presentation-success/The Hidden Cost of Success _ Full Circle Financial Group final.html` — Barrett Realty realtor presentation ("Your Commission. Your Protection." / "The Hidden Cost of Success" — 10 slides, story-driven, tiered for all income levels)
+- Root-level copies also exist
+
+### Website & Intake
+- `website/index.html` — Full branded website (10 sections, mobile responsive)
+- `website/intake-form.html` — 5-step interactive digital intake form with validation
+
+### Profit Protection Audit (product)
+- `05_Templates-and-Proposals/profit-protection-audit/` — Full product folder
+  - Intake questionnaire (9 sections, 4-pillar framework)
+  - Blueprint template (13-page client deliverable)
+  - Sample blueprint (Marcus Thompson case study — Atlanta realtor, $385K)
+  - Marketing kit (social, email, DM scripts, JV scripts)
+  - Fulfillment playbook (5 Claude prompts, step-by-step)
+  - Master execution playbook (day-by-day launch plan)
+
+### Self-Liquidating Funnel
+- `07_Operations/self-liquidating-funnel.md` — Full funnel architecture ($7 → $15,000 back-end)
+
+### The Financial Architect's Playbook (ebook)
+- 4-pillar book, ~60-70 pages — front-end lead magnet at $7
+
+### Strategic Partnership Proposal
+- `05_Templates-and-Proposals/proposals/rize-mortgage-partnership.md` — AJ partnership framework
+
+### Marketing Materials (`05_Templates-and-Proposals/marketing/`)
+- IUL, asset protection, business credit, tax strategy, estate planning, personal credit
+
+### Client System (`02_Clients/_templates/`)
+- Intake form, financial snapshot, progress tracker, service agreement, pre/post surveys
+
+### Operations (`07_Operations/`)
+- 12-stage pipeline, 14-day sprint, gap analysis, onboarding workflow, referral process
 
 ---
 
-## Behavioral Preferences (How to Work With Me)
+## Behavioral Preferences
 
 - I am the decision-maker and executor. Give me direct, actionable output.
 - Build real files, not just advice. When I ask for something, create the actual document.
-- Match the brand on everything — navy/gold, Playfair + Montserrat, premium tone.
+- Match the brand on everything — `#0A1F44` navy, `#C9A646` gold, `#F5EFE0` cream, Cinzel + Cormorant Garamond.
 - When I say "yes" or "continue," keep building — don't stop and ask for clarification.
 - I think in systems. Show me how pieces connect, not just individual components.
 - Revenue and results matter. Frame everything in terms of outcomes, not features.
+- Keep explanations tight. I understand the industry — no need to over-explain concepts.
 
 ---
 
@@ -199,17 +233,22 @@ Sprint plan: `07_Operations/14-day-sprint-plan.md`
 
 ---
 
-## Files to Reference Often
+## Quick File Reference
 
 | Need | File |
 |---|---|
-| Add a new client | `02_Clients/_templates/` → copy to `02_Clients/[LastName-FirstName]/` |
+| Add a new client | `02_Clients/_templates/` → copy to `02_Clients/[Name]/` |
 | Send a proposal | `05_Templates-and-Proposals/proposals/proposal-template.md` |
+| Profit Protection Audit | `05_Templates-and-Proposals/profit-protection-audit/` |
 | Pre-call survey | `02_Clients/_templates/pre-intake-survey.md` |
 | Track pipeline | `07_Operations/lead-pipeline.md` |
 | Price quote | `07_Operations/pricing-and-packages.md` |
 | Onboarding new client | `07_Operations/onboarding-workflow.md` |
-| Service-specific SOP | `04_Services/Pillar-[1/2/3]-[Name]/` |
+| Service SOP | `04_Services/Pillar-[1-4]-[Name]/` |
 | Marketing copy | `05_Templates-and-Proposals/marketing/[service]-marketing.md` |
+| Brand assets | `06_Brand/` |
 | Website | `website/index.html` |
 | Intake form | `website/intake-form.html` |
+| Presentations | `06_Brand/presentations/` |
+| Funnel architecture | `07_Operations/self-liquidating-funnel.md` |
+| Partner proposal | `05_Templates-and-Proposals/proposals/rize-mortgage-partnership.md` |

@@ -14,22 +14,27 @@
 
 | Name | Hex | Usage |
 |---|---|---|
-| Navy (Primary) | `#0D1B3E` | Background, primary surface |
-| Navy Dark | `#0A1530` | Hero background |
-| Navy Mid | `#111D3C` | Slide backgrounds |
-| Gold | `#C9A84C` | Primary accent, headlines |
-| Gold Light | `#E8C96A` | Italic accents, highlights |
-| Gold Pale | `#F5EFE0` | Muted body text |
-| Cream | `#F0E8D0` | Secondary text |
-| White | `#FAFAF8` | Body text on dark backgrounds |
+| Navy (Primary) | `#0A1F44` | Background, primary surface, section banners |
+| Gold (Accent) | `#C9A646` | Headlines, borders, CTAs, accent elements |
+| Cream | `#F5EFE0` | Secondary text, content page backgrounds |
+| White | `#FFFFFF` | Body text on navy backgrounds |
 
 ## Typography
 
 | Role | Font | Weight | Style |
 |---|---|---|---|
-| Display / Headings | Playfair Display | 400–700 | Serif; use italic for emphasis |
-| Body / UI | Montserrat | 300–600 | Sans-serif |
-| Eyebrow Labels | Montserrat | 600 | All-caps, wide letter-spacing |
+| Display / Headings | **Cinzel** | 400–700 | Formal serif; architectural authority |
+| Body / Body Copy | **Cormorant Garamond** | 300–600 | Elegant serif; premium and readable |
+| Eyebrow Labels | Cormorant Garamond | 600 | All-caps, wide letter-spacing |
+
+**Google Fonts import:**
+```
+https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap
+```
+
+## Visual Motif
+
+**Orbital ring** — concentric rings/orbits representing the interconnected full-circle financial system. Used in presentations, hero cards, and branded digital assets. The rings suggest protection layers wrapping client assets.
 
 ## Logo Files
 
