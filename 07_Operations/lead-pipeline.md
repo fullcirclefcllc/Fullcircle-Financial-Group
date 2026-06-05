@@ -1,8 +1,8 @@
 # Lead Pipeline — $50K Sprint
 
-**Goal:** $50,000 by: June 18, 2026  
+**Goal:** $50,000 by: June 17, 2026  
 **Start Date:** June 4, 2026  
-**Days Remaining:** 14
+**Days Remaining:** 12 (today is June 5)
 
 ---
 
@@ -24,8 +24,9 @@
 
 | Name | Source | Stage | Package Interest | Quoted | Follow-Up Date | Notes |
 |---|---|---|---|---|---|---|
-| Cullin | | Warm | | | | Existing client folder |
-| | | | | | | |
+| Talita (family) | Existing | Active Client | Done With You — all 4 pillars | Yes | Milestone review TBD | Holding co + LLCs + IUL + credit + trust — full engagement underway |
+| Cullin | Existing | Warm — confirm | TBD | No | ASAP — reach out today | Status unknown — call/text to confirm relationship and interest |
+| Josie (Crystal Clear Motors) | AJ / Rize Mortgage | Warm | TBD | No | Jun 5–6 | Warm intro via AJ. Calendly booking experience set up. Reach out today. |
 | | | | | | | |
 | | | | | | | |
 
@@ -74,8 +75,8 @@
 
 | Partner | Type | Date Contacted | Presentation Scheduled | Leads Generated |
 |---|---|---|---|---|
-| | Real Estate Broker | | | |
-| | Mortgage Broker | | | |
+| AJ — Rize Mortgage | Mortgage Broker | May 2026 | Quarterly event TBD | Josie (Crystal Clear Motors) |
+| Barrett Realty | Real Estate Broker | May/Jun 2026 | Presented — "Hidden Cost of Success" | Follow up on attendees |
 | | CPA / Tax Pro | | | |
 | | Insurance Agency Owner | | | |
 
