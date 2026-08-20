@@ -294,4 +294,7 @@ For a team of 20 agents where even 5 participate, that's $2,245 for you and $14,
 Would a 15-minute call to discuss this be worthwhile?
 
 — Breyon Miller | FullCircle Financial Group
-```
+create a multifucting team to handle all areas of my company marketing and
+ fullfilment and ai content and things i need to automate my company 
+
+

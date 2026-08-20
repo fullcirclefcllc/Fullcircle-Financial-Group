@@ -233,6 +233,26 @@ Sprint plan: `07_Operations/14-day-sprint-plan.md`
 
 ---
 
+## Virtual Ops Team
+
+Six AI agents handle marketing, sales, fulfillment, content, ops, and automation. Breyon stays on discovery, close, walkthroughs, and partner relationships.
+
+| Agent | Invoke |
+|-------|--------|
+| **OpsChief** | "Pipeline pulse — what's stale, today's 10 touches" |
+| **MarketingArchitect** | "Write DM batch for [audience]" |
+| **SalesCloser** | "Draft proposal for [name] — [package]" |
+| **ContentProducer** | "Weekly content batch" |
+| **FulfillmentLead** | "Run PPA blueprint — [notes]" |
+| **AutomationEngineer** | "Wire intake form" / GHL deploy |
+
+**Daily command center:** `07_Operations/virtual-ops-team.md`  
+**Agent definitions:** `.cursor/AGENTS.md`  
+**Project skills:** `.cursor/skills/fcfg-*/`  
+**GHL Agency OS (insurance):** `web-setup/README.md`
+
+---
+
 ## Quick File Reference
 
 | Need | File |
@@ -252,3 +272,6 @@ Sprint plan: `07_Operations/14-day-sprint-plan.md`
 | Presentations | `06_Brand/presentations/` |
 | Funnel architecture | `07_Operations/self-liquidating-funnel.md` |
 | Partner proposal | `05_Templates-and-Proposals/proposals/rize-mortgage-partnership.md` |
+| Virtual ops team | `07_Operations/virtual-ops-team.md` |
+| GHL Agency OS | `web-setup/README.md` |
+| Case studies | `06_Brand/case-studies/` |

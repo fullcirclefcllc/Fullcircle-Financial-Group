@@ -51,4 +51,68 @@
 
 ---
 
+## Post-Discovery Follow-Up Sequence (3-Touch)
+
+**Trigger:** Discovery call completed, proposal not yet signed  
+**Owner:** SalesCloser agent or Breyon  
+**SLA:** Touch 1 within 24 hours of call
+
+### Touch 1 — Day 1 (Same Day / Next Morning)
+
+**Subject:** Your Financial Architecture Blueprint — [CLIENT NAME]
+
+```
+[Name],
+
+Great conversation yesterday. Based on what you shared — [1 specific pain point] — I've attached your custom proposal.
+
+The key finding: you're likely leaving $[X]–$[X] on the table annually without the right structure.
+
+Proposal attached. Valid for 7 days.
+
+Ready to move? Reply "let's go" and I'll send the agreement + deposit link.
+
+— Breyon
+The Financial Architect
+FullCircle Financial Group
+```
+
+### Touch 2 — Day 3
+
+**Subject:** Quick question about your proposal
+
+```
+[Name],
+
+Wanted to check — did you get a chance to review the proposal?
+
+The [QBI permanence / tax quarter / slow season] timing makes [specific pillar] especially urgent right now.
+
+Happy to jump on a 15-min call if you have questions.
+
+— Breyon
+```
+
+### Touch 3 — Day 7 (Value-Add)
+
+**Subject:** Thought this might help — [relevant resource]
+
+```
+[Name],
+
+Even if timing isn't right yet, this might be useful:
+
+[Link to case study / tax tip / 4-pillar one-pager]
+
+When you're ready to stop leaving $[X]/yr on the table, the proposal is still open: [link]
+
+No pressure — just want you to have the resource.
+
+— Breyon
+```
+
+**After Touch 3 with no response:** Move to nurture in lead-pipeline.md. Re-engage at 30 days.
+
+---
+
 ## Notes
