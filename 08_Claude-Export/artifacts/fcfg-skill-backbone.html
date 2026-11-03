@@ -1,0 +1,175 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FCFG Skill Backbone</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a four-stage spine (domain → task → skill → automation), then one column per domain flowing down the same four stages. */
+:root{
+  --bg:#F5EFE0; --surface:#FFFDF7; --surface-2:#EFE6D0; --ink:#0A1F44; --muted:#3E4C66; --line:#E2D8BE;
+  --gold:#C9A646; --gold-ink:#7A5F17; --band:#0A1F44; --on-band:#F5EFE0; --on-band-muted:#C9C2B0;
+  --exists:#1F6B3A; --exists-bg:#DDEBDD; --new:#6E4209; --new-bg:#F6E3C8; --plan:#3E4C66; --plan-bg:#E7E2D4;
+  --display:"Cormorant Garamond", Georgia, serif; --mark:Cinzel, Georgia, serif; --body:Manrope, "Segoe UI", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#081733; --surface:#0E2249; --surface-2:#13295A; --ink:#F3EDDD; --muted:#BCB6A6; --line:#24396B;
+  --gold-ink:#DDBE62; --band:#040D20; --on-band-muted:#C4BDAB;
+  --exists:#8FD3A4; --exists-bg:#16402A; --new:#F2C27E; --new-bg:#4A3313; --plan:#C4BDAB; --plan-bg:#1B2F5C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#081733; --surface:#0E2249; --surface-2:#13295A; --ink:#F3EDDD; --muted:#BCB6A6; --line:#24396B;
+  --gold-ink:#DDBE62; --band:#040D20; --on-band-muted:#C4BDAB;
+  --exists:#8FD3A4; --exists-bg:#16402A; --new:#F2C27E; --new-bg:#4A3313; --plan:#C4BDAB; --plan-bg:#1B2F5C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+h1,h2{font-family:var(--display);font-weight:600;line-height:1.1;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mark);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.hero{background:var(--band);color:var(--on-band)}
+.hero .wrap{padding-block:clamp(40px,6vw,72px);display:flex;flex-direction:column;gap:12px}
+.hero .eyebrow{color:var(--gold)}
+.hero h1{font-size:clamp(40px,5.5vw,68px)}
+.hero p{color:var(--on-band-muted);max-width:62ch;font-size:17px}
+.spine{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+@media (max-width:760px){.spine{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.spine div{border:1px solid rgba(201,166,70,.5);border-radius:14px;padding:14px 16px;position:relative}
+.spine b{font-family:var(--mark);letter-spacing:.12em;font-size:13px;color:var(--gold);display:block}
+.spine span{font-size:14px;color:var(--on-band-muted)}
+section{padding-block:clamp(40px,5vw,64px)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin-bottom:24px;font-size:14px;color:var(--muted);align-items:center}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.p-exists{background:var(--exists-bg);color:var(--exists)}
+.p-new{background:var(--new-bg);color:var(--new)}
+.p-plan{background:var(--plan-bg);color:var(--plan)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:14px}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:0}
+.col .dom{font-family:var(--mark);font-size:13px;letter-spacing:.14em;font-weight:700;color:var(--gold-ink);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.step{padding:10px 0;border-bottom:1px dashed var(--line)}
+.step:last-child{border-bottom:0;padding-bottom:0}
+.step .k{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+.skill{font-family:var(--mono);font-weight:600;font-size:14px;overflow-wrap:anywhere}
+.trigger{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+.gate{font-size:13px;color:var(--muted)}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.rules{grid-template-columns:minmax(0,1fr)}}
+.rule{border:1.5px solid var(--gold-ink);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:4px}
+.rule b{font-size:17px}
+.rule span{color:var(--muted);font-size:14.5px}
+h2{font-size:clamp(28px,3.4vw,40px);margin-bottom:8px}
+.sub{color:var(--muted);margin-bottom:22px;max-width:70ch}
+footer{background:var(--band);color:var(--on-band-muted);font-size:13px}
+footer .wrap{padding-block:24px}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Full Circle Financial Group</div>
+    <h1>The skill backbone</h1>
+    <p>Every area of the business has repeat tasks. A repeat task becomes a skill. A reliable skill becomes an automation. This is the map for Full Circle and Full Circle OS.</p>
+    <div class="spine" aria-label="The four stages">
+      <div><b>DOMAIN</b><span>An area of the business</span></div>
+      <div><b>TASK</b><span>Something done again and again</span></div>
+      <div><b>SKILL</b><span>The task written down once; Claude runs it</span></div>
+      <div><b>AUTOMATION</b><span>A skill that runs on its own trigger</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <h2>Twelve domains, twelve skills</h2>
+    <p class="sub">Three skills already exist on your account. Three are drafted and ready to save. The rest are next in line.</p>
+    <div class="legend"><span><span class="pill p-exists">Live</span> on your account</span><span><span class="pill p-new">Ready to save</span> drafted today</span><span><span class="pill p-plan">Next</span> planned</span></div>
+    <div class="grid">
+      <article class="col"><div class="dom">CONTENT</div>
+        <div class="step"><span class="k">Task</span>Plan and write a day of posts</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcfg-daily-content-engine</span> <span class="pill p-exists">Live</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">Daily, evening before</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">You film and post. It never publishes.</span></div></article>
+
+      <article class="col"><div class="dom">COMPLIANCE</div>
+        <div class="step"><span class="k">Task</span>Check posts, ads, scripts and client messages</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcfg-compliance-gate</span> <span class="pill p-exists">Live</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">Every time something is drafted</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">Runs automatically inside other skills.</span></div></article>
+
+      <article class="col"><div class="dom">KPIs</div>
+        <div class="step"><span class="k">Task</span>Score the week and log the numbers</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcfg-weekly-scorecard</span> <span class="pill p-exists">Live</span> <span class="pill p-new">Upgrade ready</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">Fridays</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">Report only. Upgrade also writes the week's rows for the KPI Backbone dashboard.</span></div></article>
+
+      <article class="col"><div class="dom">LAUNCH</div>
+        <div class="step"><span class="k">Task</span>Check a new LLC intake before filing</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcos-launch-intake-review</span> <span class="pill p-new">Ready to save</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">Launch form submitted</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">A strategist approves before anything is filed.</span></div></article>
+
+      <article class="col"><div class="dom">STRATEGY</div>
+        <div class="step"><span class="k">Task</span>Turn a strategy session into a client roadmap</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcos-client-roadmap</span> <span class="pill p-new">Ready to save</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">After each strategy session</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">You review before the client sees it.</span></div></article>
+
+      <article class="col"><div class="dom">CREDIT</div>
+        <div class="step"><span class="k">Task</span>Prepare the next dispute round for review</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcos-dispute-round-prep</span> <span class="pill p-plan">Next</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">35 days after a round is sent</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">Staff approve every letter. Never sent automatically.</span></div></article>
+
+      <article class="col"><div class="dom">BUSINESS CREDIT</div>
+        <div class="step"><span class="k">Task</span>Run the fundability checklist</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcos-fundability-check</span> <span class="pill p-plan">Next</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">14 days after Launch delivered</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">Strategist reviews gaps with the client.</span></div></article>
+
+      <article class="col"><div class="dom">FUNDING</div>
+        <div class="step"><span class="k">Task</span>Review readiness and build the lender package</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcos-funding-readiness</span> <span class="pill p-plan">Next</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">Funding intake submitted</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">Nothing is submitted to a lender without you.</span></div></article>
+
+      <article class="col"><div class="dom">SALES</div>
+        <div class="step"><span class="k">Task</span>Brief yourself before each strategy call</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcos-call-brief</span> <span class="pill p-plan">Next</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">1 hour before a booked call</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">Briefing only.</span></div></article>
+
+      <article class="col"><div class="dom">PARTNERS</div>
+        <div class="step"><span class="k">Task</span>Screen partner applications</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcos-partner-screen</span> <span class="pill p-plan">Next</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">Partner form submitted</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">You approve every partner. Checks licenses for insurance.</span></div></article>
+
+      <article class="col"><div class="dom">INBOX</div>
+        <div class="step"><span class="k">Task</span>Sort email and draft replies</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcfg-inbox-triage</span> <span class="pill p-plan">Next</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">Weekdays, 7:30 am</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">Drafts only. You send.</span></div></article>
+
+      <article class="col"><div class="dom">FINANCE</div>
+        <div class="step"><span class="k">Task</span>Close the month: revenue by system, fees owed</div>
+        <div class="step"><span class="k">Skill</span><span class="skill">/fcfg-month-close</span> <span class="pill p-plan">Next</span></div>
+        <div class="step"><span class="k">Trigger</span><span class="trigger">1st of the month</span></div>
+        <div class="step"><span class="k">Human gate</span><span class="gate">Report only. Moves no money.</span></div></article>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Rules of thumb</h2>
+    <p class="sub">When a task earns each step.</p>
+    <div class="rules">
+      <div class="rule"><b>Done by hand twice</b><span>Make it a skill.</span></div>
+      <div class="rule"><b>Skill works 5 times in a row</b><span>Automate it on its trigger.</span></div>
+      <div class="rule"><b>It sends, spends, files or publishes</b><span>Keep a human approval step, always.</span></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">FULL CIRCLE FINANCIAL GROUP · Skills run in Claude; automations run as scheduled tasks or GHL workflow triggers.</div></footer>
+
+</body></html>

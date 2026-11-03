@@ -1,0 +1,280 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Nobody Buys a Trust</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Deliberately single-theme: a market-facing pitch surface committed to the FCFG midnight world.
+   Every color painted explicitly so it holds on any host ground. */
+:root{
+  --bg:#060F20; --bg-2:#0A1730; --surface:#0D1C36; --surface-2:#122444;
+  --line:#22375C; --line-2:#33507C;
+  --acc:#8C6DBE; --acc-br:#CBB6EA; --cream:#F1E9D8; --text:#DCD5C4; --dim:#94A4C0;
+  --ok:#5FA37A; --hot:#D2705C;
+  --f-display:'Cinzel','Times New Roman',serif; --f-lede:'Cormorant Garamond',Georgia,serif;
+  --f-body:'IBM Plex Sans',system-ui,sans-serif; --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:15.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;color:var(--cream);text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:600;font-size:1.5rem;letter-spacing:.02em}
+h3{font-size:1.02rem;font-weight:600}
+p{margin:0} a{color:var(--acc-br)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--acc-br);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 34px}
+section{padding:62px 0;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+.eyebrow{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.lede{font-family:var(--f-lede);font-size:1.24rem;line-height:1.5;color:var(--dim);margin-top:10px;max-width:64ch}
+.sec-head{margin-bottom:26px}
+.stack{display:flex;flex-direction:column;gap:16px}
+.topbar{position:sticky;top:0;z-index:40;background:rgba(6,15,32,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .inner{max-width:1080px;margin:0 auto;padding:11px 34px;display:flex;align-items:center;gap:20px}
+.topbar .mark{font-family:var(--f-display);font-size:.78rem;letter-spacing:.18em;color:var(--acc-br);text-transform:uppercase;white-space:nowrap}
+.topbar nav{display:flex;gap:16px;overflow-x:auto;margin-left:auto}
+.topbar nav a{color:var(--dim);text-decoration:none;font-size:.79rem;white-space:nowrap;padding:3px 0;border-bottom:1px solid transparent}
+.topbar nav a:hover{color:var(--cream);border-bottom-color:var(--acc)}
+.hero{position:relative;overflow:hidden;padding:78px 0 62px;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(720px 380px at 78% -8%, rgba(140,109,190,.17), transparent 62%),radial-gradient(600px 420px at 8% 108%, rgba(140,109,190,.08), transparent 60%);pointer-events:none}
+.orbits{position:absolute;right:-190px;top:-140px;width:640px;height:640px;pointer-events:none;opacity:.5}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-family:var(--f-display);font-weight:700;color:#FBF6E9;font-size:clamp(2rem,5vw,3.35rem);line-height:1.1;max-width:17ch}
+.hero .kick{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:16px}
+.hero .sub{font-family:var(--f-lede);font-size:1.42rem;line-height:1.45;color:#B6C2D8;margin-top:18px;max-width:58ch}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;margin-top:38px;background:var(--line);border:1px solid var(--line)}
+.door{background:var(--bg-2);padding:16px 18px;display:flex;flex-direction:column;gap:5px}
+.door .n{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;color:var(--acc);text-transform:uppercase}
+.door .t{font-family:var(--f-display);font-size:1.06rem;color:var(--cream)}
+.door .p{font-family:var(--f-mono);font-size:.82rem;color:var(--dim)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:22px 24px}
+.quiet{background:var(--bg-2);border:1px solid var(--line);border-radius:3px;padding:18px 20px}
+.note{border-left:2px solid var(--acc);padding:3px 0 3px 16px;color:var(--dim);font-size:.93rem}
+.note.hot{border-left-color:var(--hot)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:16px 17px;display:flex;flex-direction:column;gap:5px}
+.tile .lab{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
+.tile .val{font-family:var(--f-display);font-size:1.55rem;color:var(--acc-br);line-height:1.12}
+.tile .hint{font-size:.83rem;color:var(--dim)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line-2);color:var(--dim);border-radius:2px;white-space:nowrap}
+.pill.r{border-color:var(--hot);color:var(--hot)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;min-width:600px}
+th{text-align:left;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:400;padding:11px 15px;background:var(--surface-2);border-bottom:1px solid var(--line-2);white-space:nowrap}
+td{padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--acc-br)}
+.tabs{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px 3px 0 0;overflow-x:auto}
+.tabs button{flex:1 1 0;min-width:160px;background:var(--bg-2);border:none;color:var(--dim);font-family:var(--f-body);padding:14px 16px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:3px;border-top:2px solid transparent}
+.tabs button .k{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.tabs button .n{font-family:var(--f-display);font-size:1rem;color:var(--text)}
+.tabs button[aria-selected="true"]{background:var(--surface-2);border-top-color:var(--acc);color:var(--cream)}
+.tabs button[aria-selected="true"] .n{color:var(--acc-br)}
+.tabs button:hover .n{color:var(--cream)}
+.lane{background:var(--surface);border:1px solid var(--line);border-top:none;border-radius:0 0 3px 3px;padding:26px}
+.lane[hidden]{display:none}
+.lane-head{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.lane-head .who{max-width:52ch}
+.lane-head h3{font-family:var(--f-display);font-size:1.32rem;color:var(--acc-br);margin-bottom:6px}
+.price-block{text-align:right;min-width:170px}
+.price-block .p{font-family:var(--f-display);font-size:1.5rem;color:var(--cream);line-height:1.15}
+.price-block .l{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+.lane-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.lane-cols h4{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:9px}
+.lane-cols ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+.funnel{display:flex;flex-direction:column;margin-top:4px}
+.funnel .fs{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:.88rem}
+.funnel .fs:last-child{border-bottom:none}
+.funnel .fs .i{font-family:var(--f-mono);font-size:.7rem;color:var(--acc);min-width:20px;padding-top:2px}
+.lane-foot{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.ladder{display:flex;flex-direction:column-reverse;gap:6px}
+.rung{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--acc);padding:13px 16px;border-radius:2px}
+.rung .amt{font-family:var(--f-mono);font-size:.92rem;color:var(--acc-br);min-width:118px;font-variant-numeric:tabular-nums}
+.rung .nm{font-weight:600;color:var(--cream);min-width:190px}
+.rung .ds{font-size:.85rem;color:var(--dim);flex:1;min-width:200px}
+.rung.free{border-left-color:var(--line-2)}
+.rung.top{border-left-color:var(--acc-br);background:var(--surface-2)}
+.pods{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.pod{border:1px solid var(--line);border-radius:3px;background:var(--surface);overflow:hidden}
+.pod > header{padding:14px 17px;background:var(--surface-2);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.pod > header .t{font-family:var(--f-display);font-size:1.05rem;color:var(--acc-br)}
+.pod > header .h{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.pod .mission{padding:13px 17px 4px;font-size:.88rem;color:var(--dim)}
+.pod .members{display:flex;flex-direction:column}
+.pod .m{display:flex;gap:12px;padding:9px 17px;border-top:1px solid var(--line);font-size:.85rem;align-items:baseline}
+.pod .m .nm{font-family:var(--f-mono);font-size:.76rem;color:var(--acc);min-width:80px;letter-spacing:.05em;flex:none}
+.pod .foot{padding:10px 17px;background:var(--bg-2);border-top:1px solid var(--line);font-size:.79rem;color:var(--dim)}
+.stacker{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:820px){.stacker{grid-template-columns:1fr}}
+.controls{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:20px;display:flex;flex-direction:column;gap:20px}
+.lanegrp{display:flex;flex-direction:column;gap:10px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.lanegrp:last-child{border-bottom:none;padding-bottom:0}
+.lanegrp > .h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.lanegrp > .h .t{font-family:var(--f-display);font-size:.98rem;color:var(--cream)}
+.lanegrp > .h .v{font-family:var(--f-mono);font-size:.95rem;color:var(--acc-br)}
+.ctl label{display:flex;justify-content:space-between;font-size:.8rem;color:var(--dim);gap:10px}
+.ctl label b{font-family:var(--f-mono);color:var(--cream);font-weight:500}
+.ctl input[type=range]{width:100%;accent-color:var(--acc);margin-top:5px}
+.out{display:flex;flex-direction:column;gap:12px}
+.out .big{background:linear-gradient(160deg,var(--surface-2),var(--bg-2));border:1px solid var(--line-2);border-radius:3px;padding:22px}
+.out .big .lab{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+.out .big .v{font-family:var(--f-display);font-size:2.5rem;color:var(--acc-br);line-height:1.05;margin-top:4px}
+.out .big .s{font-size:.85rem;color:var(--dim);margin-top:6px}
+.bars{display:flex;flex-direction:column;gap:9px;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:16px}
+.bar-row{display:flex;flex-direction:column;gap:4px}
+.bar-row .rl{display:flex;justify-content:space-between;font-size:.8rem;color:var(--dim);gap:10px}
+.bar-row .rl b{font-family:var(--f-mono);color:var(--cream);font-weight:500}
+.bar-track{height:9px;background:var(--bg);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.bar-track i{display:block;height:100%;width:0;transition:width .3s ease}
+.tier{display:flex;gap:10px;align-items:center;background:var(--bg-2);border:1px solid var(--line);border-radius:3px;padding:13px 15px;font-size:.87rem}
+.tier .badge{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:2px;background:var(--acc);color:#0A1730;white-space:nowrap}
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step .idx{font-family:var(--f-mono);font-size:.78rem;color:var(--acc);padding-top:3px}
+.step h3{margin-bottom:5px}
+.step p{font-size:.9rem;color:var(--dim)}
+.step .out-row{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.checks{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:3px;background:var(--surface);overflow:hidden}
+.checks .grp{padding:10px 16px;background:var(--surface-2);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:.65rem;letter-spacing:.13em;text-transform:uppercase;color:var(--acc)}
+.checks label{display:flex;gap:11px;padding:10px 16px;border-bottom:1px solid var(--line);cursor:pointer;font-size:.88rem;align-items:flex-start}
+.checks label:last-child{border-bottom:none}
+.checks label:hover{background:var(--surface-2)}
+.checks input{margin-top:3px;accent-color:var(--acc);width:15px;height:15px;flex:none}
+.checks input:checked + span{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--line-2)}
+.progress{display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.progress .n{font-family:var(--f-display);font-size:1.9rem;color:var(--acc-br)}
+.progress .t{font-family:var(--f-mono);font-size:.72rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.progress .track{flex:1;min-width:160px;height:7px;background:var(--bg-2);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.progress .track i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
+.btn{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;background:none;border:1px solid var(--line-2);color:var(--dim);padding:6px 12px;border-radius:2px;cursor:pointer}
+.btn:hover{border-color:var(--acc);color:var(--acc-br)}
+.closing{background:linear-gradient(150deg,var(--surface-2),var(--bg));border:1px solid var(--line-2);border-radius:3px;padding:34px}
+@media(max-width:640px){.wrap{padding:0 20px}.topbar .inner{padding:10px 20px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<div class="topbar"><div class="inner">
+  <span class="mark">Full Circle · Legacy</span>
+  <nav><a href="#asset">The Asset</a><a href="#lanes">Four Doors</a><a href="#ladder">Value Ladder</a><a href="#engine">Marketing Engine</a><a href="#pods">Agent Pods</a><a href="#stack">Revenue Stack</a><a href="#launch">Launch</a><a href="#sequence">Order</a></nav>
+</div></div>
+<header class="hero">
+  <svg class="orbits" viewBox="0 0 640 640" fill="none" aria-hidden="true">
+    <circle cx="320" cy="320" r="26" fill="#CBB6EA" opacity=".45"/>
+    <ellipse cx="320" cy="320" rx="250" ry="112" stroke="#CBB6EA" stroke-width="1" opacity=".4"/>
+    <ellipse cx="320" cy="320" rx="250" ry="112" stroke="#CBB6EA" stroke-width="1" opacity=".26" transform="rotate(45 320 320)"/>
+    <ellipse cx="320" cy="320" rx="250" ry="112" stroke="#CBB6EA" stroke-width="1" opacity=".26" transform="rotate(90 320 320)"/>
+    <ellipse cx="320" cy="320" rx="250" ry="112" stroke="#CBB6EA" stroke-width="1" opacity=".26" transform="rotate(135 320 320)"/>
+  </svg>
+  <div class="wrap">
+    <div class="kick">The Estate Planning Build-Out</div>
+    <h1>Nobody buys a trust. They buy their family not fighting.</h1>
+    <p class="sub">And a document that was never funded delivers none of that. The industry sells the binder and abandons the only step that makes it work — which leaves the most valuable part of this category sitting unoccupied.</p>
+    <div class="doors"><div class="door"><div class="n">Door 01 · Families</div><div class="t">The Legacy Review</div><div class="p">$2,400 + $350/yr</div></div><div class="door"><div class="n">Door 02 · Advisors</div><div class="t">The Funding Install</div><div class="p">$12,500 + $797/mo</div></div><div class="door"><div class="n">Door 03 · Students</div><div class="t">Funded</div><div class="p">$127 → $1,797 → $5,997</div></div><div class="door"><div class="n">Door 04 · Partners</div><div class="t">The License</div><div class="p">$22,000 + 10%</div></div></div>
+  </div>
+</header>
+<div class="wrap">
+<section id="asset"><div class="sec-head"><div class="eyebrow">01 — Positioning</div><h2>What You Are Actually Selling</h2><p class="lede">Not documents — attorneys and platforms both sell those, and cheaply. You are selling completion: proof that the plan actually contains the estate.</p></div><div class="panel"><h3 style="font-family:var(--f-display);font-size:1.2rem;color:var(--acc-br);margin-bottom:12px">The whole category has an unfunded-trust problem and no one is selling the fix</h3><p style="font-size:.94rem;margin-top:0px">Attorneys draft. Advisor platforms generate. Then a family gets a binder and a two-page letter telling them to retitle their own house, call their custodian, and update their beneficiary forms. Most of them never do. The trust controls only what was titled to it, so what those families actually bought was a very expensive document that will not do the thing it was purchased for.</p><p style="font-size:.94rem;margin-top:11px">None of the advisor platforms fund anything. EncorEstate, Wealth.com, Vanilla and FP Alpha all generate documents; not one of them records a deed, chases a custodian, or confirms a beneficiary form was acknowledged. <strong>That is the entire opportunity, and it is operational work that is not the practice of law in most jurisdictions.</strong></p><p style="font-size:.94rem;margin-top:11px">So the product is a funding certificate: every asset, its final title, verified. Plus the annual stewardship that keeps it true when someone gets married, moves, sells a building, or dies. Documents are a transaction. Funding and stewardship are a relationship.</p></div><div style="height:18px"></div><div class="grid3"><div class="tile"><div class="lab">Positioning shift</div><div class="val" style="font-size:1.05rem">Funded, not drafted</div><div class="hint">"Your attorney writes the plan. We make sure your estate is actually inside it."</div></div><div class="tile"><div class="lab">Proof asset</div><div class="val" style="font-size:1.05rem">Funding completion rate</div><div class="hint">A number no competitor publishes, because almost none of them could</div></div><div class="tile"><div class="lab">Moat</div><div class="val" style="font-size:1.05rem">The stewardship base</div><div class="hint">Annual review households compound; every year you keep one it is revenue you did not sell again</div></div></div><div style="height:18px"></div><div class="quiet"><h3>The sentence that reframes the purchase</h3><p style="margin-top:9px;font-size:.91rem;color:var(--dim)">"Your attorney will write an excellent plan. Then you'll get a binder and a letter asking you to retitle your house, call three custodians and fix four beneficiary forms. Most families never finish that list — and the plan only controls what actually made it in. We finish the list, and we give you a certificate showing every asset and where it ended up." Nobody argues with that, because everybody who has ever had a trust drafted recognizes the binder.</p></div></section>
+<section id="lanes"><div class="sec-head"><div class="eyebrow">02 — Monetization</div><h2>The Four Doors</h2><p class="lede">Same machine, four buyers. Door 2 is the strongest wedge in the entire firm, because the advisor platforms have created an enormous population of drafted-but-unfunded plans and nobody is servicing it.</p></div><div class="tabs" role="tablist" id="lanetabs"></div><div id="lanepanels"></div><div style="height:18px"></div><div class="note"><strong>Door 2 deserves your attention first among the sell-the-system doors.</strong> The advisor platform market has spent five years generating documents at scale with no funding layer attached. Every one of those advisors has a book full of plans that will not work, most of them know it, and none of them has a system. Ask for twenty client files, check what is actually titled to the trust, and hand them the percentage. That conversation sells itself.</div></section>
+<section id="ladder"><div class="sec-head"><div class="eyebrow">03 — Offer architecture</div><h2>The Value Ladder</h2><p class="lede">No rung here is a legal fee or a share of one. That is the constraint, and it is also what makes every rung defensible.</p></div><div class="ladder" id="ladder"></div><div style="height:18px"></div><div class="note">Stewardship sits deliberately just above the coordination fee rather than at the top. It is the smallest number on this ladder and the most important one — a household that renews for eight years is worth more than the engagement that created it, and it costs almost nothing to serve.</div></section>
+<section id="engine"><div class="sec-head"><div class="eyebrow">04 — Demand</div><h2>The Marketing Engine</h2><p class="lede">This is the category with the worst marketing history in financial services. Every channel here is chosen specifically because it is not a seminar funnel.</p></div><div class="tablewrap"><table><thead><tr><th>Channel</th><th>Its job</th><th>What it actually looks like</th><th>Lead cost</th><th>Time to work</th></tr></thead><tbody><tr><td><strong>Advisors and agencies</strong></td><td>Highest volume, and the cleanest positioning in the firm</td><td>RIAs and insurance agencies with a book full of unfunded plans. Offer to audit twenty client files for funding completion. Nobody says no to that number, and nobody likes the answer.</td><td class="num">Near zero</td><td class="num">6–12 weeks</td></tr><tr><td><strong>Estate attorneys</strong></td><td>Quality and credibility</td><td>Attorneys draft well and have no funding operation. A reciprocal, disclosed, uncompensated referral relationship where you finish what they start.</td><td class="num">Near zero</td><td class="num">8–16 weeks</td></tr><tr><td><strong>Life-event content</strong></td><td>Trust and inbound</td><td>New child, business sale, second marriage, a move to a new state, a parent's diagnosis. Plus the flagship theme: what an unfunded trust actually does when someone dies. Aimed at families in their forties and fifties — never at seniors.</td><td class="num">Time only</td><td class="num">90–180 days</td></tr><tr><td><strong>Paid</strong></td><td>Volume, once the offer is proven</td><td>Search intent and retargeting only. No seminar funnels, no in-home offers, no senior targeting, no exemption-sunset urgency. Every asset through the review gate.</td><td class="num">$70–$220 / lead</td><td class="num">Days</td></tr></tbody></table></div><div style="height:18px"></div><div class="grid2"><div class="panel"><h3>The proof engine</h3><p style="margin-top:9px;font-size:.9rem;color:var(--dim)">Funding completion rate. Days to zero open items. Designation defects found per household. Stewardship renewal rate. These are operational numbers, they are provable, and they are the only credible proof available in a category where outcome stories are private by nature and testimonials from grieving families are in poor taste.</p></div><div class="panel"><h3>What you can never say</h3><p style="margin-top:9px;font-size:.9rem;color:var(--dim)">"The exemption is about to be cut in half" — it is $15M per person, indexed, with no sunset. "A living trust protects your assets from creditors" — it does not. "This protects you from Medicaid" — a revocable trust does nothing there, and that claim is a malpractice magnet. Nothing implying you decide which documents someone needs. And no quasi-legal titles: no "trust advisor", no "estate planning specialist", nothing with "legal" in the trade name.</p></div></div></section>
+<section id="pods"><div class="sec-head"><div class="eyebrow">05 — The org chart of a machine</div><h2>How This Division Is Actually Staffed</h2><p class="lede">Five pods. The Funding pod is the one that does not exist anywhere else in this industry, and it is the reason clients choose you.</p></div><div class="pods" id="pods"></div><div style="height:18px"></div><div class="quiet"><h3>The rule that keeps this legal</h3><p style="margin-top:9px;font-size:.91rem;color:var(--dim)">Agents inventory, audit, assemble, execute, track and remind. Attorneys decide, draft, and explain. Humans in your firm approve and sign. Every gate approval is logged with approver, timestamp and version; every funding instruction traces to counsel's written direction; and no compensation logic anywhere references a legal fee. In the category with the longest enforcement history in financial services, that log is the warranty on the entire product.</p></div><div style="height:18px"></div><div class="grid3"><div class="tile"><div class="lab">At $350k / year</div><div class="val">2 humans</div><div class="hint">You plus a funding coordinator. That hire comes before a closer.</div></div><div class="tile"><div class="lab">At $1.2M / year</div><div class="val">5 humans</div><div class="hint">One lead per pod. Funding splits into two seats before anything else does.</div></div><div class="tile"><div class="lab">At $3M+ / year</div><div class="val">8–11 humans</div><div class="hint">Family funding separates from install delivery, and compliance becomes a full role.</div></div></div></section>
+<section id="stack"><div class="sec-head"><div class="eyebrow">06 — Arithmetic</div><h2>Stack the Revenue</h2><p class="lede">Watch what the stewardship slider does. It is the smallest per-unit number on the page and the one that changes the shape of the business.</p></div><div class="stacker"><div class="controls" id="stackControls"></div><div class="out"><div class="big"><div class="lab">Combined annual revenue</div><div class="v" id="totalOut">—</div><div class="s" id="totalSub">Gross across all four doors at the settings on the left — before cost to serve and overhead.</div></div><div class="bars" id="bars"></div><div class="tier"><span class="badge" id="tierBadge">—</span><span id="tierText">—</span></div><div class="quiet" style="font-size:.84rem"><strong style="color:var(--cream)">Reality check:</strong> stewardship revenue only exists if the annual review is actually delivered. Collecting a renewal without doing the review is the one thing in this division that would genuinely be fraud on your side.</div></div></div></section>
+<section id="launch"><div class="sec-head"><div class="eyebrow">07 — Execution</div><h2>The Six-Week Launch</h2><p class="lede">The funding engine is the long pole. Build it before you build the funnel, because the funnel's entire promise is that you finish what everyone else abandons.</p></div><div class="progress"><span class="n" id="lProg">0</span><span class="t">of <span id="lTot">0</span> assets built</span><span class="track"><i id="lBar"></i></span><button class="btn" id="lReset">Reset</button></div><div class="checks" id="launchList"></div></section>
+<section id="sequence" style="border-bottom:none"><div class="sec-head"><div class="eyebrow">08 — The order of operations</div><h2>Do It In This Order</h2></div><div class="steps" id="steps"></div><div style="height:18px"></div><div class="closing"><div class="eyebrow">The point of all of it</div><h2 style="margin-bottom:12px">Everyone drafts. Almost nobody finishes. Finishing is the business.</h2><p style="font-family:var(--f-lede);font-size:1.2rem;line-height:1.5;color:var(--text);max-width:64ch">The documents in this category are close to commodity — good attorneys are plentiful and platforms have driven the price down. What has not been commoditized, and what nobody has industrialized, is the sixty days of unglamorous work between a signature and a plan that actually contains the estate. Own that, prove it with a completion rate, and turn every finished household into an annual relationship. That is a business the platforms cannot copy, because copying it would mean doing the work.</p></div></section>
+</div>
+<script>
+(function(){
+"use strict";
+const LANES=[{"key":"Door 01 · Families","name":"The Legacy Review","title":"The Legacy Review, Funding &amp; Stewardship Program","who":"Households with real assets and a triggering event: a new child, a diagnosis, a business sale, a second marriage, a move to a new state, an inheritance. Also — and this is the underrated segment — families who already have a trust that was never funded.","price":"$2,400 coordination","priceLab":"+ $350 / year stewardship","offer":["A complete asset and titling inventory, including the accounts nobody remembered","A beneficiary and TOD/POD audit — the silent documents that override the will","A counsel-ready packet so the attorney's time starts at drafting, not intake","Signing coordination, then the funding tracker built from counsel's instructions","Funding executed to zero open items and verified, with a funding certificate","Annual stewardship: designation re-audit, life-event triggers, and counsel referral on any material change"],"funnel":["Attorney, CPA, RIA or insurance partner referral, or content about unfunded trusts","Free legacy review — inventory and designation findings, facts only","Engagement letter and Rule 5.7 disclosure signed; client engages counsel directly","Documents drafted and executed; funding tracker issued within 5 days","Zero open items within 60 days, verified, certificate delivered","Stewardship enrollment at handoff, then annual review"],"assets":["Inventory, family map and designation audit templates","Engagement letter plus Rule 5.7 non-legal-services disclosure","Counsel packet template with a questions-for-counsel section","The funding tracker and the per-asset-class SOPs","The funding certificate and the stewardship calendar"],"ceiling":"$300k–$900k / yr","effort":"8–14 hours per household, concentrated in funding; stewardship near-passive","risk":"UPL — and funding scope is state-specific, with Florida treating funding itself as the practice of law"},{"key":"Door 02 · Advisors","name":"The Funding Install","title":"The Funding Install — for advisors, agencies and law firms","who":"RIAs and insurance agencies who bought a document platform and now have a hundred clients holding unfunded trusts. Estate attorneys who draft beautifully and have no funding operation. Both know it is a problem; neither has a system.","price":"$12,500 install","priceLab":"+ $797 / month system licence","offer":["30-day done-for-you build: inventory workflow, designation audit, funding tracker","The per-asset-class funding SOP library with the traps encoded","The custodian correspondence library and follow-up cadence","Deed preparation and recording tracking, on counsel's instruction","Stewardship workflow with life-event triggers","The agents deployed with their gates in place"],"funnel":["Content aimed at advisors on funding completion rates in their own book","Free Funding Audit — take twenty of their clients' plans and check what is actually titled to the trust","The audit result is the proposal; in most books that number is under 40%","50% to begin, 50% on delivery","Four sprints over 30 days, then the monthly system licence","Their funding completion rate becomes your next case study, in writing"],"assets":["A reusable build of your own funding system","Funding Audit framework and scorecard","Proposal template and scope of work","SOP and correspondence libraries, versioned","Two documented case studies before you sell the third"],"ceiling":"$400k–$1.1M / yr","effort":"Heavy until productized; then 30–40 hours per install","risk":"Selling into law firms and RIAs means your system touches their professional exposure — scope and indemnity language matter enormously"},{"key":"Door 03 · Students","name":"Funded","title":"Funded — teach the coordination and funding model","who":"Advisors, producers and paraprofessionals who want to add funding and stewardship to their practice without crossing the line. The course's value is the boundary and the tracker, not the documents.","price":"$127 → $1,797 → $5,997","priceLab":"masterclass → course → cohort","offer":["$127 masterclass: why plans fail, where the legal line sits, and what the 2026 exemption killed","$1,797 course: build the inventory, the designation audit, the funding tracker and the stewardship product","$5,997 eight-week cohort: build alongside a group with the legal-decision gate as the centerpiece","Template vault: intake, designation audit, counsel packet, funding SOPs, banned-claims list","A community that becomes the recruiting pool for Door 4"],"funnel":["Free live masterclass on unfunded plans and the boundary","$127 recording plus the designation audit checklist","Seven-to-ten day sequence to the $1,797 course","Cohort opens twice a year against a real deadline","Cohort graduates who want it done for them ascend to Door 2","Best performers get invited to Door 4"],"assets":["Live masterclass deck and script","Course curriculum built around the funding engine","Template vault with jurisdictional caveats on every document","Course platform and community","Student outcome tracking"],"ceiling":"$8k–$70k / month","effort":"Front-loaded build; then marketing is the whole job","hot":true,"risk":"HIGH — you are teaching people to work adjacent to the practice of law, in a category with thirty years of enforcement history. Every module needs a jurisdictional caveat and a consult-counsel gate, and funding scope must be taught as state-specific."},{"key":"Door 04 · Partners","name":"The License","title":"Full Circle Certified Legacy Operator","who":"Proven operators from Doors 2 and 3 who want the brand, the funding system, the SOP library, and the ascension economics into protection products.","price":"$22,000 license","priceLab":"+ 10% revenue share or $1,797 / month","offer":["The Full Circle brand, brand kit, and marketing library","The funding system and agent library, versioned and maintained centrally","The legal-decision gate and banned-claims list, kept current with enforcement","Ascension economics into protection products, on a structurally separate track","Monthly operator call, quarterly system updates, a private operator network","Certification including a live audit of funding completion rates and marketing claims"],"funnel":["Offered only to operators who have already succeeded in Door 2 or Door 3","A real qualification conversation, not an application form","Certification: gate logs, funding trackers and marketing all audited","License agreement executed with counsel on both sides","Onboarding into the operator network","Ongoing: monthly calls, system updates, revenue share reconciliation"],"assets":["Brand standards and usage rules","Certification curriculum and an ongoing audit protocol","License agreement drafted by a franchise-competent attorney","Operator onboarding path and network infrastructure","Revenue-share tracking and reporting"],"ceiling":"$450k+ / yr recurring at 20 operators","effort":"Low per operator once certification exists; very high governance burden","hot":true,"risk":"HIGHEST — franchise rule exposure, UPL amplification, and the trust-mill history of this specific category. A licensee running a seminar funnel at a senior center under your brand is an enterprise-level event. Certification must be an ongoing audit, not an exam."}];
+const LADDER=[{"a":"Free","n":"Legacy Review","d":"Inventory, titling and designation findings. The findings sell the engagement without you asking.","c":"free"},{"a":"$127","n":"Funded Masterclass","d":"Why plans fail and where the line sits. Filters buyers from browsers."},{"a":"$2,400","n":"Coordination &amp; Funding","d":"Inventory, designation audit, counsel packet, execution, funding to zero open items, certificate."},{"a":"$350 / yr","n":"Stewardship","d":"Annual review, designation re-audit, life-event triggers. The compounding line."},{"a":"Commission","n":"Protection Products","d":"On a structurally separate track, under licence, documented to the best-interest standard."},{"a":"$2,500–$10,000","n":"Asset Protection","d":"For families whose exposure is structural, not just testamentary."},{"a":"$1,500–$3,500","n":"Entity &amp; Structure","d":"Business succession and the entity work behind it."},{"a":"$1,797 / $5,997","n":"Course &amp; Cohort","d":"For advisors who want to run the funding model themselves."},{"a":"$12,500 + $797/mo","n":"The Funding Install","d":"Done-for-you build for RIAs, agencies and law firms."},{"a":"$22,000 + 10%","n":"Certified Operator License","d":"The whole machine under the brand, with the heaviest governance burden of any door in the firm.","c":"top"}];
+const PODS=[{"t":"Growth Pod","h":"Human lead: Marketing","m":"Build advisor and attorney relationships, and publish life-event education that never recommends.","a":[["BEACON","Mines how families actually describe what they are afraid will happen"],["FORGE","Produces life-event and unfunded-trust education assets"],["CADENCE","Schedules and distributes on a fixed weekly rhythm"],["RELAY","Reports funding outcomes back to every referring advisor and attorney monthly"]],"f":"Output: professional referrals and booked legacy reviews."},{"t":"Discovery Pod","h":"Human lead: Closer","m":"Find everything, audit the designations, and let the findings do the selling.","a":[["ATLAS","Scores the household and refers Medicaid, special-needs and contested matters out"],["VOX","Answers after hours and books the review"],["CENSUS","Builds the asset and titling inventory, including what nobody remembered"],["ORBIT","Audits every beneficiary, TOD and POD designation and produces the defect list"]],"f":"Output: engaged households and a defect list they cannot unsee."},{"t":"Design Pod","h":"Human lead: Analyst","m":"Hand counsel a finished file and keep every output on the right side of the line.","a":[["CANON","Assembles the counsel packet with a questions-for-counsel section"],["SENTRY","Reviews everything for recommendation language — the gate, with veto power"],["PULSE","Carries the family through attorney turnaround and signing logistics"]],"f":"Output: documents drafted faster and cheaper because intake was already done."},{"t":"Funding Pod","h":"Human lead: Funding Coordinator","m":"Move every asset, chase every custodian, record every deed, verify every form.","a":[["ANCHOR","Builds the tracker, generates the correspondence, chases follow-ups, blocks closure on open items"],["PULSE","Handoff education and the successor-trustee briefing"],["LEDGER","Coordination billing on delivery and stewardship on renewal"]],"f":"Output: zero open items, a verified certificate, and the metric nobody else publishes."},{"t":"Stewardship Pod","h":"Human lead: Operator","m":"Keep the plan true as life changes, and open the next conversation properly.","a":[["VIGIL","Annual review, designation drift, life-event triggers, counsel referrals"],["ASCEND","Protection products on a structurally separate track, under licence"],["ORACLE","Weekly brief plus the compliance evidence file"]],"f":"Output: renewals, referrals, and a file you could hand a regulator unprepared."}];
+const STACK=[{"id":"review","t":"Door 01 · The Legacy Review","ctl":[{"k":"eng","l":"Engagements / month","min":0,"max":30,"step":1,"v":5},{"k":"fee","l":"Coordination fee","min":750,"max":7500,"step":250,"v":2400,"money":true},{"k":"hh","l":"Households in stewardship ($350/yr)","min":0,"max":900,"step":20,"v":140}],"calc":"v.eng*v.fee*12 + v.hh*350"},{"id":"install","t":"Door 02 · The Funding Install","ctl":[{"k":"per","l":"Installs per month","min":0,"max":4,"step":1,"v":1},{"k":"fee","l":"Install fee","min":5000,"max":35000,"step":1000,"v":12500,"money":true},{"k":"lic","l":"System licences at $797/mo","min":0,"max":50,"step":1,"v":9}],"calc":"v.per*v.fee*12 + v.lic*797*12"},{"id":"course","t":"Door 03 · Funded","ctl":[{"k":"course","l":"Course sales / month ($1,797)","min":0,"max":30,"step":1,"v":4},{"k":"cohort","l":"Cohort seats / year ($5,997)","min":0,"max":50,"step":2,"v":10}],"calc":"v.course*1797*12 + v.cohort*5997"},{"id":"license","t":"Door 04 · The License","ctl":[{"k":"new","l":"New licensees / year","min":0,"max":15,"step":1,"v":2},{"k":"active","l":"Active licensees at $1,797/mo","min":0,"max":40,"step":1,"v":4}],"calc":"v.new*22000 + v.active*1797*12"}];
+const TIERS=[{"upTo":150000,"b":"Building","m":"One door partially open. Get the funding engine to a 95% completion rate before you sell anything else."},{"upTo":400000,"b":"Six figures","m":"Coordination is carrying this. Grow the stewardship base — it is the only line that compounds."},{"upTo":900000,"b":"Multi-six","m":"Two doors working. A dedicated funding coordinator stops being optional here."},{"upTo":2000000,"b":"Seven figures","m":"Five pod leads and twenty agents. Compliance becomes a full role, not a checkbox."},{"upTo":null,"b":"Multi-million","m":"At this level one licensee running a seminar funnel under your brand is an enterprise event. Ongoing certification audits and franchise counsel are the cost of operating."}];
+const LAUNCH=[{"g":"Weeks 1–2 · Boundary &amp; architecture","i":["Arizona ABS certification investigated with counsel","Architecture chosen: ABS, firm-plus-services-company, or pure coordination","The legal-decision gate written and circulated","Funding scope confirmed state by state, starting with every state you will serve","Engagement letter and Rule 5.7 disclosure reviewed by counsel","Attorney relationship established with the attorney meeting every client and no money moving either way","Anti-trust-mill design rules written and acknowledged in writing by everyone client-facing"]},{"g":"Weeks 2–3 · The funding engine","i":["Funding tracker built as the system of record","Per-asset-class SOPs written with the traps encoded","Custodian correspondence library and follow-up cadence built","Verification pass and funding certificate designed","Engagement closure structurally blocked while items remain open"]},{"g":"Weeks 3–4 · Assets","i":["Inventory, family map and designation audit templates finished","Counsel packet template with a questions-for-counsel section","Stewardship scope, calendar and price finalized","Funding Audit framework built for Door 2","Free masterclass deck built and delivered live once","A landing page per open door"]},{"g":"Weeks 4–5 · Channels","i":["Five RIAs or insurance agencies approached with the funding audit offer, two onboarded","Three estate attorneys onboarded with a reciprocal, disclosed, uncompensated referral protocol","Weekly life-event content cadence started and held four consecutive weeks","Past clients and partner books re-activated with the unfunded-plan check"]},{"g":"Weeks 5–6 · Open the doors","i":["Door 1 running end to end with a verified funding certificate delivered","Door 2 sold to one advisor or firm at a documented discount in exchange for a case study","Door 3 masterclass run live with the $127 offer attached","Door 4 kept closed until certification, an ongoing audit protocol and franchise counsel all exist","Weekly command brief and compliance evidence file running every Monday"]}];
+const STEPS=[{"t":"Kill the sunset pitch everywhere it appears","d":"The exemption is $15M per person, indexed, with no sunset. Any asset still selling an imminent reduction is making a false statement about a material fact — and it is the easiest thing for a regulator to screenshot.","tags":["Non-negotiable","Week 1"]},{"t":"Draw the legal line in writing","d":"The explicit list of what nobody may say, decide, or draft — and confirm funding scope state by state, because Florida treats funding itself as the practice of law.","tags":["Non-negotiable","Week 1"]},{"t":"Design the trust-mill patterns out, deliberately","d":"No senior seminars, no in-home first meetings with prospects 65+, no inventory before an engagement, no product pitch on a second visit, no first-meeting signing pressure. Write it down and have everyone sign it.","tags":["Non-negotiable","Week 1"]},{"t":"Build the funding engine before the funnel","d":"The tracker, the SOPs, the correspondence library, the verification pass, the certificate. The funnel's whole promise is that you finish what everyone else abandons — so be able to finish first.","tags":["Door 1","Weeks 2–3"]},{"t":"Make stewardship the offer at handoff, not later","d":"Offered at the moment the certificate is delivered, when the value is most visible. It is the smallest number on the ladder and the one that compounds.","tags":["Door 1","Month 1"]},{"t":"Audit an advisor's book for funding completion","d":"Twenty client files, one number. In most books it is under 40%. That single number is the entire Door 2 sales process, and it takes an afternoon.","tags":["Door 2","Month 2"]},{"t":"Publish operational proof, never client stories","d":"Funding completion rate, days to zero open items, designation defects found. In this category, testimonials from grieving families are both unusable and inappropriate — operational numbers are the credible proof.","tags":["All doors","Ongoing"]},{"t":"Open Door 4 last, and audit it forever","d":"This category has thirty years of enforcement history and the patterns are well known. A licensee running a seminar funnel under your brand is an enterprise event, so certification here means ongoing audit of marketing and gate logs.","tags":["Door 4","With counsel","Month 6+"]}];
+const KEY="fcfg_estate_buildout";
+
+const tabs=document.getElementById('lanetabs'), panels=document.getElementById('lanepanels');
+if(tabs){LANES.forEach((L,i)=>{
+ const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');
+ b.setAttribute('aria-selected',i===0?'true':'false');b.setAttribute('aria-controls','lane'+i);
+ b.innerHTML='<span class="k">'+L.key+'</span><span class="n">'+L.name+'</span>';
+ b.addEventListener('click',()=>{Array.from(tabs.children).forEach((x,xi)=>x.setAttribute('aria-selected',String(xi===i)));Array.from(panels.children).forEach((p,pi)=>{p.hidden=pi!==i;});});
+ tabs.appendChild(b);
+ const p=document.createElement('div');p.className='lane';p.id='lane'+i;p.setAttribute('role','tabpanel');p.hidden=i!==0;
+ p.innerHTML='<div class="lane-head"><div class="who"><h3>'+L.title+'</h3><p style="font-size:.91rem;color:var(--dim)">'+L.who+'</p></div>'+
+  '<div class="price-block"><div class="p">'+L.price+'</div><div class="l">'+L.priceLab+'</div></div></div>'+
+  '<div class="lane-cols"><div><h4>The offer</h4><ul>'+L.offer.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
+  '<div><h4>The funnel</h4><div class="funnel">'+L.funnel.map((x,ix)=>'<div class="fs"><span class="i">'+(ix+1)+'</span><span>'+x+'</span></div>').join('')+'</div></div>'+
+  '<div><h4>Assets you must build</h4><ul>'+L.assets.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></div>'+
+  '<div class="lane-foot"><div class="tile"><div class="lab">Realistic ceiling</div><div class="val" style="font-size:1.1rem">'+L.ceiling+'</div></div>'+
+  '<div class="tile"><div class="lab">Effort profile</div><div class="hint" style="margin-top:2px">'+L.effort+'</div></div>'+
+  '<div class="tile"><div class="lab">Primary risk</div><div class="hint" style="margin-top:2px;color:'+(L.hot?'var(--hot)':'var(--dim)')+'">'+L.risk+'</div></div></div>';
+ panels.appendChild(p);});}
+
+const lad=document.getElementById('ladder');
+if(lad)LADDER.forEach(r=>{const d=document.createElement('div');d.className='rung '+(r.c||'');
+ d.innerHTML='<span class="amt">'+r.a+'</span><span class="nm">'+r.n+'</span><span class="ds">'+r.d+'</span>';lad.appendChild(d);});
+
+const pw=document.getElementById('pods');
+if(pw)PODS.forEach(P=>{const d=document.createElement('div');d.className='pod';
+ d.innerHTML='<header><span class="t">'+P.t+'</span><span class="h">'+P.h+'</span></header><div class="mission">'+P.m+'</div>'+
+ '<div class="members">'+P.a.map(m=>'<div class="m"><span class="nm">'+m[0]+'</span><span>'+m[1]+'</span></div>').join('')+'</div>'+
+ '<div class="foot">'+P.f+'</div>';pw.appendChild(d);});
+
+const st=document.getElementById('steps');
+if(st)STEPS.forEach((s,i)=>{const d=document.createElement('div');d.className='step';
+ d.innerHTML='<div class="idx">'+String(i+1).padStart(2,'0')+'</div><div><h3>'+s.t+'</h3><p>'+s.d+'</p>'+
+ '<div class="out-row">'+s.tags.map(t=>'<span class="pill'+(/non-negotiable|counsel|never/i.test(t)?' r':'')+'">'+t+'</span>').join('')+'</div></div>';st.appendChild(d);});
+
+const money=n=>'$'+Math.round(n).toLocaleString('en-US');
+const cWrap=document.getElementById('stackControls'), bWrap=document.getElementById('bars');
+const BARCOL=['#8FA9CF','#CBB6EA','#7FBF9C','#C98F5C'];
+if(cWrap){STACK.forEach((L,li)=>{
+ const g=document.createElement('div');g.className='lanegrp';
+ g.innerHTML='<div class="h"><span class="t">'+L.t+'</span><span class="v" id="lv_'+L.id+'">—</span></div>'+
+  L.ctl.map(c=>'<div class="ctl"><label for="s_'+L.id+'_'+c.k+'">'+c.l+' <b id="b_'+L.id+'_'+c.k+'">'+(c.money?money(c.v):c.v)+'</b></label>'+
+  '<input type="range" id="s_'+L.id+'_'+c.k+'" min="'+c.min+'" max="'+c.max+'" step="'+c.step+'" value="'+c.v+'"></div>').join('');
+ cWrap.appendChild(g);
+ const b=document.createElement('div');b.className='bar-row';
+ b.innerHTML='<div class="rl"><span>'+L.t+'</span><b id="bar_'+L.id+'">—</b></div><div class="bar-track"><i id="bi_'+L.id+'" style="background:'+BARCOL[li%4]+'"></i></div>';
+ bWrap.appendChild(b);});
+
+ function recalc(){
+   let total=0; const vals={};
+   STACK.forEach(L=>{const v={};
+     L.ctl.forEach(c=>{const el=document.getElementById('s_'+L.id+'_'+c.k);v[c.k]=+el.value;
+       document.getElementById('b_'+L.id+'_'+c.k).textContent=c.money?money(v[c.k]):v[c.k];});
+     const r=new Function('v','return ('+L.calc+')')(v);
+     vals[L.id]=r; total+=r;
+     document.getElementById('lv_'+L.id).textContent=money(r)+' / yr';});
+   const max=Math.max(total,1);
+   STACK.forEach(L=>{document.getElementById('bar_'+L.id).textContent=money(vals[L.id]);
+     document.getElementById('bi_'+L.id).style.width=(vals[L.id]/max*100).toFixed(1)+'%';});
+   document.getElementById('totalOut').textContent=money(total);
+   let t=TIERS[TIERS.length-1];
+   for(const x of TIERS){ if(total<x.upTo){ t=x; break; } }
+   document.getElementById('tierBadge').textContent=t.b;
+   document.getElementById('tierText').textContent=t.m;
+ }
+ document.querySelectorAll('#stackControls input[type=range]').forEach(el=>el.addEventListener('input',recalc));
+ recalc();
+}
+
+const ll=document.getElementById('launchList');
+if(ll){let total=0;
+ LAUNCH.forEach((G,gi)=>{const h=document.createElement('div');h.className='grp';h.innerHTML=G.g;ll.appendChild(h);
+  G.i.forEach((it,ii)=>{total++;const l=document.createElement('label');
+   l.innerHTML='<input type="checkbox" data-l="'+gi+'-'+ii+'"><span>'+it+'</span>';ll.appendChild(l);});});
+ document.getElementById('lTot').textContent=total;
+ function loadS(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}}
+ function saveS(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+ const boxes=Array.from(document.querySelectorAll('[data-l]'));
+ const store=loadS(); boxes.forEach(b=>{if(store[b.dataset.l])b.checked=true});
+ function paint(){const n=boxes.filter(b=>b.checked).length;document.getElementById('lProg').textContent=n;document.getElementById('lBar').style.width=(n/total*100)+'%';}
+ boxes.forEach(b=>b.addEventListener('change',()=>{const s=loadS();if(b.checked)s[b.dataset.l]=1;else delete s[b.dataset.l];saveS(s);paint();}));
+ document.getElementById('lReset').addEventListener('click',()=>{boxes.forEach(b=>b.checked=false);saveS({});paint();});
+ paint();}
+})();
+</script>
+</body></html>

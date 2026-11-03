@@ -1,0 +1,1525 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Financial</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Full Circle Financial Group, Phoenix, Arizona. Credit repair, business credit, funding placement and life insurance in Phoenix, Arizona.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout concept: one gold circle carries the page. Hero ring -> shot arc -> whiteboard play -> stacked tower -> fee gauge -> readiness quiz. Dark navy, single deliberate look. */
+:root{
+  --void:#050E21;
+  --panel:#0A1A38;
+  --panel-2:#10244A;
+  --gold:#C9A646;
+  --gold-hi:#E6C873;
+  --cream:#F5EFE0;
+  --mute:#A3ABBE;
+  --line:rgba(201,166,70,.24);
+  --hair:rgba(245,239,224,.10);
+  --chalk:#E9E3D2;
+  --ok:#7FC8A0;
+  --warn:#E08A7A;
+  --f-display:"Cinzel","Trajan Pro","Times New Roman",Georgia,serif;
+  --f-body:"Manrope","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  --gut-l:max(16px, env(safe-area-inset-left, 0px));
+  --gut-r:max(16px, env(safe-area-inset-right, 0px));
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--void);color:var(--cream);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--void)}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.12;margin:0;text-wrap:balance;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--gold-hi)}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.eyebrow{font-size:.75rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.lede{color:var(--mute);font-size:1.08rem;max-width:58ch}
+.sec{padding-block:clamp(72px,10vw,136px);position:relative;scroll-margin-top:64px}
+.sec-head{display:grid;gap:14px;margin-bottom:clamp(32px,5vw,56px);max-width:760px}
+.sec-head h2{font-size:clamp(1.9rem,4.2vw,3.1rem)}
+.fine{font-size:.8rem;color:var(--mute);line-height:1.5}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--gold);color:var(--void);padding:8px 14px;border-radius:6px;font-weight:700}
+.skip:focus{left:16px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 .95rem/1 var(--f-body);letter-spacing:.02em;padding:16px 24px;border-radius:999px;border:1px solid var(--gold);text-decoration:none;cursor:pointer;transition:background .25s,color .25s,box-shadow .25s,transform .2s var(--ease);will-change:transform}
+.btn-gold{background:var(--gold);color:var(--void)}
+.btn-gold:hover{background:var(--gold-hi);box-shadow:0 10px 40px -10px rgba(230,200,115,.55)}
+.btn-ghost{background:transparent;color:var(--cream);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-hi)}
+.btn[disabled],.btn[aria-disabled="true"]{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn svg{width:16px;height:16px;flex:none}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(5,14,33,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--cream);text-decoration:none;font-family:var(--f-display);font-weight:700;letter-spacing:.06em;font-size:1rem;white-space:nowrap}
+.brand svg{width:28px;height:28px}
+.nav-links{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.nav-links a{display:block;padding:8px 12px;border-radius:999px;color:var(--mute);text-decoration:none;font-size:.88rem;font-weight:600;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--cream)}
+.nav-links a.on{color:var(--gold-hi);background:rgba(201,166,70,.1)}
+.nav-cta{padding:11px 18px;font-size:.85rem}
+.nav-menu{display:none;background:none;border:1px solid var(--line);color:var(--cream);border-radius:999px;width:42px;height:42px;cursor:pointer;align-items:center;justify-content:center}
+.nav-progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-hi));transform-origin:left;transform:scaleX(0)}
+@media (max-width:900px){
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--void);border-bottom:1px solid var(--hair);padding:8px var(--gut-r) 16px var(--gut-l)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:14px 12px;font-size:1rem}
+  .nav-menu{display:inline-flex}
+  .nav-cta{display:none}
+}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-block:clamp(40px,7vw,96px) clamp(64px,8vw,110px);isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:160px;background:linear-gradient(transparent,var(--void));z-index:-1;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,5vw,64px);align-items:center}
+.hero-copy{display:grid;gap:24px;min-width:0}
+.hero h1{font-size:clamp(2.35rem,5.6vw,4.5rem);font-weight:600}
+.hero h1 em{font-style:normal;color:var(--gold-hi)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.founder{display:flex;align-items:center;gap:12px;color:var(--mute);font-size:.9rem}
+.founder b{color:var(--cream);font-weight:700}
+.founder i{display:block;width:36px;height:1px;background:var(--gold)}
+.ring-wrap{position:relative;width:100%;max-width:520px;justify-self:center;aspect-ratio:1;max-height:100%}
+.ring-wrap svg{width:100%;height:100%;overflow:visible}
+.ring-track{fill:none;stroke:rgba(245,239,224,.08);stroke-width:2}
+.ring-draw{fill:none;stroke:url(#gGold);stroke-width:3;stroke-linecap:round}
+.tick{stroke:rgba(201,166,70,.28);stroke-width:1.2}
+.tick.major{stroke:rgba(230,200,115,.6);stroke-width:2}
+.quad{fill:none;stroke:rgba(245,239,224,.07);stroke-width:12;stroke-linecap:round;transition:stroke .6s var(--ease),filter .6s}
+.quad.lit{stroke:var(--gold);filter:url(#glow)}
+.qlabel{cursor:pointer;outline:none}
+.qlabel text{transition:fill .5s,opacity .5s}
+.qlabel .qn{font:700 13px var(--f-body);letter-spacing:.2em;fill:var(--mute);opacity:.5}
+.qlabel .qt{font:600 30px var(--f-display);fill:rgba(245,239,224,.32)}
+.qlabel .qs{font:600 12px var(--f-body);letter-spacing:.14em;fill:var(--mute);opacity:.5}
+.qlabel.lit .qn{fill:var(--gold);opacity:1}
+.qlabel.lit .qt{fill:var(--cream)}
+.qlabel.lit .qs{opacity:1}
+.qlabel:hover .qt,.qlabel:focus-visible .qt{fill:var(--gold-hi)}
+.qlabel:focus-visible .qhit{stroke:var(--gold-hi);stroke-width:2;stroke-dasharray:4 4}
+.qhit{fill:transparent;stroke:none}
+.ring-center .rc1{font:700 15px var(--f-body);letter-spacing:.32em;fill:var(--gold)}
+.ring-center .rc2{font:600 42px var(--f-display);fill:var(--cream)}
+.ring-center .rc3{font:600 12px var(--f-body);letter-spacing:.2em;fill:var(--mute)}
+.ring-wrap.complete .ring-draw{filter:url(#glow)}
+.scroll-cue{display:flex;align-items:center;gap:10px;color:var(--mute);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.scroll-cue span{width:1px;height:28px;background:linear-gradient(var(--gold),transparent);animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .ring-wrap{max-width:380px}
+  .scroll-cue{display:none}
+}
+@media (max-width:520px){
+  .qlabel .qs{display:none}
+  .qlabel .qt{font-size:34px}
+  .qlabel .qn{font-size:15px}
+}
+
+/* origin */
+.origin{background:linear-gradient(180deg,var(--void),var(--panel) 30%,var(--panel) 70%,var(--void))}
+.origin{padding-block:clamp(40px,6vw,80px) clamp(72px,10vw,136px)}
+.origin-stage{height:250vh;position:relative}
+.origin-sticky{position:sticky;top:calc(64px + env(safe-area-inset-top,0px));min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);display:grid;align-content:center;gap:0;padding-block:16px}
+.origin-sticky .sec-head{margin-bottom:clamp(16px,2.5vw,28px)}
+.court{width:100%;max-width:min(100%, calc((100vh - 390px) * 1.9));margin-inline:auto;border-radius:18px;border:1px solid var(--hair);background:rgba(5,14,33,.55);overflow:hidden}
+.court svg{display:block;width:100%;height:auto}
+.bp-grid line{stroke:rgba(120,170,230,.12);stroke-width:1}
+.bp-grid{opacity:0;transition:opacity .4s}
+.shot{fill:none;stroke:var(--chalk);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:6 9}
+.shot-solid{fill:none;stroke:rgba(245,239,224,.55);stroke-width:2.5;stroke-linecap:round}
+.blue{fill:none;stroke:var(--gold-hi);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.hoop line,.hoop path{stroke:var(--chalk);stroke-width:2.5;fill:none;stroke-linecap:round}
+.hoop .net{stroke:rgba(233,227,210,.45);stroke-width:1.4}
+.node circle{fill:var(--void);stroke:var(--gold-hi);stroke-width:2.5}
+.node text{font:700 22px var(--f-body);letter-spacing:.14em;fill:var(--cream)}
+.node{opacity:0;transition:opacity .4s,transform .4s var(--ease)}
+.node.on{opacity:1}
+.miss{font:700 20px var(--f-body);letter-spacing:.3em;fill:var(--mute);opacity:0;transition:opacity .4s}
+.ball-seam{stroke:#3a2208;stroke-width:1.6;fill:none}
+.origin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,40px);margin-top:clamp(28px,4vw,48px)}
+.beat{display:grid;align-content:start;gap:10px;padding-top:18px;border-top:1px solid var(--hair);opacity:.55;transition:opacity .5s,border-color .5s}
+.beat.on{opacity:1;border-color:var(--gold)}
+.beat .k{font:700 .72rem var(--f-body);letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+.beat p{font-size:1.05rem;max-width:36ch}
+.sig{margin-top:28px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.sig b{font-family:var(--f-display);font-size:1.4rem;font-weight:600}
+.sig span{color:var(--mute);font-size:.9rem}
+@media (max-width:760px){
+  .origin-grid{grid-template-columns:1fr;gap:12px;margin-top:20px}
+  .beat{padding-top:10px;gap:4px}
+  .beat p{font-size:.95rem}
+  .origin-stage{height:230vh}
+  .node text{font-size:32px}
+  .miss{font-size:30px}
+  .court{max-width:100%}
+}
+@media (prefers-reduced-motion:reduce){.origin-stage{height:auto}.origin-sticky{position:static;min-height:0}}
+
+/* playbook */
+.pb{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(20px,3vw,40px);align-items:start}
+.board{position:relative;border-radius:20px;padding:14px;background:linear-gradient(160deg,#0D1F42,#081631);border:1px solid var(--line);box-shadow:inset 0 0 0 6px rgba(245,239,224,.03),0 30px 80px -40px rgba(0,0,0,.8)}
+.board svg{display:block;width:100%;height:auto}
+.court-line{fill:none;stroke:rgba(233,227,210,.35);stroke-width:2}
+.mk-o circle{fill:none;stroke:var(--gold-hi);stroke-width:3}
+.mk-x path{stroke:var(--chalk);stroke-width:3.4;stroke-linecap:round}
+.mk text{font:800 13px var(--f-body);letter-spacing:.12em;fill:var(--mute)}
+.mk{animation:pop .45s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+.mk{transform-box:fill-box;transform-origin:center}
+.arrow{fill:none;stroke:var(--gold-hi);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.arrow.pass{stroke-dasharray:none}
+.arrow.anim{animation:draw .9s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.note{font:700 15px var(--f-body);letter-spacing:.1em;fill:var(--chalk);animation:pop .5s var(--ease) both}
+.note-num{fill:var(--gold);}
+.note-num-t{font:800 15px var(--f-body);fill:var(--void)}
+.board-notes{list-style:none;counter-reset:n;margin:0;padding:12px 6px 4px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 16px}
+.board-notes li{counter-increment:n;display:flex;gap:10px;align-items:flex-start;font-size:.86rem;font-weight:600;color:var(--chalk);line-height:1.35;animation:fadeup .5s var(--ease) both}
+.board-notes li::before{content:counter(n);flex:none;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--void);font-size:.75rem;font-weight:800;display:grid;place-items:center}
+@media (max-width:560px){.board-notes{grid-template-columns:1fr;gap:8px}}
+.board-legend{display:flex;flex-wrap:wrap;gap:6px 18px;padding:12px 6px 2px;margin-top:10px;border-top:1px solid var(--hair);color:var(--mute);font-size:.78rem;letter-spacing:.06em}
+.board-legend b{color:var(--gold-hi)}
+.plays{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.play-tab{flex:1 1 0;min-width:68px;display:grid;gap:2px;text-align:left;background:transparent;border:1px solid var(--hair);color:var(--mute);border-radius:12px;padding:10px 12px;cursor:pointer;font:inherit;transition:border-color .25s,background .25s,color .25s}
+.play-tab small{font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.play-tab span{font-family:var(--f-display);font-weight:600;font-size:1.05rem;color:var(--cream)}
+.play-tab[aria-selected="true"]{border-color:var(--gold);background:rgba(201,166,70,.1);color:var(--gold)}
+.play-tab:hover{border-color:var(--gold)}
+.play-card{background:var(--panel);border:1px solid var(--hair);border-radius:20px;padding:clamp(20px,3vw,32px);display:grid;gap:20px}
+.play-card h3{font-size:clamp(1.5rem,2.6vw,2rem)}
+.play-row{display:grid;gap:6px}
+.play-row h4{margin:0;font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.play-row p,.play-row li{color:var(--cream);opacity:.9;font-size:.98rem}
+.play-row ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.play-nav{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.play-nav .count{color:var(--mute);font-size:.85rem;font-variant-numeric:tabular-nums}
+.play-nav .btn{padding:12px 18px}
+.play-body{animation:fadeup .45s var(--ease) both}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (max-width:900px){.pb{grid-template-columns:1fr}}
+
+/* foundation */
+.found{background:radial-gradient(1200px 500px at 80% 0%,rgba(201,166,70,.07),transparent 60%)}
+.fd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.check{position:relative}
+.check input{position:absolute;opacity:0;width:1px;height:1px}
+.check label{display:flex;align-items:center;gap:16px;padding:15px 18px;border:1px solid var(--hair);border-radius:14px;background:var(--panel);cursor:pointer;transition:border-color .25s,background .25s}
+.check label:hover{border-color:var(--line)}
+.box{flex:none;width:26px;height:26px;border-radius:8px;border:1.5px solid var(--line);display:grid;place-items:center;transition:background .25s,border-color .25s}
+.box svg{width:15px;height:15px;stroke:var(--void);stroke-width:3;fill:none;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s var(--ease)}
+.check input:checked + label{border-color:var(--gold);background:rgba(201,166,70,.08)}
+.check input:checked + label .box{background:var(--gold);border-color:var(--gold)}
+.check input:checked + label .box svg{stroke-dashoffset:0}
+.check input:focus-visible + label{outline:2px solid var(--gold-hi);outline-offset:2px}
+.check .t{display:grid;min-width:0}
+.check .t b{font-weight:700;font-size:1rem}
+.check .t small{color:var(--mute);font-size:.84rem}
+.tower-card{background:var(--panel);border:1px solid var(--hair);border-radius:22px;padding:clamp(18px,3vw,30px);display:grid;gap:18px}
+.tower svg{display:block;width:100%;max-width:360px;margin:0 auto;height:auto}
+.blk-bg{fill:rgba(245,239,224,.035);stroke:rgba(245,239,224,.12);stroke-width:1.2}
+.blk-fill{fill:url(#gBlock);transform-box:fill-box;transform-origin:left center;transform:scaleX(0);transition:transform .6s var(--ease)}
+.blk.on .blk-fill{transform:scaleX(1)}
+.blk text{font:800 11.5px var(--f-body);letter-spacing:.16em;fill:var(--mute);transition:fill .4s}
+.blk.on text{fill:var(--void)}
+.cap{fill:none;stroke:var(--gold-hi);stroke-width:4;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1s var(--ease)}
+.tower.done .cap{stroke-dashoffset:0}
+.meter{display:grid;gap:8px}
+.meter-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.meter-top b{font-family:var(--f-display);font-size:2rem;font-variant-numeric:tabular-nums}
+.meter-top span{color:var(--mute);font-size:.9rem;text-align:right}
+.bar{height:10px;border-radius:99px;background:rgba(245,239,224,.07);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-hi));border-radius:inherit;transition:width .6s var(--ease)}
+@media (max-width:860px){.fd{grid-template-columns:1fr}.tower svg{max-width:260px}}
+
+/* fees */
+.fees{background:linear-gradient(180deg,var(--void),var(--panel))}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);background:var(--void);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,44px)}
+.ctl{display:grid;gap:12px;margin-bottom:30px}
+.ctl-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ctl label{font-weight:700}
+.ctl output{font-family:var(--f-display);font-size:1.5rem;color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.ticks-row{display:flex;justify-content:space-between;color:var(--mute);font-size:.75rem;font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:linear-gradient(90deg,var(--gold) var(--p,50%),rgba(245,239,224,.12) var(--p,50%))}
+input[type=range]::-moz-range-track{height:6px;border-radius:99px;background:rgba(245,239,224,.12)}
+input[type=range]::-moz-range-progress{height:6px;border-radius:99px;background:var(--gold)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--cream);border:4px solid var(--gold);margin-top:-9px;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--cream);border:4px solid var(--gold)}
+input[type=range]:focus-visible{outline:none}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(230,200,115,.45)}
+input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px rgba(230,200,115,.45)}
+.gauge{display:grid;place-items:center;position:relative}
+.gauge svg{width:100%;max-width:300px;height:auto;display:block}
+.g-track{fill:none;stroke:rgba(245,239,224,.08);stroke-width:14}
+.g-val{fill:none;stroke:url(#gGold2);stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset .35s var(--ease)}
+.g-txt{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:2px}
+.g-txt small{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--gold)}
+.g-txt b{font-family:var(--f-display);font-size:clamp(2rem,5vw,2.6rem);font-variant-numeric:tabular-nums;line-height:1.1}
+.g-txt span{color:var(--mute);font-size:.82rem}
+.capnote{min-height:1.4em;text-align:center;color:var(--gold-hi);font-size:.86rem;font-weight:700}
+.calc-right{display:grid;gap:16px;align-content:start}
+.fee-rules{display:grid;gap:12px;margin-top:28px;padding-top:24px;border-top:1px solid var(--hair)}
+.fee-rules p{display:flex;gap:12px;font-size:.95rem}
+.fee-rules p::before{content:"";flex:none;width:8px;height:8px;margin-top:.55em;border-radius:50%;border:2px solid var(--gold)}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+
+/* quiz */
+.quiz{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,56px);align-items:start}
+.qside{display:grid;gap:18px;position:sticky;top:96px}
+.qprog{display:flex;gap:6px}
+.qprog i{flex:1;height:4px;border-radius:9px;background:rgba(245,239,224,.1);transition:background .3s}
+.qprog i.on{background:var(--gold)}
+.qcard{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,40px);min-height:420px;display:grid}
+.qstep{display:grid;gap:18px;align-content:start;animation:fadeup .4s var(--ease) both}
+.qstep fieldset{border:0;margin:0;padding:0;display:grid;gap:10px;min-width:0}
+.qstep legend{font-family:var(--f-display);font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:600;margin-bottom:12px;padding:0;line-height:1.2}
+.qmeta{font-size:.75rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt label{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--hair);border-radius:12px;cursor:pointer;transition:border-color .2s,background .2s;background:rgba(5,14,33,.4)}
+.opt label::before{content:"";flex:none;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);transition:border .2s,background .2s;box-shadow:inset 0 0 0 3px var(--panel)}
+.opt label:hover{border-color:var(--line)}
+.opt input:checked + label{border-color:var(--gold);background:rgba(201,166,70,.1)}
+.opt input:checked + label::before{border-color:var(--gold);background:var(--gold)}
+.opt input:focus-visible + label{outline:2px solid var(--gold-hi);outline-offset:2px}
+.qnav{display:flex;justify-content:space-between;gap:10px;margin-top:6px;flex-wrap:wrap}
+.qnav .btn{padding:13px 20px}
+.band{display:grid;gap:10px}
+.band-meter{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.band-meter div{display:grid;gap:6px;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.band-meter div i{height:8px;border-radius:9px;background:rgba(245,239,224,.1)}
+.band-meter div.on{color:var(--gold-hi)}
+.band-meter div.on i{background:var(--gold)}
+.band h3{font-size:clamp(1.7rem,3.4vw,2.4rem);color:var(--gold-hi)}
+.steps{margin:0;padding-left:20px;display:grid;gap:8px}
+.field{display:grid;gap:6px}
+.field label{font-weight:700;font-size:.9rem}
+.field input{font:inherit;color:var(--cream);background:var(--void);border:1px solid var(--hair);border-radius:10px;padding:13px 14px;width:100%;min-width:0}
+.field input:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(201,166,70,.2)}
+.field input[aria-invalid="true"]{border-color:#E08A7A}
+.err{color:#F0A898;font-size:.82rem;min-height:1.1em}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:.88rem;color:var(--mute)}
+.consent input{margin-top:4px;width:18px;height:18px;accent-color:var(--gold);flex:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:860px){.quiz{grid-template-columns:1fr}.qside{position:static}}
+@media (max-width:520px){.two{grid-template-columns:1fr}.qcard{min-height:0}}
+
+
+/* shield: asset protection rings */
+.shield{background:linear-gradient(180deg,var(--void),var(--panel) 35%,var(--panel) 70%,var(--void))}
+.sh{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(20px,3vw,44px);align-items:start}
+.sh-main{min-width:0;display:grid;gap:14px}
+.threat-k{font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.threats{display:flex;flex-wrap:wrap;gap:8px}
+.threat{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--hair);background:transparent;color:var(--cream);font:600 .86rem/1.2 var(--f-body);cursor:pointer;text-align:left;transition:border-color .2s,background .2s}
+.threat:hover{border-color:var(--line)}
+.threat i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--ok);transition:background .3s}
+.threat.bad i{background:var(--warn)}
+.threat[aria-pressed="true"]{border-color:var(--gold);background:rgba(201,166,70,.12)}
+.shield-fig{border-radius:24px;border:1px solid var(--line);background:radial-gradient(circle at 50% 50%,rgba(201,166,70,.09),transparent 62%),rgba(5,14,33,.55);padding:clamp(6px,2vw,18px)}
+.shield-fig svg{display:block;width:100%;max-width:600px;height:auto;margin-inline:auto;overflow:visible}
+.sh-tick{stroke:rgba(201,166,70,.28);stroke-width:1.2}
+.sh-tick.major{stroke:rgba(230,200,115,.6);stroke-width:2}
+.lyr{cursor:pointer;outline:none}
+.lyr .band{fill:none;stroke-width:50;stroke:rgba(201,166,70,.11);transition:stroke .4s var(--ease)}
+.lyr .edge{fill:none;stroke:var(--line);stroke-width:1.2;transition:stroke .3s}
+.lyr text{font:800 12.5px var(--f-body);letter-spacing:.24em;fill:var(--cream);transition:fill .3s,opacity .3s;pointer-events:none}
+.lyr .ln{fill:var(--gold)}
+.lyr:hover .band{stroke:rgba(201,166,70,.2)}
+.lyr.off .band{stroke:rgba(245,239,224,.025)}
+.lyr.off .edge{stroke:rgba(245,239,224,.22);stroke-dasharray:4 7}
+.lyr.off text{fill:var(--mute);opacity:.55}
+.lyr.sel .edge{stroke:var(--gold-hi);stroke-width:2.2}
+.lyr.hit .band{stroke:rgba(230,200,115,.34)}
+.lyr.hit .edge{stroke:var(--gold-hi);stroke-width:2.4;filter:url(#shGlow)}
+.lyr:focus-visible .edge{stroke:var(--gold-hi);stroke-width:2.6;stroke-dasharray:5 4}
+.core circle{fill:var(--panel-2);stroke:var(--gold);stroke-width:2;transition:fill .4s,stroke .4s}
+.core text{font:600 13px var(--f-display);letter-spacing:.08em;fill:var(--cream)}
+.core .c2{font:800 9.5px var(--f-body);letter-spacing:.22em;fill:var(--gold)}
+.core.exposed circle{stroke:var(--warn);fill:rgba(224,138,122,.16)}
+.core.exposed .c2{fill:var(--warn)}
+.bolt{fill:none;stroke:var(--warn);stroke-width:3;stroke-linecap:round}
+.impact{fill:var(--gold-hi);opacity:0;transition:opacity .25s}
+.impact.bad{fill:var(--warn)}
+.impact.on{opacity:1}
+.ring-pulse{fill:none;stroke:var(--gold-hi);stroke-width:2;opacity:0}
+.ring-pulse.go{animation:shpulse .8s var(--ease)}
+.ring-pulse.bad{stroke:var(--warn)}
+@keyframes shpulse{from{opacity:.9;r:6}to{opacity:0;r:34}}
+.sh-side{display:grid;gap:16px;min-width:0}
+.score{display:grid;gap:10px;padding:18px;border:1px solid var(--hair);border-radius:16px;background:rgba(5,14,33,.45)}
+.score-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.score-top b{font:600 clamp(1.6rem,3vw,2.1rem)/1 var(--f-display);font-variant-numeric:tabular-nums}
+.score-top span{color:var(--mute);font-size:.88rem}
+.segs{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.segs i{height:8px;border-radius:9px;background:var(--ok);transition:background .3s}
+.segs i.bad{background:var(--warn)}
+.layers{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.lsw{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 14px;border-radius:14px;border:1px solid var(--hair);background:var(--panel);color:var(--cream);font:inherit;cursor:pointer;transition:border-color .2s,background .2s}
+.lsw:hover{border-color:var(--line)}
+.lsw .lnum{font:800 .68rem var(--f-body);letter-spacing:.18em;color:var(--gold);text-transform:uppercase;white-space:nowrap}
+.lsw b{display:block;font:600 1.02rem/1.25 var(--f-display)}
+.lsw small{display:block;color:var(--mute);font-size:.8rem;line-height:1.35}
+.tog{position:relative;width:44px;height:26px;border-radius:99px;background:rgba(245,239,224,.12);transition:background .25s}
+.tog::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--mute);transition:transform .25s var(--ease),background .25s}
+.lsw[aria-checked="true"]{border-color:var(--line)}
+.lsw[aria-checked="true"] .tog{background:var(--gold)}
+.lsw[aria-checked="true"] .tog::after{transform:translateX(18px);background:var(--void)}
+.sh-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,3vw,28px);display:grid;gap:12px;align-content:start}
+.sh-card .play-body{display:grid;gap:12px}
+.sh-card h3{font-size:clamp(1.35rem,2.4vw,1.75rem)}
+.sh-card p{color:var(--cream);opacity:.92;font-size:.98rem}
+.sh-card ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:.95rem}
+.verdict{justify-self:start;font:800 .7rem/1 var(--f-body);letter-spacing:.2em;text-transform:uppercase;padding:7px 11px;border-radius:999px;background:rgba(127,200,160,.12);color:var(--ok)}
+.verdict.bad{background:rgba(224,138,122,.13);color:var(--warn)}
+.sh-card .who{font-size:.84rem;color:var(--mute);border-top:1px solid var(--hair);padding-top:10px}
+.sh-card .btn{justify-self:start;padding:12px 18px;font-size:.88rem}
+@media (max-width:900px){.sh{grid-template-columns:1fr}}
+@media (max-width:560px){
+  .lyr text{font-size:19px;letter-spacing:.12em}
+  .core text{font-size:17px}
+  .core .c2{font-size:12px}
+}
+
+/* why */
+.why{border-block:1px solid var(--hair);background:var(--panel)}
+.why-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.why-item{align-content:start;padding:clamp(26px,4vw,48px) clamp(16px,3vw,36px);display:grid;gap:12px;border-left:1px solid var(--hair)}
+.why-item:first-child{border-left:0;padding-left:0}
+.why-item h3{font-size:clamp(1.3rem,2.4vw,1.75rem)}
+.why-item p{color:var(--mute);max-width:34ch}
+.why-item svg{width:44px;height:44px}
+@media (max-width:760px){.why-grid{grid-template-columns:1fr}.why-item{border-left:0;border-top:1px solid var(--hair);padding-left:0;padding-right:0}.why-item:first-child{border-top:0}}
+
+/* results */
+.res-card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,3vw,36px);align-items:center;border:1px solid var(--line);border-radius:24px;padding:clamp(24px,4vw,48px);background:linear-gradient(135deg,rgba(201,166,70,.07),transparent 60%),var(--panel)}
+.res-card svg{width:clamp(72px,10vw,110px);height:auto}
+.res-card h2{font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:10px}
+.res-card p{color:var(--mute);max-width:60ch}
+@media (max-width:560px){.res-card{grid-template-columns:1fr}}
+
+/* footer */
+footer{padding-block:64px 40px;border-top:1px solid var(--hair);background:var(--void)}
+.foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:40px}
+.foot-brand{display:grid;gap:12px;align-content:start}
+.foot-brand p{color:var(--mute);font-size:.92rem}
+.disc{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.disc li{font-size:.86rem;color:var(--mute);padding-left:18px;position:relative}
+.disc li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.privacy{margin-top:28px;padding:20px;border:1px solid var(--hair);border-radius:14px;scroll-margin-top:80px}
+.privacy h3{font-family:var(--f-body);font-size:.8rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.privacy p{font-size:.86rem;color:var(--mute)}
+.privacy p + p{margin-top:8px}
+.copy{margin-top:40px;padding-top:20px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;color:var(--mute);font-size:.8rem}
+@media (max-width:760px){.foot{grid-template-columns:1fr}}
+
+/* reveal: elements below the fold only; anything visible at load stays put */
+.rv{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.pre{opacity:0;transform:translateY(26px)}
+.tilt{transition:transform .35s var(--ease);transform-style:preserve-3d}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rv.pre{opacity:1;transform:none}
+  .scroll-cue span{animation:none}
+}
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav-in">
+    <a class="brand" href="#hero" aria-label="Full Circle Financial Group, back to top">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#C9A646" stroke-width="2.4"/><circle cx="16" cy="16" r="5" fill="none" stroke="#E6C873" stroke-width="1.4" stroke-dasharray="2 2.2"/></svg>
+      Full Circle
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#playbook">Playbook</a></li>
+      <li><a href="#foundation">Foundation</a></li>
+      <li><a href="#fees">Fees</a></li>
+      <li><a href="#shield">Protection</a></li>
+      <li><a href="#readiness">Readiness</a></li>
+    </ul>
+    <a class="btn btn-gold nav-cta mag" href="#readiness">Check readiness</a>
+    <button class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14" stroke="#F5EFE0" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="nav-progress" id="navProgress"></div>
+</header>
+
+<main id="main">
+
+<!-- 1. HERO -->
+<section class="hero" id="hero" aria-labelledby="heroTitle">
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Full Circle Financial Group · Phoenix, Arizona</p>
+      <h1 id="heroTitle">Build the plan you were <em>never handed.</em></h1>
+      <p class="lede">Business credit and funding for entrepreneurs who want to grow the right way. We challenge what's inaccurate, build what's missing, connect you with lenders when you're ready, and help protect what you built. In that order.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold mag" href="#readiness">Check my funding readiness
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-ghost mag" href="#playbook">See the playbook</a>
+      </div>
+      <div class="founder"><i></i><span>Founded by <b>Breyon Miller</b>, Financial Architect</span></div>
+      <div class="scroll-cue" aria-hidden="true"><span></span>Scroll to close the circle</div>
+    </div>
+
+    <div class="ring-wrap" id="ringWrap">
+      <svg viewBox="0 0 500 500" role="img" aria-labelledby="ringTitle">
+        <title id="ringTitle">The Full Circle: Fix it, Build it, Fund it, Protect it</title>
+        <defs>
+          <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#E6C873"/><stop offset=".55" stop-color="#C9A646"/><stop offset="1" stop-color="#E6C873"/>
+          </linearGradient>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <g id="ticks"></g>
+        <circle class="ring-track" cx="250" cy="250" r="200"/>
+        <circle class="ring-draw" id="ringDraw" cx="250" cy="250" r="200" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" transform="rotate(-90 250 250)"/>
+        <g id="quads"></g>
+        <g class="ring-center" text-anchor="middle">
+          <text class="rc1" x="250" y="236" id="rcSub">FULL</text>
+          <text class="rc2" x="250" y="279" id="rcMain">Circle</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ORIGIN -->
+<section class="sec origin" id="story" aria-labelledby="storyTitle">
+  <div class="origin-stage" id="originStage"><div class="origin-sticky wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The origin</p>
+      <h2 id="storyTitle">The day the game ended</h2>
+    </div>
+    <div class="court" id="originCourt">
+      <svg viewBox="0 0 800 420" role="img" aria-labelledby="originSvgT">
+        <title id="originSvgT">A basketball shot arcs toward the rim and misses. The arc then redraws as a blueprint line that climbs through four steps: Fix, Build, Fund, Protect.</title>
+        <defs>
+          <radialGradient id="gBall" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#F0B86A"/><stop offset="1" stop-color="#B8641E"/></radialGradient>
+        </defs>
+        <g class="bp-grid" id="bpGrid"></g>
+        <line x1="20" y1="380" x2="780" y2="380" stroke="rgba(233,227,210,.25)" stroke-width="2"/>
+        <g class="hoop">
+          <line x1="712" y1="110" x2="712" y2="240"/>
+          <line x1="712" y1="200" x2="698" y2="200"/>
+          <path d="M630 200 L698 200"/>
+          <path class="net" d="M632 202 L644 246 M650 202 L656 246 M666 202 L666 246 M682 202 L676 246 M696 202 L688 246 M640 224 L692 224 M644 246 L688 246"/>
+          <line x1="712" y1="240" x2="712" y2="380" stroke-width="5"/>
+        </g>
+        <path id="shotPath" class="shot-solid" d="M110 330 Q 360 -40 640 196 Q 600 130 540 380"/>
+        <text class="miss" id="missTxt" x="420" y="300" text-anchor="middle">NO PLAN</text>
+        <path id="bluePath" class="blue" d="M110 330 L230 330 L230 265 L360 265 L360 195 L490 195 L490 110 L585 110"/>
+        <g class="node" data-at=".22"><circle cx="230" cy="330" r="9"/><text x="230" y="366" text-anchor="middle">FIX</text></g>
+        <g class="node" data-at=".5"><circle cx="360" cy="265" r="9"/><text x="360" y="301" text-anchor="middle">BUILD</text></g>
+        <g class="node" data-at=".76"><circle cx="490" cy="195" r="9"/><text x="490" y="231" text-anchor="middle">FUND</text></g>
+        <g class="node" data-at=".98"><circle cx="585" cy="110" r="11"/><text x="585" y="84" text-anchor="middle">PROTECT</text></g>
+        <g id="ball" transform="translate(110 330)">
+          <circle r="15" fill="url(#gBall)"/>
+          <path class="ball-seam" d="M-15 0 H15 M0 -15 V15 M-10 -11 Q-4 0 -10 11 M10 -11 Q4 0 10 11"/>
+        </g>
+      </svg>
+    </div>
+    <div class="origin-grid">
+      <div class="beat" data-b="0"><span class="k">The shot</span><p>Breyon Miller played professional basketball. Then, earlier than he planned, the game ended.</p></div>
+      <div class="beat" data-b="1"><span class="k">The miss</span><p>There was no plan for what came next. Nobody had handed him one.</p></div>
+      <div class="beat" data-b="2"><span class="k">The blueprint</span><p>So he built one. Credit, structure, funding, protection, in that order. Now he hands that plan to business owners.</p></div>
+    </div>
+  </div></div>
+  <div class="wrap">
+    <div class="sig rv"><b>Breyon Miller</b><span>Founder · Financial Architect · Full Circle Financial Group</span></div>
+  </div>
+</section>
+
+<!-- 3. PLAYBOOK -->
+<section class="sec" id="playbook" aria-labelledby="pbTitle">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">The playbook</p>
+      <h2 id="pbTitle">Four plays. Run them in order.</h2>
+      <p class="lede">Every play has a job. Tap a play to see what happens, what you bring and what you leave with.</p>
+    </div>
+    <div class="pb">
+      <div class="board tilt rv">
+        <svg viewBox="0 0 600 430" role="img" aria-labelledby="boardT">
+          <title id="boardT">Coach's whiteboard showing the current play</title>
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#E6C873"/></marker>
+          </defs>
+          <g>
+            <rect class="court-line" x="20" y="20" width="560" height="390" rx="4"/>
+            <rect class="court-line" x="225" y="20" width="150" height="190"/>
+            <path class="court-line" d="M240 210 A60 60 0 0 0 360 210"/>
+            <path class="court-line" d="M240 210 A60 60 0 0 1 360 210" stroke-dasharray="8 8"/>
+            <path class="court-line" d="M60 20 L60 100 A245 245 0 0 0 540 100 L540 20"/>
+            <circle class="court-line" cx="300" cy="62" r="11"/>
+            <line class="court-line" x1="270" y1="44" x2="330" y2="44"/>
+            <path class="court-line" d="M240 410 A60 60 0 0 1 360 410"/>
+          </g>
+          <text x="40" y="398" style="font:800 13px var(--f-body);letter-spacing:.2em;fill:rgba(233,227,210,.4)" id="boardTag">PLAY 1 · FIX IT</text>
+          <g id="play"></g>
+        </svg>
+        <ol class="board-notes" id="boardNotes" aria-label="Steps in this play"></ol>
+        <div class="board-legend"><span><b>O</b> you and your team</span><span><b>X</b> what stands in the way</span><span><b>&#8594;</b> your next move</span></div>
+      </div>
+
+      <div class="rv">
+        <div class="plays" role="tablist" aria-label="Plays" id="playTabs"></div>
+        <div class="play-card" id="playPanel" role="tabpanel" tabindex="0"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. FOUNDATION -->
+<section class="sec found" id="foundation" aria-labelledby="fdTitle">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Stack your foundation</p>
+      <h2 id="fdTitle">Check what you already have.</h2>
+      <p class="lede">Lenders look at the business before the money. Check off what's in place and watch the foundation stack.</p>
+    </div>
+    <div class="fd">
+      <ul class="checks rv" id="checks"></ul>
+      <div class="tower-card tilt rv">
+        <div class="tower" id="tower">
+          <svg viewBox="0 0 300 380" role="img" aria-labelledby="towerT">
+            <title id="towerT">Foundation tower. Each checked item fills one block.</title>
+            <defs>
+              <linearGradient id="gBlock" x1="0" x2="1"><stop offset="0" stop-color="#C9A646"/><stop offset="1" stop-color="#E6C873"/></linearGradient>
+            </defs>
+            <circle class="cap" cx="150" cy="38" r="22" pathLength="100" transform="rotate(-90 150 38)"/>
+            <g id="blocks"></g>
+          </svg>
+        </div>
+        <div class="meter" aria-live="polite">
+          <div class="meter-top"><b id="rdPct">0%</b><span id="rdMsg">Start with the foundation.</span></div>
+          <div class="bar"><i id="rdBar"></i></div>
+        </div>
+        <p class="fine">This is a self-check, not an approval prediction. Lenders set their own criteria, and approval and amounts are never guaranteed. Nothing you check here is saved or sent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. FEES -->
+<section class="sec fees" id="fees" aria-labelledby="feeTitle">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Fee transparency</p>
+      <h2 id="feeTitle">See the funding fee before anything happens.</h2>
+      <p class="lede">Move the sliders to see the funding success fee on an approved amount. The fee is capped at $10,000.</p>
+    </div>
+    <div class="calc tilt rv">
+      <div>
+        <div class="ctl">
+          <div class="ctl-top"><label for="amt">Funded amount</label><output id="amtOut" for="amt">$100,000</output></div>
+          <input type="range" id="amt" min="10000" max="500000" step="5000" value="100000">
+          <div class="ticks-row" aria-hidden="true"><span>$10K</span><span>$250K</span><span>$500K</span></div>
+        </div>
+        <div class="ctl">
+          <div class="ctl-top"><label for="rate">Success fee rate</label><output id="rateOut" for="rate">7.5%</output></div>
+          <input type="range" id="rate" min="5" max="10" step="0.5" value="7.5">
+          <div class="ticks-row" aria-hidden="true"><span>5%</span><span>7.5%</span><span>10%</span></div>
+        </div>
+        <div class="fee-rules">
+          <p>The funding success fee is invoiced only after your funds are received, and only on the amount you accept. Every product, hard inquiry and fee is disclosed in writing before you apply. Approval and amounts are never guaranteed.</p>
+          <p>Personal credit repair is never billed upfront. You pay only as the law allows, after the work is done, as spelled out in your written agreement. Credit repair and business credit fees are quoted in writing before you sign.</p>
+        </div>
+      </div>
+      <div class="calc-right">
+        <div class="gauge">
+          <svg viewBox="0 0 240 240" aria-hidden="true">
+            <defs><linearGradient id="gGold2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6C873"/><stop offset="1" stop-color="#C9A646"/></linearGradient></defs>
+            <circle class="g-track" cx="120" cy="120" r="96"/>
+            <circle class="g-val" id="gVal" cx="120" cy="120" r="96" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" transform="rotate(-90 120 120)"/>
+          </svg>
+          <div class="g-txt" aria-live="polite">
+            <small>Success fee</small>
+            <b id="feeOut">$7,500</b>
+            <span id="feeSub">of the $10,000 cap</span>
+          </div>
+        </div>
+        <p class="capnote" id="capNote"></p>
+        <p class="fine" style="text-align:center">The ring shows the fee against the $10,000 cap. It does not show any other cost. Any lender costs are disclosed in writing before you apply.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 5b. ASSET PROTECTION SHIELD -->
+<section class="sec shield" id="shield" aria-labelledby="shTitle">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Asset protection</p>
+      <h2 id="shTitle">Four layers between a bad day and your family.</h2>
+      <p class="lede">Structure, tax strategy, life insurance and an estate plan each stop a different kind of risk. Pick a risk to see which layer catches it. Switch a layer off to see what gets through.</p>
+    </div>
+    <div class="sh">
+      <div class="sh-main rv">
+        <p class="threat-k" id="threatK">Pick a risk</p>
+        <div class="threats" id="threats" role="group" aria-labelledby="threatK"></div>
+        <div class="shield-fig">
+          <svg viewBox="0 0 640 640" role="img" aria-labelledby="shSvgT shSvgD" id="shSvg">
+            <title id="shSvgT">Asset protection rings</title>
+            <desc id="shSvgD">Four rings surround your family and wealth. From the outside in: entity structure, tax strategy, life insurance and estate plan. A risk arrives from outside and stops at the ring built for it.</desc>
+            <defs>
+              <filter id="shGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <marker id="shHead" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#E08A7A"/></marker>
+            </defs>
+            <g id="shTicks"></g>
+            <g id="shLayers"></g>
+            <g class="core" id="shCore">
+              <circle cx="320" cy="320" r="58"/>
+              <text x="320" y="310" text-anchor="middle">YOUR</text>
+              <text x="320" y="329" text-anchor="middle">FAMILY</text>
+              <text class="c2" x="320" y="348" text-anchor="middle" id="coreSub">&amp; WEALTH</text>
+            </g>
+            <path class="bolt" id="shBolt" d="M0 0" marker-end="url(#shHead)"/>
+            <circle class="ring-pulse" id="shPulse" cx="0" cy="0" r="6"/>
+            <circle class="impact" id="shImpact" cx="0" cy="0" r="6"/>
+          </svg>
+        </div>
+        <p class="fine">Tap a ring to see what's inside it.</p>
+      </div>
+      <div class="sh-side rv">
+        <div class="score" aria-live="polite">
+          <div class="score-top"><b id="shCount">6 of 6</b><span id="shMsg">risks covered by the layers you have on</span></div>
+          <div class="segs" id="shSegs" aria-hidden="true"></div>
+        </div>
+        <ul class="layers" id="shSwitches" aria-label="Protection layers"></ul>
+        <div class="sh-card" id="shCard" aria-live="polite"></div>
+      </div>
+    </div>
+    <p class="fine" style="margin-top:22px;max-width:90ch">This diagram is educational, not legal or tax advice. Estate planning documents are prepared by a licensed attorney, and tax strategies are reviewed with a CPA or other tax professional. Life insurance is optional, subject to underwriting and approval, and never a condition of any credit or funding service. An entity only protects you when it's set up and run correctly, and no structure makes anyone lawsuit-proof.</p>
+  </div>
+</section>
+
+<!-- 6. QUIZ -->
+<section class="sec" id="readiness" aria-labelledby="qzTitle">
+  <div class="wrap quiz">
+    <div class="qside rv">
+      <p class="eyebrow">Funding readiness</p>
+      <h2 id="qzTitle" style="font-size:clamp(1.9rem,4vw,2.9rem)">Where do you stand today?</h2>
+      <p class="lede">Six questions, about a minute. You get a readiness band and the next steps that fit it.</p>
+      <div class="qprog" id="qprog" aria-hidden="true"></div>
+      <p class="fine">Nothing is sent anywhere from this page, and the page stores no answers. Your band is a self-check, not an approval prediction.</p>
+    </div>
+    <div class="qcard" id="qcard" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 7. WHY IT MATTERS -->
+<section class="why" aria-labelledby="whyTitle">
+  <h2 id="whyTitle" class="wrap" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Why it matters</h2>
+  <div class="wrap why-grid">
+    <div class="why-item rv">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="#C9A646" stroke-width="2"/><path d="M14 24c4 4 12 4 16 0" fill="none" stroke="#E6C873" stroke-width="2" stroke-linecap="round"/><circle cx="22" cy="16" r="3" fill="#E6C873"/></svg>
+      <h3>Stewardship</h3>
+      <p>Money is something you're trusted with. Be faithful with a little and you're ready for more.</p>
+    </div>
+    <div class="why-item rv">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M8 34h28M12 34V22M22 34V14M32 34V8" fill="none" stroke="#C9A646" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <h3>Order before money</h3>
+      <p>Funding on a shaky foundation magnifies the cracks. Structure comes first.</p>
+    </div>
+    <div class="why-item rv">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(245,239,224,.15)" stroke-width="2"/><path d="M22 4 A18 18 0 1 1 4 22" fill="none" stroke="#C9A646" stroke-width="2.2" stroke-linecap="round"/><circle cx="4" cy="22" r="3" fill="#E6C873"/></svg>
+      <h3>Build in order</h3>
+      <p>Fix, build, fund, protect. Each step holds up the next one. Play 4 is optional: insurance is never a condition of any credit or funding service.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. RESULTS -->
+<section class="sec" id="results" aria-labelledby="resTitle">
+  <div class="wrap">
+    <div class="res-card rv">
+      <svg viewBox="0 0 110 110" aria-hidden="true">
+        <circle cx="55" cy="55" r="46" fill="none" stroke="#C9A646" stroke-width="2"/>
+        <circle cx="55" cy="55" r="36" fill="none" stroke="rgba(230,200,115,.4)" stroke-width="1" stroke-dasharray="3 4"/>
+        <path d="M38 50h34v24H38z M44 50v-8a11 11 0 0 1 22 0v8" fill="none" stroke="#E6C873" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle cx="55" cy="61" r="3" fill="#E6C873"/>
+      </svg>
+      <div>
+        <p class="eyebrow" style="margin-bottom:10px">Results</p>
+        <h2 id="resTitle">Client stories stay private until they say otherwise.</h2>
+        <p>Client stories are shared only with written consent. Results vary. Not a guarantee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-brand">
+        <a class="brand" href="#hero">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#C9A646" stroke-width="2.4"/><circle cx="16" cy="16" r="5" fill="none" stroke="#E6C873" stroke-width="1.4" stroke-dasharray="2 2.2"/></svg>
+          Full Circle Financial Group
+        </a>
+        <p>Fix it. Build it. Fund it. Protect it.<br>Phoenix, Arizona</p>
+        <a class="btn btn-ghost" href="#readiness" style="justify-self:start;margin-top:8px">Check my funding readiness</a>
+        <nav aria-label="Learn more" style="display:grid;gap:6px;margin-top:14px">
+          <span style="font:600 11px/1 var(--sans,inherit);letter-spacing:.16em;text-transform:uppercase;color:var(--gold)">Learn more</span>
+          <a target="_top" href="https://claude.ai/artifact/5WPY4yXLWMvJMu6y8X11r2" style="color:var(--cream)">Every service, in order</a>
+          <a target="_top" href="https://claude.ai/artifact/VzWXR7cpfUDvBWttJPpJ3i" style="color:var(--cream)">Personal credit &amp; your rights</a>
+          <a target="_top" href="https://claude.ai/artifact/VSSdNMJtg2xVFYtV33vavL" style="color:var(--cream)">Business structure</a>
+          <a target="_top" href="https://claude.ai/artifact/PhfbCSQBsNhRc1yoJ9EUSg" style="color:var(--cream)">Business credit</a>
+          <a target="_top" href="https://claude.ai/artifact/FsxZwfNya2fjfBMoH9qKge" style="color:var(--cream)">Life insurance</a>
+        </nav>
+      </div>
+      <div>
+        <ul class="disc">
+          <li>Results vary. Not a guarantee.</li>
+          <li>You have the right to dispute inaccurate information on your credit report yourself, for free, with the credit bureaus.</li>
+          <li>FCFG does not guarantee any score change, deletion, approval, funding amount or timeline.</li>
+          <li>Life insurance is offered through [Producer name], a licensed Arizona insurance producer, License # [number]. Insurance is optional and never a condition of any credit or funding service. PAYDEX is a trademark of Dun &amp; Bradstreet.</li>
+          <li>Estate planning documents are prepared by a licensed attorney. Tax strategies are reviewed with a CPA or other tax professional.</li>
+          <li>This site is not legal, tax or financial advice.</li>
+          <li>Full Circle Financial Group · Phoenix, Arizona</li>
+        </ul>
+        <div class="privacy" id="privacy">
+          <h3>Privacy note</h3>
+          <p>This page does not save your checklist, quiz answers or contact details, and it doesn't send your answers to FCFG. Fonts load from Google. When you tap "Book your strategy call", your name, email, phone and text/call choice are added to the booking link so you don't have to type them again. The booking page's own privacy policy applies there.</p>
+          <p>Checking the optional consent box means FCFG may call or text you, including by automated means, about your request. Consent isn't required to book or buy. Msg frequency varies; msg and data rates may apply. Reply STOP to opt out at any time.</p>
+        </div>
+      </div>
+    </div>
+    <div class="copy"><span>&copy; <span id="yr">2026</span> Full Circle Financial Group</span><span>Phoenix, Arizona</span></div>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================
+   BOOKING LINK: REPLACE THIS PLACEHOLDER BEFORE GOING LIVE.
+   Paste the real scheduling URL (Calendly, GHL, etc.).
+   Name, email and phone are appended as ?name=&email=&phone=
+   ========================================================== */
+const BOOKING_URL = "https://YOUR-BOOKING-LINK"; // <-- PLACEHOLDER
+
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const NS = "http://www.w3.org/2000/svg";
+const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+let reduce = mq.matches;
+const fine = window.matchMedia("(pointer: fine)").matches;
+const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
+const el = (tag, attrs={}, parent) => { const n=document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+try { $("#yr").textContent = new Date().getFullYear(); } catch(e) {}
+
+/* ---------- NAV ---------- */
+const menuBtn = $("#navMenu"), links = $("#navLinks");
+menuBtn.addEventListener("click", () => {
+  const open = links.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+});
+$$("a", links).forEach(a => a.addEventListener("click", () => { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded","false"); }));
+const navMap = {}; $$("a", links).forEach(a => navMap[a.getAttribute("href").slice(1)] = a);
+const secObs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) { Object.values(navMap).forEach(a => a.classList.remove("on")); const a = navMap[e.target.id]; if (a) a.classList.add("on"); } });
+}, { rootMargin: "-45% 0px -50% 0px" });
+["story","playbook","foundation","fees","shield","readiness"].forEach(id => secObs.observe(document.getElementById(id)));
+
+/* ---------- HERO RING ---------- */
+const ticks = $("#ticks");
+for (let i=0;i<72;i++){
+  const a = (i/72)*Math.PI*2 - Math.PI/2, major = i%18===0;
+  const r1 = major?168:176, r2 = 186;
+  el("line",{class:"tick"+(major?" major":""),x1:250+r1*Math.cos(a),y1:250+r1*Math.sin(a),x2:250+r2*Math.cos(a),y2:250+r2*Math.sin(a)},ticks);
+}
+const QUADS = [
+  {n:"I",t:"Fix it",s:"PERSONAL CREDIT",play:0},
+  {n:"II",t:"Build it",s:"BUSINESS CREDIT",play:1},
+  {n:"III",t:"Fund it",s:"FUNDING",play:2},
+  {n:"IV",t:"Protect it",s:"WEALTH PROTECTION",play:3}
+];
+const quadG = $("#quads"), quadEls = [], labelEls = [];
+const polar = (r, deg) => { const a = (deg-90)*Math.PI/180; return [250+r*Math.cos(a), 250+r*Math.sin(a)]; };
+QUADS.forEach((q,i) => {
+  const a0 = i*90+4, a1 = (i+1)*90-4, R = 222;
+  const [x0,y0] = polar(R,a0), [x1,y1] = polar(R,a1);
+  quadEls.push(el("path",{class:"quad",d:`M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1}`},quadG));
+  const mid = i*90+45, [lx,ly] = polar(130, mid);
+  const g = el("g",{class:"qlabel",tabindex:"0",role:"button","aria-label":`${q.t}: ${q.s.toLowerCase()}. Open play ${i+1}`},quadG);
+  el("rect",{class:"qhit",x:lx-78,y:ly-40,width:156,height:80,rx:10},g);
+  const t1 = el("text",{class:"qn",x:lx,y:ly-22,"text-anchor":"middle"},g); t1.textContent = q.n;
+  const t2 = el("text",{class:"qt",x:lx,y:ly+8,"text-anchor":"middle"},g); t2.textContent = q.t;
+  const t3 = el("text",{class:"qs",x:lx,y:ly+28,"text-anchor":"middle"},g); t3.textContent = q.s;
+  const go = () => { setPlay(q.play, true); document.getElementById("playbook").scrollIntoView({behavior: reduce?"auto":"smooth"}); };
+  g.addEventListener("click", go);
+  g.addEventListener("keydown", e => { if (e.key==="Enter"||e.key===" ") { e.preventDefault(); go(); } });
+  labelEls.push(g);
+});
+// The ring center labels sit at 122 from center on diagonals; keep center text compact.
+const ringDraw = $("#ringDraw"), ringWrap = $("#ringWrap"), hero = $("#hero");
+let intro = reduce ? 1 : 0, ringP = -1;
+function ringProgress(){
+  if (reduce) return 1;
+  const h = hero.offsetHeight;
+  const s = clamp(window.scrollY / (h*0.75), 0, 1);
+  return clamp(Math.max(intro, s > 0 ? 0.27 + s*0.73 : 0), 0, 1);
+}
+function paintRing(){
+  const p = ringProgress();
+  if (Math.abs(p-ringP) < 0.0005) return;
+  ringP = p;
+  ringDraw.setAttribute("stroke-dashoffset", (100*(1-p)).toFixed(2));
+  QUADS.forEach((q,i) => {
+    const lit = p >= (i+1)*0.25 - 0.012;
+    quadEls[i].classList.toggle("lit", lit);
+    labelEls[i].classList.toggle("lit", lit);
+  });
+  const done = p >= 0.995;
+  ringWrap.classList.toggle("complete", done);
+  $("#rcSub").textContent = done ? "CLOSED" : "FULL";
+}
+if (!reduce){
+  const t0 = performance.now();
+  (function anim(t){
+    const k = clamp((t-t0)/1600, 0, 1);
+    intro = 0.27 * (1-Math.pow(1-k,3));
+    ringP = -1; paintRing();
+    if (k<1) requestAnimationFrame(anim); else intro = 0.27;
+  })(t0);
+} else paintRing();
+
+/* ---------- GOLD DUST CANVAS ---------- */
+const cv = $("#dust"), cx = cv.getContext("2d");
+let W=0,H=0,dpr=1, parts=[], pointer={x:-9999,y:-9999,active:false}, dustOn=true, dustRAF=0;
+function sizeCanvas(){
+  const r = hero.getBoundingClientRect();
+  dpr = Math.min(window.devicePixelRatio||1, 2);
+  W = r.width; H = r.height;
+  cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+  cx.setTransform(dpr,0,0,dpr,0,0);
+  const count = Math.round(clamp(W*H/9000, 40, 150));
+  parts = Array.from({length:count}, () => ({
+    x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.15, vy:-(.05+Math.random()*.22),
+    r:.5+Math.random()*1.7, a:.15+Math.random()*.55, tw:Math.random()*Math.PI*2
+  }));
+  if (reduce) drawDust(0, true);
+}
+function drawDust(t, still){
+  cx.clearRect(0,0,W,H);
+  for (const p of parts){
+    if (!still){
+      const dx = p.x-pointer.x, dy = p.y-pointer.y, d2 = dx*dx+dy*dy;
+      if (d2 < 18000){ const d = Math.sqrt(d2)||1, f = (1 - d/134)*0.6; p.vx += dx/d*f*.12; p.vy += dy/d*f*.12; }
+      p.vx *= .965; p.vy = p.vy*.965 - .006;
+      p.x += p.vx; p.y += p.vy; p.tw += .02;
+      if (p.y < -10){ p.y = H+10; p.x = Math.random()*W; }
+      if (p.x < -10) p.x = W+10; if (p.x > W+10) p.x = -10; if (p.y > H+12) p.y = -8;
+    }
+    const tw = .65 + .35*Math.sin(p.tw);
+    cx.globalAlpha = p.a*tw;
+    cx.fillStyle = p.r > 1.6 ? "#E6C873" : "#C9A646";
+    cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2); cx.fill();
+  }
+  cx.globalAlpha = 1;
+}
+function loopDust(t){ drawDust(t); dustRAF = dustOn ? requestAnimationFrame(loopDust) : 0; }
+sizeCanvas();
+if (!reduce){
+  new IntersectionObserver(es => { dustOn = es[0].isIntersecting && !document.hidden; if (dustOn && !dustRAF) dustRAF = requestAnimationFrame(loopDust); }).observe(hero);
+  document.addEventListener("visibilitychange", () => { dustOn = !document.hidden; if (dustOn && !dustRAF) dustRAF = requestAnimationFrame(loopDust); });
+  const setP = (x,y) => { const r = hero.getBoundingClientRect(); pointer.x = x-r.left; pointer.y = y-r.top; };
+  hero.addEventListener("pointermove", e => setP(e.clientX,e.clientY), {passive:true});
+  hero.addEventListener("pointerdown", e => setP(e.clientX,e.clientY), {passive:true});
+  hero.addEventListener("pointerleave", () => { pointer.x = pointer.y = -9999; });
+  hero.addEventListener("touchend", () => { setTimeout(() => { pointer.x = pointer.y = -9999; }, 400); }, {passive:true});
+}
+let rsT; window.addEventListener("resize", () => { clearTimeout(rsT); rsT = setTimeout(() => { sizeCanvas(); setupOrigin(); paintAll(); }, 150); });
+
+/* ---------- ORIGIN: SHOT ARC -> BLUEPRINT ---------- */
+const shot = $("#shotPath"), blue = $("#bluePath"), ball = $("#ball"), grid = $("#bpGrid"), court = $("#originCourt");
+const nodes = $$(".node", court), beats = $$(".beat"), missTxt = $("#missTxt");
+for (let x=40;x<800;x+=40) el("line",{x1:x,y1:0,x2:x,y2:420},grid);
+for (let y=20;y<420;y+=40) el("line",{x1:0,y1:y,x2:800,y2:y},grid);
+let shotLen=0, blueLen=0;
+function setupOrigin(){
+  shotLen = shot.getTotalLength(); blueLen = blue.getTotalLength();
+  shot.style.strokeDasharray = shotLen; blue.style.strokeDasharray = blueLen;
+}
+setupOrigin();
+function originProgress(){
+  if (reduce) return 1;
+  // Progress runs while the sticky stage is pinned under the nav.
+  const st = $("#originStage").getBoundingClientRect(), vh = window.innerHeight, top = 64;
+  const run = st.height - (vh - top);
+  return run > 0 ? clamp((top - st.top) / run, 0, 1) : 1;
+}
+function paintOrigin(){
+  const p = originProgress();
+  const s = clamp(p/0.5, 0, 1), b = clamp((p-0.55)/0.45, 0, 1);
+  shot.style.strokeDashoffset = shotLen*(1-s);
+  const pt = shot.getPointAtLength(shotLen*s);
+  ball.setAttribute("transform", `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)}) rotate(${(s*540).toFixed(0)})`);
+  ball.style.opacity = p > 0.52 ? clamp(1-(p-0.52)/0.08,0,1) : 1;
+  shot.style.opacity = p > 0.5 ? 1 - 0.75*clamp((p-0.5)/0.2,0,1) : 1;
+  shot.setAttribute("class", p > 0.5 ? "shot" : "shot-solid");
+  if (p > 0.5) shot.style.strokeDasharray = ""; else shot.style.strokeDasharray = shotLen;
+  missTxt.style.opacity = (s>0.62 && b<0.15) ? 1 : 0;
+  grid.style.opacity = b;
+  blue.style.strokeDashoffset = blueLen*(1-b);
+  nodes.forEach(n => n.classList.toggle("on", b >= parseFloat(n.dataset.at)));
+  const beat = p < 0.34 ? 0 : (p < 0.62 ? 1 : 2);
+  beats.forEach((el,i) => el.classList.toggle("on", reduce ? true : i <= beat && (i === beat || p>=0.98)));
+}
+
+/* ---------- PLAYBOOK ---------- */
+const PLAYS = [
+  { key:"Fix", title:"Fix it", tag:"PLAY 1 · FIX IT",
+    happens:"We go through your personal credit reports from all three bureaus with you. We dispute only what's inaccurate, incomplete or can't be verified. Accurate information stays.",
+    bring:["Current copies of your three credit reports","A photo ID and proof of address","Straight answers about your history"],
+    leave:"A clear read on your profile and a written list of what's being disputed and why.",
+    board:{ o:[[300,350,"YOU"],[140,250,""],[460,250,""]], x:[[250,180,"ERROR"],[400,190,"ERROR"]],
+      arrows:[["M300 335 Q210 320 158 266",""],["M300 335 Q390 320 442 266",""],["M150 232 L172 214 L160 198 L190 178 L182 160 L232 112 L282 76","zig"]],
+      notes:[[110,300,"Pull all three reports"],[490,300,"Flag what's wrong"],[340,100,"Dispute only what's inaccurate"]] } },
+  { key:"Build", title:"Build it", tag:"PLAY 2 · BUILD IT",
+    happens:"We set the business up so lenders see a real company. That means an LLC in good standing, an EIN, a business address, phone and bank account, a D-U-N-S number, and vendor accounts that report to the business bureaus so a PAYDEX score can form.",
+    bring:["Your entity documents, or a plan to form the LLC","Your EIN letter, if you have one","A few minutes each month to pay vendors on time"],
+    leave:"A business credit profile built under your EIN, plus a step-by-step build order.",
+    board:{ o:[[110,330,"LLC"],[230,260,"EIN"],[370,260,"BANK"],[490,330,"D-U-N-S"],[300,150,""]], x:[[300,330,"NO FILE"]],
+      arrows:[["M126 318 L212 270",""],["M250 260 L350 260","pass"],["M386 272 L472 320",""],["M480 312 Q440 190 318 156",""],["M300 132 L300 82","zig"]],
+      notes:[[80,300,"Structure the entity"],[300,232,"Set up the business identity"],[520,300,"Add vendors that report"]] } },
+  { key:"Fund", title:"Fund it", tag:"PLAY 3 · FUND IT",
+    happens:"We match your profile to lenders that fit it. Before you apply, every product, hard inquiry and fee is disclosed in writing. If an offer has a 0% intro rate, we explain when it ends and what the rate becomes. Some options may not require a personal guarantee, where lenders allow.",
+    bring:["Recent business bank statements","Your revenue picture","What the money is for"],
+    leave:"A written funding plan. You decide which applications go out. Approval and amounts are never guaranteed.",
+    board:{ o:[[300,340,"YOU"],[150,200,"A"],[300,230,"B"],[450,200,"C"]], x:[[165,315,"FINE PRINT"],[435,315,"SURPRISE FEES"]],
+      arrows:[["M290 324 Q200 280 160 216",""],["M300 322 L300 250",""],["M310 324 Q400 280 440 216",""],["M300 212 L300 84","pass"]],
+      notes:[[110,160,"Match lenders to your profile"],[490,160,"Every fee and inquiry in writing"],[334,130,"You choose what goes out"]] } },
+  { key:"Protect", title:"Protect it", tag:"PLAY 4 · PROTECT IT",
+    happens:"Protection runs in layers. Life insurance can help cover your family and the business if something happens to you. An estate plan, prepared by a licensed attorney, decides who receives what and who's in charge. Tax strategy, reviewed with a CPA, keeps more of what the business earns. Insurance is subject to underwriting, offered through a licensed Arizona producer, and always optional.",
+    bring:["Who depends on you","What the business owes and who would carry it","Your last tax return and any will or trust you already have"],
+    leave:"A protection plan that lines up your coverage, estate documents and tax strategy, explained in plain words so you can choose what fits.",
+    board:{ o:[[300,250,"YOU"],[200,320,"FAMILY"],[400,320,"BUSINESS"]], x:[[130,170,"THE UNEXPECTED"],[470,170,"DEBT"]],
+      arrows:[["M300 112 C 170 112 140 260 196 300",""],["M300 112 C 430 112 460 260 404 300",""],["M300 230 L300 130","zig"]],
+      notes:[[350,250,"Name who depends on you"],[300,96,"Cover the family and the business"],[300,375,"Close the circle"]] } }
+];
+const boardNotes = $("#boardNotes"), tabsEl = $("#playTabs"), panel = $("#playPanel"), playG = $("#play"), boardTag = $("#boardTag");
+let cur = 0;
+PLAYS.forEach((p,i) => {
+  const b = document.createElement("button");
+  b.className = "play-tab"; b.id = "tab"+i; b.setAttribute("role","tab"); b.setAttribute("aria-controls","playPanel");
+  b.innerHTML = `<small>Play ${i+1}</small><span>${p.key}</span>`;
+  b.addEventListener("click", () => setPlay(i, true));
+  b.addEventListener("keydown", e => {
+    let n = null;
+    if (e.key==="ArrowRight"||e.key==="ArrowDown") n = (i+1)%4;
+    if (e.key==="ArrowLeft"||e.key==="ArrowUp") n = (i+3)%4;
+    if (e.key==="Home") n = 0; if (e.key==="End") n = 3;
+    if (n!==null){ e.preventDefault(); setPlay(n, true); $("#tab"+n).focus(); }
+  });
+  tabsEl.appendChild(b);
+});
+function zigify(d){ return d; }
+function drawBoard(p){
+  playG.innerHTML = "";
+  boardTag.textContent = p.tag;
+  const B = p.board; let delay = 0;
+  B.x.forEach(([x,y,l]) => {
+    const g = el("g",{class:"mk mk-x",style:`animation-delay:${delay}ms`},playG); delay += 60;
+    el("path",{d:`M${x-11} ${y-11} L${x+11} ${y+11} M${x+11} ${y-11} L${x-11} ${y+11}`},g);
+    if (l){ const t = el("text",{x:x,y:y+30,"text-anchor":"middle"},g); t.textContent = l; }
+  });
+  B.o.forEach(([x,y,l]) => {
+    const g = el("g",{class:"mk mk-o",style:`animation-delay:${delay}ms`},playG); delay += 60;
+    el("circle",{cx:x,cy:y,r:13},g);
+    if (l){ const t = el("text",{x:x,y:y+32,"text-anchor":"middle"},g); t.textContent = l; }
+  });
+  B.arrows.forEach(([d,kind],i) => {
+    const path = el("path",{class:"arrow",d:d},playG);
+    const len = path.getTotalLength();
+    if (kind==="pass"){
+      path.setAttribute("stroke-dasharray","9 9");
+      if (!reduce){ path.style.opacity = 0; path.style.transition = "opacity .5s"; setTimeout(() => { path.style.opacity = 1; path.setAttribute("marker-end","url(#ah)"); }, 300 + i*260); }
+      else path.setAttribute("marker-end","url(#ah)");
+    } else if (reduce){
+      path.setAttribute("marker-end","url(#ah)");
+    } else {
+      path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
+      path.style.animationDelay = (300 + i*260) + "ms";
+      path.classList.add("anim");
+      path.addEventListener("animationend", () => { path.style.strokeDasharray = "none"; path.setAttribute("marker-end","url(#ah)"); }, {once:true});
+    }
+  });
+  B.notes.forEach(([x,y],i) => {
+    const g = el("g",{class:"note",style:`animation-delay:${600 + i*200}ms`},playG);
+    el("circle",{class:"note-num",cx:x,cy:y,r:14},g);
+    const nn = el("text",{class:"note-num-t",x:x,y:y+5,"text-anchor":"middle"},g); nn.textContent = i+1;
+  });
+  boardNotes.innerHTML = B.notes.map(n => `<li>${n[2]}</li>`).join("");
+}
+function setPlay(i, user){
+  cur = i; const p = PLAYS[i];
+  $$(".play-tab").forEach((b,k) => { b.setAttribute("aria-selected", k===i); b.tabIndex = k===i ? 0 : -1; });
+  panel.setAttribute("aria-labelledby","tab"+i);
+  panel.innerHTML = `<div class="play-body" style="display:grid;gap:20px">
+    <div style="display:grid;gap:6px"><span class="eyebrow">Play ${i+1} of 4</span><h3>${p.title}</h3></div>
+    <div class="play-row"><h4>What happens</h4><p>${p.happens}</p></div>
+    <div class="play-row"><h4>What you bring</h4><ul>${p.bring.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+    <div class="play-row"><h4>What you leave with</h4><p>${p.leave}</p></div>
+  </div>
+  <div class="play-nav">
+    <button class="btn btn-ghost" id="pPrev" ${i===0?"disabled":""}>Previous play</button>
+    <span class="count">${i+1} / 4</span>
+    ${i<3 ? `<button class="btn btn-gold" id="pNext">Next play</button>` : `<a class="btn btn-gold" href="#readiness">Check readiness</a>`}
+  </div>`;
+  const pv = $("#pPrev"), nx = $("#pNext");
+  if (pv) pv.addEventListener("click", () => setPlay(Math.max(0,i-1), true));
+  if (nx) nx.addEventListener("click", () => setPlay(Math.min(3,i+1), true));
+  drawBoard(p);
+}
+setPlay(0);
+
+/* ---------- FOUNDATION CHECKLIST ---------- */
+const ITEMS = [
+  ["llc","LLC in good standing","Formed and current with the state","LLC"],
+  ["ein","EIN","Your business tax ID from the IRS","EIN"],
+  ["bank","Business bank account","Business money stays separate","BANK ACCOUNT"],
+  ["phone","Business phone and address","Listed and consistent everywhere","PHONE + ADDRESS"],
+  ["duns","D-U-N-S number","Your file with Dun & Bradstreet","D-U-N-S"],
+  ["vendors","3+ reporting vendors","Accounts that report your payments","3+ VENDORS"],
+  ["scores","Personal scores reviewed","You know where you stand","SCORES"]
+];
+const checksEl = $("#checks"), blocksG = $("#blocks"), towerEl = $("#tower");
+const blockEls = [];
+ITEMS.forEach(([id,t,s,short],i) => {
+  const li = document.createElement("li"); li.className = "check";
+  li.innerHTML = `<input type="checkbox" id="ck-${id}"><label for="ck-${id}"><span class="box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="t"><b>${t}</b><small>${s}</small></span></label>`;
+  checksEl.appendChild(li);
+  const w = 276 - i*20, h = 38, y = 336 - i*(h+4), x = 150 - w/2;
+  const g = el("g",{class:"blk"},blocksG);
+  el("rect",{class:"blk-bg",x,y,width:w,height:h,rx:4},g);
+  el("rect",{class:"blk-fill",x,y,width:w,height:h,rx:4},g);
+  const tx = el("text",{x:150,y:y+h/2+4,"text-anchor":"middle"},g); tx.textContent = short;
+  blockEls.push(g);
+});
+function paintChecks(){
+  let n = 0;
+  ITEMS.forEach(([id],i) => { const on = $("#ck-"+id).checked; if (on) n++; blockEls[i].classList.toggle("on", on); });
+  const pct = Math.round(n/ITEMS.length*100);
+  $("#rdPct").textContent = pct + "%";
+  $("#rdBar").style.width = pct + "%";
+  towerEl.classList.toggle("done", n===ITEMS.length);
+  $("#rdMsg").textContent = n===0 ? "Start with the foundation." : n<=2 ? "The first blocks are down." : n<=4 ? "It's taking shape." : n<=6 ? "Almost stacked." : "Foundation stacked. A review is the next step.";
+}
+checksEl.addEventListener("change", paintChecks);
+// Example state so the tower reads at a glance: two items pre-checked as a sample.
+
+paintChecks();
+
+/* ---------- FEE CALCULATOR ---------- */
+const amt = $("#amt"), rate = $("#rate"), CAP = 10000;
+const usd = n => "$" + Math.round(n).toLocaleString("en-US");
+function fillTrack(r){ r.style.setProperty("--p", ((r.value-r.min)/(r.max-r.min)*100) + "%"); }
+function paintFee(){
+  const A = +amt.value, R = +rate.value, raw = A*R/100, fee = Math.min(raw, CAP), capped = raw > CAP;
+  $("#amtOut").textContent = usd(A);
+  $("#rateOut").textContent = (R % 1 ? R.toFixed(1) : R) + "%";
+  $("#feeOut").textContent = usd(fee);
+  $("#feeSub").textContent = capped ? "capped at $10,000" : `${(fee/A*100).toFixed(1)}% of ${usd(A)}`;
+  $("#capNote").textContent = capped ? `At ${R}% the fee would be ${usd(raw)}. The cap holds it at $10,000.` : "";
+  $("#gVal").setAttribute("stroke-dashoffset", (100 - fee/CAP*100).toFixed(2));
+  amt.setAttribute("aria-valuetext", usd(A)); rate.setAttribute("aria-valuetext", R + " percent");
+  fillTrack(amt); fillTrack(rate);
+}
+amt.addEventListener("input", paintFee); rate.addEventListener("input", paintFee);
+paintFee();
+
+/* ---------- READINESS QUIZ ---------- */
+const QS = [
+  { id:"time", q:"How long has the business been operating?", o:[["Not started yet",0],["Under 6 months",1],["6 months to 2 years",2],["2 years or more",3]] },
+  { id:"rev", q:"What's your average monthly revenue?", o:[["No revenue yet",0],["Under $5,000",1],["$5,000 to $20,000",2],["Over $20,000",3]] },
+  { id:"score", q:"Roughly where are your personal credit scores?", o:[["Below 600",0],["600 to 679",1],["680 to 719",2],["720 or higher",3],["Not sure",1]] },
+  { id:"inq", q:"How many hard inquiries in the last 6 months?", o:[["0 to 2",3],["3 to 5",1],["6 or more",0],["Not sure",1]] },
+  { id:"entity", q:"Is your business entity set up?", o:[["Yes: LLC or corporation, EIN and business bank account",3],["Partly: the LLC exists but the rest isn't done",1],["Not yet",0]] },
+  { id:"goal", q:"What's your main goal right now?", o:[["Clean up my personal credit","fix"],["Build business credit","build"],["Get funding for the business","fund"],["Protect my family and business","protect"]] }
+];
+const answers = {};
+const qcard = $("#qcard"), qprog = $("#qprog");
+QS.forEach(() => qprog.appendChild(document.createElement("i")));
+qprog.appendChild(document.createElement("i"));
+let step = 0;
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function prog(n){ $$("i", qprog).forEach((x,i) => x.classList.toggle("on", i < n)); }
+function renderQ(i){
+  step = i; prog(i);
+  const q = QS[i];
+  qcard.innerHTML = `<div class="qstep">
+    <span class="qmeta">Question ${i+1} of ${QS.length}</span>
+    <fieldset><legend id="lg-${q.id}">${q.q}</legend>
+      ${q.o.map((o,k) => `<div class="opt"><input type="radio" name="q-${q.id}" id="q-${q.id}-${k}" value="${k}" ${answers[q.id]===k?"checked":""}><label for="q-${q.id}-${k}">${o[0]}</label></div>`).join("")}
+    </fieldset>
+    <div class="qnav">
+      <button class="btn btn-ghost" id="qBack" ${i===0?"disabled":""}>Back</button>
+      <button class="btn btn-gold" id="qNext" ${answers[q.id]===undefined?"disabled":""}>${i===QS.length-1?"See my band":"Next"}</button>
+    </div></div>`;
+  $$("input", qcard).forEach(inp => {
+    inp.addEventListener("change", () => { answers[q.id] = +inp.value; $("#qNext").disabled = false; });
+    inp.nextElementSibling.addEventListener("click", e => {
+      if (e.detail > 0) setTimeout(() => { if (answers[q.id] !== undefined && step === i) next(); }, reduce?0:260);
+    });
+  });
+  $("#qBack").addEventListener("click", () => { if (i>0) { renderQ(i-1); focusLegend(); } });
+  $("#qNext").addEventListener("click", next);
+}
+function focusLegend(){ const f = qcard.querySelector("input:checked") || qcard.querySelector("input"); if (f) f.focus({preventScroll:true}); }
+function next(){
+  const q = QS[step]; if (answers[q.id]===undefined) return;
+  if (step < QS.length-1) { renderQ(step+1); focusLegend(); } else renderResult();
+}
+function scoreBand(){
+  let s = 0; QS.slice(0,5).forEach(q => s += q.o[answers[q.id]][1]);
+  let band = s >= 12 ? 2 : s >= 7 ? 1 : 0;
+  // A missing entity or a low score holds the band below "ready", whatever the total.
+  if (band === 2 && (answers.entity === 2 || answers.score === 0)) band = 1;
+  return {s, band};
+}
+const BANDS = [
+  { name:"Build first", text:"The foundation needs work before funding makes sense. Applying too early can add hard inquiries without a result.",
+    steps:["Review your personal reports and dispute only what's inaccurate (Play 1).","Set up the LLC, EIN and business bank account (Play 2).","Come back to funding once the foundation checklist is mostly filled."] },
+  { name:"Getting close", text:"Several pieces are in place. A few gaps could hold you back with lenders.",
+    steps:["Finish the foundation checklist, starting with what's missing.","Open vendor accounts that report, and pay them on time.","Keep new hard inquiries low while the profile matures."] },
+  { name:"Ready for a review", text:"Your answers suggest a funding review is a sensible next step. It's a conversation, not an approval.",
+    steps:["Gather recent business bank statements and your revenue picture.","On a strategy call we look at the full profile and match it to lenders that fit.","Every product, hard inquiry and fee is disclosed in writing before anything is submitted."] }
+];
+const GOAL_LINE = {
+  fix:"Your goal is personal credit. Remember you can also dispute inaccurate items yourself, for free, with the bureaus.",
+  build:"Your goal is business credit. The build order in Play 2 is the path.",
+  fund:"Your goal is funding. Structure first can make your applications stronger.",
+  protect:"Your goal is protection. On the call we can look at coverage, estate documents and tax strategy together. Life insurance is offered through a licensed Arizona producer."
+};
+let result = null;
+function renderResult(){
+  prog(QS.length);
+  result = scoreBand();
+  const B = BANDS[result.band], goal = QS[5].o[answers.goal][1];
+  qcard.innerHTML = `<div class="qstep band">
+    <span class="qmeta">Your readiness band</span>
+    <div class="band-meter" aria-hidden="true">${BANDS.map((b,k)=>`<div class="${k<=result.band?"on":""}"><i></i>${b.name}</div>`).join("")}</div>
+    <h3 tabindex="-1" id="bandH">${B.name}</h3>
+    <p>${B.text}</p>
+    <ol class="steps">${B.steps.map(s=>`<li>${s}</li>`).join("")}</ol>
+    <p class="fine" style="font-size:.9rem;color:var(--cream);opacity:.85">${GOAL_LINE[goal]}</p>
+    <p class="fine">This band is a self-check, not an approval prediction. Lenders set their own criteria.</p>
+    <div class="qnav">
+      <button class="btn btn-ghost" id="qRedo">Start over</button>
+      <button class="btn btn-gold" id="qContact">Talk it through</button>
+    </div></div>`;
+  $("#bandH").focus({preventScroll:true});
+  $("#qRedo").addEventListener("click", () => { for (const k in answers) delete answers[k]; renderQ(0); });
+  $("#qContact").addEventListener("click", renderContact);
+}
+const contact = { name:"", email:"", phone:"", consent:false };
+function renderContact(){
+  qcard.innerHTML = `<form class="qstep" id="cform" novalidate>
+    <span class="qmeta">Last step</span>
+    <h3 style="font-size:clamp(1.4rem,2.6vw,1.8rem)">Where can we reach you?</h3>
+    <div class="field"><label for="cName">Full name</label><input id="cName" name="name" autocomplete="name" required value="${esc(contact.name)}"><span class="err" id="eName"></span></div>
+    <div class="two">
+      <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" autocomplete="email" required value="${esc(contact.email)}"><span class="err" id="eEmail"></span></div>
+      <div class="field"><label for="cPhone">Phone</label><input id="cPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required value="${esc(contact.phone)}"><span class="err" id="ePhone"></span></div>
+    </div>
+    <label class="consent" for="cConsent"><input type="checkbox" id="cConsent" ${contact.consent?"checked":""}><span>Optional: Yes, Full Circle Financial Group may call or text me at the number above, including by automated means, about my request. Consent isn't required to book or buy. Msg frequency varies; msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. See the <a href="#privacy">privacy note</a>.</span></label>
+    <span class="err" id="eConsent"></span>
+    <p class="fine">This page doesn't save your answers. Your name, email, phone and your text/call choice go only into the booking link on the next step. Leave the box unchecked to be contacted by email only.</p>
+    <div class="qnav">
+      <button type="button" class="btn btn-ghost" id="cBack">Back to my band</button>
+      <button type="submit" class="btn btn-gold">Continue</button>
+    </div></form>`;
+  $("#cBack").addEventListener("click", renderResult);
+  $("#cName").focus({preventScroll:true});
+  $("#cform").addEventListener("submit", e => {
+    e.preventDefault();
+    contact.name = $("#cName").value.trim(); contact.email = $("#cEmail").value.trim();
+    contact.phone = $("#cPhone").value.trim(); contact.consent = $("#cConsent").checked;
+    const errs = {
+      Name: contact.name.length < 2 ? "Enter your name." : "",
+      Email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(contact.email) ? "" : "Enter an email like name@business.com.",
+      Phone: contact.phone.replace(/\D/g,"").length >= 10 ? "" : "Enter a 10-digit phone number.",
+      Consent: ""
+    };
+    let first = null;
+    for (const k in errs){
+      $("#e"+k).textContent = errs[k];
+      const inp = $("#c"+k); inp.setAttribute("aria-invalid", errs[k] ? "true" : "false");
+      if (errs[k]) inp.setAttribute("aria-describedby","e"+k); else inp.removeAttribute("aria-describedby");
+      if (errs[k] && !first) first = inp;
+    }
+    if (first) { first.focus(); return; }
+    renderBook();
+  });
+}
+function bookingHref(){
+  try {
+    const u = new URL(BOOKING_URL);
+    u.searchParams.set("name", contact.name); u.searchParams.set("email", contact.email); u.searchParams.set("phone", contact.phone); u.searchParams.set("sms_consent", contact.consent ? "yes" : "no"); u.searchParams.set("consent_at", contact.consent ? new Date().toISOString() : "");
+    return u.toString();
+  } catch(e) {
+    const q = `name=${encodeURIComponent(contact.name)}&email=${encodeURIComponent(contact.email)}&phone=${encodeURIComponent(contact.phone)}&sms_consent=${contact.consent ? "yes" : "no"}`;
+    return BOOKING_URL + (BOOKING_URL.includes("?") ? "&" : "?") + q;
+  }
+}
+function renderBook(){
+  const first = contact.name.split(/\s+/)[0];
+  const B = BANDS[result.band];
+  qcard.innerHTML = `<div class="qstep">
+    <span class="qmeta">You're set, ${esc(first)}</span>
+    <h3 style="font-size:clamp(1.6rem,3vw,2.2rem)" tabindex="-1" id="bookH">Book your strategy call</h3>
+    <p>Pick a time that works. We'll walk through your <b style="color:var(--gold-hi)">${B.name}</b> band and the plays that come next. Every product, hard inquiry and fee is disclosed in writing before you apply.</p>
+    <a class="btn btn-gold mag" id="bookLink" href="${esc(bookingHref())}" target="_blank" rel="noopener">Book your strategy call
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3L3 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+    <p class="fine">The booking page opens in a new tab with your name, email and phone filled in. Nothing else leaves this page, and nothing is stored here.</p>
+    <div class="qnav"><button class="btn btn-ghost" id="bBack">Edit my details</button></div>
+  </div>`;
+  $("#bookH").focus({preventScroll:true});
+  $("#bBack").addEventListener("click", renderContact);
+}
+renderQ(0);
+
+
+/* ---------- ASSET PROTECTION SHIELD ---------- */
+(function(){
+const C = 320;
+const sp = (r, deg) => { const a = (deg-90)*Math.PI/180; return [C+r*Math.cos(a), C+r*Math.sin(a)]; };
+const LAYERS = [
+  { id:"structure", r:252, n:1, name:"Entity structure", label:"ENTITY STRUCTURE", short:"LLC, holding company, operating agreement",
+    desc:"The outer wall. The business owns the business risk, so a claim against the company stays with the company instead of reaching your home and savings.",
+    items:["An LLC or holding company set up for how you actually operate","Separate business bank accounts, books and contracts","An operating agreement with clear buy-sell terms","Annual filings and records kept current"],
+    who:"Formed and organized with FCFG. More complex structures are reviewed with an attorney." },
+  { id:"tax", r:197, n:2, name:"Tax strategy", label:"TAX STRATEGY", short:"Entity election, deductions, owner retirement plans",
+    desc:"Keeps more of what the business earns so there's more to reinvest, protect and pass on. Planning happens during the year, not at filing time.",
+    items:["The right tax election for your entity, such as S corporation status when it fits","An accountable plan and properly documented business deductions","Retirement plans for owners","A year-end review before the books close"],
+    who:"Every strategy is reviewed and filed with a CPA or other tax professional." },
+  { id:"protection", r:142, n:3, name:"Life insurance", label:"LIFE INSURANCE", short:"Income replacement, key person, buy-sell funding",
+    desc:"Puts cash where it's needed if you die or can't work, so the family and the business don't have to sell what you built to cover the gap.",
+    items:["Coverage that can replace your income for the family","Key person coverage for the business","Policies that fund a buy-sell agreement between partners","Cash value policies such as IUL, which can build value you can access under the policy's terms"],
+    who:"Offered through a licensed Arizona producer. Subject to underwriting and approval, and always optional." },
+  { id:"estate", r:87, n:4, name:"Estate plan", label:"ESTATE PLAN", short:"Living trust, will, powers of attorney",
+    desc:"The inner wall. It decides who receives what, who's in charge, and who can sign for you, so a court and state law don't decide for your family.",
+    items:["A revocable living trust, funded with your home, accounts and business interests","A pour-over will and guardianship choices for children","Financial and healthcare powers of attorney","Beneficiary designations that match the plan"],
+    who:"Documents are prepared by a licensed attorney. FCFG helps you get organized and keeps the plan aligned with your coverage and entities." }
+];
+const LMAP = Object.fromEntries(LAYERS.map(l => [l.id, l]));
+const THREATS = [
+  { id:"lawsuit", label:"A lawsuit against the business", a:300, by:"structure",
+    stopped:"A properly run LLC keeps the claim at the business level, so your home and personal savings sit outside its reach. That only holds while the business keeps its own accounts, books and paperwork.",
+    exposed:"With no entity, or with business and personal money mixed together, a claim against the business can reach personal assets." },
+  { id:"tax", label:"Overpaying in taxes", a:248, by:"tax",
+    stopped:"The right election, documented deductions and owner retirement plans can lower what the business owes legally, and that money stays in the business or goes toward the plan.",
+    exposed:"Without a plan, the business pays whatever the return says, and money that could have been kept or reinvested goes out the door every year." },
+  { id:"death", label:"The breadwinner dies", a:52, by:"protection",
+    stopped:"A life insurance benefit can replace income, pay off debt and keep the household running while the family regroups.",
+    exposed:"With no coverage, the family may have to sell the house, the business or other assets to cover bills and debts." },
+  { id:"partner", label:"A business partner dies", a:108, by:"protection",
+    stopped:"Insurance on each partner funds the buy-sell terms in the operating agreement, so the surviving partner can buy out the family at a fair price.",
+    exposed:"Without funding, the surviving partner may end up in business with a spouse or heirs, or the business may have to be sold to pay them." },
+  { id:"probate", label:"Probate court and family disputes", a:158, by:"estate",
+    stopped:"Assets held in a funded living trust can pass to your family without probate court, privately and on the schedule you set.",
+    exposed:"Without a plan, state law and a probate court decide who gets what. The process is public and can take months." },
+  { id:"incap", label:"Disability or incapacity", a:205, by:"estate",
+    stopped:"Powers of attorney name who can sign and decide for you, so bills get paid and the business keeps running while you recover.",
+    exposed:"If no one has legal authority, your family may have to go to court before they can act on your behalf." }
+];
+const on = { structure:true, tax:true, protection:true, estate:true };
+let curT = THREATS[0], view = "threat", curL = null, animT = 0;
+
+const svg = $("#shSvg"), tickG = $("#shTicks"), layG = $("#shLayers"), core = $("#shCore");
+const bolt = $("#shBolt"), impact = $("#shImpact"), pulse = $("#shPulse");
+const chipsEl = $("#threats"), swEl = $("#shSwitches"), card = $("#shCard");
+
+for (let i=0;i<96;i++){
+  const d = i*3.75, major = i%24===0, [x1,y1] = sp(major?290:296,d), [x2,y2] = sp(304,d);
+  el("line",{class:"sh-tick"+(major?" major":""),x1,y1,x2,y2},tickG);
+}
+const ringEls = {};
+LAYERS.forEach(l => {
+  const g = el("g",{class:"lyr",tabindex:"0",role:"button","aria-label":`Layer ${l.n}, ${l.name}. Show details`},layG);
+  el("circle",{class:"band",cx:C,cy:C,r:l.r},g);
+  el("circle",{class:"edge",cx:C,cy:C,r:l.r+26},g);
+  const pr = l.r - 4;
+  el("path",{id:"shp-"+l.id,d:`M${C-pr} ${C} A${pr} ${pr} 0 0 1 ${C+pr} ${C}`,fill:"none",stroke:"none"},g);
+  const t = el("text",{"text-anchor":"middle"},g);
+  const tp = el("textPath",{href:"#shp-"+l.id,startOffset:"50%"},t);
+  tp.textContent = l.label;
+  const open = () => showLayer(l.id);
+  g.addEventListener("click", open);
+  g.addEventListener("keydown", e => { if (e.key==="Enter"||e.key===" "){ e.preventDefault(); open(); } });
+  ringEls[l.id] = g;
+});
+
+THREATS.forEach(t => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "threat"; b.dataset.id = t.id;
+  b.innerHTML = `<i aria-hidden="true"></i>${t.label}`;
+  b.addEventListener("click", () => { curT = t; view = "threat"; fire(); });
+  chipsEl.appendChild(b);
+});
+LAYERS.forEach(l => {
+  const li = document.createElement("li");
+  li.innerHTML = `<button type="button" class="lsw" role="switch" data-id="${l.id}"><span class="lnum">Layer ${l.n}</span><span><b>${l.name}</b><small>${l.short}</small></span><span class="tog" aria-hidden="true"></span></button>`;
+  li.firstChild.addEventListener("click", () => { on[l.id] = !on[l.id]; sync(); if (view === "threat") fire(); else showLayer(l.id); });
+  swEl.appendChild(li);
+});
+const segs = $("#shSegs");
+THREATS.forEach(() => segs.appendChild(document.createElement("i")));
+
+function sync(){
+  LAYERS.forEach(l => {
+    ringEls[l.id].classList.toggle("off", !on[l.id]);
+    ringEls[l.id].classList.toggle("sel", view==="layer" && curL===l.id);
+    const sw = swEl.querySelector(`[data-id="${l.id}"]`);
+    sw.setAttribute("aria-checked", on[l.id]);
+  });
+  let covered = 0;
+  THREATS.forEach((t,i) => {
+    const ok = on[t.by]; if (ok) covered++;
+    segs.children[i].classList.toggle("bad", !ok);
+    const chip = chipsEl.querySelector(`[data-id="${t.id}"]`);
+    chip.classList.toggle("bad", !ok);
+    chip.setAttribute("aria-pressed", view==="threat" && curT===t);
+  });
+  const layersOn = LAYERS.filter(l => on[l.id]).length;
+  $("#shCount").textContent = `${covered} of ${THREATS.length}`;
+  $("#shMsg").textContent = covered === THREATS.length ? "risks covered with all four layers in place" : `risks covered with ${layersOn} of 4 layers in place`;
+}
+
+function fire(){
+  sync();
+  const t = curT, L = LMAP[t.by], ok = on[t.by];
+  const stopR = ok ? L.r + 27 : 60;
+  const [x0,y0] = sp(318, t.a), [x1,y1] = sp(stopR + 6, t.a), [ix,iy] = sp(stopR, t.a);
+  LAYERS.forEach(l => ringEls[l.id].classList.remove("hit"));
+  core.classList.remove("exposed"); $("#coreSub").textContent = "& WEALTH";
+  impact.classList.remove("on","bad"); pulse.classList.remove("go","bad");
+  bolt.setAttribute("d", `M${x0.toFixed(1)} ${y0.toFixed(1)} L${x1.toFixed(1)} ${y1.toFixed(1)}`);
+  impact.setAttribute("cx", ix.toFixed(1)); impact.setAttribute("cy", iy.toFixed(1));
+  pulse.setAttribute("cx", ix.toFixed(1)); pulse.setAttribute("cy", iy.toFixed(1));
+  const len = bolt.getTotalLength();
+  const land = () => {
+    impact.classList.add("on"); impact.classList.toggle("bad", !ok);
+    pulse.classList.toggle("bad", !ok);
+    void pulse.getBoundingClientRect(); pulse.classList.add("go");
+    if (ok) ringEls[t.by].classList.add("hit");
+    else { core.classList.add("exposed"); $("#coreSub").textContent = "EXPOSED"; }
+  };
+  clearTimeout(animT);
+  if (reduce){ bolt.style.transition = "none"; bolt.style.strokeDasharray = ""; bolt.style.strokeDashoffset = ""; land(); }
+  else {
+    bolt.style.transition = "none";
+    bolt.style.strokeDasharray = `${len} ${len}`;
+    bolt.style.strokeDashoffset = len;
+    void bolt.getBoundingClientRect();
+    const dur = 350 + len*1.6;
+    bolt.style.transition = `stroke-dashoffset ${dur}ms cubic-bezier(.4,0,.6,1)`;
+    bolt.style.strokeDashoffset = 0;
+    animT = setTimeout(land, dur);
+  }
+  renderThreat();
+}
+
+function renderThreat(){
+  const t = curT, L = LMAP[t.by], ok = on[t.by];
+  const passed = LAYERS.filter(l => on[l.id] && l.r > L.r).map(l => l.name.toLowerCase());
+  const passTxt = passed.length ? `<p class="fine">It passes through ${passed.length>1 ? passed.slice(0,-1).join(", ")+" and "+passed.slice(-1) : passed[0]} on the way in. Those layers aren't built for this risk.</p>` : "";
+  card.innerHTML = `<div class="play-body">
+    <span class="verdict${ok?"":" bad"}">${ok ? `Stopped at layer ${L.n}` : "Reaches your family"}</span>
+    <h3>${t.label}</h3>
+    <p>${ok ? t.stopped : t.exposed}</p>
+    ${ok ? passTxt : `<p class="fine">The layer built for this risk is <b style="color:var(--cream)">${L.name.toLowerCase()}</b>, and it's switched off.</p>`}
+    ${ok ? `<button type="button" class="btn btn-ghost" id="shMore">What's in ${L.name.toLowerCase()}</button>` : `<button type="button" class="btn btn-gold" id="shFix">Turn on ${L.name.toLowerCase()}</button>`}
+  </div>`;
+  const more = $("#shMore"), fix = $("#shFix");
+  if (more) more.addEventListener("click", () => showLayer(L.id));
+  if (fix) fix.addEventListener("click", () => { on[L.id] = true; fire(); });
+}
+
+function showLayer(id){
+  view = "layer"; curL = id; sync();
+  const l = LMAP[id], stops = THREATS.filter(t => t.by===id).map(t => t.label.toLowerCase());
+  card.innerHTML = `<div class="play-body">
+    <span class="verdict${on[id]?"":" bad"}">Layer ${l.n} · ${on[id] ? "In place" : "Switched off"}</span>
+    <h3>${l.name}</h3>
+    <p>${l.desc}</p>
+    <ul>${l.items.map(x => `<li>${x}</li>`).join("")}</ul>
+    <p class="fine">Built for: ${stops.join("; ")}.</p>
+    <p class="who">${l.who}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <button type="button" class="btn btn-ghost" id="shTog">${on[id] ? "Switch this layer off" : "Switch this layer on"}</button>
+      <button type="button" class="btn btn-ghost" id="shBack">Back to the risk</button>
+    </div>
+  </div>`;
+  $("#shTog").addEventListener("click", () => { on[id] = !on[id]; showLayer(id); });
+  $("#shBack").addEventListener("click", () => { view = "threat"; curL = null; fire(); });
+}
+
+fire();
+})();
+
+/* ---------- REVEALS (only for things below the fold at load) ---------- */
+if (!reduce && "IntersectionObserver" in window){
+  const vh = window.innerHeight;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.remove("pre"); io.unobserve(e.target); } }), { rootMargin:"0px 0px -8% 0px" });
+  $$(".rv").forEach(n => { if (n.getBoundingClientRect().top > vh) { n.classList.add("pre"); io.observe(n); } });
+}
+
+/* ---------- TILT + MAGNETIC (desktop pointers only) ---------- */
+if (fine && !reduce){
+  $$(".tilt").forEach(c => {
+    c.addEventListener("pointermove", e => {
+      const r = c.getBoundingClientRect(), x = (e.clientX-r.left)/r.width - .5, y = (e.clientY-r.top)/r.height - .5;
+      c.style.transform = `perspective(1100px) rotateX(${(-y*4).toFixed(2)}deg) rotateY(${(x*4).toFixed(2)}deg)`;
+    });
+    c.addEventListener("pointerleave", () => { c.style.transform = ""; });
+  });
+  document.addEventListener("pointermove", e => {
+    const m = e.target.closest && e.target.closest(".mag");
+    $$(".mag").forEach(b => { if (b !== m && b.style.transform) b.style.transform = ""; });
+    if (!m) return;
+    const r = m.getBoundingClientRect(), x = e.clientX - (r.left + r.width/2), y = e.clientY - (r.top + r.height/2);
+    m.style.transform = `translate(${(x*.18).toFixed(1)}px, ${(y*.25).toFixed(1)}px)`;
+  }, {passive:true});
+}
+
+/* ---------- SCROLL LOOP ---------- */
+const navProg = $("#navProgress");
+function paintAll(){
+  paintRing(); paintOrigin();
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  navProg.style.transform = `scaleX(${max>0 ? clamp(window.scrollY/max,0,1) : 0})`;
+}
+let ticking = false;
+window.addEventListener("scroll", () => { if (!ticking){ ticking = true; requestAnimationFrame(() => { ticking = false; paintAll(); }); } }, {passive:true});
+paintAll();
+mq.addEventListener && mq.addEventListener("change", e => { reduce = e.matches; ringP = -1; paintAll(); });
+})();
+</script>
+
+</body></html>

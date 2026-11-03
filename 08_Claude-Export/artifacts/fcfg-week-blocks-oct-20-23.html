@@ -1,0 +1,206 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FCFG Week Blocks · Oct 20–23</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: brand header + priority ladder + task checklist, then one stacked day column with a time rail per block */
+:root{
+  --navy:#0A1F44; --gold:#C9A646; --cream:#F5EFE0;
+  --bg:#F5EFE0; --surface:#FFFDF7; --fg:#0A1F44; --muted:#5B6478; --line:#E2D9C3;
+  --ins:#1F5C4A; --ins-bg:#E4EFE9;
+  --grow:#0A1F44; --grow-bg:#E3E7F0;
+  --client:#6B3E8A; --client-bg:#EEE6F3;
+  --fixed:#7A5A12; --fixed-bg:#F4E8C6;
+  --p1:#A33B2B;
+  --display:"Cinzel",Georgia,serif; --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#081732; --surface:#0E2347; --fg:#F5EFE0; --muted:#A9B1C4; --line:#22365C;
+  --ins:#8FD1B7; --ins-bg:#12333A; --grow:#B9C6E6; --grow-bg:#18305A;
+  --client:#D2B3EA; --client-bg:#2A2450;
+  --fixed:#E6C873; --fixed-bg:#33301F; --p1:#F08A78; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#081732; --surface:#0E2347; --fg:#F5EFE0; --muted:#A9B1C4; --line:#22365C;
+  --ins:#8FD1B7; --ins-bg:#12333A; --grow:#B9C6E6; --grow-bg:#18305A;
+  --client:#D2B3EA; --client-bg:#2A2450;
+  --fixed:#E6C873; --fixed-bg:#33301F; --p1:#F08A78; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 48px}
+header{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.ring{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);position:relative;flex:none}
+.ring::after{content:"";position:absolute;inset:8px;border-radius:50%;border:1px solid var(--gold);opacity:.6}
+h1{font-family:var(--display);font-size:1.45rem;letter-spacing:.06em;margin:0;text-wrap:balance}
+.sub{color:var(--muted);font-size:.85rem;margin:0}
+h2{font-family:var(--display);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:22px}
+ol.pri{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ol.pri li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.rk{font-family:var(--serif);font-weight:700;font-size:1.35rem;line-height:1;color:var(--gold);text-align:center}
+.pri b{display:block}
+.pri span{color:var(--muted);font-size:.86rem}
+.targets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.t{border-top:2px solid var(--gold);padding-top:6px}
+.t strong{font-family:var(--serif);font-size:1.6rem;line-height:1;font-variant-numeric:tabular-nums}
+.t small{display:block;color:var(--muted);font-size:.75rem;line-height:1.3}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px 18px}
+.grp h5{margin:0 0 4px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.grp ul{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.grp li{display:flex;justify-content:space-between;gap:8px;font-size:.88rem;border-bottom:1px dotted var(--line);padding-bottom:2px}
+.grp li em{font-style:normal;color:var(--muted);font-size:.78rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:.78rem;color:var(--muted);margin-bottom:14px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;padding-block:8px;margin-bottom:6px;overflow-x:auto}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav a{flex:none;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.82rem;font-weight:500;background:var(--surface)}
+nav a:focus-visible,nav a:hover{border-color:var(--gold)}
+section.day{scroll-margin-top:60px;margin-bottom:26px}
+.dayhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--gold);padding-bottom:4px;margin-bottom:10px}
+.dayhead h3{font-family:var(--serif);font-size:1.6rem;font-weight:700;margin:0}
+.dayhead em{font-style:normal;color:var(--muted);font-size:.8rem;text-align:right}
+.block{display:grid;grid-template-columns:62px 1fr;gap:10px;margin-bottom:8px}
+.time{font-variant-numeric:tabular-nums;font-size:.78rem;color:var(--muted);text-align:right;padding-top:9px;line-height:1.25}
+.card{border-radius:8px;padding:9px 12px;border-left:4px solid;min-width:0}
+.ins{background:var(--ins-bg);border-color:var(--ins)}
+.grow{background:var(--grow-bg);border-color:var(--grow)}
+.client{background:var(--client-bg);border-color:var(--client)}
+.fixed{background:var(--fixed-bg);border-color:var(--fixed)}
+.off{background:transparent;border-color:var(--line);color:var(--muted)}
+.card h4{margin:0;font-size:.95rem;font-weight:600;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.card p{margin:3px 0 0;font-size:.86rem}
+.card ul{margin:4px 0 0;padding-left:18px;font-size:.86rem}
+.tag{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;border-radius:3px;padding:1px 6px;border:1px solid currentColor}
+.tag.p1{color:var(--p1)}
+.tag.cal{color:var(--fixed)}
+.note{font-size:.82rem;color:var(--muted);margin-top:4px}
+@media (max-width:420px){.block{grid-template-columns:50px 1fr}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="ring" aria-hidden="true"></div>
+  <div>
+    <h1>Week Blocks</h1>
+    <p class="sub">Full Circle Financial Group · Tue Oct 20 – Fri Oct 23, 2026</p>
+  </div>
+</header>
+
+<div class="panel">
+  <h2>Priorities this week</h2>
+  <ol class="pri">
+    <li><div class="rk">1</div><div><b>Confirm enrollment with Barrett</b><span>Lock the on-site enrollment date and headcount (7+ for guaranteed issue) with Mike Smith. Tuesday 1:30.</span></div></li>
+    <li><div class="rk">2</div><div><b>Insurance production &amp; contracting</b><span>Finish NA, submit D's life app, finish UHL contracting and payment. 2 apps + 2 connections every morning.</span></div></li>
+    <li><div class="rk">3</div><div><b>Client deliverables</b><span>Lauren's home items, credit for 6 files, Dan's DBA and name, Derrick's LLC and structure.</span></div></li>
+    <li><div class="rk">4</div><div><b>Lock in Adam for consulting</b><span>Decide comp (flat fee vs. revenue share) before Wednesday's session.</span></div></li>
+    <li><div class="rk">5</div><div><b>Recruiting &amp; growth</b><span>Bryson call, PA weekly update, daily recruit outreach, carrier contracts, health carriers.</span></div></li>
+  </ol>
+  <div class="targets">
+    <div class="t"><strong>8</strong><small>apps submitted by Fri</small></div>
+    <div class="t"><strong>8</strong><small>new connections</small></div>
+    <div class="t"><strong>6</strong><small>credit files worked</small></div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Task list · where each one lands</h2>
+  <div class="groups">
+    <div class="grp"><h5>Insurance</h5><ul>
+      <li>Finish NA<em>Tue AM</em></li>
+      <li>Submit life app for D<em>Tue AM</em></li>
+      <li>UHL contracting + payment call<em>Wed AM</em></li>
+      <li>Get contracts set up<em>Thu AM</em></li>
+      <li>Get health insurance carriers<em>Fri AM</em></li>
+    </ul></div>
+    <div class="grp"><h5>Credit</h5><ul>
+      <li>Nat<em>Tue 4:00</em></li>
+      <li>Lauren · Derrick<em>Wed 4:30</em></li>
+      <li>GG · Me<em>Thu 3:15</em></li>
+      <li>RM<em>Fri 2:30</em></li>
+    </ul></div>
+    <div class="grp"><h5>Structure</h5><ul>
+      <li>Dan: file DBA<em>Wed 4:00</em></li>
+      <li>Dan: reserve name<em>Wed 4:00</em></li>
+      <li>Derrick: LLC + structure<em>Thu 1:15</em></li>
+    </ul></div>
+    <div class="grp"><h5>Real estate</h5><ul>
+      <li>Lauren's home items<em>Wed 1:00</em></li>
+    </ul></div>
+  </div>
+</div>
+
+<div class="legend">
+  <span><i style="background:var(--ins)"></i>Insurance block</span>
+  <span><i style="background:var(--client)"></i>Client work</span>
+  <span><i style="background:var(--grow)"></i>Growth &amp; recruiting</span>
+  <span><i style="background:var(--fixed)"></i>On your calendar</span>
+</div>
+
+<nav aria-label="Days">
+  <a href="#tue">Tue 20</a><a href="#wed">Wed 21</a><a href="#thu">Thu 22</a><a href="#fri">Fri 23</a>
+</nav>
+
+<!-- TUESDAY -->
+<section class="day" id="tue">
+  <div class="dayhead"><h3>Tuesday</h3><em>Oct 20 · Barrett day</em></div>
+  <div class="block"><div class="time">7:00<br>8:45</div><div class="card off"><h4>Workout with TB</h4></div></div>
+  <div class="block"><div class="time">9:00<br>11:00</div><div class="card ins"><h4>Insurance Block</h4>
+    <ul><li>Finish NA</li><li>Submit life app for D (app 1)</li><li>Submit 1 more app (app 2)</li><li>Connect with 2 new people</li></ul></div></div>
+  <div class="block"><div class="time">11:00<br>11:45</div><div class="card fixed"><h4>Bryson Bowman · recruiting call <span class="tag cal">Zoom</span></h4><p>Go in with your recruiting goals: 20 in front, 4 hires a month.</p></div></div>
+  <div class="block"><div class="time">11:45<br>1:00</div><div class="card off"><h4>Lunch · finish any open app</h4></div></div>
+  <div class="block"><div class="time">1:00<br>1:30</div><div class="card fixed"><h4>ScaleAgents.io AI consultation <span class="tag cal">Meet</span></h4><p>Scott. Compare against what Adam would cover.</p></div></div>
+  <div class="block"><div class="time">1:30<br>2:30</div><div class="card grow"><h4>Confirm Barrett enrollment <span class="tag p1">Priority 1</span></h4>
+    <ul><li>Call Mike Smith: confirm enrollment date and on-site session</li><li>Confirm 7+ agents for guaranteed issue</li><li>Confirm hiring-packet insert and booth setup</li></ul></div></div>
+  <div class="block"><div class="time">2:30<br>3:00</div><div class="card grow"><h4>Reach out to Adam</h4><p>Book Wed 3:00. Write down your comp offer first.</p></div></div>
+  <div class="block"><div class="time">3:00<br>4:00</div><div class="card grow"><h4>Recruiting outreach</h4><p>Follow up from the Bryson call. Book recruit interviews for Thu/Fri.</p></div></div>
+  <div class="block"><div class="time">4:00<br>4:30</div><div class="card client"><h4>Credit: Nat</h4></div></div>
+  <div class="block"><div class="time">4:30<br>5:00</div><div class="card grow"><h4>Close out</h4><p>Log apps and connections. RSVP to Wed PA update and Thu CLC class.</p></div></div>
+</section>
+
+<!-- WEDNESDAY -->
+<section class="day" id="wed">
+  <div class="dayhead"><h3>Wednesday</h3><em>Oct 21 · Lauren &amp; Adam day</em></div>
+  <div class="block"><div class="time">7:00<br>8:45</div><div class="card off"><h4>Workout with TB</h4></div></div>
+  <div class="block"><div class="time">9:00<br>12:00</div><div class="card ins"><h4>Insurance Block</h4>
+    <ul><li>Finish UHL contracting + call about payment</li><li>Submit 2 apps</li><li>Connect with 2 new people</li><li>Barrett: send any enrollment materials Mike needs</li></ul></div></div>
+  <div class="block"><div class="time">12:00<br>1:00</div><div class="card off"><h4>Lunch</h4></div></div>
+  <div class="block"><div class="time">1:00<br>2:00</div><div class="card client"><h4>Real estate: Lauren's home</h4><p>Get all open items complete.</p></div></div>
+  <div class="block"><div class="time">2:00<br>2:30</div><div class="card fixed"><h4>Pacific Advisors Weekly Update <span class="tag cal">Zoom</span></h4><p>Jeffery Clemons. Bring this week's recruiting numbers.</p></div></div>
+  <div class="block"><div class="time">2:30<br>3:00</div><div class="card grow"><h4>Prep for Adam</h4><p>Top 3 things to scale, comp terms, 90-day goals.</p></div></div>
+  <div class="block"><div class="time">3:00<br>4:00</div><div class="card grow"><h4>Adam · consulting session</h4><p>Agree on scope, compensation and start date.</p></div></div>
+  <div class="block"><div class="time">4:00<br>4:30</div><div class="card client"><h4>Dan: DBA + name</h4><ul><li>Reserve the name</li><li>File the DBA</li></ul></div></div>
+  <div class="block"><div class="time">4:30<br>5:00</div><div class="card client"><h4>Credit: Lauren · Derrick</h4></div></div>
+</section>
+
+<!-- THURSDAY -->
+<section class="day" id="thu">
+  <div class="dayhead"><h3>Thursday</h3><em>Oct 22 · Contracts &amp; structure</em></div>
+  <div class="block"><div class="time">7:00<br>8:45</div><div class="card off"><h4>Workout with TB</h4><p class="note">Overlaps the 8:05 FB Live. Cut the workout short or skip the Live.</p></div></div>
+  <div class="block"><div class="time">8:05<br>9:05</div><div class="card fixed"><h4>AMs Facebook Live <span class="tag cal">FB</span></h4></div></div>
+  <div class="block"><div class="time">9:15<br>12:00</div><div class="card ins"><h4>Insurance Block</h4>
+    <ul><li>Get carrier contracts set up</li><li>Submit 2 apps</li><li>Connect with 2 new people</li></ul></div></div>
+  <div class="block"><div class="time">12:00<br>1:00</div><div class="card off"><h4>Lunch</h4></div></div>
+  <div class="block"><div class="time">1:00<br>1:15</div><div class="card grow"><h4>Barrett follow-up</h4><p>Only if enrollment isn't confirmed in writing yet.</p></div></div>
+  <div class="block"><div class="time">1:15<br>2:15</div><div class="card client"><h4>Derrick: LLC + structure set up</h4></div></div>
+  <div class="block"><div class="time">2:15<br>3:15</div><div class="card grow"><h4>Recruiting block</h4><p>Interviews and follow-ups booked Tuesday.</p></div></div>
+  <div class="block"><div class="time">3:15<br>4:00</div><div class="card client"><h4>Credit: GG · Me</h4></div></div>
+  <div class="block"><div class="time">4:00<br>5:00</div><div class="card fixed"><h4>THE CLC Master Class <span class="tag cal">Zoom</span></h4></div></div>
+</section>
+
+<!-- FRIDAY -->
+<section class="day" id="fri">
+  <div class="dayhead"><h3>Friday</h3><em>Oct 23 · Close the week</em></div>
+  <div class="block"><div class="time">7:00<br>8:45</div><div class="card off"><h4>Workout with TB</h4></div></div>
+  <div class="block"><div class="time">9:00<br>12:00</div><div class="card ins"><h4>Insurance Block</h4>
+    <ul><li>Get health insurance carriers lined up</li><li>Submit 2 apps (hit 8 for the week)</li><li>Connect with 2 new people</li><li>Chase any pending underwriting</li></ul></div></div>
+  <div class="block"><div class="time">12:00<br>1:00</div><div class="card off"><h4>Lunch</h4></div></div>
+  <div class="block"><div class="time">1:00<br>2:30</div><div class="card grow"><h4>Recruiting block</h4><p>Final interviews. Fill next week's calendar with recruit appointments.</p></div></div>
+  <div class="block"><div class="time">2:30<br>3:00</div><div class="card client"><h4>Credit: RM</h4><p>Catch up on any credit file that slipped this week.</p></div></div>
+  <div class="block"><div class="time">3:00<br>4:00</div><div class="card grow"><h4>Growth projects</h4><p>Team onboarding. Act on Adam's and ScaleAgents' first recommendations.</p></div></div>
+  <div class="block"><div class="time">4:00<br>5:00</div><div class="card grow"><h4>Weekly review</h4><p>Apps, connections, recruits and credit files vs. targets. Set next week's top 3.</p></div></div>
+</section>
+</div>
+
+</body></html>

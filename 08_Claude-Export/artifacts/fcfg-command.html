@@ -1,0 +1,1355 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FCFG Command</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* FCFG Command v2. Tabbed cockpit: Today · Clients · Agents · Roadmap · Board · Score.
+   Deliberate single dark look (navy / gold / cream). Top tabs on wide screens, bottom bar on phones. */
+:root {
+  --void: #050E21; --panel: #0A1A38; --panel-2: #0F2349; --line: #1D3765; --line-2: #2A4A80;
+  --gold: #C9A646; --gold-hi: #E6C873; --gold-wash: rgba(201,166,70,.12);
+  --cream: #F5EFE0; --muted: #8E9BB5; --cyan: #6FD3E8;
+  --good: #5CC98C; --warn: #E6B04B; --bad: #E8735F;
+  --display: "Cinzel", Georgia, serif; --ui: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+html, body { background: var(--void); color: var(--cream); }
+body { font: 400 14px/1.5 var(--ui); min-height: 100%; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--void); }
+.bg { position: fixed; inset: 0; pointer-events: none; background:
+  radial-gradient(900px 500px at 15% -10%, rgba(111,211,232,.07), transparent 60%),
+  radial-gradient(700px 500px at 100% 0%, rgba(201,166,70,.09), transparent 60%),
+  repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 4px); }
+.shell { position: relative; max-width: 1360px; margin: 0 auto; padding-block: 16px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 14px; }
+@media (max-width: 760px) { .shell { padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)); } }
+
+/* header */
+.top { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.reactor { width: 44px; height: 44px; flex: none; }
+.reactor .spin { transform-origin: 23px 23px; animation: spin 14s linear infinite; }
+.reactor .spin2 { transform-origin: 23px 23px; animation: spin 22s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.brand { display: grid; gap: 2px; margin-right: auto; min-width: 0; }
+.brand b { font: 700 18px/1 var(--display); letter-spacing: .14em; }
+.brand span { font: 500 12px var(--ui); color: var(--muted); }
+.status { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pill { font: 600 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+.pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.pill.on i { background: var(--good); box-shadow: 0 0 8px var(--good); }
+.pill.off i { background: var(--bad); }
+.clock { font: 600 13px var(--mono); color: var(--gold); font-variant-numeric: tabular-nums; }
+
+/* tabs */
+.tabs { display: flex; gap: 4px; padding: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; position: sticky; top: max(8px, env(safe-area-inset-top, 0px)); z-index: 20; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: 1 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 0; background: none; color: var(--muted); font: 700 13px var(--ui); cursor: pointer; white-space: nowrap; position: relative; }
+.tab svg { width: 17px; height: 17px; flex: none; }
+.tab:hover { color: var(--cream); }
+.tab[aria-selected="true"] { background: var(--gold-wash); color: var(--gold-hi); box-shadow: inset 0 0 0 1px rgba(201,166,70,.45); }
+.tab .badge { font: 700 10px var(--mono); background: var(--gold); color: var(--void); border-radius: 999px; padding: 1px 6px; min-width: 18px; text-align: center; }
+@media (max-width: 760px) {
+  .tabs { position: fixed; top: auto; left: 0; right: 0; bottom: 0; border-radius: 16px 16px 0 0; border-width: 1px 0 0; padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); gap: 2px; background: rgba(10,26,56,.96); backdrop-filter: blur(10px); overflow: visible; }
+  .tab { flex: 1 1 0; flex-direction: column; gap: 3px; padding: 7px 2px; font-size: 10.5px; min-width: 0; }
+  .tab svg { width: 20px; height: 20px; }
+  .tab .badge { position: absolute; top: 2px; right: calc(50% - 22px); }
+}
+.view[hidden] { display: none !important; }
+.view { display: grid; gap: 16px; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* common */
+.btn { font: 700 12px var(--ui); letter-spacing: .03em; border-radius: 10px; padding: 9px 13px; cursor: pointer; border: 1px solid var(--gold); background: var(--gold); color: var(--void); white-space: nowrap; }
+.btn:hover { background: var(--gold-hi); }
+.btn.ghost { background: none; color: var(--cream); border-color: var(--line-2); }
+.btn.ghost:hover { border-color: var(--gold); }
+.btn.sm { padding: 6px 10px; font-size: 11px; border-radius: 8px; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px; min-width: 0; }
+.ph { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.ph h2 { font: 600 11px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin: 0; }
+.ph small { color: var(--muted); font-size: 12px; }
+.note { font-size: 12px; color: var(--muted); }
+.empty { font-size: 12px; color: var(--muted); padding: 12px; border: 1px dashed var(--line); border-radius: 10px; }
+.grid2 { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: 16px; align-items: start; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; align-items: start; }
+@media (max-width: 1080px) { .grid3 { grid-template-columns: minmax(0,1fr) minmax(0,1fr); } }
+@media (max-width: 860px) { .grid2, .grid3 { grid-template-columns: minmax(0,1fr); } }
+.col { display: grid; gap: 16px; min-width: 0; }
+input[type=text], input[type=number], input[type=date], select, textarea { background: var(--void); color: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; font: 500 13px var(--ui); min-width: 0; }
+textarea { width: 100%; box-sizing: border-box; min-height: 110px; resize: vertical; font-size: 14px; line-height: 1.5; padding: 11px 12px; }
+::placeholder { color: var(--muted); }
+.tag { font: 600 10px var(--mono); padding: 2px 6px; border-radius: 6px; border: 1px solid var(--line-2); color: var(--muted); white-space: nowrap; }
+.tag.hi, .tag.attorney { color: var(--bad); border-color: rgba(232,115,95,.45); }
+.tag.risk { color: var(--warn); border-color: rgba(230,176,75,.45); }
+.tag.gold { color: var(--gold-hi); border-color: rgba(201,166,70,.5); }
+.tag.late { color: var(--bad); }
+.warnline { color: var(--bad); font-size: 12px; font-weight: 600; }
+.toast { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--panel-2); border: 1px solid var(--gold); color: var(--cream); padding: 10px 16px; border-radius: 12px; font-weight: 600; font-size: 13px; z-index: 60; max-width: calc(100vw - 32px); }
+@media (min-width: 761px) { .toast { bottom: 24px; } }
+
+/* hero (today) */
+.hero { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 18px; align-items: center; background: linear-gradient(135deg, var(--panel-2), var(--panel) 60%); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; right: -80px; top: -80px; width: 260px; height: 260px; border-radius: 50%; border: 1px solid rgba(201,166,70,.18); box-shadow: 0 0 0 30px rgba(201,166,70,.03), 0 0 0 60px rgba(201,166,70,.02); pointer-events: none; }
+.ring { width: 92px; height: 92px; position: relative; flex: none; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .val { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+.ring .val b { font: 700 22px/1 var(--display); color: var(--gold-hi); display: block; }
+.ring .val span { font: 600 9.5px var(--mono); color: var(--muted); letter-spacing: .1em; }
+.ring circle.prog { transition: stroke-dashoffset .8s cubic-bezier(.2,.8,.2,1); }
+.hero h1 { font: 700 22px/1.2 var(--display); letter-spacing: .04em; margin: 0 0 4px; }
+.hero p { margin: 0; color: var(--muted); font-size: 13px; }
+.hero .kick { font: 600 11px var(--mono); letter-spacing: .16em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+@media (max-width: 760px) { .hero { grid-template-columns: auto minmax(0,1fr); } .hero .heroActs { grid-column: 1 / -1; } .hero h1 { font-size: 18px; } .ring { width: 76px; height: 76px; } }
+.heroActs { display: flex; gap: 8px; flex-wrap: wrap; position: relative; z-index: 1; }
+
+.moves { display: grid; gap: 8px; }
+.move { display: grid; grid-template-columns: 30px minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 12px; background: var(--void); border: 1px solid var(--line); border-radius: 12px; transition: border-color .2s, transform .2s; }
+.move:hover { border-color: var(--line-2); transform: translateX(2px); }
+.move .ico { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--gold-wash); color: var(--gold-hi); font: 700 13px var(--mono); }
+.move .ico.cy { background: rgba(111,211,232,.12); color: var(--cyan); }
+.move .ico.rd { background: rgba(232,115,95,.12); color: var(--bad); }
+.move b { display: block; font-size: 13.5px; }
+.move span.s { font-size: 12px; color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
+@media (max-width: 560px) { .stats { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--panel); cursor: pointer; text-align: left; color: inherit; font: inherit; }
+.stat:hover { border-color: var(--gold); }
+.stat b { display: block; font: 600 24px var(--mono); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 11.5px; color: var(--muted); }
+.stat.alert b { color: var(--gold-hi); }
+.funnel { display: grid; gap: 6px; }
+.frow { display: grid; grid-template-columns: 120px minmax(0,1fr) 28px; gap: 10px; align-items: center; font-size: 12px; }
+.frow .bar { height: 10px; border-radius: 6px; background: var(--void); border: 1px solid var(--line); overflow: hidden; }
+.frow .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-hi)); border-radius: 6px; transition: width .6s; }
+.frow b { font: 600 12px var(--mono); text-align: right; }
+
+/* command bar */
+.cmd { background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: grid; gap: 10px; }
+.cmd form { display: flex; gap: 10px; }
+.cmd input { flex: 1; padding: 13px 14px; font-size: 15px; border-radius: 12px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font: 600 12px var(--ui); color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 6px 11px; cursor: pointer; }
+.chip:hover { color: var(--cream); border-color: var(--gold); }
+.reply { border-left: 2px solid var(--cyan); padding: 4px 0 4px 12px; max-height: 340px; overflow: auto; }
+.reply .who { font: 600 11px var(--mono); letter-spacing: .14em; color: var(--cyan); margin-bottom: 4px; }
+
+/* clients pipeline */
+.pipeTools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pipeTools input[type=text] { flex: 1 1 200px; }
+.pipe { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 1fr); gap: 10px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; }
+.stage { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 10px; min-height: 160px; scroll-snap-align: start; display: grid; align-content: start; gap: 8px; }
+.stage.drop { border-color: var(--gold); background: var(--gold-wash); }
+.stage h4 { margin: 0; display: flex; justify-content: space-between; align-items: center; gap: 6px; font: 600 10.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.stage h4 .n { color: var(--gold-hi); }
+.stage .tip { font-size: 11px; color: var(--muted); margin-top: -4px; }
+.ccard { background: var(--void); border: 1px solid var(--line); border-radius: 11px; padding: 10px; display: grid; gap: 7px; cursor: grab; transition: border-color .15s, transform .15s; }
+.ccard:hover { border-color: var(--line-2); }
+.ccard.dragging { opacity: .5; transform: scale(.98); }
+.ccard .top2 { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.ccard .who { font: 700 15px var(--display); letter-spacing: .06em; }
+.ccard .tracks { display: flex; gap: 4px; flex-wrap: wrap; }
+.ccard .nx { font-size: 12px; color: var(--cream); }
+.ccard .nx em { color: var(--muted); font-style: normal; }
+.ccard .acts, .card .acts { display: flex; gap: 4px; flex-wrap: wrap; }
+.trk { font: 700 9.5px var(--mono); letter-spacing: .08em; padding: 2px 6px; border-radius: 5px; }
+.trk.FIX { background: rgba(232,115,95,.14); color: #F2A291; }
+.trk.BUILD { background: rgba(111,211,232,.12); color: var(--cyan); }
+.trk.FUND { background: rgba(201,166,70,.16); color: var(--gold-hi); }
+.trk.PROTECT { background: rgba(92,201,140,.14); color: var(--good); }
+
+dialog { background: var(--panel); color: var(--cream); border: 1px solid var(--line-2); border-radius: 16px; padding: 18px; width: min(460px, calc(100vw - 32px)); box-sizing: border-box; }
+dialog::backdrop { background: rgba(3,8,20,.7); backdrop-filter: blur(3px); }
+dialog h3 { margin: 0 0 12px; font: 700 17px var(--display); letter-spacing: .05em; }
+.form { display: grid; gap: 10px; }
+.form label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+.checks { display: flex; gap: 8px; flex-wrap: wrap; }
+.checks label { display: inline-flex; flex-direction: row; gap: 6px; align-items: center; color: var(--cream); font-size: 13px; border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px; cursor: pointer; }
+.feeOut { border: 1px solid rgba(201,166,70,.4); background: var(--gold-wash); border-radius: 12px; padding: 12px; }
+.feeOut b { font: 700 24px var(--mono); color: var(--gold-hi); display: block; }
+
+/* agents */
+.dept { font: 600 10px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 12px 0 6px; }
+.dept:first-child { margin-top: 0; }
+.agent { display: grid; grid-template-columns: 26px minmax(0,1fr) auto; gap: 10px; align-items: center; padding: 9px 10px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; background: none; color: var(--cream); text-align: left; width: 100%; font: inherit; }
+.agent:hover { border-color: var(--line); background: var(--void); }
+.agent[aria-current="true"] { border-color: var(--gold); background: var(--gold-wash); }
+.agent .id { font: 600 11px var(--mono); color: var(--gold); }
+.agent b { font-size: 13px; display: block; }
+.agent span.c { font-size: 11px; color: var(--muted); }
+.agent .new { font: 700 9px var(--mono); color: var(--void); background: var(--cyan); border-radius: 4px; padding: 1px 4px; margin-left: 6px; vertical-align: 1px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.dot.due { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+.dot.ran { background: var(--good); }
+.console h3 { font: 700 19px/1.2 var(--ui); margin: 0 0 4px; }
+.console .meta { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+details.spec { border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; margin-bottom: 10px; }
+details.spec summary { cursor: pointer; font: 600 12px var(--mono); color: var(--muted); letter-spacing: .06em; }
+details.spec pre { white-space: pre-wrap; font: 400 12px/1.55 var(--mono); color: var(--cream); margin: 10px 0 2px; overflow-x: auto; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+.out { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; max-height: 560px; overflow: auto; }
+.md h1, .md h2, .md h3, .md h4 { font: 700 15px/1.3 var(--ui); margin: 14px 0 6px; color: var(--gold-hi); }
+.md p { margin: 0 0 8px; }
+.md ul, .md ol { margin: 0 0 8px; padding-left: 20px; }
+.md code { font: 400 12px var(--mono); background: var(--void); padding: 1px 5px; border-radius: 4px; }
+.md pre { background: var(--void); border: 1px solid var(--line); border-radius: 8px; padding: 10px; overflow-x: auto; font: 400 12px/1.5 var(--mono); white-space: pre-wrap; }
+.md table { border-collapse: collapse; font-size: 12px; display: block; overflow-x: auto; }
+.md td, .md th { border: 1px solid var(--line); padding: 4px 8px; text-align: left; }
+.thinking { color: var(--cyan); font: 600 12px var(--mono); letter-spacing: .1em; }
+.thinking::after { content: ""; display: inline-block; width: 1ch; animation: dots 1.2s steps(4) infinite; }
+@keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+
+/* roadmap */
+.rmHead { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 18px; align-items: center; }
+@media (max-width: 760px) { .rmHead { grid-template-columns: auto minmax(0,1fr); } .rmHead .rmCtl { grid-column: 1 / -1; } }
+.rmHead h2 { font: 700 20px/1.2 var(--display); margin: 0 0 4px; letter-spacing: .04em; }
+.rmCtl { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.weeks { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.wk { flex: 1 0 150px; text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; color: var(--cream); cursor: pointer; font: inherit; display: grid; gap: 6px; }
+.wk:hover { border-color: var(--line-2); }
+.wk[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-wash); }
+.wk small { font: 600 10px var(--mono); letter-spacing: .12em; color: var(--gold); text-transform: uppercase; }
+.wk b { font-size: 13px; }
+.wk .mini { height: 4px; background: var(--void); border-radius: 3px; overflow: hidden; }
+.wk .mini i { display: block; height: 100%; background: var(--gold); transition: width .5s; }
+.wkGoal { font-size: 13px; color: var(--muted); }
+.wkGoal b { color: var(--cream); }
+.days { display: grid; gap: 10px; }
+.day { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.day.today { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(201,166,70,.35), 0 10px 40px -20px rgba(201,166,70,.5); }
+.day.complete { border-color: rgba(92,201,140,.45); }
+.day > summary { list-style: none; display: grid; grid-template-columns: 52px minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; cursor: pointer; }
+.day > summary::-webkit-details-marker { display: none; }
+.dnum { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: var(--void); border: 1px solid var(--line); text-align: center; }
+.dnum b { font: 700 17px/1 var(--display); color: var(--gold-hi); display: block; }
+.dnum span { font: 600 8.5px var(--mono); letter-spacing: .1em; color: var(--muted); }
+.day.today .dnum { background: var(--gold); border-color: var(--gold); } .day.today .dnum b, .day.today .dnum span { color: var(--void); }
+.day.complete .dnum { border-color: var(--good); }
+.dmeta b { display: block; font-size: 14.5px; }
+.dmeta span { font-size: 12px; color: var(--muted); }
+.dprog { font: 600 12px var(--mono); color: var(--muted); text-align: right; white-space: nowrap; }
+.day.complete .dprog { color: var(--good); }
+.dbody { padding: 0 14px 14px; display: grid; gap: 10px; }
+.focus { font-size: 13px; color: var(--muted); border-left: 2px solid var(--gold); padding-left: 10px; }
+.tasks { display: grid; gap: 6px; }
+.task { display: grid; grid-template-columns: 22px minmax(0,1fr); gap: 10px; align-items: start; padding: 10px; border-radius: 10px; background: var(--void); border: 1px solid var(--line); cursor: pointer; }
+.task:hover { border-color: var(--line-2); }
+.task input { appearance: none; width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--line-2); margin: 1px 0 0; display: grid; place-items: center; cursor: pointer; transition: background .15s, border-color .15s; }
+.task input:checked { background: var(--gold); border-color: var(--gold); }
+.task input:checked::after { content: ""; width: 5px; height: 10px; border: solid var(--void); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px,-1px); }
+.task .tx { font-size: 13px; }
+.task.done .tx { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(142,155,181,.5); }
+.task .tm { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
+.dfoot { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px; }
+@media (max-width: 640px) { .dfoot { grid-template-columns: minmax(0,1fr); } }
+.dfoot div { font-size: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.dfoot small { display: block; font: 600 10px var(--mono); letter-spacing: .12em; color: var(--gold); text-transform: uppercase; margin-bottom: 2px; }
+.agchips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+details.strat { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+details.strat summary { cursor: pointer; font: 600 11px var(--mono); letter-spacing: .16em; color: var(--gold); text-transform: uppercase; }
+.stratGrid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-top: 12px; }
+@media (max-width: 860px) { .stratGrid { grid-template-columns: minmax(0,1fr); } }
+.stratGrid h5 { margin: 0 0 6px; font: 700 12px var(--ui); color: var(--gold-hi); }
+.stratGrid ol, .stratGrid ul { margin: 0; padding-left: 18px; font-size: 12.5px; display: grid; gap: 5px; }
+.north { font: 600 15px/1.4 var(--display); color: var(--cream); margin-top: 10px; letter-spacing: .02em; }
+
+/* board */
+.board { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+@media (max-width: 860px) { .board { grid-template-columns: minmax(0,1fr); } }
+.lane h4 { display: flex; justify-content: space-between; margin: 0 0 6px; font: 600 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.lane.gate h4 { color: var(--gold); }
+.cards { display: grid; gap: 6px; }
+.card { background: var(--void); border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; display: grid; gap: 6px; }
+.lane.gate .card { border-color: rgba(201,166,70,.45); }
+.card .tt { font-weight: 600; font-size: 13px; overflow-wrap: anywhere; }
+.card .mt { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 11px; color: var(--muted); }
+.addform { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 6px; margin-bottom: 12px; }
+.addmore { grid-column: 1 / -1; display: flex; gap: 6px; flex-wrap: wrap; }
+.log { display: grid; gap: 4px; }
+.log button { display: flex; justify-content: space-between; gap: 10px; background: none; border: 0; border-bottom: 1px solid var(--line); padding: 8px 0; color: var(--cream); font: 500 12.5px var(--ui); cursor: pointer; text-align: left; }
+.log button span:last-child { color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+
+/* score */
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.kpi { border: 1px solid var(--line); border-radius: 12px; padding: 10px; display: grid; gap: 4px; }
+.kpi label { font-size: 11px; color: var(--muted); }
+.kpi input { width: 100%; box-sizing: border-box; background: none; border: 0; border-bottom: 1px dashed var(--line); border-radius: 0; color: var(--cream); font: 600 18px var(--mono); padding: 2px 0; font-variant-numeric: tabular-nums; }
+.kpi .tg { font: 500 11px var(--mono); color: var(--muted); }
+.kpi.g { border-color: rgba(92,201,140,.5); } .kpi.g .tg { color: var(--good); }
+.kpi.y { border-color: rgba(230,176,75,.5); } .kpi.y .tg { color: var(--warn); }
+.kpi.r { border-color: rgba(232,115,95,.6); } .kpi.r .tg { color: var(--bad); }
+.calc { display: grid; gap: 12px; }
+.calc label { display: grid; gap: 6px; font-size: 12px; color: var(--muted); }
+.calc input[type=range] { width: 100%; accent-color: var(--gold); }
+.calc .rv { font: 600 14px var(--mono); color: var(--cream); }
+
+.agentsGrid { grid-template-columns: minmax(0,.8fr) minmax(0,1.4fr); }
+@media (max-width: 860px) { .agentsGrid { grid-template-columns: minmax(0,1fr); } }
+/* library */
+.rmProg { display: flex; gap: 14px; align-items: center; }
+.assets { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.asset { background: var(--void); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 8px; align-content: start; }
+.asset small { font: 600 10px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.asset b { font-size: 14px; }
+.asset p { margin: 0; font-size: 12px; color: var(--muted); }
+.asset .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+.asset a.btn { text-decoration: none; }
+.rh { display: grid; grid-template-columns: 86px minmax(0,1fr); gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+.rh:last-child { border-bottom: 0; }
+.rh b { font: 600 10.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); padding-top: 2px; }
+.tag.due { color: var(--cyan); border-color: rgba(111,211,232,.5); }
+@media (prefers-reduced-motion: reduce) { .reactor .spin, .reactor .spin2, .thinking::after, .view { animation: none; } .ring circle.prog, .frow .bar i, .wk .mini i { transition: none; } }
+</style>
+
+<div class="bg" aria-hidden="true"></div>
+<div class="shell">
+  <header class="top">
+    <svg class="reactor" viewBox="0 0 46 46" aria-hidden="true">
+      <circle cx="23" cy="23" r="21" fill="none" stroke="#1D3765" stroke-width="1.5"/>
+      <g class="spin"><circle cx="23" cy="23" r="17" fill="none" stroke="#C9A646" stroke-width="1.5" stroke-dasharray="14 8"/></g>
+      <g class="spin2"><ellipse cx="23" cy="23" rx="19" ry="7" fill="none" stroke="#6FD3E8" stroke-opacity=".6" stroke-width="1" transform="rotate(-25 23 23)"/></g>
+      <circle cx="23" cy="23" r="6" fill="#C9A646"/><circle cx="23" cy="23" r="3" fill="#050E21"/>
+    </svg>
+    <div class="brand"><b>FCFG COMMAND</b><span id="greet">Good day.</span></div>
+    <div class="status">
+      <span class="pill" id="pClaude"><i></i>Claude</span>
+      <span class="pill" id="pData"><i></i>Data</span>
+      <span class="clock" id="clock">--:--</span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections" id="tabs">
+    <button class="tab" role="tab" data-tab="today" aria-controls="v-today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Today</button>
+    <button class="tab" role="tab" data-tab="clients" aria-controls="v-clients"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.6.8 2.6 2.6 3 5.2"/></svg>Clients<span class="badge" id="bClients" hidden></span></button>
+    <button class="tab" role="tab" data-tab="agents" aria-controls="v-agents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="7" width="14" height="12" rx="3"/><path d="M12 3v4M9 12h.01M15 12h.01M9.5 15.5h5M2 12v3M22 12v3"/></svg>Agents</button>
+    <button class="tab" role="tab" data-tab="roadmap" aria-controls="v-roadmap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>Roadmap</button>
+    <button class="tab" role="tab" data-tab="board" aria-controls="v-board"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/></svg>Board<span class="badge" id="bReview" hidden></span></button>
+    <button class="tab" role="tab" data-tab="score" aria-controls="v-score"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Score</button>
+    <button class="tab" role="tab" data-tab="library" aria-controls="v-library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h5v16H4zM10 4h4v16h-4zM15.5 5l4-1 3 15.5-4 1z"/></svg>Library<span class="badge" id="bGo" hidden></span></button>
+  </nav>
+
+  <!-- TODAY -->
+  <section class="view" id="v-today" role="tabpanel" aria-label="Today">
+    <div class="hero">
+      <div class="ring" id="heroRing"></div>
+      <div>
+        <div class="kick" id="heroKick">30-day roadmap</div>
+        <h1 id="heroTitle">Start your 30-day plan</h1>
+        <p id="heroWin">Set a start date in the Roadmap tab. Each day comes with 3-5 concrete moves.</p>
+      </div>
+      <div class="heroActs"><button class="btn" id="heroGo">Open today's plan</button><button class="btn ghost" id="heroAdd">+ Client</button></div>
+    </div>
+    <div class="stats">
+      <button class="stat alert" data-go="board"><b id="sReview">0</b><span>Waiting on your approval</span></button>
+      <button class="stat" data-go="clients"><b id="sClients">0</b><span>Active clients</span></button>
+      <button class="stat" data-go="clients"><b id="sFees">$0</b><span>Success fees to invoice</span></button>
+      <button class="stat" data-go="board"><b id="sDue">0</b><span>Tasks due or overdue</span></button>
+    </div>
+    <div class="grid2">
+      <div class="col">
+        <section class="panel"><div class="ph"><h2>Your next moves</h2><small id="movesNote"></small></div><div class="moves" id="moves"></div></section>
+        <section class="cmd" aria-label="Ask Jarvis">
+          <form id="cmdForm">
+            <input id="cmdIn" type="text" autocomplete="off" placeholder="Ask Jarvis: &quot;Add client J.R., Fund track&quot;, &quot;What's left today?&quot;">
+            <button class="btn" id="cmdGo" type="submit">Send</button>
+          </form>
+          <div class="chips" id="cmdChips"></div>
+          <div class="reply" id="cmdReply" hidden><div class="who">JARVIS</div><div class="md" id="cmdText"></div></div>
+        </section>
+      </div>
+      <div class="col">
+        <section class="panel"><div class="ph"><h2>Agents due today</h2><small id="todayName"></small></div><div class="moves" id="dueAgents"></div></section>
+        <section class="panel"><div class="ph"><h2>Pipeline</h2><button class="btn ghost sm" data-go="clients">Open</button></div><div class="funnel" id="funnel"></div></section>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section class="view" id="v-clients" role="tabpanel" aria-label="Clients" hidden>
+    <section class="panel">
+      <div class="ph"><h2>Client pipeline</h2><small id="clientCount"></small></div>
+      <div class="pipeTools">
+        <input type="text" id="cSearch" placeholder="Filter by initials or next step" aria-label="Filter clients">
+        <select id="cTrack" aria-label="Track filter"><option value="">All tracks</option><option>FIX</option><option>BUILD</option><option>FUND</option><option>PROTECT</option></select>
+        <button class="btn" id="cAdd">+ Add client</button>
+      </div>
+      <p class="note" style="margin:10px 0 0">Initials only. No SSNs, DOBs or account numbers here; full files live in GHL. Drag a card or use the arrows. Moving to <b>Funded</b> sets up the success-fee invoice task.</p>
+    </section>
+    <div class="chips" id="stageJump" aria-label="Jump to stage"></div>
+    <div class="pipe" id="pipe"></div>
+  </section>
+
+  <!-- AGENTS -->
+  <section class="view" id="v-agents" role="tabpanel" aria-label="Agents" hidden>
+    <div class="grid2 agentsGrid">
+      <section class="panel"><div class="ph"><h2>Agent fleet</h2><small id="fleetCount"></small></div><div id="agentList"></div></section>
+      <section class="panel console" aria-labelledby="aName">
+        <div class="ph"><h2>Agent console</h2><small id="tierNote"></small></div>
+        <h3 id="aName"></h3>
+        <div class="meta" id="aMeta"></div>
+        <details class="spec"><summary>Graph spec</summary><pre id="aSpec"></pre></details>
+        <label for="aInput" class="note" id="aHint"></label>
+        <textarea id="aInput"></textarea>
+        <div class="warnline" id="piiWarn" hidden>That looks like a full Social Security number. Mask it to the last 4 digits before running.</div>
+        <div class="row">
+          <button class="btn" id="runBtn">Run agent</button>
+          <button class="btn ghost" id="stopBtn" hidden>Stop</button>
+          <button class="btn ghost" id="tplBtn" hidden>Insert template</button>
+          <button class="btn ghost" id="copySpec">Copy spec</button>
+        </div>
+        <div class="out" id="outWrap" hidden>
+          <div class="md" id="out"></div>
+          <div class="row" id="outActs" hidden>
+            <button class="btn" id="toReview">Send to review queue</button>
+            <button class="btn ghost" id="toGate">Run Compliance Gate on this</button>
+            <button class="btn ghost" id="copyOut">Copy output</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="view" id="v-roadmap" role="tabpanel" aria-label="Roadmap" hidden>
+    <section class="panel rmHead">
+      <div class="ring" id="rmRing"></div>
+      <div><h2 id="rmTitle">30-Day Growth &amp; Scale Roadmap</h2><div class="note" id="rmSub"></div></div>
+      <div class="rmCtl">
+        <label class="note" for="rmStart">Day 1 is</label><input type="date" id="rmStart">
+        <button class="btn" id="rmToday">Jump to today</button>
+      </div>
+    </section>
+    <div class="weeks" id="weeks"></div>
+    <div class="wkGoal" id="wkGoal"></div>
+    <div class="days" id="days"></div>
+    <details class="strat" id="strat"><summary>Strategy, daily non-negotiables &amp; scale triggers</summary><div id="stratBody"></div></details>
+  </section>
+
+  <!-- BOARD -->
+  <section class="view" id="v-board" role="tabpanel" aria-label="Board" hidden>
+    <section class="panel">
+      <div class="ph"><h2>Task board</h2><small id="taskCount"></small></div>
+      <form class="addform" id="addForm">
+        <input type="text" id="newTitle" placeholder="New task" aria-label="New task title">
+        <button class="btn" type="submit">Add</button>
+        <div class="addmore">
+          <select id="newAgent" aria-label="Agent"></select>
+          <input type="date" id="newDue" aria-label="Due date">
+          <select id="newPri" aria-label="Priority"><option value="normal">Normal</option><option value="high">High</option></select>
+        </div>
+      </form>
+      <div class="board" id="board"></div>
+    </section>
+    <section class="panel"><div class="ph"><h2>Run log</h2><small>latest 10</small></div><div class="log" id="log"></div></section>
+  </section>
+
+  <!-- SCORE -->
+  <section class="view" id="v-score" role="tabpanel" aria-label="Scorecard" hidden>
+    <div class="grid2">
+      <section class="panel">
+        <div class="ph"><h2>Weekly scorecard</h2><button class="btn ghost sm" id="kpiFix">Ask for the one fix</button></div>
+        <div class="kpis" id="kpis"></div>
+        <p class="note" style="margin:10px 0 0">Type this week's numbers from Meta Ads and GHL. They save automatically.</p>
+        <div class="out md" id="kpiOut" hidden></div>
+      </section>
+      <section class="panel">
+        <div class="ph"><h2>Success fee calculator</h2></div>
+        <div class="calc">
+          <label>Approved funding amount <span class="rv" id="calcAmtV"></span><input type="range" id="calcAmt" min="10000" max="500000" step="5000" value="100000"></label>
+          <label>Fee rate <span class="rv" id="calcPctV"></span><input type="range" id="calcPct" min="5" max="10" step="0.5" value="7.5"></label>
+          <div class="feeOut"><span class="note">Success fee</span><b id="calcFee">$0</b><span class="note" id="calcCap"></span></div>
+          <p class="note" style="margin:0">Invoiced only after the client's funds are received, capped at $10,000. Every product, hard inquiry and fee is disclosed in writing before any application.</p>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section class="view" id="v-library" role="tabpanel" aria-label="Library" hidden>
+    <div class="grid2">
+      <section class="panel">
+        <div class="ph"><h2>Go-live checklist</h2><small id="goCount"></small></div>
+        <div class="rmProg"><div class="ring" id="goRing" style="width:72px;height:72px"></div><p class="note" style="margin:0">Everything that has to be true before you send traffic or share client pages. Checks save for your whole team.</p></div>
+        <div class="tasks" id="goList" style="margin-top:12px"></div>
+      </section>
+      <div class="col">
+        <section class="panel"><div class="ph"><h2>Automations running</h2><small>Phoenix time</small></div><div class="moves" id="autoList"></div><p class="note" style="margin:10px 0 0">Each one drafts into your review queue and pings your phone. Nothing posts, sends or charges on its own.</p></section>
+        <section class="panel"><div class="ph"><h2>Operating rhythm</h2></div><div id="rhythm"></div></section>
+      </div>
+    </div>
+    <section class="panel">
+      <div class="ph"><h2>Asset library</h2><small>Private until you share each page</small></div>
+      <div class="assets" id="assets"></div>
+    </section>
+  </section>
+</div>
+
+<dialog id="cDlg">
+  <form method="dialog" class="form" id="cForm">
+    <h3 id="cDlgT">Add client</h3>
+    <label>Initials (no full names)<input type="text" id="fInit" maxlength="8" required placeholder="J.R."></label>
+    <div><div class="note" style="margin-bottom:6px">Tracks</div><div class="checks" id="fTracks"></div></div>
+    <label>Stage<select id="fStage"></select></label>
+    <label>Next step<input type="text" id="fNext" maxlength="160" placeholder="Send document checklist"></label>
+    <label>Next step due<input type="date" id="fDue"></label>
+    <label>Waiting on (shows in client updates)<input type="text" id="fWait" maxlength="120" placeholder="Experian response to Round 1"></label>
+    <label>Update cadence<select id="fCohort"><option value="A">Cohort A · check-in every 7 days</option><option value="B">Cohort B · check-in every 14 days</option></select></label>
+    <label>Notes (no SSNs or account numbers)<textarea id="fNotes" maxlength="600" style="min-height:70px"></textarea></label>
+    <div class="warnline" id="fPii" hidden>Remove the full SSN or account number first.</div>
+    <div class="row" style="justify-content:space-between"><button class="btn ghost" value="cancel" formnovalidate type="button" id="cDel" hidden>Delete client</button><span style="display:flex;gap:8px;margin-left:auto"><button class="btn ghost" value="cancel" formnovalidate>Cancel</button><button class="btn" id="cSave" value="save">Save</button></span></div>
+  </form>
+</dialog>
+
+<dialog id="fDlg">
+  <form method="dialog" class="form" id="feeForm">
+    <h3>Funded: set up the success fee</h3>
+    <p class="note" style="margin:0">Enter the approved amount the client accepted. The fee task goes to your board; invoice it in GHL only once the client's funds have arrived.</p>
+    <label>Approved amount ($)<input type="number" id="feeAmt" min="0" step="1000" required></label>
+    <label>Fee rate (5-10%)<input type="number" id="feePct" min="5" max="10" step="0.5" value="7.5" required></label>
+    <div class="feeOut"><span class="note">Success fee</span><b id="feeOutV">$0</b><span class="note" id="feeOutCap"></span></div>
+    <div class="row" style="justify-content:flex-end"><button class="btn ghost" value="cancel" formnovalidate>Skip</button><button class="btn" value="save">Save + create invoice task</button></div>
+  </form>
+</dialog>
+
+<script>
+const ROADMAP = {"title": "FCFG 30-Day Growth & Scale Roadmap", "northStar": "Make Full Circle Financial Group a compliant, systemized Phoenix credit-and-funding firm where leads become clients on target KPIs and Breyon is no longer the bottleneck.", "strategy": ["Compliance first: attorney-confirm contracts, fees, registrations, data security and ad settings before scaling spend.", "Lead with credit and funding as the hook, then guide clients through Fix it, Build it, Fund it, Protect it.", "Speed and show rate: respond in under 5 minutes and run the reminder system so booked calls turn into conversations.", "Fees follow work: credit repair billed only after the work is performed, and the funding success fee invoiced only after the client's funds are received, with full written disclosure.", "Build a Phoenix loan officer and realtor partner engine so referrals lower cost per client.", "Let the 14-agent command center and written SOPs carry repeatable work, and hire a VA so Breyon sells and leads.", "Offer the life insurance back-end as an optional, separately disclosed Protect it step after the client's credit or funding results are in place.", "Scale only on data: Friday scorecards and explicit scale triggers decide every spend and hiring change."], "weeks": [{"week": 1, "name": "Foundation & Compliance", "goal": "Run the devil's advocate audit: attorney review, AZ registration/bond, funding fee structure, Meta Special Ad Category, data security, E&O, carrier appointments, collections and chargeback policy, and the full GHL pipeline.", "milestone": "All Week 1 attorney/risk items are opened with an owner, the pipeline is live, ads are compliant, and the baseline scorecard is saved."}, {"week": 2, "name": "Systems & Fulfillment", "goal": "Launch Agent 13 Fulfillment Kickoff, write the 4 core SOPs, set up show-rate reminders and the consult script, and prepare the VA hire.", "milestone": "A new client is onboarded with no manual steps, and SOPs 1-4 are in the library."}, {"week": 3, "name": "Demand & Partners", "goal": "Scale the winning ad angle, build the Phoenix partner engine, roll out the Protect it back-end, and hire the VA.", "milestone": "3+ partner meetings are booked, the Protect stage is live with disclosure, and the VA offer is sent."}, {"week": 4, "name": "Scale & Delegate", "goal": "Onboard the VA, launch the referral program, run a workshop, QA every file, and make the first data-based scale decision.", "milestone": "The VA owns speed to lead, every file passes QA, and the scale decision is documented."}, {"week": 5, "name": "Review & Next 30", "goal": "Send monthly client progress reports, run the 30-day retrospective, close out compliance items, and plan Days 31-60.", "milestone": "The next-30 plan, capacity plan v2 and renewal calendar are set."}], "days": [{"day": 1, "week": 1, "theme": "Devil's Advocate Kickoff", "focus": "Compliance gaps are the fastest way to lose a credit firm, so the legal review gets booked before any scaling starts.", "tasks": [{"id": "d1t1", "text": "Book an attorney review covering the client contract, the fee agreement, CROA disclosures, the separate 3-business-day cancellation notice, and the bill-only-after-work-is-performed language. Confirm with attorney.", "owner": "Breyon", "mins": 30, "flag": "attorney"}, {"id": "d1t2", "text": "Pull Arizona credit services organization registration and surety bond documents (status, expiration, renewal date) and put them in a 'Compliance' folder for the attorney. Confirm status with attorney.", "owner": "Breyon", "mins": 45, "flag": "attorney"}, {"id": "d1t3", "text": "Build GHL pipeline stages: New Lead → Booked → Showed → Signed → Kickoff → Audit → Disputes/Build → Funding Review → Funded → Protect → Referral", "owner": "Team", "mins": 60, "flag": ""}, {"id": "d1t4", "text": "Run Agent 2 (Competitor & Influencer Scan) and Agent 3 (Ad Angle Lab). Save the top 3 angles to a 'Test Queue' note.", "owner": "Breyon", "mins": 30, "flag": ""}, {"id": "d1t5", "text": "Submit a test lead through every form and ad and time the first text and call. Log the speed to lead.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [2, 3, 10], "metric": "Speed-to-lead on the test lead (target < 5 min); attorney call booked (Y/N)", "win": "Attorney review is on the calendar, the AZ registration/bond file is assembled, and the full GHL pipeline is live."}, {"day": 2, "week": 1, "theme": "Funding Model Check", "focus": "The funding success fee is the largest ticket, so its structure, disclosures and lender bench have to hold up before volume grows.", "tasks": [{"id": "d2t1", "text": "Write a one-page memo for the attorney: success fee of 5-10% of the funded amount, capped at $10,000, invoiced only after the client's funds are received. Ask whether this triggers Arizona advance-fee loan broker rules. Confirm with attorney.", "owner": "Breyon", "mins": 45, "flag": "attorney"}, {"id": "d2t2", "text": "Draft the written funding disclosure template: product name, lender, every expected hard inquiry, all fees including the success fee, and a client signature line. Send it to the attorney for review.", "owner": "Breyon", "mins": 45, "flag": "attorney"}, {"id": "d2t3", "text": "Build a lender/partner list in a GHL custom object or sheet: for each product type, one primary and two backup lenders, with credit minimums, contact and turnaround notes.", "owner": "Team", "mins": 60, "flag": "risk"}, {"id": "d2t4", "text": "Run Agent 5 (Partner Prospecting): pull 15 Phoenix loan officers and realtors and send 10 personalized intro DMs or emails.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d2t5", "text": "Run Agent 1 (Daily Content Engine) for tomorrow's reel, then run it through Agent 10 (Compliance Gate) before scheduling.", "owner": "Breyon", "mins": 30, "flag": ""}], "agents": [1, 5, 9, 10], "metric": "Partner touches sent (target 10); lender bench depth per product (target 3)", "win": "The funding memo and disclosure template are with the attorney, and every product has a primary lender and backups."}, {"day": 3, "week": 1, "theme": "Ad Account Compliance", "focus": "Meta restricts targeting for credit and financial ads, so the ad account must comply before any spend increase.", "tasks": [{"id": "d3t1", "text": "Audit every Meta campaign and confirm the Special Ad Category (Financial Products & Services / Credit) is declared. Rebuild any audience that uses age, gender or zip-code targeting outside what the category allows.", "owner": "Breyon", "mins": 60, "flag": "risk"}, {"id": "d3t2", "text": "Run every live ad, landing page and lead form through Agent 10 (Compliance Gate). Pause anything that fails and use the compliant rewrites.", "owner": "Breyon", "mins": 45, "flag": "risk"}, {"id": "d3t3", "text": "Run Agent 6 (Lead Revival) on leads from the last 90 days that never booked, and send the revival sequence through GHL.", "owner": "VA", "mins": 30, "flag": ""}, {"id": "d3t4", "text": "Configure the GHL trigger: when an opportunity moves to 'Signed', Agent 13 (Fulfillment Kickoff) starts. Write down the trigger fields it needs (track, email, phone, signed docs).", "owner": "Team", "mins": 45, "flag": ""}, {"id": "d3t5", "text": "Film today's reel from the Agent 1 script. Post it and answer every comment and DM within the hour.", "owner": "Breyon", "mins": 30, "flag": ""}], "agents": [1, 6, 10, 13], "metric": "% of live ads with Special Ad Category declared and Compliance Gate pass (target 100%)", "win": "Every live ad is compliant, the revival sequence is sent, and the Agent 13 trigger is wired to the Signed stage."}, {"day": 4, "week": 1, "theme": "Protect Client Data", "focus": "Client credit files are sensitive data, so FCFG needs a written security plan before adding a VA or more clients.", "tasks": [{"id": "d4t1", "text": "Inventory every place client credit data lives (GHL, SmartCredit, email, Drive, phone camera roll, downloads folder) and who can access each.", "owner": "Breyon", "mins": 45, "flag": "risk"}, {"id": "d4t2", "text": "Draft an outline for an FTC Safeguards Rule information security program: designated qualified individual, risk assessment, access controls, encryption, vendor oversight, incident response. Confirm the requirements with attorney.", "owner": "Breyon", "mins": 60, "flag": "attorney"}, {"id": "d4t3", "text": "Turn on MFA on GHL, Meta, SmartCredit, Google and banking. Remove unused users and delete client documents stored on personal devices.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d4t4", "text": "Request E&O (professional liability) insurance quotes that cover the credit services, funding placement and insurance activities, and note any exclusions.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d4t5", "text": "Run Agent 8 (Business Credit Build Tracker) on all active Build clients and update the LLC/EIN/D-U-N-S/tradeline/PAYDEX status per client.", "owner": "Team", "mins": 30, "flag": ""}], "agents": [8, 10], "metric": "Accounts with MFA enabled (target 100%); E&O quotes requested (target 2+)", "win": "The data map exists, MFA is on everywhere, the security program outline is drafted, and E&O quotes are requested."}, {"day": 5, "week": 1, "theme": "Scorecard + Protect Setup", "focus": "The first Friday scorecard sets the baseline, and the insurance back-end needs valid appointments and disclosures before it is offered.", "tasks": [{"id": "d5t1", "text": "Run Agent 11 (Weekly KPI Scorecard): mark CPL, speed to lead, lead→booked, show, close, cost per client, avg first ticket, monitoring %, complaints red/green against targets. Pick ONE fix for next week.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d5t2", "text": "Verify active carrier appointments for every life insurance product you plan to offer, and list any missing appointments to request.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d5t3", "text": "Draft a written insurance cross-sell disclosure: optional, separate from the credit/funding services, not a condition of any service, with how you are compensated. Send it to the attorney for review.", "owner": "Breyon", "mins": 30, "flag": "attorney"}, {"id": "d5t4", "text": "Draft the collections and chargeback policy: signed fee agreement before work starts, invoice issued on the approval date, written payment terms, dispute response steps, and the document set kept for every chargeback. Confirm with attorney.", "owner": "Breyon", "mins": 60, "flag": "attorney"}, {"id": "d5t5", "text": "Run Agent 10 on next week's scheduled content batch.", "owner": "Breyon", "mins": 15, "flag": ""}], "agents": [10, 11], "metric": "Weekly KPI scorecard (all 9 targets red/green)", "win": "Baseline scorecard is saved with one fix chosen, carrier appointments are verified, and the collections/chargeback policy draft is with the attorney."}, {"day": 6, "week": 1, "theme": "Batch + Capacity Plan", "focus": "A lighter Saturday that builds a content runway and shows where Breyon is the bottleneck.", "tasks": [{"id": "d6t1", "text": "Have Agent 14 (Wealth Stack Content) draft 7 scripts, at least one per pillar (Fix it, Build it, Fund it, Protect it), all hooked on credit and funding. Run them through Agent 10.", "owner": "Breyon", "mins": 30, "flag": ""}, {"id": "d6t2", "text": "Batch-film the 7 reels in one session with 2 outfit changes and B-roll of the Phoenix office or city.", "owner": "Breyon", "mins": 90, "flag": ""}, {"id": "d6t3", "text": "Capacity plan: list every weekly task Breyon does, with minutes, and mark each Keep / Delegate to VA / Automate with an agent. Total the hours.", "owner": "Breyon", "mins": 45, "flag": "risk"}], "agents": [10, 14], "metric": "Reels in the bank (target 7); hours marked delegate/automate", "win": "A week of approved content is filmed and the capacity plan shows which hours to hand off first."}, {"day": 7, "week": 1, "theme": "Rest, Faith & Review", "focus": "Rest is part of the plan. A short review keeps open legal and risk items from slipping.", "tasks": [{"id": "d7t1", "text": "Rest and faith time, with no client work.", "owner": "Breyon", "mins": 0, "flag": ""}, {"id": "d7t2", "text": "30-minute review: list every open attorney and risk item from Days 1-5 with status and next action.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d7t3", "text": "Schedule Week 2 content in the scheduler from the Saturday batch.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [], "metric": "Open attorney/risk items count", "win": "Rested, the open-items list is current, and Week 2 content is scheduled."}, {"day": 8, "week": 2, "theme": "Angles + Speed SOP", "focus": "New compliant ad angles go into testing while the first SOP makes speed to lead independent of Breyon.", "tasks": [{"id": "d8t1", "text": "Run Agent 2 and Agent 3. Pick 3 new angles (Fix it, Build it, Fund it hooks), run them through Agent 10, then launch as a Special Ad Category test with equal budget per ad set.", "owner": "Breyon", "mins": 60, "flag": "risk"}, {"id": "d8t2", "text": "Write SOP 1, Speed to Lead: auto-text within 1 minute, call within 5 minutes, call/text cadence for days 1-7, and what to do after hours.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d8t3", "text": "Build GHL missed-call text-back and after-hours auto-reply with a booking link.", "owner": "Team", "mins": 30, "flag": ""}, {"id": "d8t4", "text": "Start a 'SOP Library' folder with a template: purpose, owner, trigger, steps, tools, compliance checkpoints, done-definition.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [2, 3, 10], "metric": "CPL on new angles (target ≤ $15); speed to lead (target < 5 min)", "win": "Three compliant angles are live and SOP 1 is written and stored in the library."}, {"day": 9, "week": 2, "theme": "Agent 13 Goes Live", "focus": "Onboarding is where clients feel the quality of the work, and an automated kickoff keeps Breyon out of the paperwork.", "tasks": [{"id": "d9t1", "text": "Run a dummy client through Agent 13 (Fulfillment Kickoff) end to end: welcome message, document checklist, disclosures, SmartCredit enrollment link, routing (Credit / Business Build / Funding), and created tasks. Log every break.", "owner": "Agent 13", "mins": 60, "flag": ""}, {"id": "d9t2", "text": "Hard-gate Agent 13 so no credit work task is created until the signed contract, the CROA disclosures and the 3-business-day cancellation period are complete. Confirm the timing with attorney.", "owner": "Team", "mins": 30, "flag": "attorney"}, {"id": "d9t3", "text": "Connect Agent 4 (Pre-Call Brief) so every booked call has a brief in the GHL contact notes 1 hour before.", "owner": "Team", "mins": 30, "flag": ""}, {"id": "d9t4", "text": "Run Agent 5: 10 new Phoenix LO and realtor touches, plus 5 follow-ups to the Day 2 list.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d9t5", "text": "Write SOP 2, Credit Audit: SmartCredit pull → Agent 7 (Credit Audit Prep) → Breyon review → client audit call.", "owner": "Breyon", "mins": 45, "flag": ""}], "agents": [4, 5, 7, 13], "metric": "Agent 13 test pass rate (all steps fired Y/N); monitoring enrollment on test (target 100%)", "win": "Agent 13 completes a full dummy onboarding with no manual step, and the cancellation gate is in place."}, {"day": 10, "week": 2, "theme": "Show Rate & Sales Script", "focus": "Booked calls only produce revenue if prospects show, and a consistent script lets the close rate be measured.", "tasks": [{"id": "d10t1", "text": "Build show-rate reminders in GHL: confirmation at booking, plus 24-hour, 2-hour and 10-minute reminders, each with a reschedule link. Run the copy through Agent 10.", "owner": "Team", "mins": 45, "flag": ""}, {"id": "d10t2", "text": "Write the consult script: discovery questions for all four pillars, how the fees work (credit billed only after work is performed; funding fee only after funds are received), the next step, and no promised outcomes. Run it through Agent 10.", "owner": "Breyon", "mins": 60, "flag": "risk"}, {"id": "d10t3", "text": "Run Agent 6 (Lead Revival) on no-shows and 'thinking about it' leads from the last 60 days.", "owner": "VA", "mins": 30, "flag": ""}, {"id": "d10t4", "text": "Run Agent 9 (Funding Readiness Review) on all clients in the Disputes/Build stages and flag who is ready for Funding Review.", "owner": "Breyon", "mins": 30, "flag": ""}], "agents": [6, 9, 10], "metric": "Show rate (target ≥ 65%); lead→booked (target ≥ 20%)", "win": "The reminder sequence is live and the approved consult script is in use on today's calls."}, {"day": 11, "week": 2, "theme": "Build & Fund SOPs", "focus": "Business credit and funding are the scalable tracks, so their delivery needs to be documented before volume grows.", "tasks": [{"id": "d11t1", "text": "Run Agent 8 (Business Credit Build Tracker) and move any stalled client to a next action.", "owner": "Team", "mins": 30, "flag": ""}, {"id": "d11t2", "text": "Write SOP 3, Business Credit Build: LLC structure check → EIN → D-U-N-S → business address/phone/website consistency → vendor tradelines in order → PAYDEX monitoring cadence.", "owner": "Breyon", "mins": 60, "flag": ""}, {"id": "d11t3", "text": "Write SOP 4, Funding Placement: readiness review → written disclosure of every product, hard inquiry and fee signed → submission to primary lender → backups → approval → GHL invoice issued on the approval date.", "owner": "Breyon", "mins": 60, "flag": "risk"}, {"id": "d11t4", "text": "Set up the GHL invoice template for the success fee (calculated %, $10,000 cap, payment terms from the signed fee agreement) so it is triggered only by moving to 'Funded'.", "owner": "Team", "mins": 30, "flag": "risk"}], "agents": [8, 9], "metric": "SOPs completed (target 4 of 4 core); stalled Build clients (target 0)", "win": "SOPs 3 and 4 are written, and the success-fee invoice can fire only after funds are received."}, {"day": 12, "week": 2, "theme": "Scorecard + VA Hiring", "focus": "With the SOPs written, a VA can take over the repeatable work, and the scorecard shows which job to hand off first.", "tasks": [{"id": "d12t1", "text": "Run Agent 11 (Weekly KPI Scorecard). Compare against the Week 1 baseline and choose ONE fix.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d12t2", "text": "Write the VA job description: speed-to-lead calls/texts, document collection, scheduling, posting content, and running agent outputs. Include a confidentiality agreement and role-based (least) data access.", "owner": "Breyon", "mins": 45, "flag": "risk"}, {"id": "d12t3", "text": "Build the Agent 12 (Client Progress Reports) template: pillar progress, completed actions, next steps, and no result guarantees. Run it through Agent 10.", "owner": "Team", "mins": 30, "flag": ""}, {"id": "d12t4", "text": "Check the attorney review status and log redlines received or follow up.", "owner": "Breyon", "mins": 15, "flag": "attorney"}], "agents": [10, 11, 12], "metric": "Weekly KPI scorecard (all 9 targets red/green vs Week 1)", "win": "The scorecard is saved with one fix, the VA job post is ready, and the progress report template is approved."}, {"day": 13, "week": 2, "theme": "Batch + Referral Design", "focus": "A light Saturday: batch content and design a referral program that can be launched once the attorney approves it.", "tasks": [{"id": "d13t1", "text": "Have Agent 14 write a 'Wealth Stack' 7-part series (personal credit → LLC structure → business credit → funding → protect with life insurance), all hooked on credit and funding. Run it through Agent 10, then batch-film.", "owner": "Breyon", "mins": 90, "flag": ""}, {"id": "d13t2", "text": "Draft the referral program: who can refer (clients, partners), what they receive, when it is paid, tracking via GHL source tags, and written terms. Ask the attorney about referral compensation rules for credit, funding and insurance referrals. Confirm with attorney.", "owner": "Breyon", "mins": 45, "flag": "attorney"}, {"id": "d13t3", "text": "Read the week's DMs and comments and note the 5 most-asked questions as next week's hooks for Agent 14.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [10, 14], "metric": "Reels in the bank (target 7)", "win": "Week 3 content is filmed and the referral program draft is with the attorney."}, {"day": 14, "week": 2, "theme": "Rest, Faith & Review", "focus": "Recover, then check that Week 2's systems are holding.", "tasks": [{"id": "d14t1", "text": "Rest and faith time, with no client work.", "owner": "Breyon", "mins": 0, "flag": ""}, {"id": "d14t2", "text": "Review Agent 13 kickoffs this week: did every new client get monitoring enrolled, disclosures signed and the right track? Fix any gaps.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d14t3", "text": "Schedule Week 3 content.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [13], "metric": "Monitoring enrolled on new clients (target 100%)", "win": "Rested, onboarding gaps are closed, and Week 3 content is scheduled."}, {"day": 15, "week": 3, "theme": "Scale the Winner", "focus": "Week 2 test data shows where the next ad dollar should go, and hiring starts so capacity keeps up.", "tasks": [{"id": "d15t1", "text": "Run Agent 2 and Agent 3. Apply the scale triggers to the Day 8 test: cut angles above the $15 CPL target and scale the winner per the rules.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d15t2", "text": "Post the VA job and set up a screening form with a short paid test task (respond to 3 mock leads using SOP 1).", "owner": "Breyon", "mins": 30, "flag": ""}, {"id": "d15t3", "text": "Implement the attorney redlines in GHL documents (contract, fee agreement, disclosures, cancellation notice) and archive the old versions with dates.", "owner": "Team", "mins": 45, "flag": "attorney"}, {"id": "d15t4", "text": "Film a reel from the Agent 1 script and post it. Reply to all comments and DMs within the hour.", "owner": "Breyon", "mins": 30, "flag": ""}], "agents": [1, 2, 3], "metric": "CPL by angle (target ≤ $15); VA applicants", "win": "Budget has moved to the winning angle, the VA post is live, and attorney-approved documents are live in GHL."}, {"day": 16, "week": 3, "theme": "Partner Engine", "focus": "Phoenix loan officers and realtors see buyers who need credit help every week, and partner referrals cost far less than ads.", "tasks": [{"id": "d16t1", "text": "Build a partner one-pager: Fix it, Build it, Fund it, Protect it, how referral handoff works, and what the partner can expect for updates (with client consent). Run it through Agent 10.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d16t2", "text": "Run Agent 5: 10 new partner touches, plus follow-up to every earlier non-responder.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d16t3", "text": "Book 3 partner coffees or Zooms for this week or next.", "owner": "Breyon", "mins": 20, "flag": ""}, {"id": "d16t4", "text": "Create GHL source tags and a partner referral pipeline so every partner lead is tracked to its referrer.", "owner": "Team", "mins": 30, "flag": ""}, {"id": "d16t5", "text": "Get the client authorization form for sharing progress with a referring partner approved by the attorney. Confirm with attorney.", "owner": "Breyon", "mins": 15, "flag": "attorney"}], "agents": [5, 10], "metric": "Partner touches (target 10); partner meetings booked (target 3)", "win": "The one-pager is approved, 3 partner meetings are booked, and partner leads are trackable."}, {"day": 17, "week": 3, "theme": "Revival + VA Interviews", "focus": "Old leads are the cheapest source of revenue, and the right VA hire roughly doubles Breyon's capacity.", "tasks": [{"id": "d17t1", "text": "Run Agent 6 (Lead Revival) using the Wealth Stack series as the re-engagement hook.", "owner": "VA", "mins": 30, "flag": ""}, {"id": "d17t2", "text": "Review VA test tasks and interview the top 3 candidates.", "owner": "Breyon", "mins": 90, "flag": ""}, {"id": "d17t3", "text": "Prepare VA onboarding requirements: signed confidentiality agreement, background check (per applicable law), security training on the Safeguards program, and role-based GHL permissions.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d17t4", "text": "Go live on IG for 15-20 minutes: Q&A on credit and funding basics, compliance-safe (no outcome promises).", "owner": "Breyon", "mins": 30, "flag": ""}], "agents": [6, 10], "metric": "Revived leads booked; lead→booked (target ≥ 20%)", "win": "VA interviews are done, onboarding requirements are ready, and the revival sequence is out."}, {"day": 18, "week": 3, "theme": "Protect It Rollout", "focus": "Funded clients now have assets worth protecting, so this is the natural moment to add the insurance back-end, with full disclosure.", "tasks": [{"id": "d18t1", "text": "Add an 'Insurance Needs Review' task to the Funded → Protect stage in GHL. It is offered only after the credit/funding work and never as a condition of service.", "owner": "Team", "mins": 30, "flag": "risk"}, {"id": "d18t2", "text": "Write the Protect it conversation script and include the attorney-approved written cross-sell disclosure. Run it through Agent 10.", "owner": "Breyon", "mins": 45, "flag": "attorney"}, {"id": "d18t3", "text": "Run Agent 8 (Business Credit Build Tracker) and Agent 9 (Funding Readiness Review) and move ready clients to Funding Review.", "owner": "Team", "mins": 45, "flag": ""}, {"id": "d18t4", "text": "Run every funding file through the lender bench check: each in-progress file has a backup lender identified.", "owner": "Team", "mins": 20, "flag": "risk"}], "agents": [8, 9, 10], "metric": "Funded clients offered a Protect review (with disclosure signed)", "win": "The Protect stage, script and disclosure are live, and every funding file has a backup lender."}, {"day": 19, "week": 3, "theme": "Scorecard + Hire", "focus": "Friday shows whether the scaled ads and partner work are moving the numbers, and the VA decision locks in capacity.", "tasks": [{"id": "d19t1", "text": "Run Agent 11 (Weekly KPI Scorecard) and pick ONE fix. Check every scale trigger.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d19t2", "text": "Make the VA hiring decision and send the offer with the confidentiality agreement.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d19t3", "text": "Partner pipeline review: who was met, who referred, who needs a follow-up next week.", "owner": "Breyon", "mins": 30, "flag": ""}, {"id": "d19t4", "text": "Review the complaint log and any chargeback or dispute notices. Any complaint goes to root-cause and policy update.", "owner": "Breyon", "mins": 20, "flag": "risk"}], "agents": [11], "metric": "Weekly KPI scorecard; complaints (target 0)", "win": "The scorecard is saved, the VA offer is sent, and the complaint and chargeback log is reviewed."}, {"day": 20, "week": 3, "theme": "Batch + Workshop Plan", "focus": "A light Saturday: content runway plus one event that turns followers and partners into booked calls.", "tasks": [{"id": "d20t1", "text": "Batch-film 7 reels from Agent 14 and Agent 1 scripts, all passed through Agent 10.", "owner": "Breyon", "mins": 90, "flag": ""}, {"id": "d20t2", "text": "Plan a free 'Fix it. Build it. Fund it. Protect it.' workshop for Day 24: GHL registration page, reminder sequence and partner co-host invite. Run the copy through Agent 10.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d20t3", "text": "Send personal workshop invites to every partner met so far and to past clients.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [1, 10, 14], "metric": "Reels in the bank (target 7); workshop page live (Y/N)", "win": "Week 4 content is filmed and the workshop registration page is live."}, {"day": 21, "week": 3, "theme": "Rest, Faith & Review", "focus": "Rest, then plan the delegation week.", "tasks": [{"id": "d21t1", "text": "Rest and faith time, with no client work.", "owner": "Breyon", "mins": 0, "flag": ""}, {"id": "d21t2", "text": "Write the VA's first-week task list from the capacity plan's 'Delegate' column.", "owner": "Breyon", "mins": 30, "flag": ""}, {"id": "d21t3", "text": "Schedule Week 4 content and workshop promos.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [], "metric": "Hours ready to delegate", "win": "Rested, and the VA's first week is planned."}, {"day": 22, "week": 4, "theme": "VA Onboarding", "focus": "Delegation only works with training and access controls, so the VA starts on SOPs and least-privilege access.", "tasks": [{"id": "d22t1", "text": "Onboard the VA: walk through SOPs 1-4, the Safeguards security training, and GHL user setup with role-based permissions (no export rights).", "owner": "Breyon", "mins": 90, "flag": "risk"}, {"id": "d22t2", "text": "Run Agent 2 and Agent 3, and refresh creative on any ad with fatigue (rising CPL for 3+ days).", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d22t3", "text": "The VA shadows speed to lead today, then runs it solo tomorrow with Breyon reviewing call notes.", "owner": "VA", "mins": 120, "flag": ""}, {"id": "d22t4", "text": "Promote the workshop with a Story, a post and an email/SMS blast to past leads (Agent 10 approved).", "owner": "VA", "mins": 30, "flag": ""}], "agents": [2, 3, 10], "metric": "Speed to lead with VA covering (target < 5 min)", "win": "The VA is trained, has scoped access, and is handling speed to lead."}, {"day": 23, "week": 4, "theme": "Partner Co-Marketing", "focus": "One partner who is actively referring is worth more than ten cold contacts, so the warm ones get deeper this week.", "tasks": [{"id": "d23t1", "text": "Hold the partner coffees or Zooms booked on Day 16 and agree a simple referral handoff with each.", "owner": "Breyon", "mins": 90, "flag": ""}, {"id": "d23t2", "text": "Run Agent 5: 10 new partner touches, and invite partners to co-host or attend the Day 24 workshop.", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d23t3", "text": "Launch the referral program to current clients and partners, but only if the attorney has approved the terms. Otherwise follow up with the attorney.", "owner": "Breyon", "mins": 30, "flag": "attorney"}, {"id": "d23t4", "text": "Create a 'Partner of the Month' content slot (with written partner consent) to give partners visibility.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [5], "metric": "Active referring partners; referral program launched (Y/N)", "win": "Partner meetings are done and the referral program is live (or blocked only on attorney sign-off)."}, {"day": 24, "week": 4, "theme": "Workshop Day", "focus": "A live workshop builds trust at scale and fills the calendar in one evening.", "tasks": [{"id": "d24t1", "text": "Run Agent 6 (Lead Revival) in the morning to invite revived leads to tonight's workshop.", "owner": "VA", "mins": 30, "flag": ""}, {"id": "d24t2", "text": "Deliver the workshop: Fix it, Build it, Fund it, Protect it. Cover education only, no promised outcomes, and include the required disclosures. End with a booking link.", "owner": "Breyon", "mins": 75, "flag": "risk"}, {"id": "d24t3", "text": "Send the replay and booking link within 2 hours to all registrants and tag attendees vs no-shows in GHL.", "owner": "VA", "mins": 30, "flag": ""}, {"id": "d24t4", "text": "Clip 5 Shorts from the recording for next week and run them through Agent 10.", "owner": "VA", "mins": 45, "flag": ""}], "agents": [6, 10], "metric": "Workshop registrants → attendees → calls booked", "win": "The workshop is delivered, the replay is sent, and booked calls are logged."}, {"day": 25, "week": 4, "theme": "Fulfillment QA Audit", "focus": "As volume grows, quality slips in the gaps, so every client file gets checked against the rules this week.", "tasks": [{"id": "d25t1", "text": "Audit every client signed this month: contract and CROA disclosures signed, cancellation window respected before any work or billing, monitoring enrolled, track assigned, Agent 13 tasks complete.", "owner": "Breyon", "mins": 60, "flag": "risk"}, {"id": "d25t2", "text": "Audit billing: no credit repair charges before the work was performed, and every success-fee invoice dated on or after the approval date with the signed fee agreement on file.", "owner": "Breyon", "mins": 45, "flag": "risk"}, {"id": "d25t3", "text": "Run Agent 8 (Business Credit Build Tracker) and Agent 9 (Funding Readiness Review).", "owner": "Team", "mins": 45, "flag": ""}, {"id": "d25t4", "text": "Run Agent 7 (Credit Audit Prep) for all audit calls booked in the next 7 days.", "owner": "Team", "mins": 30, "flag": ""}], "agents": [7, 8, 9, 13], "metric": "Files passing QA (target 100%); monitoring enrolled (target 100%)", "win": "Every client file and invoice passes QA, or each failure has a fix logged."}, {"day": 26, "week": 4, "theme": "Scorecard + Scale Decision", "focus": "With three weeks of data, decide whether to raise spend, add capacity, or fix a leak.", "tasks": [{"id": "d26t1", "text": "Run Agent 11 (Weekly KPI Scorecard), pick ONE fix, and apply every scale trigger formally (raise, hold or cut spend).", "owner": "Breyon", "mins": 45, "flag": ""}, {"id": "d26t2", "text": "Review the chargeback and dispute log and the collections status on success-fee invoices. Escalate past-due invoices per the written payment terms.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d26t3", "text": "Capacity check: calls per week Breyon can take vs calls booked. If there are more booked calls than capacity, start the closer/fulfillment specialist job description.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d26t4", "text": "Confirm E&O policy bound and carrier appointments complete, and close those items or escalate.", "owner": "Breyon", "mins": 15, "flag": "risk"}], "agents": [11], "metric": "Weekly KPI scorecard; cost per client (target ≤ $500); close (target ≥ 25%)", "win": "The scale decision is made and documented, and the collections, E&O and appointment items are closed or escalated."}, {"day": 27, "week": 4, "theme": "Batch + Consent Content", "focus": "A light Saturday: content that builds credibility without making claims about results.", "tasks": [{"id": "d27t1", "text": "Batch-film 7 reels: process walkthroughs ('what happens after you sign'), myth-busting, and Wealth Stack topics. No results claims. Run them through Agent 10.", "owner": "Breyon", "mins": 90, "flag": "risk"}, {"id": "d27t2", "text": "Collect client testimonials only with signed written consent, focused on their experience (not results), with each one reviewed by Agent 10 before use.", "owner": "VA", "mins": 30, "flag": "risk"}, {"id": "d27t3", "text": "Write the 5 workshop Shorts captions and schedule them for next week.", "owner": "VA", "mins": 20, "flag": ""}], "agents": [10, 14], "metric": "Reels in the bank (target 7)", "win": "The next week of compliant content is filmed and consent forms are on file."}, {"day": 28, "week": 4, "theme": "Rest, Faith & Reflect", "focus": "Rest, then collect the facts for the 30-day review.", "tasks": [{"id": "d28t1", "text": "Rest and faith time, with no client work.", "owner": "Breyon", "mins": 0, "flag": ""}, {"id": "d28t2", "text": "Export the 4 weekly scorecards side by side for Monday's retrospective.", "owner": "VA", "mins": 20, "flag": ""}, {"id": "d28t3", "text": "Write down 3 things that worked, 3 that did not, and the one bottleneck that is still Breyon.", "owner": "Breyon", "mins": 20, "flag": ""}], "agents": [11], "metric": "Scorecards compiled (4 of 4)", "win": "Rested, and the retrospective inputs are ready."}, {"day": 29, "week": 5, "theme": "Monthly Reports + Retro", "focus": "Client progress reports keep clients and retention strong, and the retrospective turns 30 days of data into the next plan.", "tasks": [{"id": "d29t1", "text": "Run Agent 12 (Client Progress Reports) for every active client and send them after Breyon spot-checks them and Agent 10 approves.", "owner": "Team", "mins": 60, "flag": ""}, {"id": "d29t2", "text": "Run Agent 2 and Agent 3 and refresh the angle test queue.", "owner": "Breyon", "mins": 30, "flag": ""}, {"id": "d29t3", "text": "30-day retrospective: every KPI against target, the trend across 4 weeks, channel mix (ads vs partners vs referrals vs revival), and Protect it offers made.", "owner": "Breyon", "mins": 60, "flag": ""}, {"id": "d29t4", "text": "Close-out checklist of all attorney and risk items from Week 1, each marked Done / In Progress / Blocked with an owner.", "owner": "Breyon", "mins": 30, "flag": "attorney"}], "agents": [2, 3, 10, 12], "metric": "Progress reports sent (target 100% of active clients); open attorney/risk items", "win": "Every active client has a report, and the retrospective and compliance close-out are documented."}, {"day": 30, "week": 5, "theme": "Plan the Next 30", "focus": "Lock in what works, put a date on the next hire, and set the next month's targets.", "tasks": [{"id": "d30t1", "text": "Write the Days 31-60 plan: the one channel to double down on, the one leak to fix, and the next SOP to write.", "owner": "Breyon", "mins": 60, "flag": ""}, {"id": "d30t2", "text": "Update the capacity plan v2 and set the second-hire trigger (closer or fulfillment specialist) from the scale triggers.", "owner": "Breyon", "mins": 30, "flag": "risk"}, {"id": "d30t3", "text": "Partner program review: rank partners by referrals, plan quarterly touchpoints, and replace inactive partners via Agent 5.", "owner": "Breyon", "mins": 30, "flag": ""}, {"id": "d30t4", "text": "Schedule a quarterly attorney check-in and a calendar reminder for the AZ registration/bond renewal date.", "owner": "VA", "mins": 15, "flag": "attorney"}, {"id": "d30t5", "text": "Celebrate the team win and share a compliant month-one recap with the audience (process and lessons, no results claims).", "owner": "Breyon", "mins": 30, "flag": ""}], "agents": [5, 10, 11], "metric": "Next-30 plan written (Y/N); second-hire trigger defined (Y/N)", "win": "The next 30-day plan is set, renewals and attorney check-ins are on the calendar, and the team has celebrated."}], "dailyNonNegotiables": ["Speed-to-lead check: every new lead contacted in under 5 minutes, and any miss reviewed the same day.", "Film or post at least one piece of content from Agent 1 or Agent 14, approved by Agent 10 (Compliance Gate).", "10 partner touches (Phoenix loan officers and realtors), counting DMs, emails, calls or follow-ups.", "Run Agent 4 Pre-Call Briefs for every call on the calendar before the call.", "Check GHL for new 'Signed' clients and confirm Agent 13 kickoff fired with monitoring enrollment.", "Nothing client-facing goes out without passing Agent 10 (Compliance Gate).", "Log any complaint, dispute or chargeback the same day it arrives.", "Prayer, faith or quiet time and a hard stop time to protect energy."], "scaleTriggers": ["If cost per client is ≤ $500 for 2 consecutive weeks, raise ad spend 25% on the winning ad set.", "If cost per lead is > $15 for 3 consecutive days on an ad set, pause it and launch the next angle from Agent 3.", "If speed to lead is > 5 min in any week, fix speed to lead before raising spend or adding channels.", "If show rate is < 65% for a week, rewrite the reminder sequence and add a pre-call video before adding leads.", "If close rate is < 25% for 2 weeks, review call recordings against the script before scaling ads.", "If booked calls exceed Breyon's weekly call capacity for 2 weeks, post the closer/fulfillment specialist role.", "If any complaint or chargeback is received, pause scaling, find the root cause, and update the SOP before resuming.", "If monitoring enrollment is below 100% of new clients, fix the Agent 13 kickoff before signing more clients.", "If a partner sends 2+ referrals in a month, upgrade them to a monthly partner touchpoint and co-marketing.", "If any attorney or risk item from Week 1 is still Blocked by Day 30, hold new spend increases until it is resolved."]};
+
+/* ---------- fleet definition ---------- */
+const FROZEN = `FCFG FROZEN RULES (never break, never relax):
+- No guarantees of scores, deletions, funding, approval or timelines.
+- Credit repair is billed only after the work is performed. Funding success fee (5-10% of the funded amount, capped at $10,000) is invoiced only after the client's funds are received (Arizona advance-fee broker law; confirm licensing with counsel). On SBA loans, disclose any fee on SBA Form 159.
+- Disclose products, hard inquiries and fees in writing.
+- Dispute only items believed inaccurate, incomplete, outdated or unverifiable. Never suggest identity-theft claims unless the client reports real identity theft.
+- Testimonials only with written consent, redacted, with "Results vary. Not a guarantee."
+- Never include full SSNs or account numbers.
+- Insurance is optional, never a condition of any other service, and is offered by a licensed Arizona producer.
+- Agents draft; Breyon approves. Nothing is posted, sent, mailed or charged by an agent.`;
+
+const AGENTS = [
+  { id:1, dept:"Marketing", name:"Daily Content Engine", cadence:"Daily", days:[0,1,2,3,4,5,6], tier:"default",
+    hint:"Today's topic or idea number (optional). Paste a real client win only if they gave written consent.",
+    spec:`GOAL: tomorrow's content for @breyonmiller, credit and funding niche, Phoenix
+PARALLEL JOBS:
+  1. reel script 25-45s (hook in 2s, body, on-screen text, CTA keyword SCORE | FUND | PAYDEX)
+  2. 3 Story frames: behind-the-scenes, one consented result, one question sticker
+  3. caption under 150 words + first comment with the keyword
+  4. TikTok/Shorts cut under 30 seconds
+VERIFY: compliance check on every piece
+MERGE: one content card per platform, plus a filming note
+HUMAN GATE: never post anything` },
+  { id:14, dept:"Marketing", name:"Wealth Stack Content", cadence:"Tue + Thu", days:[2,4], tier:"default", isNew:true,
+    hint:"Rung 1-5 (1 Personal credit · 2 LLC structure · 3 Business credit · 4 Funding · 5 Life insurance), format (reel, carousel, 3-part series, email), optional angle.",
+    template:"Rung: 3\nFormat: carousel\nAngle: ",
+    spec:`GOAL: deeper content across personal credit, LLC structure, business credit, funding and life insurance
+HOOK RULE: every piece hooks on credit or funding in the first 2 seconds
+LADDER: 1 Personal credit (SCORE) → 2 Structure (STRUCTURE) → 3 Business credit (PAYDEX) → 4 Funding (FUND) → 5 Protection (PROTECT)
+JOBS: hook under 12 words · body teaching ONE idea from the chosen rung · on-screen text or 7 carousel slides · bridge line to the next rung · caption under 150 words + first comment with the keyword · filming/design note
+FEE LINE (when funding is mentioned): "No funding fee unless you're funded. 5-10% of the funded amount, capped at $10,000, invoiced only after your funds arrive, and in writing before you apply."
+INSURANCE: optional, never required for funding; no promised returns, "tax-free wealth" or "be your own bank"; add "Insurance offered by a licensed Arizona producer."
+LANGUAGE: "options that may not require a personal guarantee, where lenders allow"
+VERIFY: compliance check on every piece; fix what fails
+HUMAN GATE: never post anything` },
+  { id:2, dept:"Marketing", name:"Competitor & Influencer Scan", cadence:"Mondays", days:[1], tier:"complex",
+    hint:"Paste what you saw this week: hooks, offers, posts, links. This console cannot browse, so it works from what you give it.",
+    spec:`GOAL: what's working this week for credit, business credit and funding creators
+ANGLES: top hooks · new offers and prices · buyer complaints · new FTC/CFPB/Arizona actions
+RULE: every finding needs a source and date
+VERIFY: skeptic pass on each finding: correct? current? source shown?
+MERGE: report ranked by confidence + 5 hooks to adapt (not copy)
+HUMAN GATE: change no offers without asking` },
+  { id:3, dept:"Marketing", name:"Ad Angle Lab", cadence:"Mondays", days:[1], tier:"default",
+    hint:"Avatar (Comeback Builder, Stuck Founder, Launch-Ready Starter) and last week's cost per lead and booking rate by angle.",
+    spec:`GOAL: 5 new ad creatives for the chosen avatar
+ANGLES: denied · no-PG capital · the score · origin story · myth-bust
+EACH: 3-second hook, 20-second script, headline, primary text
+NOTE: Meta Financial Products and Services special ad category: no age, gender or ZIP targeting, no lookalikes; creative does the targeting
+VERIFY: compliance check on every creative
+REDUCE: rank by fit with last week's winning angle
+HUMAN GATE: never launch or change spend` },
+  { id:4, dept:"Sales", name:"Pre-Call Brief", cadence:"Each booked call", days:[], tier:"default",
+    hint:"Lead name, Readiness Score answers and any GHL notes.",
+    spec:`GOAL: 1-page brief before a strategy call
+JOBS: likely path from quiz + notes · business snapshot if any · 3 likely objections and best answers
+MERGE: goal, score band, path, price, objections, close question
+VERIFY: every fact traces to the quiz, CRM notes or a link given` },
+  { id:5, dept:"Sales", name:"Partner Prospecting", cadence:"Tuesdays", days:[2], tier:"default",
+    hint:"Paste prospect names and what you know about each (brokerage, niche, recent listing or post).",
+    spec:`GOAL: personal outreach to Phoenix-metro loan officers and agents
+RULE: public business info only
+DEDUPE: against current partners
+JOBS: one personal message per prospect referencing something real
+VERIFY: flag any unverified claim; no per-referral payment offers until attorney-approved partner terms exist
+HUMAN GATE: never send; Breyon sends` },
+  { id:6, dept:"Sales", name:"Lead Revival", cadence:"Wednesdays", days:[3], tier:"default",
+    hint:"How many stale leads sit in each score band (under 620, 620-679, 680-719, 720+), and any offer running now.",
+    spec:`GOAL: re-engage quiz-takers who didn't book in 60 days
+RULE: only leads with recorded consent to text/call (TCPA)
+FAN OUT: one 3-message SMS + email sequence per score band
+VERIFY: compliance check on every message
+REPORT: count per band so none is skipped
+HUMAN GATE: Breyon turns sequences on` },
+  { id:13, dept:"Fulfillment", name:"Fulfillment Kickoff", cadence:"Each signed client", days:[], tier:"complex", isNew:true,
+    hint:"Paste the new client's details (initials only). Use Insert template, or press Kickoff on a client card to prefill it.",
+    template:`New client signed. Start fulfillment.
+Client: [first name + last initial]   Signed: [date]   Cancellation window ends: [date]
+Services bought: [Fix / Build / Fund / Protect]
+Intake: score band [___], negatives they mentioned [___], LLC? [Y/N, state, age], EIN? [Y/N], D-U-N-S? [Y/N], monthly revenue [range], funding goal + use [___], dependents / insurance today [___]
+Paperwork received: [list]   Monitoring enrolled: [Y/N]`,
+    spec:`GOAL: start fulfillment the same day a client signs, with no missed step
+1. GATE CHECK: signed service agreement · CROA "Consumer Credit File Rights" disclosure · 3-business-day cancellation notice + date · fee agreement (credit repair billed only after work; funding success fee 5-10% capped at $10,000 only after funds are received) · ID + proof of address · monitoring enrolled. Missing = BLOCKED
+2. ROUTE: FIX · BUILD · FUND · PROTECT, one sentence each, intake facts only
+3. WELCOME: warm text + email in Breyon's voice: this week, what we need, how to reach us; no promises
+4. CHECKLIST: documents specific to the tracks
+5. TASKS: 10-14 dated tasks for the first 14 days (owner: Breyon, VA, Agent 7/8/9, client); credit work starts only after the cancellation date
+6. HANDOFFS: next agent (7, 8 or 9) + the exact masked input to give it
+VERIFY: skeptic pass: anything promised? anything billed early? any PII?
+HUMAN GATE: Breyon approves and sends from GHL` },
+  { id:7, dept:"Fulfillment", name:"Credit Audit Prep", cadence:"Each new client", days:[], tier:"complex",
+    hint:"Client initials and MASKED 3-bureau tradeline data (last 4 only). Never paste a full SSN or account number.",
+    spec:`GOAL: audit worksheet from a masked 3-bureau report
+FAN OUT: one pass per bureau listing negative items with dates, balances, status
+REDUCE: mark mismatches between bureaus
+VERIFY: keep an item only with a specific, documentable reason it may be inaccurate, incomplete, outdated or unverifiable
+ANCHOR: never state a fact the report doesn't show
+HUMAN GATE: Breyon reviews every item with the client before any letter` },
+  { id:8, dept:"Fulfillment", name:"Business Credit Build Tracker", cadence:"Thursdays", days:[4], tier:"default",
+    hint:"Per client: foundation done?, D-U-N-S status, vendors opened, invoices paid early/late, trades reported, Paydex if posted.",
+    spec:`GOAL: status of every active Business Credit Build
+PER CLIENT: stage, next action, owner, due date
+ANCHOR: D&B file and vendor statements, not client say-so
+FAN-IN GUARD: count clients returned vs given; flag missing` },
+  { id:9, dept:"Fulfillment", name:"Funding Readiness Review", cadence:"Before each funding", days:[], tier:"complex",
+    hint:"Client initials, personal scores, utilization, recent inquiries, entity age, revenue, Paydex, intended use of funds.",
+    spec:`GOAL: funding readiness memo
+JOBS: personal snapshot · business snapshot · product fit for the intended use
+VERIFY: skeptic finds the reason a lender would say no
+MERGE: products, expected hard inquiries (count), all fees, payoff plan for any 0% intro product, red flags
+HUMAN GATE: client's written OK on the product plan before any application; fee only after funds are received` },
+  { id:10, dept:"Compliance", name:"Compliance Gate", cadence:"Before anything goes out", days:[], tier:"complex",
+    hint:"Paste the post, ad, script, email or client message to check.",
+    spec:`GOAL: pass or fail content against FCFG's frozen rules
+FRESH CONTEXT: judge only the content, as an outside skeptic
+CHECKS: promises (guarantees) · money (advance fees, hidden costs) · truth (consent, typical results, sources, PII) · insurance (optional, licensed, no promised returns)
+PASS: all checks pass
+FAIL: exact line + rule broken + compliant rewrite
+END: "X of Y pieces passed."` },
+  { id:11, dept:"Reporting", name:"Weekly KPI Scorecard", cadence:"Fridays", days:[5], tier:"default",
+    hint:"Uses the scorecard numbers in the Score tab. Add anything else (cash by offer, notes).",
+    spec:`GOAL: the week's scorecard
+SOURCES: Meta Ads, GHL pipeline, GHL payments (cash anchor), SmartCredit
+FAN-IN GUARD: missing source -> say so at the top, never estimate
+OUTPUT: red/green vs targets and ONE fix for the worst number` },
+  { id:15, dept:"Fulfillment", name:"Client Update Writer", cadence:"Every 7 or 14 days per client", days:[], tier:"default", isNew:true,
+    hint:"Press Update on a client card to prefill. Or paste: initials, stage, what happened since the last update, what we're waiting on, cohort A or B.",
+    spec:`GOAL: the scheduled client update that kills "any news?" messages
+THREE RULES: what happened since last time (even "still waiting on Experian") · do we need anything from them ("nothing needed" is an answer) · the date of the next update
+USE: the FCFG status library wording for the stage (waiting on docs, cancellation window, bureaus, vendor reporting, lender, underwriting, action needed, stuck)
+OUTPUT: email (subject + under 120 words) + SMS under 160 characters ending "Reply STOP to opt out" + portal note
+CADENCE: cohort A check-in every 7 days, report every 14 · cohort B check-in every 14 days, report every 30
+TONE: warm, plain, specific dates; never promise outcomes; "Results vary" only where results are mentioned
+HUMAN GATE: Breyon or the VA sends from GHL; then press Mark sent` },
+  { id:12, dept:"Reporting", name:"Client Progress Reports", cadence:"1st of the month", days:[], monthly:true, tier:"default",
+    hint:"Per client (initials only): what bureaus or D&B returned this month, what's next, what you need from them.",
+    spec:`GOAL: a monthly update per active client
+EACH: what changed (from bureau/D&B responses only), what's next, what we need
+VERIFY: every claimed change appears in a response given
+FAN-IN GUARD: count reports vs clients given
+HUMAN GATE: Breyon approves before sending` }
+];
+const byId = id => AGENTS.find(a => a.id === +id);
+const pad = n => String(n).padStart(2, "0");
+
+const KPIS = [
+  { k:"spend", label:"Ad spend this week ($)", good:()=>true, bad:()=>false, t:"from Meta Ads" },
+  { k:"leads", label:"New leads (count)", good:()=>true, bad:()=>false, t:"from Meta / GHL" },
+  { k:"cpl", label:"Cost per lead ($)", good:v=>v<=15, bad:v=>v>25, t:"≤ $15" },
+  { k:"speed", label:"Speed to lead (min)", good:v=>v<5, bad:v=>v>30, t:"< 5 min" },
+  { k:"booked", label:"Lead → booked (%)", good:v=>v>=20, bad:v=>v<12, t:"≥ 20%" },
+  { k:"show", label:"Show rate (%)", good:v=>v>=65, bad:v=>v<50, t:"≥ 65%" },
+  { k:"close", label:"Close rate (%)", good:v=>v>=25, bad:v=>v<15, t:"≥ 25%" },
+  { k:"cpc", label:"Cost per client ($)", good:v=>v<=500, bad:v=>v>700, t:"≤ $500" },
+  { k:"ticket", label:"Avg first ticket ($)", good:v=>v>=1900, bad:v=>v<1300, t:"≥ $1,900" },
+  { k:"cash", label:"Cash collected ($)", good:()=>true, bad:()=>false, t:"from GHL payments" },
+  { k:"monitor", label:"Monitoring enrolled (%)", good:v=>v>=100, bad:v=>v<90, t:"100%" },
+  { k:"complaints", label:"Refunds / complaints", good:v=>v===0, bad:v=>v>0, t:"0" }
+];
+
+const STAGES = [
+  ["lead","New lead","Respond in under 5 min"],["booked","Booked","Run Pre-Call Brief (04)"],["signed","Signed","Run Fulfillment Kickoff (13)"],
+  ["kickoff","Kickoff","Docs, disclosures, monitoring"],["fix","Fix · credit","Audit (07) → disputes"],["build","Build · business","Tracker (08) on Thursdays"],
+  ["fundrev","Funding review","Readiness memo (09) + written OK"],["funded","Funded","Invoice success fee after funds arrive"],
+  ["protect","Protect","Optional life insurance review"],["referral","Referral","Ask for a referral + consent story"]
+];
+const STAGE_IDX = Object.fromEntries(STAGES.map((s, i) => [s[0], i]));
+const TRACKS = ["FIX","BUILD","FUND","PROTECT"];
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money = n => "$" + Math.round(+n || 0).toLocaleString("en-US");
+const feeFor = (amt, pct) => Math.min(10000, Math.max(0, (+amt || 0) * (+pct || 0) / 100));
+function md(src) {
+  const lines = String(src || "").replace(/\r/g, "").split("\n");
+  let html = "", list = null, inCode = false, code = [], table = [];
+  const inline = t => esc(t).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*([^*]+)\*/g, "$1<em>$2</em>");
+  const closeList = () => { if (list) { html += `</${list}>`; list = null; } };
+  const flushTable = () => { if (!table.length) return; const rows = table.filter(r => !/^\s*\|?\s*:?-{2,}/.test(r));
+    html += "<table>" + rows.map((r, i) => "<tr>" + r.replace(/^\s*\||\|\s*$/g, "").split("|").map(c => i ? `<td>${inline(c.trim())}</td>` : `<th>${inline(c.trim())}</th>`).join("") + "</tr>").join("") + "</table>"; table = []; };
+  for (const ln of lines) {
+    if (/^```/.test(ln)) { if (inCode) { html += `<pre>${esc(code.join("\n"))}</pre>`; code = []; inCode = false; } else { closeList(); flushTable(); inCode = true; } continue; }
+    if (inCode) { code.push(ln); continue; }
+    if (/^\s*\|.*\|\s*$/.test(ln)) { closeList(); table.push(ln); continue; } else flushTable();
+    let m;
+    if ((m = ln.match(/^(#{1,4})\s+(.*)/))) { closeList(); html += `<h4>${inline(m[2])}</h4>`; }
+    else if ((m = ln.match(/^\s*[-*•]\s+(.*)/))) { if (list !== "ul") { closeList(); html += "<ul>"; list = "ul"; } html += `<li>${inline(m[1])}</li>`; }
+    else if ((m = ln.match(/^\s*\d+[.)]\s+(.*)/))) { if (list !== "ol") { closeList(); html += "<ol>"; list = "ol"; } html += `<li>${inline(m[1])}</li>`; }
+    else if (!ln.trim()) { closeList(); }
+    else { closeList(); html += `<p>${inline(ln)}</p>`; }
+  }
+  if (inCode) html += `<pre>${esc(code.join("\n"))}</pre>`;
+  closeList(); flushTable();
+  return html;
+}
+function toast(msg) { const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
+const isoOf = d => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+const todayISO = () => isoOf(new Date());
+const addDays = (iso, n) => { const d = new Date(iso + "T12:00:00"); d.setDate(d.getDate() + n); return isoOf(d); };
+const fmtDay = iso => new Date(iso + "T12:00:00").toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" });
+function weekKey(d = new Date()) { const x = new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return isoOf(x); }
+function rel(ts) { const s = (Date.now() - ts) / 1000; if (s < 60) return "just now"; if (s < 3600) return Math.floor(s / 60) + "m ago"; if (s < 86400) return Math.floor(s / 3600) + "h ago"; return Math.floor(s / 86400) + "d ago"; }
+async function copyText(t) { try { await navigator.clipboard.writeText(t); toast("Copied"); } catch { toast("Copy blocked here. Select the text instead."); } }
+const SSN = /\b\d{3}-\d{2}-\d{4}\b|\b(?<!\d)\d{9}(?!\d)\b|\b\d{13,19}\b/;
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+function ringSVG(frac, label, sub) {
+  const r = 40, c = 2 * Math.PI * r, off = c * (1 - Math.max(0, Math.min(1, frac)));
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="${r}" fill="none" stroke="#1D3765" stroke-width="7"/><circle class="prog" cx="50" cy="50" r="${r}" fill="none" stroke="url(#rg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#C9A646"/><stop offset="1" stop-color="#E6C873"/></linearGradient></defs></svg><div class="val"><div><b>${esc(label)}</b><span>${esc(sub)}</span></div></div>`;
+}
+
+/* ---------- state ---------- */
+let db = null, sample = null, tasks = [], runs = [], clients = [], rmDone = {}, rmStart = "", kpi = {}, current = AGENTS[0], ctl = null, lastOut = "";
+let rmWeek = 1, openDay = null, editingClient = null, pendingFund = null;
+const dataPill = $("pData"), claudePill = $("pClaude");
+
+function tick() { const d = new Date(); $("clock").textContent = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const h = d.getHours(); $("greet").textContent = `${h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening"}, Breyon. ${d.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" })}.`; }
+tick(); setInterval(tick, 30000);
+
+/* ---------- tabs ---------- */
+const TABS = ["today","clients","agents","roadmap","board","score","library"];
+function go(tab) {
+  if (!TABS.includes(tab)) tab = "today";
+  document.querySelectorAll(".tab").forEach(b => { const on = b.dataset.tab === tab; b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1; });
+  TABS.forEach(t => { $("v-" + t).hidden = t !== tab; });
+  store.set("fcfg.tab", tab);
+  if (tab === "roadmap") renderRoadmap();
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+}
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => go(b.dataset.tab)));
+$("tabs").addEventListener("keydown", e => { if (!["ArrowLeft","ArrowRight"].includes(e.key)) return; const cur = TABS.indexOf(document.querySelector('.tab[aria-selected="true"]').dataset.tab); const nx = TABS[(cur + (e.key === "ArrowRight" ? 1 : TABS.length - 1)) % TABS.length]; go(nx); document.querySelector(`.tab[data-tab="${nx}"]`).focus(); });
+document.addEventListener("click", e => { const g = e.target.closest("[data-go]"); if (g) go(g.dataset.go); });
+
+/* ---------- roadmap logic ---------- */
+const RM_TASKS = ROADMAP ? ROADMAP.days.flatMap(d => d.tasks) : [];
+function rmDayNow() { if (!rmStart) return 0; const n = Math.floor((new Date(todayISO() + "T12:00:00") - new Date(rmStart + "T12:00:00")) / 864e5) + 1; return n; }
+function rmProgress(days) { const ts = days.flatMap(d => d.tasks); const done = ts.filter(t => rmDone[t.id]).length; return { done, total: ts.length }; }
+async function toggleRm(id, on) {
+  rmDone = { ...rmDone }; if (on) rmDone[id] = true; else delete rmDone[id];
+  renderRoadmap(); renderToday();
+  if (!db) { toast("Progress isn't saving in this view."); return; }
+  try { if (on) await db.doc("roadmap/" + id).set({ done: true, at: Date.now() }); else await db.doc("roadmap/" + id).delete(); }
+  catch { toast("Couldn't save that check."); }
+}
+async function setStart(iso) {
+  rmStart = iso; renderRoadmap(); renderToday();
+  if (!db) return;
+  try { await db.doc("settings/roadmap").set({ start: iso, updatedAt: Date.now() }); } catch { toast("Couldn't save the start date."); }
+}
+function taskRow(t) {
+  const on = !!rmDone[t.id];
+  const lab = document.createElement("label"); lab.className = "task" + (on ? " done" : "");
+  lab.innerHTML = `<input type="checkbox" ${on ? "checked" : ""} aria-label="Done"><div><div class="tx">${esc(t.text)}</div><div class="tm"><span class="tag gold">${esc(t.owner)}</span>${t.mins ? `<span class="tag">${t.mins} min</span>` : ""}${t.flag ? `<span class="tag ${esc(t.flag)}">${t.flag === "attorney" ? "Attorney" : "Risk"}</span>` : ""}</div></div>`;
+  lab.querySelector("input").addEventListener("change", e => toggleRm(t.id, e.target.checked));
+  return lab;
+}
+function renderRoadmap() {
+  if (!ROADMAP) return;
+  const now = rmDayNow(), all = rmProgress(ROADMAP.days);
+  $("rmRing").innerHTML = ringSVG(all.total ? all.done / all.total : 0, Math.round(all.total ? 100 * all.done / all.total : 0) + "%", `${all.done}/${all.total}`);
+  $("rmTitle").textContent = ROADMAP.title;
+  $("rmSub").textContent = rmStart ? (now < 1 ? `Starts ${fmtDay(rmStart)}.` : now > 30 ? `Finished ${fmtDay(addDays(rmStart, 29))}. Time to plan the next 30.` : `Day ${now} of 30 · ${ROADMAP.days[now - 1].theme}`) : "Pick the date Day 1 lands on. Day 1 is built for a Monday.";
+  $("rmStart").value = rmStart || "";
+  const wb = $("weeks"); wb.innerHTML = "";
+  ROADMAP.weeks.forEach(w => {
+    const ds = ROADMAP.days.filter(d => d.week === w.week), p = rmProgress(ds);
+    const b = document.createElement("button"); b.className = "wk"; b.setAttribute("aria-pressed", w.week === rmWeek);
+    b.innerHTML = `<small>Week ${w.week} · Days ${ds[0].day}-${ds.at(-1).day}</small><b>${esc(w.name)}</b><span class="mini"><i style="width:${p.total ? 100 * p.done / p.total : 0}%"></i></span>`;
+    b.onclick = () => { rmWeek = w.week; openDay = null; renderRoadmap(); };
+    wb.appendChild(b);
+  });
+  const W = ROADMAP.weeks.find(w => w.week === rmWeek);
+  $("wkGoal").innerHTML = `<b>Goal:</b> ${esc(W.goal)}<br><b>Milestone:</b> ${esc(W.milestone)}`;
+  const box = $("days"); box.innerHTML = "";
+  ROADMAP.days.filter(d => d.week === rmWeek).forEach(d => {
+    const p = rmProgress([d]), isToday = d.day === now, complete = p.done === p.total;
+    const det = document.createElement("details"); det.className = "day" + (isToday ? " today" : "") + (complete ? " complete" : ""); det.id = "day-" + d.day;
+    det.open = openDay === d.day || (openDay === null && (isToday || (!rmStart || now < 1 || now > 30) && d.day === ROADMAP.days.find(x => x.week === rmWeek).day));
+    const date = rmStart ? fmtDay(addDays(rmStart, d.day - 1)) : "";
+    det.innerHTML = `<summary><div class="dnum"><div><b>${d.day}</b><span>DAY</span></div></div><div class="dmeta"><b>${esc(d.theme)}${isToday ? ' <span class="tag gold">TODAY</span>' : ""}</b><span>${esc(date)}${date ? " · " : ""}${esc(d.win)}</span></div><div class="dprog">${complete ? "✓ Done" : `${p.done}/${p.total}`}</div></summary>`;
+    const body = document.createElement("div"); body.className = "dbody";
+    body.innerHTML = `<div class="focus">${esc(d.focus)}</div>`;
+    const tl = document.createElement("div"); tl.className = "tasks"; d.tasks.forEach(t => tl.appendChild(taskRow(t))); body.appendChild(tl);
+    const foot = document.createElement("div"); foot.className = "dfoot"; foot.innerHTML = `<div><small>Measure</small>${esc(d.metric)}</div><div><small>Win for the day</small>${esc(d.win)}</div>`; body.appendChild(foot);
+    const ac = document.createElement("div"); ac.className = "agchips"; ac.innerHTML = `<span class="note">Agents:</span>`;
+    (d.agents || []).forEach(id => { const a = byId(id); if (!a) return; const c = document.createElement("button"); c.className = "chip"; c.type = "button"; c.textContent = `${pad(a.id)} ${a.name}`; c.onclick = () => { selectAgent(a); go("agents"); }; ac.appendChild(c); });
+    const send = document.createElement("button"); send.className = "btn ghost sm"; send.type = "button"; send.textContent = "Send open tasks to board"; send.style.marginLeft = "auto";
+    send.onclick = async () => { const open = d.tasks.filter(t => !rmDone[t.id]); if (!open.length) { toast("Nothing open on this day."); return; } let n = 0; for (const t of open) { const id = await addTask({ title: `Day ${d.day}: ${t.text}`.slice(0, 200), due: rmStart ? addDays(rmStart, d.day - 1) : "", priority: t.flag === "attorney" ? "high" : "normal", agent: (t.owner.match(/Agent (\d+)/) || [])[1] || 0 }); if (id) n++; else break; } if (n) toast(`${n} task${n > 1 ? "s" : ""} added to the board`); };
+    ac.appendChild(send); body.appendChild(ac);
+    det.appendChild(body);
+    det.addEventListener("toggle", () => { if (det.open) openDay = d.day; });
+    box.appendChild(det);
+  });
+  if (!$("stratBody").dataset.done) {
+    $("stratBody").dataset.done = 1;
+    $("stratBody").innerHTML = `<div class="north">${esc(ROADMAP.northStar)}</div><div class="stratGrid"><div><h5>Strategy pillars</h5><ol>${ROADMAP.strategy.map(s => `<li>${esc(s)}</li>`).join("")}</ol></div><div><h5>Daily non-negotiables</h5><ul>${ROADMAP.dailyNonNegotiables.map(s => `<li>${esc(s)}</li>`).join("")}</ul></div><div><h5>Scale triggers</h5><ul>${ROADMAP.scaleTriggers.map(s => `<li>${esc(s)}</li>`).join("")}</ul></div></div>`;
+  }
+}
+$("rmStart").addEventListener("change", e => { if (/^\d{4}-\d{2}-\d{2}$/.test(e.target.value)) setStart(e.target.value); });
+$("rmToday").addEventListener("click", () => {
+  const n = rmDayNow();
+  if (!rmStart) { setStart(todayISO()); rmWeek = 1; openDay = 1; toast("Roadmap started today. Day 1 is open."); return; }
+  if (n < 1 || n > 30) { toast(n < 1 ? "The roadmap hasn't started yet." : "All 30 days are behind you."); return; }
+  rmWeek = ROADMAP.days[n - 1].week; openDay = n; renderRoadmap(); $("day-" + n)?.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+/* ---------- today ---------- */
+function agentDue(a, d = new Date()) { return a.days.includes(d.getDay()) || (a.monthly && d.getDate() === 1); }
+function ranToday(a) { const s = new Date().setHours(0,0,0,0); return runs.some(r => r.agent === a.id && r.at >= s); }
+function moveRow(ico, cls, title, sub, btnLabel, fn) {
+  const r = document.createElement("div"); r.className = "move";
+  r.innerHTML = `<span class="ico ${cls}">${esc(ico)}</span><span><b>${esc(title)}</b><span class="s">${esc(sub)}</span></span>`;
+  if (btnLabel) { const b = document.createElement("button"); b.className = "btn sm"; b.textContent = btnLabel; b.onclick = fn; r.appendChild(b); }
+  return r;
+}
+function renderToday() {
+  const d = new Date(), t = todayISO(), now = rmDayNow();
+  // hero
+  if (ROADMAP && rmStart && now >= 1 && now <= 30) {
+    const day = ROADMAP.days[now - 1], p = rmProgress([day]);
+    $("heroRing").innerHTML = ringSVG(p.done / p.total, `${now}`, "OF 30");
+    $("heroKick").textContent = `Day ${now} · Week ${day.week} · ${ROADMAP.weeks.find(w => w.week === day.week).name}`;
+    $("heroTitle").textContent = day.theme; $("heroWin").textContent = `Win: ${day.win}`;
+  } else {
+    const all = ROADMAP ? rmProgress(ROADMAP.days) : { done: 0, total: 1 };
+    $("heroRing").innerHTML = ringSVG(all.done / all.total, rmStart && now > 30 ? "✓" : "0", rmStart && now > 30 ? "DONE" : "DAYS");
+    $("heroKick").textContent = "30-day roadmap";
+    $("heroTitle").textContent = !rmStart ? "Start your 30-day plan" : now < 1 ? `Day 1 starts ${fmtDay(rmStart)}` : "30 days complete";
+    $("heroWin").textContent = !rmStart ? "Press Start to make today Day 1, or pick a date in the Roadmap tab." : now < 1 ? "Preview Week 1 in the Roadmap tab." : "Run the retro and set the next 30.";
+  }
+  $("heroGo").textContent = rmStart ? "Open today's plan" : "Start roadmap today";
+  // stats
+  const review = tasks.filter(x => x.status === "review");
+  const active = clients.filter(c => c.stage !== "referral");
+  const feeDue = clients.filter(c => c.stage === "funded" && c.amount && !c.feeInvoiced).reduce((s, c) => s + feeFor(c.amount, c.feePct), 0);
+  $("sReview").textContent = review.length; $("sClients").textContent = active.length; $("sFees").textContent = money(feeDue);
+  $("sDue").textContent = tasks.filter(x => x.status !== "done" && x.due && x.due <= t).length;
+  const br = $("bReview"); br.hidden = !review.length; br.textContent = review.length;
+  const kick = clients.filter(c => c.stage === "signed");
+  const bc = $("bClients"); bc.hidden = !kick.length; bc.textContent = kick.length;
+  // moves
+  const mv = $("moves"); mv.innerHTML = ""; let n = 0;
+  if (review.length) { mv.appendChild(moveRow("✓", "", `Approve ${review.length} draft${review.length > 1 ? "s" : ""}`, review.slice(0, 2).map(x => x.title).join(" · "), "Review", () => go("board"))); n++; }
+  kick.slice(0, 2).forEach(c => { mv.appendChild(moveRow(c.initials.slice(0, 2), "cy", `Kick off ${c.initials}`, "Signed. Run Fulfillment Kickoff (13) today.", "Kickoff", () => kickoff(c))); n++; });
+  if (ROADMAP && rmStart && now >= 1 && now <= 30) {
+    ROADMAP.days[now - 1].tasks.filter(x => !rmDone[x.id]).slice(0, Math.max(1, 4 - n)).forEach(x => {
+      const r = moveRow(x.flag === "attorney" ? "§" : "→", x.flag ? "rd" : "", x.text.length > 90 ? x.text.slice(0, 88) + "…" : x.text, `${x.owner}${x.mins ? " · " + x.mins + " min" : ""}`, "Done", () => toggleRm(x.id, true));
+      mv.appendChild(r); n++;
+    });
+  }
+  const upd = clients.filter(updateDue);
+  if (upd.length) { mv.insertBefore(moveRow("✉", "cy", `${upd.length} client update${upd.length > 1 ? "s" : ""} due`, upd.slice(0, 4).map(c => c.initials).join(" · ") + " · draft with Agent 15, then Mark sent", "Draft", () => draftUpdate(upd[0])), mv.firstChild); n++; }
+  const goOpen = GOLIVE.filter(g => !goDone[g.id]).length;
+  if (goOpen && !n) { mv.appendChild(moveRow("◎", "", `${goOpen} go-live item${goOpen > 1 ? "s" : ""} open`, GOLIVE.find(g => !goDone[g.id]).t, "Open", () => go("library"))); n++; }
+  const overdue = clients.filter(c => c.due && c.due < t && c.stage !== "referral");
+  if (overdue.length) { mv.appendChild(moveRow("!", "rd", `${overdue.length} client step${overdue.length > 1 ? "s" : ""} overdue`, overdue.slice(0, 3).map(c => `${c.initials}: ${c.next || STAGES[STAGE_IDX[c.stage]][1]}`).join(" · "), "Open", () => go("clients"))); n++; }
+  if (!n) mv.innerHTML = `<div class="empty">${rmStart ? "Today's list is clear. Film content, make 10 partner touches, and check speed to lead." : "Start the roadmap to get today's moves here."}</div>`;
+  $("movesNote").textContent = d.toLocaleDateString([], { weekday: "long" });
+  // due agents
+  $("todayName").textContent = d.toLocaleDateString([], { weekday: "long" });
+  const da = $("dueAgents"); da.innerHTML = "";
+  AGENTS.filter(a => agentDue(a, d)).forEach(a => { const done = ranToday(a); da.appendChild(moveRow(pad(a.id), done ? "cy" : "", a.name, done ? "Ran today" : a.cadence, done ? "Open" : "Run", () => { selectAgent(a); go("agents"); $("aInput").focus(); })); });
+  const extra = document.createElement("div"); extra.className = "note"; extra.textContent = "On call: 04 Pre-Call Brief before each call · 13 Kickoff when a client signs · 10 Compliance Gate before anything goes out."; da.appendChild(extra);
+  // funnel
+  const fn = $("funnel"); fn.innerHTML = ""; const max = Math.max(1, ...STAGES.map(s => clients.filter(c => c.stage === s[0]).length));
+  STAGES.forEach(s => { const c = clients.filter(x => x.stage === s[0]).length; const r = document.createElement("div"); r.className = "frow"; r.innerHTML = `<span>${esc(s[1])}</span><span class="bar"><i style="width:${100 * c / max}%"></i></span><b>${c}</b>`; fn.appendChild(r); });
+  if (!db) fn.insertAdjacentHTML("beforeend", `<div class="note">Open this page in Claude, signed in, to load clients.</div>`);
+}
+$("heroGo").addEventListener("click", () => { if (!rmStart) { setStart(todayISO()); rmWeek = 1; openDay = 1; } else { const n = rmDayNow(); if (n >= 1 && n <= 30) { rmWeek = ROADMAP.days[n - 1].week; openDay = n; } } go("roadmap"); });
+$("heroAdd").addEventListener("click", () => openClient(null));
+
+/* ---------- clients ---------- */
+function renderClients() {
+  const q = $("cSearch").value.trim().toLowerCase(), tr = $("cTrack").value;
+  const list = clients.filter(c => (!q || (c.initials + " " + (c.next || "") + " " + (c.notes || "")).toLowerCase().includes(q)) && (!tr || (c.tracks || []).includes(tr)));
+  $("clientCount").textContent = db ? `${clients.filter(c => c.stage !== "referral").length} active · ${clients.length} total` : "";
+  const pipe = $("pipe"); pipe.innerHTML = ""; const t = todayISO();
+  STAGES.forEach(([key, label, tip], si) => {
+    const col = document.createElement("div"); col.className = "stage"; col.dataset.stage = key;
+    const items = list.filter(c => c.stage === key).sort((a, b) => (a.due || "9") < (b.due || "9") ? -1 : 1);
+    col.innerHTML = `<h4><span>${esc(label)}</span><span class="n">${items.length}</span></h4><div class="tip">${esc(tip)}</div>`;
+    if (!items.length) col.insertAdjacentHTML("beforeend", `<div class="empty">${!db && si === 0 ? "Clients load when the page's database is connected." : "Empty"}</div>`);
+    items.forEach(c => {
+      const card = document.createElement("div"); card.className = "ccard"; card.draggable = true; card.dataset.id = c.id;
+      const late = c.due && c.due < t;
+      const fee = c.amount ? feeFor(c.amount, c.feePct) : 0;
+      card.innerHTML = `<div class="top2"><span class="who">${esc(c.initials)}</span><span class="tracks">${(c.tracks || []).map(x => `<span class="trk ${esc(x)}">${esc(x)}</span>`).join("")}</span></div>${c.next ? `<div class="nx"><em>Next:</em> ${esc(c.next)}</div>` : ""}<div class="tracks">${c.due ? `<span class="tag ${late ? "late" : ""}">${late ? "Overdue · " : "Due "}${esc(c.due)}</span>` : ""}${fee ? `<span class="tag gold">Fee ${money(fee)}${c.feeInvoiced ? " · invoiced" : ""}</span>` : ""}${updateDue(c) ? `<span class="tag due">Update due</span>` : (key !== "lead" && key !== "referral" ? `<span class="tag">Next update ${esc(fmtDay(nextUpdateOf(c)))}</span>` : "")}<span class="tag">${esc(c.cohort || "A")}</span></div>${c.waitingOn ? `<div class="nx"><em>Waiting on:</em> ${esc(c.waitingOn)}</div>` : ""}`;
+      const acts = document.createElement("div"); acts.className = "acts";
+      const mk = (label, cls, fn, aria) => { const b = document.createElement("button"); b.className = "btn sm " + cls; b.type = "button"; b.textContent = label; if (aria) b.setAttribute("aria-label", aria); b.onclick = e => { e.stopPropagation(); fn(); }; acts.appendChild(b); };
+      if (si > 0) mk("←", "ghost", () => moveClient(c, STAGES[si - 1][0]), "Move back");
+      if (si < STAGES.length - 1) mk("→", "", () => moveClient(c, STAGES[si + 1][0]), "Move forward");
+      if (key === "signed" || key === "kickoff") mk("Kickoff", "ghost", () => kickoff(c));
+      if (key === "fix") mk("Audit", "ghost", () => { selectAgent(byId(7), `Client: ${c.initials}\nMasked 3-bureau data (last 4 only):\n`); go("agents"); });
+      if (key === "build") mk("Tracker", "ghost", () => { selectAgent(byId(8), `${c.initials}: foundation [ ], D-U-N-S [ ], vendors [ ], paid early/late [ ], trades reported [ ], Paydex [ ]`); go("agents"); });
+      if (key === "fundrev") mk("Readiness", "ghost", () => { selectAgent(byId(9), `Client: ${c.initials}\nPersonal scores: \nUtilization: \nRecent inquiries: \nEntity age: \nRevenue: \nPaydex: \nUse of funds: `); go("agents"); });
+      if (key === "funded" && fee && !c.feeInvoiced) mk("Mark invoiced", "ghost", () => updClient(c, { feeInvoiced: true }));
+      if (key !== "lead" && key !== "referral") { mk(updateDue(c) ? "Update ✉" : "Update", updateDue(c) ? "" : "ghost", () => draftUpdate(c)); mk("Mark sent", "ghost", () => markSent(c)); }
+      mk("Edit", "ghost", () => openClient(c));
+      card.appendChild(acts);
+      card.addEventListener("dragstart", e => { e.dataTransfer.setData("text/plain", c.id); card.classList.add("dragging"); });
+      card.addEventListener("dragend", () => card.classList.remove("dragging"));
+      card.addEventListener("dblclick", () => openClient(c));
+      col.appendChild(card);
+    });
+    col.addEventListener("dragover", e => { e.preventDefault(); col.classList.add("drop"); });
+    col.addEventListener("dragleave", () => col.classList.remove("drop"));
+    col.addEventListener("drop", e => { e.preventDefault(); col.classList.remove("drop"); const c = clients.find(x => x.id === e.dataTransfer.getData("text/plain")); if (c && c.stage !== key) moveClient(c, key); });
+    pipe.appendChild(col);
+  });
+  const sj = $("stageJump"); sj.innerHTML = "";
+  STAGES.forEach(([key, label]) => { const n = list.filter(c => c.stage === key).length; const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.innerHTML = `${esc(label)} <b style="color:var(--gold-hi)">${n}</b>`; b.onclick = () => { const col = pipe.querySelector(`[data-stage="${key}"]`); pipe.scrollTo({ left: col.offsetLeft - pipe.offsetLeft, behavior: "smooth" }); }; sj.appendChild(b); });
+}
+$("cSearch").addEventListener("input", renderClients); $("cTrack").addEventListener("change", renderClients); $("cAdd").addEventListener("click", () => openClient(null));
+$("fTracks").innerHTML = TRACKS.map(x => `<label><input type="checkbox" value="${x}"> <span class="trk ${x}">${x}</span></label>`).join("");
+$("fStage").innerHTML = STAGES.map(s => `<option value="${s[0]}">${esc(s[1])}</option>`).join("");
+/* ---------- update cadence ---------- */
+function defaultCohort() { const d = new Date(); const onejan = new Date(d.getFullYear(), 0, 1); const wk = Math.ceil(((d - onejan) / 864e5 + onejan.getDay() + 1) / 7); return wk % 2 ? "A" : "B"; }
+const cadenceDays = c => c.cohort === "B" ? 14 : 7;
+function nextUpdateOf(c) { const base = c.lastUpdate || (c.createdAt ? isoOf(new Date(c.createdAt)) : todayISO()); return addDays(base, cadenceDays(c)); }
+const updateDue = c => c.stage !== "lead" && c.stage !== "referral" && nextUpdateOf(c) <= todayISO();
+function draftUpdate(c) {
+  const a = byId(15);
+  selectAgent(a, `Client: ${c.initials}   Cohort: ${c.cohort || "A"}   Track(s): ${(c.tracks || []).join(", ") || "-"}\nStage: ${STAGES[STAGE_IDX[c.stage]]?.[1] || c.stage}\nSince last update: [what happened, or "no change"]\nWaiting on: ${c.waitingOn || "[bureau / lender / vendor / client docs]"}\nNeed from client: ${c.next || "nothing"}\nLast update sent: ${c.lastUpdate || "none yet"}   Next update date: ${addDays(todayISO(), cadenceDays(c))}`);
+  go("agents"); $("aInput").focus();
+}
+async function markSent(c) { await updClient(c, { lastUpdate: todayISO() }); toast(`Update logged for ${c.initials}. Next one ${fmtDay(addDays(todayISO(), cadenceDays(c)))}.`); }
+
+function openClient(c) {
+  if (!db) { toast("Clients save to this page's database. Open it in Claude, signed in."); return; }
+  editingClient = c;
+  $("cDlgT").textContent = c ? `Edit ${c.initials}` : "Add client";
+  $("fInit").value = c?.initials || ""; $("fStage").value = c?.stage || "lead"; $("fNext").value = c?.next || ""; $("fDue").value = c?.due || ""; $("fNotes").value = c?.notes || ""; $("fWait").value = c?.waitingOn || ""; $("fCohort").value = c?.cohort || defaultCohort();
+  $("fTracks").querySelectorAll("input").forEach(i => i.checked = (c?.tracks || []).includes(i.value));
+  $("cDel").hidden = !c; $("cDel").textContent = "Delete client"; delete $("cDel").dataset.armed; $("fPii").hidden = true;
+  $("cDlg").showModal(); $("fInit").focus();
+}
+$("cDel").addEventListener("click", async () => { const b = $("cDel"); if (!b.dataset.armed) { b.dataset.armed = 1; b.textContent = "Tap again to delete"; return; } try { await db.doc("clients/" + editingClient.id).delete(); $("cDlg").close(); toast("Client removed"); } catch { toast("Couldn't delete."); } });
+$("cForm").addEventListener("submit", async e => {
+  if (e.submitter?.value !== "save") return;
+  e.preventDefault();
+  const body = { initials: $("fInit").value.trim().toUpperCase().slice(0, 8), stage: $("fStage").value, next: $("fNext").value.trim().slice(0, 160), due: $("fDue").value || "", notes: $("fNotes").value.trim().slice(0, 600), waitingOn: $("fWait").value.trim().slice(0, 120), cohort: $("fCohort").value === "B" ? "B" : "A", tracks: [...$("fTracks").querySelectorAll("input:checked")].map(i => i.value), updatedAt: Date.now() };
+  if (!body.initials) return;
+  if (SSN.test(body.notes) || SSN.test(body.next) || SSN.test(body.waitingOn)) { $("fPii").hidden = false; return; }
+  try {
+    if (editingClient) { const was = editingClient.stage; await db.doc("clients/" + editingClient.id).update(body); if (body.stage === "funded" && was !== "funded") askFee({ ...editingClient, ...body }); }
+    else { const ref = await db.collection("clients").add({ ...body, createdAt: Date.now() }); if (body.stage === "funded") askFee({ id: ref.id, ...body }); }
+    $("cDlg").close();
+  } catch (err) { toast(err?.code === "quota_exceeded" ? "Storage is full." : "Couldn't save the client."); }
+});
+async function updClient(c, patch) { try { await db.doc("clients/" + c.id).update({ ...patch, updatedAt: Date.now() }); } catch { toast("Couldn't update the client."); } }
+async function moveClient(c, stage) {
+  if (!db) return;
+  const nx = STAGES[STAGE_IDX[stage]][2];
+  await updClient(c, { stage, next: nx });
+  if (stage === "funded") askFee({ ...c, stage });
+  if (stage === "signed") toast(`${c.initials} signed. Press Kickoff to start fulfillment.`);
+}
+function kickoff(c) {
+  const a = byId(13);
+  selectAgent(a, `New client signed. Start fulfillment.\nClient: ${c.initials}   Signed: ${todayISO()}   Cancellation window ends: [date]\nServices bought: ${(c.tracks || []).join(" / ") || "[Fix / Build / Fund / Protect]"}\nIntake: ${c.notes || "[score band, negatives, LLC?, EIN?, D-U-N-S?, revenue, funding goal + use, dependents / insurance]"}\nPaperwork received: [list]   Monitoring enrolled: [Y/N]`);
+  go("agents"); $("aInput").focus();
+  if (c.stage === "signed") updClient(c, { stage: "kickoff", next: STAGES[STAGE_IDX.kickoff][2] });
+}
+function feePreview() { const f = feeFor($("feeAmt").value, $("feePct").value); $("feeOutV").textContent = money(f); const raw = (+$("feeAmt").value || 0) * (+$("feePct").value || 0) / 100; $("feeOutCap").textContent = raw > 10000 ? `Capped (would be ${money(raw)})` : ""; }
+function askFee(c) { pendingFund = c; $("feeAmt").value = c.amount || ""; $("feePct").value = c.feePct || 7.5; feePreview(); $("fDlg").showModal(); $("feeAmt").focus(); }
+$("feeAmt").addEventListener("input", feePreview); $("feePct").addEventListener("input", feePreview);
+$("feeForm").addEventListener("submit", async e => {
+  if (e.submitter?.value !== "save") return; e.preventDefault();
+  const amt = Math.max(0, +$("feeAmt").value || 0), pct = Math.min(10, Math.max(5, +$("feePct").value || 7.5)); if (!amt) return;
+  const c = pendingFund; $("fDlg").close();
+  await updClient(c, { amount: amt, feePct: pct, feeInvoiced: false });
+  await addTask({ title: `Invoice success fee · ${c.initials} · ${money(feeFor(amt, pct))} (${pct}% of ${money(amt)}) · only after funds are received`, priority: "high", due: todayISO(), agent: 0 });
+  toast("Fee task added to your board");
+});
+
+/* ---------- agents ---------- */
+function ranThisWeek(a) { const wk = new Date(weekKey() + "T00:00:00").getTime(); return runs.some(r => r.agent === a.id && r.at >= wk); }
+function renderAgents() {
+  const wrap = $("agentList"); wrap.innerHTML = ""; let dept = "";
+  $("fleetCount").textContent = `${AGENTS.length} agents`;
+  AGENTS.forEach(a => {
+    if (a.dept !== dept) { dept = a.dept; const h = document.createElement("div"); h.className = "dept"; h.textContent = dept; wrap.appendChild(h); }
+    const b = document.createElement("button"); b.className = "agent"; b.setAttribute("aria-current", a === current);
+    const last = runs.find(r => r.agent === a.id);
+    const dot = agentDue(a) && !ranToday(a) ? "due" : ranThisWeek(a) ? "ran" : "";
+    b.innerHTML = `<span class="id">${pad(a.id)}</span><span><b>${esc(a.name)}${a.isNew ? '<span class="new">NEW</span>' : ""}</b><span class="c">${esc(a.cadence)}${last ? " · last run " + rel(last.at) : ""}</span></span><span class="dot ${dot}" title="${dot === "due" ? "Due today" : dot === "ran" ? "Ran this week" : "Idle"}"></span>`;
+    b.addEventListener("click", () => { selectAgent(a); if (matchMedia("(max-width: 860px)").matches) $("aName").scrollIntoView({ behavior: "smooth" }); });
+    wrap.appendChild(b);
+  });
+}
+function selectAgent(a, prefill) {
+  current = a; renderAgents();
+  $("aName").textContent = `${pad(a.id)} · ${a.name}`;
+  $("aMeta").textContent = `${a.dept} · ${a.cadence} · ${a.tier === "complex" ? "strong model (judgment)" : "standard model"}`;
+  $("aSpec").textContent = a.spec; $("aHint").textContent = a.hint;
+  $("aInput").value = prefill ?? ""; $("aInput").placeholder = "Add context for this run…";
+  $("tplBtn").hidden = !a.template;
+  checkPII();
+  if (prefill === undefined) $("outWrap").hidden = true;
+}
+$("tplBtn").addEventListener("click", () => { if (current.template) { $("aInput").value = current.template; $("aInput").focus(); checkPII(); } });
+
+/* ---------- board ---------- */
+const LANES = [["todo", "To do"], ["review", "Your gate · review"], ["done", "Done"]];
+function renderBoard() {
+  const t = todayISO();
+  $("taskCount").textContent = db ? `${tasks.filter(x => x.status !== "done").length} open` : "";
+  const board = $("board"); board.innerHTML = "";
+  if (!db) { board.innerHTML = `<div class="empty">The task board saves to this page's database. Open the page in Claude, signed in, to load it.</div>`; return; }
+  LANES.forEach(([key, label], li) => {
+    const lane = document.createElement("div"); lane.className = "lane" + (key === "review" ? " gate" : "");
+    const items = tasks.filter(x => x.status === key).sort((a, b) => key === "done" ? (b.updatedAt || 0) - (a.updatedAt || 0) : (a.due || "9") < (b.due || "9") ? -1 : 1);
+    lane.innerHTML = `<h4><span>${label}</span><span>${items.length}</span></h4>`;
+    const cards = document.createElement("div"); cards.className = "cards";
+    if (!items.length) cards.innerHTML = `<div class="empty">${key === "todo" ? "Add a task above, or send roadmap tasks here." : key === "review" ? "Nothing waiting on you." : "Finished tasks land here."}</div>`;
+    (key === "done" ? items.slice(0, 8) : items).forEach(x => {
+      const c = document.createElement("div"); c.className = "card";
+      const a = x.agent ? byId(x.agent) : null, late = x.due && x.due < t && key !== "done";
+      c.innerHTML = `<div class="tt">${esc(x.title)}</div><div class="mt">${a ? `<span class="tag">${pad(a.id)} ${esc(a.name)}</span>` : ""}${x.priority === "high" ? `<span class="tag hi">High</span>` : ""}${x.due ? `<span class="${late ? "tag late" : ""}">${late ? "Overdue · " : "Due "}${esc(x.due)}</span>` : ""}</div>`;
+      const acts = document.createElement("div"); acts.className = "acts";
+      if (x.output) { const v = document.createElement("button"); v.className = "btn ghost sm"; v.textContent = "View output"; v.onclick = () => { if (a) selectAgent(a, ""); go("agents"); showOutput(x.title, x.output); }; acts.appendChild(v); }
+      if (li > 0) { const bk = document.createElement("button"); bk.className = "btn ghost sm"; bk.textContent = "← Back"; bk.onclick = () => moveTask(x, LANES[li - 1][0]); acts.appendChild(bk); }
+      if (li < 2) { const fw = document.createElement("button"); fw.className = "btn sm"; fw.textContent = key === "review" ? "Approve ✓" : "To review →"; fw.onclick = () => moveTask(x, LANES[li + 1][0]); acts.appendChild(fw); }
+      if (key === "todo") { const dn = document.createElement("button"); dn.className = "btn ghost sm"; dn.textContent = "Done ✓"; dn.onclick = () => moveTask(x, "done"); acts.appendChild(dn); }
+      const del = document.createElement("button"); del.className = "btn ghost sm"; del.textContent = "Delete"; del.setAttribute("aria-label", "Delete task");
+      del.onclick = () => { if (del.dataset.armed) removeTask(x); else { del.dataset.armed = 1; del.textContent = "Confirm delete"; setTimeout(() => { delete del.dataset.armed; del.textContent = "Delete"; }, 3000); } };
+      acts.appendChild(del); c.appendChild(acts); cards.appendChild(c);
+    });
+    lane.appendChild(cards); board.appendChild(lane);
+  });
+}
+function showOutput(title, text) { $("outWrap").hidden = false; $("out").innerHTML = `<p class="note">Saved output · ${esc(title)}</p>` + md(text); $("outActs").hidden = false; lastOut = text; }
+async function addTask(t) {
+  if (!db) { toast("Task board isn't connected in this view."); return null; }
+  const now = Date.now();
+  const body = { title: String(t.title).slice(0, 200), status: ["todo","review","done"].includes(t.status) ? t.status : "todo", agent: t.agent ? +t.agent : 0, due: t.due || "", priority: t.priority === "high" ? "high" : "normal", output: t.output ? String(t.output).slice(0, 60000) : "", createdAt: now, updatedAt: now };
+  try { const ref = await db.collection("tasks").add(body); return ref.id; } catch (e) { toast(e.code === "quota_exceeded" ? "Storage is full. Delete some done tasks." : "Couldn't save the task."); return null; }
+}
+async function moveTask(x, status) { try { await db.doc("tasks/" + x.id).update({ status, updatedAt: Date.now() }); } catch { toast("Couldn't move the task."); } }
+async function removeTask(x) { try { await db.doc("tasks/" + x.id).delete(); } catch { toast("Couldn't delete the task."); } }
+$("addForm").addEventListener("submit", async e => { e.preventDefault(); const title = $("newTitle").value.trim(); if (!title) return;
+  const id = await addTask({ title, agent: $("newAgent").value, due: $("newDue").value, priority: $("newPri").value }); if (id) { $("newTitle").value = ""; $("newDue").value = ""; } });
+$("newAgent").innerHTML = `<option value="0">No agent</option>` + AGENTS.map(a => `<option value="${a.id}">${pad(a.id)} ${esc(a.name)}</option>`).join("");
+
+/* ---------- run log ---------- */
+function renderLog() {
+  const wrap = $("log"); wrap.innerHTML = "";
+  if (!db) { wrap.innerHTML = `<div class="empty">Runs are logged here once the page's database is connected.</div>`; return; }
+  if (!runs.length) { wrap.innerHTML = `<div class="empty">No runs yet. Pick an agent and press Run.</div>`; return; }
+  runs.slice(0, 10).forEach(r => { const a = byId(r.agent); const b = document.createElement("button");
+    b.innerHTML = `<span>${a ? pad(a.id) + " " + esc(a.name) : "Agent"}</span><span>${rel(r.at)}</span>`;
+    b.onclick = () => { selectAgent(a || current, r.input || ""); go("agents"); showOutput(`${a ? a.name : "Run"} · ${new Date(r.at).toLocaleString()}`, r.output); };
+    wrap.appendChild(b); });
+}
+async function logRun(agent, input, output) {
+  if (!db) return;
+  try {
+    await db.collection("runs").add({ agent, input: String(input).slice(0, 8000), output: String(output).slice(0, 60000), at: Date.now() });
+    if (runs.length > 60) { for (const old of runs.slice(60)) { try { await db.doc("runs/" + old.id).delete(); } catch {} } }
+  } catch {}
+}
+
+/* ---------- KPIs + calculator ---------- */
+function renderKpis() {
+  const wrap = $("kpis"); wrap.innerHTML = ""; const vals = kpi.values || {};
+  KPIS.forEach(k => {
+    const v = vals[k.k]; const has = v !== undefined && v !== "" && !isNaN(+v);
+    const cls = !has ? "" : k.good(+v) ? "g" : k.bad(+v) ? "r" : "y";
+    const box = document.createElement("div"); box.className = "kpi " + cls;
+    box.innerHTML = `<label for="k_${k.k}">${esc(k.label)}</label><input id="k_${k.k}" inputmode="decimal" value="${has ? esc(v) : ""}" placeholder="—"><span class="tg">${has ? (cls === "g" ? "On target" : cls === "r" ? "Red flag" : "Watch") + " · " : "Target "}${esc(k.t)}</span>`;
+    const inp = box.querySelector("input"); let tmr;
+    inp.addEventListener("input", () => { clearTimeout(tmr); tmr = setTimeout(() => saveKpi(k.k, inp.value.trim()), 700); });
+    wrap.appendChild(box);
+  });
+}
+let kpiSaving = Promise.resolve();
+function saveKpi(key, val) {
+  const values = { ...(kpi.values || {}) }; if (val === "") delete values[key]; else values[key] = +val;
+  kpi = { ...kpi, week: weekKey(), values }; renderKpis(); setTimeout(() => { const el = $("k_" + key); if (el) { el.focus(); el.setSelectionRange(el.value.length, el.value.length); } });
+  if (!db) return;
+  kpiSaving = kpiSaving.then(() => db.doc("kpi/" + weekKey()).set({ week: weekKey(), values, updatedAt: Date.now() })).catch(() => toast("Couldn't save the scorecard."));
+}
+$("kpiFix").addEventListener("click", async () => {
+  if (!sample) { toast("Claude isn't available in this view."); return; }
+  const vals = kpi.values || {}; const lines = KPIS.map(k => `${k.label}: ${vals[k.k] ?? "MISSING"} (target ${k.t})`).join("\n");
+  const out = $("kpiOut"); out.hidden = false; out.innerHTML = `<span class="thinking">Analyzing</span>`;
+  try { const { text } = await sample(`You are the FCFG Weekly KPI Scorecard agent for a credit repair, business credit and funding company in Phoenix.\nThis week's numbers:\n${lines}\n\nRules: never estimate a MISSING number; say which are missing first. Then give: a one-line headline, the single worst red metric, and ONE concrete fix for next week (not a list). If cost per client is at or under $500 for two weeks, note ad spend can rise 25%; if over $700, recommend pausing and fixing the weakest step. Under 150 words, Markdown.`, { onText: ({ text }) => { out.innerHTML = md(text); }, cache: false });
+    out.innerHTML = md(text); } catch (e) { out.innerHTML = esc(e.text || failCopy(e.code)); }
+});
+function calc() { const a = +$("calcAmt").value, p = +$("calcPct").value, raw = a * p / 100; $("calcAmtV").textContent = money(a); $("calcPctV").textContent = p + "%"; $("calcFee").textContent = money(feeFor(a, p)); $("calcCap").textContent = raw > 10000 ? `Cap applied (would be ${money(raw)})` : `${p}% of ${money(a)}`; }
+$("calcAmt").addEventListener("input", calc); $("calcPct").addEventListener("input", calc); calc();
+
+/* ---------- agent run ---------- */
+function failCopy(code) {
+  return ({ not_granted: "Claude access wasn't allowed for this page. Allow it from the page's permissions to run agents.", rate_limited: "Too many runs right now. Try again in a minute.", sampling_disabled: "Claude isn't available for this account.", refused: "Claude declined this request. Rephrase the input.", session_expired: "Sign in again to run agents.", prompt_too_large: "That input is too long. Trim it and run again.", cancelled: "Stopped." })[code] || "The run failed. Try again.";
+}
+function checkPII() { const bad = SSN.test($("aInput").value); $("piiWarn").hidden = !bad; $("runBtn").disabled = bad || !sample; return bad; }
+$("aInput").addEventListener("input", checkPII);
+function buildPrompt(a, input) {
+  return `You are agent ${a.id}, "${a.name}", in Full Circle Financial Group's (FCFG) agent fleet. FCFG is Breyon Miller's credit repair, business credit, funding placement and life insurance company in Phoenix, Arizona (life insurance through a licensed Arizona producer). Brand voice: plain, direct, confident, faith-friendly, no hype. Four pillars: Fix it. Build it. Fund it. Protect it.
+
+Run this graph spec:
+${a.spec}
+
+You are the DRAFT phase. Do each parallel job in turn, clearly labeled. Do NOT run the VERIFY step yourself: a separate verifier with fresh context will check your output after you. Work only from the input below; if something the spec needs is missing, say exactly what is missing at the top instead of inventing it. Never invent statistics, results, sources or client facts.
+
+${FROZEN}
+
+Format: Markdown, scannable headings, ready to use. End with a line "Needs your approval:" listing what Breyon must review before anything goes out.
+
+INPUT FROM BREYON:
+${input || "(none provided)"}${a.id === 11 ? "\n\nTHIS WEEK'S SCORECARD NUMBERS:\n" + KPIS.map(k => `${k.label}: ${(kpi.values || {})[k.k] ?? "MISSING"} (target ${k.t})`).join("\n") : ""}`;
+}
+function verifyPrompt(a, input, draft) {
+  return `You are an independent VERIFIER for Full Circle Financial Group (FCFG), a credit repair, business credit, funding and life insurance company in Phoenix, Arizona. You did not write the draft below and have not seen how it was made. Judge only the draft, against the spec, the source input and the frozen rules.
+
+Check three things, each as its own question:
+1. CORRECT: does every fact, number and claim trace to the SOURCE INPUT (or is it clearly general knowledge)? Flag anything invented: statistics, results, client facts, sources.
+2. COMPLETE: did it do every job in the spec? Name any job that is missing.
+3. COMPLIANT: does anything break the frozen rules (guarantees, advance fees, unverifiable dispute advice, testimonials without consent, private data)?
+
+Then fix every problem yourself.
+
+Reply in exactly this format:
+VERDICT: PASS or FIXED
+ISSUES:
+- one line per problem found and what you changed (or "- none")
+---FINAL---
+<the complete corrected output in Markdown, ending with the "Needs your approval:" line>
+
+${FROZEN}
+
+SPEC (agent ${a.id}, ${a.name}):
+${a.spec}
+
+SOURCE INPUT:
+${input || "(none provided)"}
+
+DRAFT TO CHECK:
+${draft}`;
+}
+function phaseBar(step, label) {
+  return `<p class="note" style="font-family:var(--mono);letter-spacing:.06em">PHASE ${step}/2 · ${esc(label)}</p>`;
+}
+async function runAgent(a, input) {
+  if (!sample) { toast("Claude isn't available in this view."); return; }
+  if (checkPII()) return;
+  ctl?.abort(); ctl = new AbortController();
+  $("outWrap").hidden = false; $("outActs").hidden = true;
+  const draftHead = phaseBar(1, "Draft · " + (a.tier === "complex" ? "strong model" : "standard model"));
+  $("out").innerHTML = draftHead + `<span class="thinking">${esc(a.name)} is drafting</span>`;
+  $("runBtn").disabled = true; $("stopBtn").hidden = false;
+  try {
+    const draft = await sample(buildPrompt(a, input), { modelTier: a.tier, signal: ctl.signal, cache: false, onText: ({ text }) => { $("out").innerHTML = draftHead + md(text); } });
+    const verHead = phaseBar(2, "Verify · fresh context, " + (a.tier === "complex" ? "strong model" : "standard model"));
+    $("out").innerHTML = verHead + `<span class="thinking">Verifier is checking the draft</span>`;
+    let checked;
+    try {
+      checked = await sample(verifyPrompt(a, input, draft.text), { modelTier: a.tier === "complex" ? "complex" : "default", signal: ctl.signal, cache: false, onText: ({ text }) => { $("out").innerHTML = verHead + `<span class="thinking">Verifier is checking the draft</span>`; } });
+    } catch (ve) {
+      if (ve.code === "cancelled") throw ve;
+      lastOut = draft.text;
+      $("out").innerHTML = `<p class="warnline">Verifier didn't finish (${esc(failCopy(ve.code))}). Showing the unverified draft. Run the Compliance Gate before using it.</p>` + md(draft.text);
+      $("outActs").hidden = false; await logRun(a.id, input, "[UNVERIFIED]\n\n" + draft.text); return;
+    }
+    const raw = checked.text; const cut = raw.indexOf("---FINAL---");
+    const head = cut >= 0 ? raw.slice(0, cut) : ""; const final = cut >= 0 ? raw.slice(cut + 11).trim() : draft.text;
+    const verdict = (head.match(/VERDICT:\s*(PASS|FIXED)/i) || [, cut >= 0 ? "FIXED" : "UNPARSED"])[1].toUpperCase();
+    const issues = (head.split(/ISSUES:/i)[1] || "").trim();
+    lastOut = final;
+    const badge = verdict === "PASS" ? `<span class="pill on"><i></i>Verified · passed clean</span>` : verdict === "FIXED" ? `<span class="pill" style="color:var(--warn);border-color:var(--warn)"><i style="background:var(--warn)"></i>Verified · fixes applied</span>` : `<span class="pill off"><i></i>Verifier format unclear · review closely</span>`;
+    $("out").innerHTML = `<div class="row" style="margin:0 0 8px">${badge}</div>` + (issues ? `<details class="spec"><summary>What the verifier checked and changed</summary><div class="md">${md(issues)}</div></details>` : "") + md(final) + (draft.truncated || checked.truncated ? `<p class="note">Cut short. Run again with less input.</p>` : "");
+    $("outActs").hidden = false;
+    await logRun(a.id, input, `[${verdict}]\n${issues}\n\n${final}`);
+  } catch (e) {
+    $("out").innerHTML = (e.text ? md(e.text) : "") + `<p class="warnline">${esc(failCopy(e.code))}</p>`;
+    if (e.code === "not_granted" || e.code === "sampling_disabled") setClaude(false);
+  } finally { $("runBtn").disabled = !sample || checkPII(); $("stopBtn").hidden = true; }
+}
+$("runBtn").addEventListener("click", () => runAgent(current, $("aInput").value.trim()));
+$("stopBtn").addEventListener("click", () => ctl?.abort());
+$("copySpec").addEventListener("click", () => copyText(`Run this as parallel subagents. Show me the plan first, then run it.\n\n${current.spec}\n\n${FROZEN}`));
+$("copyOut").addEventListener("click", () => copyText(lastOut));
+$("toReview").addEventListener("click", async () => {
+  const id = await addTask({ title: `Review: ${current.name} · ${new Date().toLocaleDateString()}`, agent: current.id, status: "review", due: todayISO(), output: lastOut });
+  if (id) toast("Sent to your review queue");
+});
+$("toGate").addEventListener("click", () => { const gate = byId(10); selectAgent(gate, lastOut); runAgent(gate, lastOut); });
+
+/* ---------- Jarvis ---------- */
+const CHIPS = ["What should I do first today?", "What needs my approval?", "Add client J.R. in Signed, tracks Fix and Fund", "Plan my week around the roadmap"];
+CHIPS.forEach(c => { const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.textContent = c; b.onclick = () => { $("cmdIn").value = c; $("cmdForm").requestSubmit(); }; $("cmdChips").appendChild(b); });
+let jarvisTurns = [], toolsOk = false;
+function snapshotForJarvis() {
+  const t = todayISO(), now = rmDayNow();
+  const day = ROADMAP && now >= 1 && now <= 30 ? ROADMAP.days[now - 1] : null;
+  return `Today is ${new Date().toDateString()} (ISO ${t}), Phoenix time.
+ROADMAP: ${rmStart ? `started ${rmStart}, today is day ${now}` : "not started"}.${day ? ` Today's theme: ${day.theme}. Tasks: ${day.tasks.map(x => `[${x.id}${rmDone[x.id] ? " DONE" : ""}] ${x.text}`).join(" | ")}` : ""}
+AGENTS: ${AGENTS.map(a => `${a.id} ${a.name} [${a.cadence}]${agentDue(a) ? " DUE TODAY" : ""}`).join("; ")}.
+CLIENTS (initials, stage, next): ${clients.map(c => `[${c.id}] ${c.initials} ${c.stage}${c.next ? " → " + c.next : ""}${c.due ? " due " + c.due : ""}${updateDue(c) ? " UPDATE DUE" : ""}`).join("; ") || "none"}.
+GO-LIVE OPEN: ${GOLIVE.filter(g => !goDone[g.id]).map(g => g.t).join("; ") || "none"}. Stage keys: ${STAGES.map(s => s[0]).join(", ")}.
+OPEN TASKS: ${tasks.filter(x => x.status !== "done").map(x => `[${x.id}] ${x.title} (${x.status}${x.due ? ", due " + x.due : ""}${x.priority === "high" ? ", high" : ""})`).join("; ") || "none"}.
+SCORECARD THIS WEEK: ${KPIS.map(k => `${k.label} ${(kpi.values || {})[k.k] ?? "—"}`).join("; ")}.`;
+}
+const JTOOLS = [
+  { name: "create_task", description: "Create a task on Breyon's board. Returns the new task id.", inputSchema: { type: "object", properties: { title: { type: "string" }, due: { type: "string", description: "YYYY-MM-DD, optional" }, priority: { type: "string", enum: ["normal", "high"] }, agent: { type: "number", description: "agent id, optional" } }, required: ["title"] },
+    execute: async (i) => { const id = await addTask({ title: String(i.title || "").trim() || "Untitled", due: /^\d{4}-\d{2}-\d{2}$/.test(String(i.due || "")) ? String(i.due) : "", priority: i.priority === "high" ? "high" : "normal", agent: +i.agent || 0 }); if (!id) throw new Error("could not save"); return { id }; } },
+  { name: "move_task", description: "Move a task to todo, review or done by its id. Returns ok.", inputSchema: { type: "object", properties: { id: { type: "string" }, status: { type: "string", enum: ["todo", "review", "done"] } }, required: ["id", "status"] },
+    execute: async (i) => { const x = tasks.find(t => t.id === String(i.id)); if (!x) throw new Error("no such task"); await moveTask(x, String(i.status)); return "ok"; } },
+  { name: "add_client", description: "Add a client to the pipeline using initials only (never full names, SSNs or account numbers). Returns ok.", inputSchema: { type: "object", properties: { initials: { type: "string" }, stage: { type: "string", enum: STAGES.map(s => s[0]) }, tracks: { type: "array", items: { type: "string", enum: TRACKS } }, next: { type: "string" } }, required: ["initials"] },
+    execute: async (i) => { if (!db) throw new Error("database not connected"); const init = String(i.initials || "").toUpperCase().slice(0, 8); if (!init) throw new Error("initials required"); const stage = STAGE_IDX[i.stage] !== undefined ? i.stage : "lead"; await db.collection("clients").add({ initials: init, stage, tracks: (i.tracks || []).filter(x => TRACKS.includes(x)), next: String(i.next || STAGES[STAGE_IDX[stage]][2]).slice(0, 160), due: "", notes: "", createdAt: Date.now(), updatedAt: Date.now() }); return "ok"; } },
+  { name: "move_client", description: "Move a client to a pipeline stage by client id. Returns ok.", inputSchema: { type: "object", properties: { id: { type: "string" }, stage: { type: "string", enum: STAGES.map(s => s[0]) } }, required: ["id", "stage"] },
+    execute: async (i) => { const c = clients.find(x => x.id === String(i.id)); if (!c) throw new Error("no such client"); await moveClient(c, String(i.stage)); return "ok"; } },
+  { name: "check_roadmap_task", description: "Mark a roadmap task done (or not) by its id like d3t2. Returns ok.", inputSchema: { type: "object", properties: { id: { type: "string" }, done: { type: "boolean" } }, required: ["id", "done"] },
+    execute: async (i) => { if (!RM_TASKS.some(t => t.id === String(i.id))) throw new Error("no such roadmap task"); await toggleRm(String(i.id), !!i.done); return "ok"; } },
+  { name: "open_agent", description: "Open an agent in the console so Breyon can run it, optionally prefilling its input. Returns ok.", inputSchema: { type: "object", properties: { agent: { type: "number" }, input: { type: "string" } }, required: ["agent"] },
+    execute: (i) => { const a = byId(i.agent); if (!a) throw new Error("no such agent"); selectAgent(a, i.input ? String(i.input) : ""); go("agents"); return "ok"; } }
+];
+$("cmdForm").addEventListener("submit", async e => {
+  e.preventDefault(); const q = $("cmdIn").value.trim(); if (!q) return;
+  if (!sample) { toast("Claude isn't available in this view."); return; }
+  if (SSN.test(q)) { toast("Remove the full SSN or account number first."); return; }
+  $("cmdReply").hidden = false; $("cmdText").innerHTML = `<span class="thinking">Thinking</span>`; $("cmdGo").disabled = true; $("cmdIn").value = "";
+  jarvisTurns.push({ role: "user", content: q }); jarvisTurns = jarvisTurns.slice(-8);
+  const rules = `You are Jarvis, the operations assistant inside FCFG Command, Breyon Miller's control center for Full Circle Financial Group (credit repair, business credit, funding placement, life insurance; Phoenix). Be brief and direct: a few sentences or a short list. Use the tools to create or move tasks, add or move clients, check roadmap tasks or open an agent when Breyon asks; don't do it unasked. Clients are initials only. Agents only draft; Breyon approves everything. Never invent data.\n\n${FROZEN}\n\nCURRENT STATE:\n${snapshotForJarvis()}`;
+  try {
+    const { text } = await sample([{ role: "user", content: rules }, ...jarvisTurns], { cache: false, ...(toolsOk ? { tools: JTOOLS } : {}), onText: ({ text }) => { $("cmdText").innerHTML = md(text); } });
+    jarvisTurns.push({ role: "assistant", content: text }); $("cmdText").innerHTML = md(text);
+  } catch (err) { jarvisTurns.pop(); $("cmdText").innerHTML = (err.text ? md(err.text) : "") + `<p class="warnline">${esc(failCopy(err.code))}</p>`; if (err.code === "not_granted") setClaude(false); }
+  finally { $("cmdGo").disabled = false; }
+});
+
+/* ---------- library ---------- */
+const GOLIVE = [
+  { id:"booking", g:"Website", t:"Add the real booking link (BOOKING_URL) to the website and the 5 client pages" },
+  { id:"producer", g:"Website", t:"Add the insurance producer's name and AZ license # to every footer" },
+  { id:"share", g:"Website", t:"Share the website and client pages (Share menu on each page)" },
+  { id:"tsr", g:"Attorney", t:"Billing model reviewed for the TSR phone-sale rule and CROA (credit repair)" },
+  { id:"advfee", g:"Attorney", t:"Funding fee: confirm AZ advance-fee broker licensing; invoice only after funds arrive" },
+  { id:"contract", g:"Attorney", t:"Service agreement, CROA disclosure, 3-day cancellation notice approved" },
+  { id:"partner", g:"Attorney", t:"Referral partner terms approved (no insurance referral pay to unlicensed people)" },
+  { id:"bond", g:"Compliance", t:"AZ credit services bond status confirmed and filed with the ACC" },
+  { id:"meta", g:"Compliance", t:"All Meta ads moved to the Financial Products and Services category" },
+  { id:"tcpa", g:"Compliance", t:"Optional SMS/call consent wording on every GHL form and the booking page" },
+  { id:"safeguards", g:"Compliance", t:"FTC Safeguards plan written; 2FA on for every user; one place for IDs" },
+  { id:"portal", g:"Systems", t:"Portal chosen (DisputeFox or Credit Repair Cloud trial) and connected to GHL" },
+  { id:"pipes", g:"Systems", t:"GHL pipelines Fix · Build · Fund · Protect built with stage-triggered emails" },
+  { id:"cadence", g:"Systems", t:"Cadence fields (update_cadence, next_update_date, waiting_on) live in GHL" },
+  { id:"dummy", g:"Systems", t:"One dummy client run end to end: Kickoff → updates → report" },
+  { id:"seq", g:"Systems", t:"Onboarding + track email/SMS sequences loaded from the Client Experience Playbook" }
+];
+let goDone = {};
+const ASSETS = [
+  { g:"Client-facing", t:"Full Circle website", d:"Ring, origin story, playbook, foundation stack, fee calculator, readiness quiz → booking.", u:"https://claude.ai/artifact/4hnnMLT5DrkzRZNrN3a7LY", send:true },
+  { g:"Client-facing", t:"The Full Circle (all services)", d:"Every service in order, with a where-are-you-now path finder.", u:"https://claude.ai/artifact/5WPY4yXLWMvJMu6y8X11r2", send:true },
+  { g:"Client-facing", t:"Personal credit", d:"Rights, what moves a score, utilization calculator.", u:"https://claude.ai/artifact/VzWXR7cpfUDvBWttJPpJ3i", send:true },
+  { g:"Client-facing", t:"Business structure", d:"Why, when and how, with the live Structure Builder.", u:"https://claude.ai/artifact/VSSdNMJtg2xVFYtV33vavL", send:true },
+  { g:"Client-facing", t:"Business credit", d:"The build ladder and PAYDEX explainer.", u:"https://claude.ai/artifact/PhfbCSQBsNhRc1yoJ9EUSg", send:true },
+  { g:"Client-facing", t:"Life insurance", d:"Coverage estimator and term vs whole vs IUL.", u:"https://claude.ai/artifact/FsxZwfNya2fjfBMoH9qKge", send:true },
+  { g:"Internal", t:"FCFG Academy", d:"Laws, playbooks, Regulatory Watch, Structure Lab, Strategy Library, quizzes.", u:"https://claude.ai/artifact/AFnLkBbQLrCtLYuyzyidHX" },
+  { g:"Internal", t:"AI Agent Playbook (doc)", d:"Agent prompts, common agents, dashboard plan, devil's advocate gaps.", u:"https://claude.ai/artifact/ViTYbJvMDwhDShm5hXo1Yz" },
+  { g:"Internal", t:"Client Experience Playbook (doc)", d:"Cadence test, journey, portal setup, status library, email and SMS sequences.", u:"https://claude.ai/artifact/D1fhP1xi9x8YD4wKLivVWj" }
+];
+const AUTOS = [
+  { w:"Daily · 7:41 PM", t:"Daily Content Engine (01)", d:"Tomorrow's reel, Stories, caption and short, compliance-checked, into your review queue." },
+  { w:"Mon · 6:36 AM", t:"Market Scan (02)", d:"Hooks, offers, complaints and enforcement news with sources." },
+  { w:"Mon · 7:12 AM", t:"Industry Watch → Academy", d:"New credit, funding, insurance and tax changes added to Regulatory Watch." },
+  { w:"Fri · 3:38 PM", t:"Weekly Scorecard (11)", d:"Red/green on this week's numbers and the one fix." }
+];
+const RHYTHM = [
+  ["Daily", "Speed-to-lead check · approve the content draft · film · 10 partner touches · pre-call briefs · Update due list → Agent 15 → Mark sent · log complaints the same day"],
+  ["Monday", "Read the Market Scan and Industry Watch · Ad Angle Lab (03) · set the week's 5 moves"],
+  ["Tue / Thu", "Wealth Stack Content (14) · Partner Prospecting (05) Tue · Build Tracker (08) Thu"],
+  ["Wednesday", "Lead Revival (06) for consented leads"],
+  ["Friday", "Enter KPIs in Score · approve the Scorecard · decide spend with the scale triggers"],
+  ["Monthly", "Client Progress Reports (12) on the 1st · cadence test readout at day 60 · attorney check-in · Academy quiz"]
+];
+function renderLibrary() {
+  const done = GOLIVE.filter(g => goDone[g.id]).length;
+  $("goRing").innerHTML = ringSVG(done / GOLIVE.length, `${done}`, `OF ${GOLIVE.length}`);
+  $("goCount").textContent = done === GOLIVE.length ? "Ready to launch" : `${GOLIVE.length - done} open`;
+  const bg = $("bGo"); bg.hidden = !(GOLIVE.length - done); bg.textContent = GOLIVE.length - done;
+  const gl = $("goList"); gl.innerHTML = ""; let grp = "";
+  GOLIVE.forEach(g => {
+    if (g.g !== grp) { grp = g.g; const h = document.createElement("div"); h.className = "dept"; h.textContent = grp; gl.appendChild(h); }
+    const on = !!goDone[g.id];
+    const lab = document.createElement("label"); lab.className = "task" + (on ? " done" : "");
+    lab.innerHTML = `<input type="checkbox" ${on ? "checked" : ""} aria-label="Done"><div><div class="tx">${esc(g.t)}</div>${g.g === "Attorney" ? `<div class="tm"><span class="tag attorney">Attorney</span></div>` : ""}</div>`;
+    lab.querySelector("input").addEventListener("change", e => toggleGo(g.id, e.target.checked));
+    gl.appendChild(lab);
+  });
+  const al = $("autoList"); al.innerHTML = "";
+  AUTOS.forEach(a => al.appendChild(moveRow("⟳", "cy", a.t, `${a.w} · ${a.d}`)));
+  $("rhythm").innerHTML = RHYTHM.map(([w, d]) => `<div class="rh"><b>${esc(w)}</b><span>${esc(d)}</span></div>`).join("");
+  const as = $("assets"); as.innerHTML = "";
+  ASSETS.forEach(a => {
+    const c = document.createElement("div"); c.className = "asset";
+    c.innerHTML = `<small>${esc(a.g)}</small><b>${esc(a.t)}</b><p>${esc(a.d)}</p><div class="acts"><a class="btn sm" target="_top" href="${esc(a.u)}">Open</a></div>`;
+    const cp = document.createElement("button"); cp.className = "btn ghost sm"; cp.type = "button"; cp.textContent = a.send ? "Copy link for client" : "Copy link"; cp.onclick = () => copyText(a.u);
+    c.querySelector(".acts").appendChild(cp); as.appendChild(c);
+  });
+}
+async function toggleGo(id, on) {
+  goDone = { ...goDone }; if (on) goDone[id] = true; else delete goDone[id];
+  renderLibrary(); renderToday();
+  if (!db) { toast("Checks aren't saving in this view."); return; }
+  try { if (on) await db.doc("golive/" + id).set({ done: true, at: Date.now() }); else await db.doc("golive/" + id).delete(); } catch { toast("Couldn't save that check."); }
+}
+
+/* ---------- boot ---------- */
+function setClaude(on) { claudePill.className = "pill " + (on ? "on" : "off"); $("tierNote").textContent = on ? "Live · runs on your Claude account" : "Claude unavailable · copy specs instead"; if (!on) { sample = null; $("runBtn").disabled = true; } }
+function setData(on) { dataPill.className = "pill " + (on ? "on" : "off"); }
+function renderAll() { renderToday(); renderClients(); renderAgents(); renderBoard(); renderLog(); renderLibrary(); }
+selectAgent(AGENTS[0]); renderKpis(); renderAll();
+go(store.get("fcfg.tab") || "today");
+
+(async () => {
+  const c = window.claude;
+  if (!c || !c.use) { setClaude(false); setData(false); return; }
+  c.use("sample").then(async s => { sample = s; setClaude(!!s); if (s) { checkPII(); try { toolsOk = !!(await s.limits()).tools; } catch { toolsOk = false; } } });
+  const d = await c.use("db");
+  if (!d) { setData(false); renderAll(); return; }
+  db = d; setData(true);
+  db.collection("tasks").onSnapshot(s => { tasks = s.docs.map(x => ({ id: x.id, ...x.data() })); renderBoard(); renderToday(); }, () => setData(false));
+  db.collection("runs").orderBy("at", "desc").limit(100).onSnapshot(s => { runs = s.docs.map(x => ({ id: x.id, ...x.data() })); renderLog(); renderAgents(); renderToday(); }, () => {});
+  db.collection("clients").onSnapshot(s => { clients = s.docs.map(x => ({ id: x.id, ...x.data() })); renderClients(); renderToday(); }, () => {});
+  db.collection("roadmap").onSnapshot(s => { if (s.metadata?.hasPendingWrites) return; const m = {}; s.docs.forEach(x => { if (x.data().done) m[x.id] = true; }); rmDone = m; renderRoadmap(); renderToday(); }, () => {});
+  db.collection("golive").onSnapshot(s => { if (s.metadata?.hasPendingWrites) return; const m = {}; s.docs.forEach(x => { if (x.data().done) m[x.id] = true; }); goDone = m; renderLibrary(); renderToday(); }, () => {});
+  db.doc("settings/roadmap").onSnapshot(s => { if (s.exists) { const st = s.data().start; if (st && st !== rmStart) { rmStart = st; const n = rmDayNow(); if (n >= 1 && n <= 30) rmWeek = ROADMAP.days[n - 1].week; renderRoadmap(); renderToday(); } } }, () => {});
+  db.doc("kpi/" + weekKey()).onSnapshot(s => { if (s.exists && !s.metadata.hasPendingWrites) { const active = document.activeElement?.id?.startsWith("k_"); kpi = s.data(); if (!active) renderKpis(); } }, () => {});
+  renderAll();
+})();
+</script>
+
+</body></html>

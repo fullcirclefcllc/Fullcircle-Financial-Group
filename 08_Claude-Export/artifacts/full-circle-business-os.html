@@ -1,0 +1,860 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Business OS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: navy command bar; back office = client rail + detail with pillar tabs; portal = single-column client journey. Orbital ring motif marks progress. */
+:root{
+  --navy:#0A1F44; --gold:#C9A646; --cream:#F5EFE0;
+  --bg:#F6F1E6; --surface:#FFFDF8; --surface-2:#EFE8D8; --ink:#0A1F44; --ink-2:#3E4C68; --muted:#6F7891;
+  --line:#DCD2BC; --accent:#A8862A; --accent-ink:#0A1F44; --bar:#0A1F44; --bar-ink:#F5EFE0;
+  --good:#2E7D4F; --warn:#B26B00; --bad:#B23A3A; --info:#2B5BA8;
+  --plum:#7A4E9C; --plum-bg:#EFE6F6; --good-bg:#E3F1E7; --warn-bg:#FBEFD9; --bad-bg:#F8E2E0; --info-bg:#E2EAF6;
+  --display:"Cinzel","Times New Roman",serif; --serif:"Cormorant Garamond",Georgia,serif; --sans:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#071430; --surface:#0E1F45; --surface-2:#132a5a; --ink:#F2ECDD; --ink-2:#C9C3B2; --muted:#8E97AE;
+  --line:#253c6e; --accent:#D8B958; --accent-ink:#0A1F44; --bar:#040D22; --bar-ink:#F2ECDD;
+  --good:#6FCB94; --warn:#E9AE4E; --bad:#EE8A82; --info:#8DB1F0;
+  --plum:#C9A2E8; --plum-bg:#2E1E44; --good-bg:#123A2A; --warn-bg:#3A2C10; --bad-bg:#3E1C1F; --info-bg:#16295A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#071430; --surface:#0E1F45; --surface-2:#132a5a; --ink:#F2ECDD; --ink-2:#C9C3B2; --muted:#8E97AE;
+  --line:#253c6e; --accent:#D8B958; --accent-ink:#0A1F44; --bar:#040D22; --bar-ink:#F2ECDD;
+  --good:#6FCB94; --warn:#E9AE4E; --bad:#EE8A82; --info:#8DB1F0;
+  --plum:#C9A2E8; --plum-bg:#2E1E44; --good-bg:#123A2A; --warn-bg:#3A2C10; --bad-bg:#3E1C1F; --info-bg:#16295A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bar)}
+h1,h2,h3{text-wrap:balance;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bar);color:var(--bar-ink)}
+.bar .in{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:10px;max-width:1280px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;min-width:0}
+.brand b{font-family:var(--display);font-weight:600;letter-spacing:.08em;font-size:15px;white-space:nowrap}
+.brand small{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.9}
+.seg{display:flex;background:rgba(255,255,255,.08);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--bar-ink);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.02em}
+.seg button[aria-pressed="true"]{background:var(--gold);color:#0A1F44}
+.notice{font-size:13px;background:var(--warn-bg);color:var(--warn);padding:8px 0}
+.notice .in{max-width:1280px;margin:0 auto}
+
+/* Back office layout */
+.app{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px;padding-block:20px}
+@media (max-width:860px){.app{grid-template-columns:minmax(0,1fr)}.app.detail-open .rail{display:none}.app:not(.detail-open) .detail{display:none}}
+.rail{display:flex;flex-direction:column;gap:12px;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px}
+.stat .n{font-family:var(--serif);font-size:30px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.stat .l{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:4px}
+.search{display:flex;gap:8px}
+.search input{flex:1;min-width:0}
+input[type=text],input[type=email],input[type=tel],input[type=number],input[type=search],select,textarea{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+textarea{min-height:80px;resize:vertical}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--ink-2);letter-spacing:.02em;min-width:0}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:600;font-size:14px;white-space:nowrap}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#0A1F44}
+.btn.navy{background:var(--navy);border-color:var(--navy);color:#F5EFE0}
+.btn.ghost{background:transparent}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.danger{color:var(--bad);border-color:var(--bad);background:transparent}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.list{display:flex;flex-direction:column;gap:6px}
+.crow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;text-align:left;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px}
+.crow[aria-current="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.crow .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.crow .sub{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dots{display:flex;gap:4px;margin-top:4px}
+.dot{width:22px;height:4px;border-radius:2px;background:var(--surface-2)}
+.dot.on{background:var(--gold)}
+.empty{border:1.5px dashed var(--line);border-radius:var(--r);padding:24px;text-align:center;color:var(--muted)}
+.empty h3{font-family:var(--serif);font-size:24px;color:var(--ink);margin-bottom:6px}
+
+/* Detail */
+.detail{min-width:0;display:flex;flex-direction:column;gap:16px}
+.dhead{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.dhead h1{font-family:var(--serif);font-size:34px;line-height:1.05;font-weight:700}
+.dhead .meta{color:var(--muted);font-size:13px;margin-top:4px}
+.dhead .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.back{display:none}
+@media (max-width:860px){.back{display:inline-flex}}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs button{border:0;background:transparent;padding:10px 12px;font-weight:600;font-size:14px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--gold)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.panel h2{font-family:var(--display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:600}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-weight:600;min-width:0;overflow-wrap:anywhere}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-2)}
+.pill.good{background:var(--good-bg);color:var(--good)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}.pill.info{background:var(--info-bg);color:var(--info)}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px}
+.pillar{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.pillar .t{font-weight:700;font-size:14px}.pillar .s{font-size:12px;color:var(--muted)}
+.pillar.off{opacity:.55}
+.ring text{font-family:var(--sans);font-weight:700;font-size:13px;fill:var(--ink)}
+
+/* Checklists */
+.phase{margin-bottom:14px}
+.phase h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between;gap:8px}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.chk:first-of-type{border-top:0}
+.chk input{width:18px;height:18px;accent-color:var(--gold);margin-top:2px;flex:none}
+.chk.done span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.chk .now{margin-left:auto;flex:none}
+.bar-p{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.bar-p i{display:block;height:100%;background:var(--gold);border-radius:3px}
+
+/* Tree */
+.treebox{overflow-x:auto;padding:8px 0 4px}
+.tree{display:inline-block;min-width:100%;text-align:center}
+.tree ul{display:flex;justify-content:center;padding:20px 0 0;margin:0;position:relative}
+.tree>ul{padding-top:0}
+.tree li{list-style:none;position:relative;padding:20px 6px 0;display:flex;flex-direction:column;align-items:center}
+.tree li::before,.tree li::after{content:"";position:absolute;top:0;right:50%;border-top:1.5px solid var(--line);width:50%;height:20px}
+.tree li::after{right:auto;left:50%;border-left:1.5px solid var(--line)}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:only-child{padding-top:0}
+.tree li:first-child::before,.tree li:last-child::after{border:0 none}
+.tree li:last-child::before{border-right:1.5px solid var(--line);border-radius:0 6px 0 0}
+.tree li:first-child::after{border-radius:6px 0 0 0}
+.tree ul ul::before{content:"";position:absolute;top:0;left:50%;border-left:1.5px solid var(--line);width:0;height:20px}
+.tree>ul>li{padding-top:0}.tree>ul>li::before,.tree>ul>li::after{display:none}
+.node{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;min-width:150px;max-width:210px;text-align:left}
+.node .ty{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.node .nn{font-weight:700;font-size:14px;line-height:1.25;overflow-wrap:anywhere}
+.node .nm2{font-size:11px;color:var(--muted);margin-top:2px}
+.node.person{background:var(--navy);border-color:var(--navy);color:#F5EFE0}.node.person .ty{color:var(--gold)}.node.person .nm2{color:#C9C3B2}
+.node.trust{border-color:var(--gold);background:linear-gradient(var(--surface),var(--surface)) padding-box}
+.node.trust .ty{color:var(--accent)}
+.node.holding{border-color:var(--info)}.node.holding .ty{color:var(--info)}
+.node.property .ty{color:var(--good)}
+.pct{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px;font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;border:2px solid;margin-right:5px;vertical-align:-1px}
+
+/* Entity rows */
+.erow{border:1px solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
+.erow .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.erow .top b{margin-right:auto}
+
+/* Tables */
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}
+td input,td select{padding:5px 8px}
+.num{font-variant-numeric:tabular-nums}
+
+/* Scores */
+.score{background:var(--surface-2);border-radius:var(--r);padding:12px}
+.score .b{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.score .v{font-family:var(--serif);font-size:38px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;margin:4px 0}
+.score input{max-width:110px}
+.score .rng{font-size:11px;color:var(--muted)}
+
+/* Docs */
+.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:10px}
+.doc{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface);display:flex;flex-direction:column}
+.doc .th{aspect-ratio:4/3;max-width:100%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.doc .th img{width:100%;height:100%;object-fit:cover}
+.doc .th span{font-family:var(--display);font-size:18px;color:var(--muted)}
+.doc .bd{padding:8px 10px;font-size:12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.doc .bd a{font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.doc .bd .c{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:10px}
+.drop{border:1.5px dashed var(--line);border-radius:var(--r);padding:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.drop.hot{border-color:var(--gold);background:var(--surface-2)}
+
+/* Education */
+.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+details.learn{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:0}
+details.learn summary{padding:12px 14px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.learn summary::after{content:"+";color:var(--accent);font-weight:700}
+details.learn[open] summary::after{content:"–"}
+details.learn .bd{padding:0 14px 14px;font-size:14px;color:var(--ink-2);max-width:65ch}
+details.learn .bd p{margin:0 0 8px}
+details.learn .bd ol,details.learn .bd ul{margin:0 0 8px;padding-left:20px}
+
+/* Portal */
+.portal{max-width:960px;margin:0 auto;padding-block:20px;display:flex;flex-direction:column;gap:18px}
+.hero{background:var(--navy);color:#F5EFE0;border-radius:14px;padding:22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;position:relative;overflow:hidden}
+.hero h1{font-family:var(--serif);font-size:36px;line-height:1.05;font-weight:700}
+.hero p{margin:6px 0 0;color:#C9C3B2;max-width:52ch}
+.hero .eyebrow{font-family:var(--display);color:var(--gold);letter-spacing:.18em;font-size:12px;text-transform:uppercase}
+.hero .ring text{fill:#F5EFE0}
+@media (max-width:560px){.hero{grid-template-columns:1fr}.hero h1{font-size:30px}}
+.next{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.next:first-of-type{border-top:0}
+.next .k{font-family:var(--display);font-size:11px;letter-spacing:.12em;color:var(--accent);min-width:88px;padding-top:2px;font-weight:600}
+.next .x{font-weight:600}
+.next .y{font-size:13px;color:var(--muted)}
+.journey{display:flex;gap:0;overflow-x:auto;padding-bottom:4px}
+.jstep{flex:1 0 120px;position:relative;padding:28px 6px 0;text-align:center;font-size:12px;color:var(--muted)}
+.jstep::before{content:"";position:absolute;top:9px;left:0;right:0;height:2px;background:var(--line)}
+.jstep:first-child::before{left:50%}.jstep:last-child::before{right:50%}
+.jstep i{position:absolute;top:2px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:var(--surface);border:2px solid var(--line)}
+.jstep.done i{background:var(--gold);border-color:var(--gold)}
+.jstep.cur i{border-color:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 30%,transparent)}
+.jstep.cur{color:var(--ink);font-weight:700}
+.jstep.done{color:var(--ink-2)}
+
+/* Insurance */
+.wiz{display:flex;flex-direction:column;gap:14px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:var(--r);padding:10px 12px;text-align:left;background:var(--surface)}
+.opt b{display:block;font-size:14px}.opt span{font-size:12px;color:var(--muted)}
+.opt[aria-pressed="true"]{border-color:var(--gold);background:var(--surface-2)}
+.rec{border:1.5px solid var(--gold);border-radius:14px;padding:16px;background:var(--surface)}
+.rec .big{font-family:var(--serif);font-size:30px;font-weight:700;line-height:1.1}
+.rec .amt{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.fine{font-size:12px;color:var(--muted);max-width:70ch}
+.steps-n{display:flex;gap:6px}
+.steps-n i{flex:1;height:4px;border-radius:2px;background:var(--surface-2)}
+.steps-n i.on{background:var(--gold)}
+
+/* Modal */
+.scrim{position:fixed;inset:0;background:rgba(4,13,34,.55);z-index:20;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:max(40px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.modal{background:var(--surface);border-radius:14px;width:100%;max-width:620px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.modal h2{font-family:var(--serif);font-size:28px;font-weight:700}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.end{justify-content:flex-end}
+.muted{color:var(--muted)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--navy);color:#F5EFE0;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:600;z-index:30;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.modal.wide{max-width:980px}
+.pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:10px}
+.pkgc{display:flex;flex-direction:column;gap:6px;text-align:left;border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--surface)}
+.pkgc[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);background:var(--surface-2)}
+.pkgc .pn{font-family:var(--serif);font-size:24px;line-height:1.1}
+.pkgc .pf{font-size:12px;color:var(--muted)}
+.pkgc .pp{font-family:var(--serif);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.pkgc .pp small{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted)}
+.pkgc ul,.pkglist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.pkgc li{display:flex;gap:8px;align-items:flex-start}
+.who{flex:none;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-top:2px;min-width:66px;text-align:center}
+.who.fc{background:var(--surface-2);color:var(--accent);border:1px solid var(--gold)}
+.who.cn{background:var(--info-bg);color:var(--info)}
+.who.at{background:var(--plum-bg);color:var(--plum)}
+.who.cl{background:var(--good-bg);color:var(--good)}
+.pkglist li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:14px}
+.pkglist li:first-child{border-top:0}
+.pkglist .ck{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0A1F44}
+.pkglist li.done .ck{background:var(--gold);border-color:var(--gold)}
+.pkglist li.done .tx{color:var(--muted)}
+.loading{padding:40px 0;text-align:center;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.ring circle.p{transition:stroke-dashoffset .6s ease}}
+</style>
+
+<header class="bar"><div class="in wrap">
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="13" fill="none" stroke="#C9A646" stroke-width="2"/><ellipse cx="17" cy="17" rx="16" ry="6" fill="none" stroke="#C9A646" stroke-width="1.2" transform="rotate(-24 17 17)"/><circle cx="29.5" cy="11.3" r="2.4" fill="#C9A646"/></svg>
+    <div><b>FULL CIRCLE</b><small>Business OS</small></div>
+  </div>
+  <div class="seg" role="group" aria-label="View">
+    <button id="mode-office" data-act="mode" data-v="office" aria-pressed="true">Back Office</button>
+    <button id="mode-portal" data-act="mode" data-v="portal" aria-pressed="false">Client Portal</button>
+  </div>
+</div></header>
+<div id="notice"></div>
+<main id="root"><div class="loading">Opening the client vault…</div></main>
+<div id="modal"></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- Reference content ---------- */
+const PILLARS=[
+  {k:"entity",t:"Structure",s:"Entity & holding setup"},
+  {k:"biz",t:"Leverage · Business",s:"Business credit build"},
+  {k:"personal",t:"Leverage · Personal",s:"Personal credit"},
+  {k:"insurance",t:"Protection",s:"Life insurance"}
+];
+const ENTITY_TYPES=["Living Trust","Irrevocable Trust","Holding LLC","Operating LLC","Property LLC","S-Corp","C-Corp"];
+const ENTITY_STATUS=["Planned","Filing","Active","Needs attention"];
+const ES=[
+  ["design","Structure designed (trust, holding company, operating companies)"],
+  ["name","Name availability confirmed with the state"],
+  ["file","Articles of Organization filed"],
+  ["agent","Statutory agent appointed"],
+  ["ein","EIN obtained from the IRS for each entity"],
+  ["oa","Operating agreement signed"],
+  ["assign","Membership interests assigned to the holding company or trust"],
+  ["bank","Business bank account opened in each entity's name"],
+  ["calendar","Annual report and compliance calendar set"]
+];
+const BC=[
+  {p:"Foundation",i:[["entity","Entity active and in good standing with the state"],["ein","EIN issued by the IRS"],["address","Real business address (no P.O. box)"],["phone","Business phone listed in the 411 directory"],["web","Business website and domain email"],["bank","Business bank account in the entity's name"]]},
+  {p:"Identifiers",i:[["duns","D-U-N-S number from Dun & Bradstreet"],["uei","UEI from SAM.gov"],["naics","NAICS code chosen and used consistently"],["match","Name, address and phone match at the IRS, state, bank and bureaus"]]},
+  {p:"Reporting tradelines",i:[["v1","First net-30 vendor that reports"],["v2","Second reporting vendor"],["v3","Third reporting vendor"],["paid","Invoices paid early or on time for 60 to 90 days"],["files","Files open at D&B, Experian Business and Equifax Business"]]},
+  {p:"Revolving credit",i:[["store","Store or fleet card approved"],["cards","Business credit cards approved"],["paydex","PAYDEX at 80 or higher"]]},
+  {p:"Funding ready",i:[["loc","Bank line of credit or term loan application"],["fund","Funding placed"]]}
+];
+const PS=[
+  {p:"Intake",i:[["reports","All three credit reports pulled"],["id","Driver's license or state ID on file"],["poa","Proof of address on file (dated within 60 days)"],["ssn","SSN verification reviewed (never stored here)"]]},
+  {p:"Audit",i:[["audit","Inaccurate, incomplete or unverifiable items flagged"],["plan","Dispute plan reviewed with client"]]},
+  {p:"Disputes",i:[["r1","Round 1 disputes sent"],["r1x","Round 1 bureau responses received"],["r2","Round 2 disputes sent"],["r2x","Round 2 bureau responses received"]]},
+  {p:"Rebuild",i:[["build","Positive tradelines added"],["util","Utilization under 10%"],["ready","Ready for funding or business credit guarantee"]]}
+];
+const DOC_CATS=["EIN letter (CP 575)","Articles of Organization","Operating agreement","Trust agreement","Assignment of interest","Driver's license / ID","Proof of address","Credit report","Dispute letter","Bureau response","Insurance policy","Other"];
+const NEG_TYPES=["Late payment","Collection","Charge-off","Inquiry","Repossession","Bankruptcy","Public record","Incorrect personal info"];
+const NEG_STATUS=["Not started","Disputed","Deleted","Updated","Verified"];
+const BUREAUS=["Equifax","Experian","TransUnion"];
+const PKGS=[
+ {n:"Foundation LLC",price:297,for:"Starting out with one business",tpl:"simple",svc:{entity:true,biz:true,personal:true,insurance:false},
+  items:[["fc","Structure call and name check"],["cn","LLC filed in your state"],["cn","EIN"],["fc","Operating agreement"],["cn","Registered agent, year 1"],["fc","Business credit foundation"]]},
+ {n:"Holding Structure",price:1997,for:"Separating risk or running more than one company",tpl:"holding",svc:{entity:true,biz:true,personal:true,insurance:true},
+  items:[["fc","Structure design session and diagram"],["cn","Holding LLC + 2 subsidiary LLCs filed"],["cn","EIN for each entity"],["fc","Operating agreements for each entity"],["fc","Subsidiaries assigned to the holding company"],["cn","Registered agent for each, year 1"],["fc","Business credit roadmap"]]},
+ {n:"Full Circle Legacy",price:4997,for:"Families, investors and multi-business owners",tpl:"trust",feat:true,svc:{entity:true,biz:true,personal:true,insurance:true},
+  items:[["fc","Full structure design with your family"],["at","Living trust drafted and signed with an attorney"],["cn","Holding, operating and property LLCs filed"],["cn","EIN for each entity"],["fc","Operating agreements; holding owns the subsidiaries"],["at","Trust funded with the holding company"],["fc","Life insurance plan owned by or paid to the trust"],["fc","Business and personal credit plan, funding readiness"]]}
+];
+const PLANS=PKGS.map(p=>p.n);
+const PLAN_ALIAS={"Foundation":"Foundation LLC","Structure":"Holding Structure","Full Circle":"Full Circle Legacy"};
+const WHO={fc:"Full Circle",cn:"Filing partner",at:"Attorney",cl:"You"};
+let PLATFORM_FEE=49;
+const DEFAULT_PRICES=Object.fromEntries(PKGS.map(p=>[p.n,p.price]));
+let SETTINGS={prices:{},links:{},platformFee:49};
+function applySettings(st){SETTINGS=Object.assign({prices:{},links:{},platformFee:49},st||{});
+  PKGS.forEach(p=>{const v=+SETTINGS.prices[p.n];p.price=v>0?v:DEFAULT_PRICES[p.n]});
+  PLATFORM_FEE=+SETTINGS.platformFee>=0?+SETTINGS.platformFee:49}
+const payLink=n=>{const u=(SETTINGS.links||{})[n]||"";return /^https:\/\//i.test(u)?u:""};
+const STAGES=["New lead","Onboarding","In progress","Funding ready","Complete"];
+const INS_STATUS=["Not started","Education","Needs analysis","Application started","Underwriting","Approved","In force"];
+const CARRIERS=["","North American","F&G","National Life Group","Other"];
+
+/* ---------- State ---------- */
+const S={mode:"office",clients:[],sel:null,tab:"overview",q:"",filter:"all",mobileDetail:false,portalId:null,
+  wiz:{step:0,goal:null,age:"",income:"",years:"10",debt:"",mortgage:"",kids:"0",existing:"",budget:"",tobacco:"no"},
+  online:false,loaded:false};
+let db=null,assets=null,user=null,unsub=null;
+
+/* ---------- Utils ---------- */
+const $=s=>document.querySelector(s);
+const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)).replace(/-/g,"").slice(0,16);
+const money=n=>isFinite(n)?"$"+Math.round(n).toLocaleString("en-US"):"—";
+const fmtDate=t=>t?new Date(t).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"—";
+function toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+function ring(pct,size=54,label){const r=size/2-5,c=2*Math.PI*r,o=c*(1-pct/100);
+  return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img" aria-label="${esc(label||"")} ${pct}% complete"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--surface-2)" stroke-width="5"/><circle class="p" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--gold)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${o}" transform="rotate(-90 ${size/2} ${size/2})"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="central">${pct}%</text></svg>`}
+
+function blank(o){return Object.assign({
+  name:"",email:"",phone:"",city:"",state:"AZ",address:"",ssn4:"",plan:"Full Circle Legacy",stage:"New lead",
+  services:{entity:true,biz:true,personal:true,insurance:true},
+  entities:[],entitySteps:{},
+  biz:{steps:{},duns:"",uei:"",naics:"",dnb:"",exp:"",eqf:"",tradelines:[]},
+  personal:{steps:{},eq:"",ex:"",tu:"",pulled:"",negatives:[]},
+  insurance:{status:"Not started",goal:"",type:"",coverage:"",term:"",carrier:"",beneficiary:"",notes:""},
+  docs:[],notes:"",createdAt:Date.now(),updatedAt:Date.now()
+},o||{})}
+function norm(c){const b=blank();for(const k in b){if(c[k]==null)c[k]=b[k];else if(typeof b[k]==="object"&&!Array.isArray(b[k])){c[k]=Object.assign({},b[k],c[k])}}
+  c.biz.steps=c.biz.steps||{};c.personal.steps=c.personal.steps||{};c.entitySteps=c.entitySteps||{};
+  if(PLAN_ALIAS[c.plan])c.plan=PLAN_ALIAS[c.plan];return c}
+const pkgOf=c=>PKGS.find(p=>p.n===c.plan)||PKGS[2];
+
+/* progress */
+function pctOf(steps,list){const keys=list.flatMap(x=>x.i?x.i.map(i=>i[0]):[x[0]]);const d=keys.filter(k=>steps[k]).length;return keys.length?Math.round(d/keys.length*100):0}
+function prog(c){return{
+  entity:pctOf(c.entitySteps,ES),
+  biz:pctOf(c.biz.steps,BC),
+  personal:pctOf(c.personal.steps,PS),
+  insurance:Math.round(INS_STATUS.indexOf(c.insurance.status)/(INS_STATUS.length-1)*100)}}
+function nextStep(steps,list){for(const ph of list){const items=ph.i?ph.i:[ph];for(const it of items){if(!steps[it[0]])return{phase:ph.p||"",label:it[1],key:it[0]}}}return null}
+function overall(c){const p=prog(c);const on=PILLARS.filter(x=>c.services[x.k]);return on.length?Math.round(on.reduce((a,x)=>a+p[x.k],0)/on.length):0}
+
+/* ---------- Data ---------- */
+const memStore={};
+async function save(c,msg){c.updatedAt=Date.now();const {id,...data}=c;
+  if(db){try{await db.collection("clients").doc(id).set(JSON.parse(JSON.stringify(data)));if(msg)toast(msg)}catch(e){toast("Couldn't save: "+(e.message||e.code))}}
+  else{memStore[id]=c;S.clients=Object.values(memStore);render();if(msg)toast(msg)}}
+async function remove(id){if(db){try{await db.collection("clients").doc(id).delete();toast("Client removed")}catch(e){toast("Couldn't delete: "+(e.message||e.code))}}else{delete memStore[id];S.clients=Object.values(memStore);render()}}
+const cur=()=>S.clients.find(c=>c.id===S.sel);
+const portalClient=()=>S.clients.find(c=>c.id===S.portalId)||S.clients[0];
+
+/* ---------- Render ---------- */
+function render(){
+  $("#mode-office").setAttribute("aria-pressed",S.mode==="office");
+  $("#mode-portal").setAttribute("aria-pressed",S.mode==="portal");
+  $("#notice").innerHTML=S.loaded&&!S.online?`<div class="notice"><div class="in wrap">Saving isn't available in this view, so changes last only until you close the page. Open the published page in Claude while signed in to save client records.</div></div>`:"";
+  if(!S.loaded){return}
+  $("#root").innerHTML=S.mode==="office"?office():portal();
+}
+
+/* Back office */
+function office(){
+  const q=S.q.toLowerCase();
+  let list=S.clients.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+  if(q)list=list.filter(c=>(c.name+" "+c.email+" "+(c.entities||[]).map(e=>e.name).join(" ")).toLowerCase().includes(q));
+  if(S.filter!=="all")list=list.filter(c=>c.services[S.filter]);
+  const ents=S.clients.reduce((a,c)=>a+(c.entities||[]).length,0);
+  const disputes=S.clients.reduce((a,c)=>a+(c.personal.negatives||[]).filter(n=>n.status==="Disputed").length,0);
+  const pols=S.clients.filter(c=>["Application started","Underwriting","Approved"].includes(c.insurance.status)).length;
+  const c=cur();
+  return `<div class="app wrap ${S.mobileDetail&&c?"detail-open":""}">
+  <aside class="rail">
+    <div class="stats">
+      <div class="stat"><div class="n">${S.clients.length}</div><div class="l">Clients</div></div>
+      <div class="stat"><div class="n">${ents}</div><div class="l">Entities</div></div>
+      <div class="stat"><div class="n">${disputes}</div><div class="l">Open disputes</div></div>
+      <div class="stat"><div class="n">${pols}</div><div class="l">Policies in motion</div></div>
+    </div>
+    <div class="search"><input type="search" id="q" placeholder="Search clients or entities" value="${esc(S.q)}" aria-label="Search clients"><button class="btn gold" data-act="new">+ Client</button></div>
+    <button class="btn sm" data-act="settings" style="align-self:flex-start">Packages &amp; pricing</button>
+    <div class="filters">${[["all","All"],["entity","Structure"],["biz","Business credit"],["personal","Personal credit"],["insurance","Insurance"]].map(([k,l])=>`<button class="chip" data-act="filter" data-v="${k}" aria-pressed="${S.filter===k}">${l}</button>`).join("")}</div>
+    <div class="list">${list.length?list.map(row).join(""):`<div class="empty"><h3>${S.clients.length?"No matches":"No clients yet"}</h3><p>${S.clients.length?"Try a different name or filter.":"Add your first client to start their structure, credit and protection file."}</p>${S.clients.length?"":`<button class="btn gold" data-act="new">Add a client</button>`}</div>`}</div>
+  </aside>
+  <section class="detail">${c?detail(c):`<div class="empty"><h3>Select a client</h3><p>Pick a client to see their structure, credit progress, policy and documents.</p></div>`}</section>
+  </div>`;
+}
+function row(c){const p=prog(c);const pct=overall(c);
+  return `<button class="crow" data-act="open" data-id="${c.id}" aria-current="${c.id===S.sel}">
+    ${ring(pct,44,c.name)}
+    <div style="min-width:0"><div class="nm">${esc(c.name||"Unnamed client")}</div>
+    <div class="sub">${esc(c.stage)} · ${esc(c.plan)} · ${(c.entities||[]).length} entit${(c.entities||[]).length===1?"y":"ies"}</div>
+    <div class="dots">${PILLARS.map(x=>`<span class="dot ${c.services[x.k]&&p[x.k]>0?"on":""}" title="${x.t}: ${c.services[x.k]?p[x.k]+"%":"not enrolled"}"></span>`).join("")}</div></div>
+  </button>`}
+
+function detail(c){
+  const tabs=[["overview","Overview"],["structure","Structure"],["biz","Business credit"],["personal","Personal credit"],["insurance","Life insurance"],["docs","Documents"]];
+  return `<div class="dhead">
+    <button class="btn ghost sm back" data-act="back">← Clients</button>
+    <div style="min-width:0;flex:1 1 240px"><h1>${esc(c.name)}</h1><div class="meta">${esc([c.city,c.state].filter(Boolean).join(", "))} · Client since ${fmtDate(c.createdAt)} · Updated ${fmtDate(c.updatedAt)}</div>
+    <div class="pills" style="margin-top:8px"><span class="pill info">${esc(c.plan)} plan</span><span class="pill ${c.stage==="Complete"||c.stage==="Funding ready"?"good":"warn"}">${esc(c.stage)}</span></div></div>
+    <div class="acts"><button class="btn" data-act="viewportal" data-id="${c.id}">View as client</button></div>
+  </div>
+  <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button role="tab" data-act="tab" data-v="${k}" aria-selected="${S.tab===k}">${l}</button>`).join("")}</div>
+  ${({overview:tOverview,structure:tStructure,biz:tBiz,personal:tPersonal,insurance:tInsurance,docs:tDocs})[S.tab](c)}`;
+}
+
+function pillarCards(c){const p=prog(c);return `<div class="pillars">${PILLARS.map(x=>`<div class="pillar ${c.services[x.k]?"":"off"}">${ring(c.services[x.k]?p[x.k]:0,50,x.t)}<div><div class="t">${x.t}</div><div class="s">${c.services[x.k]?x.s:"Not enrolled"}</div></div></div>`).join("")}</div>`}
+
+function pkgDone(c,i,p){const t=p.items[i][1];
+  if(/trust drafted/i.test(t))return (c.entities||[]).some(e=>/Trust/.test(e.type)&&e.status==="Active");
+  if(/trust funded/i.test(t))return !!c.entitySteps.assign;
+  if(/filed/i.test(t))return !!c.entitySteps.file;
+  if(/^EIN/.test(t))return !!c.entitySteps.ein;
+  if(/operating agreement/i.test(t))return !!c.entitySteps.oa;
+  if(/assigned to the holding/i.test(t))return !!c.entitySteps.assign;
+  if(/registered agent/i.test(t))return !!c.entitySteps.agent;
+  if(/design|structure call/i.test(t))return !!c.entitySteps.design;
+  if(/insurance/i.test(t))return ["Approved","In force"].includes(c.insurance.status);
+  if(/credit/i.test(t))return prog(c).biz>=50;
+  return false}
+function pkgPanel(c,client){const p=pkgOf(c);
+  return `<div class="panel"><h2>${client?"Your package":"Package"} · ${esc(p.n)}</h2>
+  <div class="row" style="margin-bottom:10px"><span class="pp" style="font-family:var(--serif);font-size:24px;font-weight:700">${money(p.price)}</span><span class="muted" style="font-size:13px">setup + state fees · ${money(PLATFORM_FEE)}/mo platform</span></div>
+  <ul class="pkglist">${p.items.map(([w,t],i)=>{const d=pkgDone(c,i,p);return `<li class="${d?"done":""}"><span class="ck" aria-hidden="true">${d?"✓":""}</span><span class="tx">${esc(t)}</span><i class="who ${w}">${WHO[w]}</i></li>`}).join("")}</ul></div>`}
+function tOverview(c){
+  const f=(id,l,k,type="text")=>`<label class="f">${l}<input type="${type}" id="${id}" data-act="field" data-k="${k}" value="${esc(c[k])}"></label>`;
+  return `${pillarCards(c)}
+  <div class="grid2">
+  <div class="panel"><h2>Client profile</h2><div class="form">
+    ${f("f-name","Full name","name")}${f("f-email","Email","email","email")}${f("f-phone","Phone","phone","tel")}
+    ${f("f-address","Street address","address")}${f("f-city","City","city")}${f("f-state","State","state")}
+    <label class="f">SSN (last 4 only)<input type="text" id="f-ssn4" inputmode="numeric" maxlength="4" data-act="field" data-k="ssn4" value="${esc(c.ssn4)}"></label>
+    <label class="f">Plan<select id="f-plan" data-act="field" data-k="plan">${PLANS.map(p=>`<option ${p===c.plan?"selected":""}>${p}</option>`).join("")}</select></label>
+    <label class="f">Stage<select id="f-stage" data-act="field" data-k="stage">${STAGES.map(p=>`<option ${p===c.stage?"selected":""}>${p}</option>`).join("")}</select></label>
+  </div></div>
+  <div class="panel"><h2>Enrolled services</h2>
+    ${PILLARS.map(x=>`<label class="chk"><input type="checkbox" id="svc-${x.k}" data-act="svc" data-k="${x.k}" ${c.services[x.k]?"checked":""}><span><b>${x.t}</b> — ${x.s}</span></label>`).join("")}
+    <h2 style="margin-top:16px">Next moves</h2>
+    ${[["entity",nextStep(c.entitySteps,ES)],["biz",nextStep(c.biz.steps,BC)],["personal",nextStep(c.personal.steps,PS)]].filter(([k])=>c.services[k]).map(([k,n])=>`<div class="next"><div class="k">${PILLARS.find(p=>p.k===k).t.split(" · ").pop().toUpperCase()}</div><div><div class="x">${n?esc(n.label):"Complete"}</div>${n&&n.phase?`<div class="y">${esc(n.phase)}</div>`:""}</div></div>`).join("")}
+    ${c.services.insurance?`<div class="next"><div class="k">PROTECTION</div><div><div class="x">${esc(c.insurance.status)}</div><div class="y">${esc(c.insurance.type||"Policy type not chosen yet")}</div></div></div>`:""}
+  </div>
+  </div>
+  ${pkgPanel(c,false)}
+  <div class="panel"><h2>Advisor notes</h2><textarea id="f-notes" data-act="field" data-k="notes" placeholder="Strategy, conversations, follow-ups">${esc(c.notes)}</textarea>
+  <div class="row end" style="margin-top:12px"><button class="btn danger sm" data-act="askdel">Delete client</button></div></div>`;
+}
+
+/* Structure */
+function treeHTML(c,opts={}){
+  const ents=c.entities||[];
+  const kids=pid=>ents.filter(e=>(e.parentId||"")===pid);
+  const cls=t=>/Trust/.test(t)?"trust":/Holding/.test(t)?"holding":/Property/.test(t)?"property":"";
+  const node=e=>`<li>${e.pct?`<span class="pct">${esc(e.pct)}% owned</span>`:""}<div class="node ${cls(e.type)}"><div class="ty">${esc(e.type)}</div><div class="nn">${esc(e.name||"Unnamed")}</div><div class="nm2">${esc(e.state||"")}${opts.client?"":(e.ein?" · EIN "+esc(e.ein):"")} · ${esc(e.status||"Planned")}</div>${opts.client&&e.purpose?`<div class="nm2">${esc(e.purpose)}</div>`:""}</div>${kids(e.id).length?`<ul>${kids(e.id).map(node).join("")}</ul>`:""}</li>`;
+  const roots=kids("");
+  return `<div class="treebox"><div class="tree"><ul><li><div class="node person"><div class="ty">Owner</div><div class="nn">${esc(c.name||"Client")}</div><div class="nm2">Grantor · Member</div></div>${roots.length?`<ul>${roots.map(node).join("")}</ul>`:""}</li></ul></div></div>
+  <div class="legend"><span><i style="border-color:var(--gold)"></i>Trust</span><span><i style="border-color:var(--info)"></i>Holding company</span><span><i style="border-color:var(--line)"></i>Operating company</span><span><i style="border-color:var(--good)"></i>Property company</span></div>`;
+}
+function tStructure(c){
+  const ents=c.entities||[];
+  const desc=(id)=>{const out=new Set([id]);let grew=true;while(grew){grew=false;for(const e of ents){if(out.has(e.parentId)&&!out.has(e.id)){out.add(e.id);grew=true}}}return out};
+  return `<div class="panel"><h2>Structure map</h2>${treeHTML(c)}
+    ${ents.length?"":`<p class="muted" style="margin-top:12px">No entities yet. Start from a template or add entities one at a time.</p>`}
+    <div class="row" style="margin-top:12px"><span class="muted" style="font-size:13px">Start from a template:</span>
+      <button class="btn sm" data-act="tpl" data-v="simple">Single LLC</button>
+      <button class="btn sm" data-act="tpl" data-v="holding">Holding + 2 operating</button>
+      <button class="btn sm" data-act="tpl" data-v="trust">Trust → Holding → Ops + Property</button></div>
+  </div>
+  <div class="panel"><h2>Entities</h2><div style="display:flex;flex-direction:column;gap:10px">
+  ${ents.map(e=>{const bad=desc(e.id);return `<div class="erow"><div class="top"><b>${esc(e.name||"Unnamed entity")}</b><span class="pill ${e.status==="Active"?"good":e.status==="Needs attention"?"bad":"warn"}">${esc(e.status||"Planned")}</span><button class="btn ghost sm" data-act="delent" data-id="${e.id}" aria-label="Remove ${esc(e.name)}">Remove</button></div>
+    <div class="form">
+      <label class="f">Legal name<input type="text" id="e-name-${e.id}" data-act="ent" data-id="${e.id}" data-k="name" value="${esc(e.name)}"></label>
+      <label class="f">Type<select id="e-type-${e.id}" data-act="ent" data-id="${e.id}" data-k="type">${ENTITY_TYPES.map(t=>`<option ${t===e.type?"selected":""}>${t}</option>`).join("")}</select></label>
+      <label class="f">Owned by<select id="e-parent-${e.id}" data-act="ent" data-id="${e.id}" data-k="parentId"><option value="">${esc(c.name||"Client")} (directly)</option>${ents.filter(x=>!bad.has(x.id)).map(x=>`<option value="${x.id}" ${x.id===e.parentId?"selected":""}>${esc(x.name||x.type)}</option>`).join("")}</select></label>
+      <label class="f">Ownership %<input type="number" min="0" max="100" id="e-pct-${e.id}" data-act="ent" data-id="${e.id}" data-k="pct" value="${esc(e.pct)}"></label>
+      <label class="f">State<input type="text" id="e-state-${e.id}" data-act="ent" data-id="${e.id}" data-k="state" value="${esc(e.state)}"></label>
+      <label class="f">EIN<input type="text" id="e-ein-${e.id}" placeholder="12-3456789" data-act="ent" data-id="${e.id}" data-k="ein" value="${esc(e.ein)}"></label>
+      <label class="f">Status<select id="e-status-${e.id}" data-act="ent" data-id="${e.id}" data-k="status">${ENTITY_STATUS.map(t=>`<option ${t===e.status?"selected":""}>${t}</option>`).join("")}</select></label>
+      <label class="f">Purpose (client sees this)<input type="text" id="e-purpose-${e.id}" data-act="ent" data-id="${e.id}" data-k="purpose" value="${esc(e.purpose)}" placeholder="Holds the operating companies"></label>
+    </div></div>`}).join("")}
+  <button class="btn" data-act="addent">+ Add entity</button></div></div>
+  <div class="panel"><h2>Formation checklist</h2>${checklist(c.entitySteps,[{p:"Formation",i:ES}],"es")}</div>`;
+}
+function tplEntities(v){
+  if(v==="simple")return[{id:uid(),name:"Operating LLC",type:"Operating LLC",state:"AZ",status:"Planned",pct:"100",purpose:"Runs the business and signs contracts"}];
+  if(v==="holding"){const h=uid();return[{id:h,name:"Holdings LLC",type:"Holding LLC",state:"AZ",status:"Planned",pct:"100",purpose:"Owns the operating companies"},{id:uid(),parentId:h,name:"Operating Co 1 LLC",type:"Operating LLC",state:"AZ",status:"Planned",pct:"100",purpose:"Day-to-day business"},{id:uid(),parentId:h,name:"Operating Co 2 LLC",type:"Operating LLC",state:"AZ",status:"Planned",pct:"100",purpose:"Second line of business"}]}
+  const t=uid(),h=uid();return[{id:t,name:"Family Living Trust",type:"Living Trust",state:"AZ",status:"Planned",pct:"",purpose:"Holds ownership for the family and avoids probate"},{id:h,parentId:t,name:"Holdings LLC",type:"Holding LLC",state:"WY",status:"Planned",pct:"100",purpose:"Owns and protects the companies below"},{id:uid(),parentId:h,name:"Operating LLC",type:"Operating LLC",state:"AZ",status:"Planned",pct:"100",purpose:"Runs the business"},{id:uid(),parentId:h,name:"Property LLC",type:"Property LLC",state:"AZ",status:"Planned",pct:"100",purpose:"Holds real estate and leases it"}];
+}
+
+function checklist(steps,phases,ns,readonly){
+  return phases.map(ph=>{const done=ph.i.filter(i=>steps[i[0]]).length;const n=nextStep(steps,[ph]);
+    return `<div class="phase"><h3><span>${esc(ph.p)}</span><span class="num">${done}/${ph.i.length}</span></h3>
+    ${ph.i.map(([k,l])=>`<label class="chk ${steps[k]?"done":""}"><input type="checkbox" id="${ns}-${k}" data-act="step" data-ns="${ns}" data-k="${k}" ${steps[k]?"checked":""} ${readonly?"disabled":""}><span>${esc(l)}</span>${n&&n.key===k?`<span class="pill warn now">Now</span>`:""}</label>`).join("")}</div>`}).join("");
+}
+
+/* Business credit */
+const EDU_BIZ=`
+<details class="learn"><summary>What is a UEI and how do you get one?</summary><div class="bd">
+<p>A UEI (Unique Entity ID) is a free 12-character ID the federal government assigns through SAM.gov. It replaced the D-U-N-S number for federal purposes in 2022. You need one to bid on government contracts and to apply for most federal grants.</p>
+<ol><li>Create a Login.gov account and sign in at SAM.gov.</li><li>Choose "Get a Unique Entity ID" (ID only) or full entity registration if you plan to bid on contracts.</li><li>Enter the legal business name and physical address exactly as they appear on IRS and state records.</li><li>Your UEI is issued on screen. Full registration must be renewed every year.</li></ol>
+<p>SAM.gov never charges for a UEI. Ignore companies that ask for a fee.</p></div></details>
+<details class="learn"><summary>Who reports business credit?</summary><div class="bd">
+<p>Three main bureaus track business credit, separate from your personal file:</p>
+<ul><li><b>Dun & Bradstreet</b> — PAYDEX score, 1 to 100. 80 means you pay on time; higher means you pay early.</li><li><b>Experian Business</b> — Intelliscore Plus, 1 to 100.</li><li><b>Equifax Business</b> — Payment Index (0 to 100) and risk scores.</li></ul>
+<p>Only vendors and lenders that report to these bureaus build your score. Always confirm a vendor reports before you open the account.</p></div></details>
+<details class="learn"><summary>What does it take to build good business credit?</summary><div class="bd">
+<ol><li>A legitimate, consistent business identity: entity, EIN, address, phone, website, bank account.</li><li>A D-U-N-S number so D&B can open a file.</li><li>Three or more net-30 vendor accounts that report, paid early.</li><li>After 60 to 90 days of history, store and fleet cards, then business credit cards.</li><li>With strong scores and bank history, lines of credit and funding.</li></ol></div></details>
+<details class="learn"><summary>D-U-N-S vs. UEI vs. EIN</summary><div class="bd">
+<p><b>EIN</b>: your business's tax ID from the IRS. <b>D-U-N-S</b>: Dun & Bradstreet's ID that anchors your D&B credit file. <b>UEI</b>: the federal government's ID for contracts and grants. Most businesses building credit need the EIN and D-U-N-S; add the UEI to pursue federal work.</p></div></details>`;
+function tBiz(c){const b=c.biz;
+  const sc=(id,l,k,rng)=>`<div class="score"><div class="b">${l}</div><div class="v">${esc(b[k]||"—")}</div><input type="number" id="${id}" data-act="biz" data-k="${k}" value="${esc(b[k])}" aria-label="${l} score"><div class="rng">${rng}</div></div>`;
+  return `<div class="grid3">${sc("b-dnb","D&B PAYDEX","dnb","1–100 · 80+ on time")}${sc("b-exp","Experian Intelliscore","exp","1–100")}${sc("b-eqf","Equifax Payment Index","eqf","0–100")}</div>
+  <div class="grid2">
+  <div class="panel"><h2>Build roadmap</h2>${checklist(b.steps,BC,"bc")}</div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+    <div class="panel"><h2>Identifiers</h2><div class="form">
+      <label class="f">Entity building credit<select id="b-ent" data-act="biz" data-k="entityId"><option value="">Choose entity</option>${(c.entities||[]).filter(e=>!/Trust/.test(e.type)).map(e=>`<option value="${e.id}" ${e.id===b.entityId?"selected":""}>${esc(e.name)}</option>`).join("")}</select></label>
+      <label class="f">D-U-N-S number<input type="text" id="b-duns" data-act="biz" data-k="duns" value="${esc(b.duns)}" placeholder="9 digits"></label>
+      <label class="f">UEI (SAM.gov)<input type="text" id="b-uei" data-act="biz" data-k="uei" value="${esc(b.uei)}" placeholder="12 characters"></label>
+      <label class="f">NAICS code<input type="text" id="b-naics" data-act="biz" data-k="naics" value="${esc(b.naics)}"></label>
+    </div></div>
+    <div class="panel"><h2>Tradelines</h2><div class="tbl"><table><thead><tr><th>Vendor / lender</th><th>Limit</th><th>Reports to</th><th></th></tr></thead><tbody>
+    ${(b.tradelines||[]).map((t,i)=>`<tr><td><input type="text" id="t-v-${i}" data-act="trade" data-i="${i}" data-k="vendor" value="${esc(t.vendor)}"></td><td><input type="number" id="t-l-${i}" data-act="trade" data-i="${i}" data-k="limit" value="${esc(t.limit)}" style="max-width:100px"></td><td><input type="text" id="t-r-${i}" data-act="trade" data-i="${i}" data-k="reports" value="${esc(t.reports)}" placeholder="D&B, Experian"></td><td><button class="btn ghost sm" data-act="deltrade" data-i="${i}" aria-label="Remove tradeline">✕</button></td></tr>`).join("")||`<tr><td colspan="4" class="muted">No tradelines yet.</td></tr>`}
+    </tbody></table></div><button class="btn sm" style="margin-top:10px" data-act="addtrade">+ Add tradeline</button></div>
+  </div></div>
+  <div class="panel"><h2>Client education</h2><div class="edu">${EDU_BIZ}</div></div>`;
+}
+
+/* Personal credit */
+const EDU_PERS=`
+<details class="learn"><summary>What you need to dispute effectively</summary><div class="bd">
+<ul><li>A current copy of all three reports (free weekly at annualcreditreport.com).</li><li>A clear photo of your driver's license or state ID.</li><li>Proof of address dated within the last 60 days: utility bill, bank statement or lease.</li><li>Proof of your Social Security number (card or W-2), shown to us but never stored in this system.</li><li>A specific reason for each item: inaccurate, incomplete, outdated or unverifiable.</li></ul></div></details>
+<details class="learn"><summary>How the dispute process works</summary><div class="bd">
+<p>Under the Fair Credit Reporting Act, bureaus generally have 30 days to investigate a dispute (up to 45 in some cases). They must correct or remove information they can't verify as accurate. Accurate, timely negative information can stay on a report, so results vary by file.</p>
+<p>We track each item by bureau and round, then send follow-ups when a response comes back.</p></div></details>
+<details class="learn"><summary>What moves your score</summary><div class="bd">
+<ul><li>Payment history: on-time payments matter most.</li><li>Utilization: keep balances under 10% of limits.</li><li>Age of accounts: keep older accounts open.</li><li>New credit: limit hard inquiries while rebuilding.</li><li>Mix: a combination of revolving and installment accounts helps.</li></ul></div></details>`;
+function tPersonal(c){const p=c.personal;
+  const sc=(id,l,k)=>{const v=+p[k];const cls=!v?"":v>=700?"good":v>=620?"warn":"bad";return `<div class="score"><div class="b">${l}</div><div class="v">${esc(p[k]||"—")}</div><input type="number" id="${id}" min="300" max="850" data-act="pers" data-k="${k}" value="${esc(p[k])}" aria-label="${l} score">${v?`<div style="margin-top:6px"><span class="pill ${cls}">${v>=700?"Good":v>=620?"Fair":"Needs work"}</span></div>`:""}</div>`};
+  const hasDoc=cat=>(c.docs||[]).some(d=>d.category===cat);
+  return `<div class="grid3">${sc("p-eq","Equifax","eq")}${sc("p-ex","Experian","ex")}${sc("p-tu","TransUnion","tu")}</div>
+  <div class="grid2">
+  <div class="panel"><h2>Dispute roadmap</h2>${checklist(p.steps,PS,"ps")}</div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+  <div class="panel"><h2>Identity on file</h2>
+    <dl class="kv"><dt>Name</dt><dd>${esc(c.name)}</dd><dt>Address</dt><dd>${esc([c.address,c.city,c.state].filter(Boolean).join(", ")||"—")}</dd><dt>SSN</dt><dd>${c.ssn4?"••• •• "+esc(c.ssn4):"—"}</dd><dt>Reports pulled</dt><dd><input type="text" id="p-pulled" data-act="pers" data-k="pulled" value="${esc(p.pulled)}" placeholder="e.g. Oct 12, 2026" style="max-width:180px"></dd></dl>
+    <div class="pills" style="margin-top:12px"><span class="pill ${hasDoc("Driver's license / ID")?"good":"bad"}">ID ${hasDoc("Driver's license / ID")?"on file":"missing"}</span><span class="pill ${hasDoc("Proof of address")?"good":"bad"}">Proof of address ${hasDoc("Proof of address")?"on file":"missing"}</span><span class="pill ${hasDoc("Credit report")?"good":"warn"}">Reports ${hasDoc("Credit report")?"uploaded":"not uploaded"}</span></div>
+    <button class="btn sm" style="margin-top:12px" data-act="tab" data-v="docs">Upload ID or proof of address</button>
+  </div></div></div>
+  <div class="panel"><h2>Disputed items</h2><div class="tbl"><table><thead><tr><th>Bureau</th><th>Creditor</th><th>Type</th><th>Round</th><th>Status</th><th></th></tr></thead><tbody>
+  ${(p.negatives||[]).map((n,i)=>`<tr>
+    <td><select id="n-b-${i}" data-act="neg" data-i="${i}" data-k="bureau">${BUREAUS.map(b=>`<option ${b===n.bureau?"selected":""}>${b}</option>`).join("")}</select></td>
+    <td><input type="text" id="n-c-${i}" data-act="neg" data-i="${i}" data-k="creditor" value="${esc(n.creditor)}"></td>
+    <td><select id="n-t-${i}" data-act="neg" data-i="${i}" data-k="type">${NEG_TYPES.map(b=>`<option ${b===n.type?"selected":""}>${b}</option>`).join("")}</select></td>
+    <td><select id="n-r-${i}" data-act="neg" data-i="${i}" data-k="round">${["—","1","2","3","4"].map(b=>`<option ${b===(n.round||"—")?"selected":""}>${b}</option>`).join("")}</select></td>
+    <td><select id="n-s-${i}" data-act="neg" data-i="${i}" data-k="status">${NEG_STATUS.map(b=>`<option ${b===n.status?"selected":""}>${b}</option>`).join("")}</select></td>
+    <td><button class="btn ghost sm" data-act="delneg" data-i="${i}" aria-label="Remove item">✕</button></td></tr>`).join("")||`<tr><td colspan="6" class="muted">No items logged yet.</td></tr>`}
+  </tbody></table></div><button class="btn sm" style="margin-top:10px" data-act="addneg">+ Add item</button></div>
+  <div class="panel"><h2>Client education</h2><div class="edu">${EDU_PERS}</div></div>`;
+}
+
+/* Insurance */
+const POLICY={
+  term:{n:"Term life",d:"Pure protection for a set number of years at the lowest cost. Best for income replacement and a mortgage."},
+  iul:{n:"Indexed Universal Life (IUL)",d:"Permanent coverage with cash value tied to a market index, with a floor against losses. Cash value can be accessed through policy loans, the 'become your own bank' strategy."},
+  whole:{n:"Whole life",d:"Permanent coverage with guaranteed cash value growth and fixed premiums. Steady and predictable."},
+  final:{n:"Final expense",d:"Smaller whole life policy that covers funeral costs and final bills, often with simplified underwriting."},
+  key:{n:"Key person / buy-sell",d:"Business-owned coverage that protects the company if an owner or key person dies, and funds a buyout between partners."}
+};
+const GOALS=[["family","Protect my family's income"],["mortgage","Pay off the house"],["wealth","Build cash value I can borrow from"],["business","Protect my business and partners"],["final","Cover final expenses"]];
+function recommend(w){
+  const age=+w.age||0,budget=+w.budget||0;
+  let k="term";
+  if(w.goal==="wealth")k=age&&age>60?"whole":"iul";
+  else if(w.goal==="final")k="final";
+  else if(w.goal==="business")k="key";
+  else if(w.goal==="family")k=budget>=300&&age<55?"iul":"term";
+  const need=Math.max(0,(+w.income||0)*(+w.years||10)+(+w.debt||0)+(+w.mortgage||0)+(+w.kids||0)*100000-(+w.existing||0));
+  return{k,need:w.goal==="final"?Math.min(need||25000,50000):need};
+}
+function insWizard(c,client){
+  const w=S.wiz;const steps=["Goal","About you","Your numbers","Recommendation","Apply"];
+  let body="";
+  if(w.step===0)body=`<h3 style="font-family:var(--serif);font-size:24px">What do you want your policy to do?</h3><div class="opts">${GOALS.map(([k,l])=>`<button class="opt" data-act="wgoal" data-v="${k}" aria-pressed="${w.goal===k}"><b>${l}</b></button>`).join("")}</div>`;
+  if(w.step===1)body=`<h3 style="font-family:var(--serif);font-size:24px">A little about you</h3><div class="form">
+    <label class="f">Age<input type="number" id="w-age" data-act="w" data-k="age" value="${esc(w.age)}" min="18" max="85"></label>
+    <label class="f">Nicotine in the last 12 months?<select id="w-tob" data-act="w" data-k="tobacco"><option value="no" ${w.tobacco==="no"?"selected":""}>No</option><option value="yes" ${w.tobacco==="yes"?"selected":""}>Yes</option></select></label>
+    <label class="f">Children or dependents<input type="number" id="w-kids" data-act="w" data-k="kids" value="${esc(w.kids)}" min="0"></label>
+    <label class="f">Monthly budget for coverage ($)<input type="number" id="w-budget" data-act="w" data-k="budget" value="${esc(w.budget)}" min="0"></label></div>`;
+  if(w.step===2)body=`<h3 style="font-family:var(--serif);font-size:24px">Your numbers</h3><div class="form">
+    <label class="f">Annual income ($)<input type="number" id="w-inc" data-act="w" data-k="income" value="${esc(w.income)}"></label>
+    <label class="f">Years to replace income<input type="number" id="w-yrs" data-act="w" data-k="years" value="${esc(w.years)}"></label>
+    <label class="f">Debts other than mortgage ($)<input type="number" id="w-debt" data-act="w" data-k="debt" value="${esc(w.debt)}"></label>
+    <label class="f">Mortgage balance ($)<input type="number" id="w-mort" data-act="w" data-k="mortgage" value="${esc(w.mortgage)}"></label>
+    <label class="f">Existing life coverage ($)<input type="number" id="w-ex" data-act="w" data-k="existing" value="${esc(w.existing)}"></label></div>
+    <p class="fine">We add income × years, debts, mortgage and $100,000 per child for education, then subtract coverage you already have.</p>`;
+  if(w.step===3){const r=recommend(w);const p=POLICY[r.k];body=`<div class="rec"><div class="fine" style="text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--accent)">Best fit for you</div><div class="big">${p.n}</div><p style="margin:6px 0 10px;max-width:60ch">${p.d}</p><div class="fine">Estimated coverage need</div><div class="amt">${money(r.need)}</div></div>
+    <div class="edu" style="margin-top:12px">${Object.entries(POLICY).filter(([k])=>k!==r.k).map(([k,v])=>`<details class="learn"><summary>${v.n}</summary><div class="bd"><p>${v.d}</p></div></details>`).join("")}</div>
+    <p class="fine">This is an educational estimate, not a quote. Final price and approval depend on carrier underwriting.</p>`}
+  if(w.step===4){const r=recommend(w);body=`<h3 style="font-family:var(--serif);font-size:24px">Start your application</h3><div class="form">
+    <label class="f">Policy type<select id="a-type">${Object.values(POLICY).map(p=>`<option ${p.n===POLICY[r.k].n?"selected":""}>${p.n}</option>`).join("")}</select></label>
+    <label class="f">Coverage amount ($)<input type="number" id="a-cov" value="${Math.round(r.need/50000)*50000||250000}"></label>
+    <label class="f">Term length (term only)<select id="a-term"><option value="">—</option><option>10 years</option><option>20 years</option><option>30 years</option></select></label>
+    <label class="f">Primary beneficiary<input type="text" id="a-ben" placeholder="Name and relationship"></label></div>
+    <p class="fine">A licensed Full Circle agent reviews every application and contacts you before anything is sent to a carrier.</p>`}
+  const canNext=w.step===0?!!w.goal:true;
+  return `<div class="wiz"><div class="steps-n">${steps.map((s,i)=>`<i class="${i<=w.step?"on":""}" title="${s}"></i>`).join("")}</div>${body}
+  <div class="row end">${w.step>0?`<button class="btn" data-act="wprev">Back</button>`:""}${w.step<4?`<button class="btn gold" data-act="wnext" ${canNext?"":"disabled"}>${w.step===3?"Apply for this policy":"Continue"}</button>`:`<button class="btn gold" data-act="wsubmit">Submit application</button>`}</div></div>`;
+}
+function tInsurance(c){const i=c.insurance;
+  return `<div class="grid2"><div class="panel"><h2>Policy file</h2><div class="form">
+    <label class="f">Status<select id="i-status" data-act="ins" data-k="status">${INS_STATUS.map(s=>`<option ${s===i.status?"selected":""}>${s}</option>`).join("")}</select></label>
+    <label class="f">Policy type<select id="i-type" data-act="ins" data-k="type"><option value="">—</option>${Object.values(POLICY).map(p=>`<option ${p.n===i.type?"selected":""}>${p.n}</option>`).join("")}</select></label>
+    <label class="f">Coverage ($)<input type="number" id="i-cov" data-act="ins" data-k="coverage" value="${esc(i.coverage)}"></label>
+    <label class="f">Term<input type="text" id="i-term" data-act="ins" data-k="term" value="${esc(i.term)}"></label>
+    <label class="f">Carrier<select id="i-carrier" data-act="ins" data-k="carrier">${CARRIERS.map(s=>`<option value="${s}" ${s===i.carrier?"selected":""}>${s||"—"}</option>`).join("")}</select></label>
+    <label class="f">Beneficiary<input type="text" id="i-ben" data-act="ins" data-k="beneficiary" value="${esc(i.beneficiary)}"></label>
+  </div><label class="f" style="margin-top:12px">Underwriting notes<textarea id="i-notes" data-act="ins" data-k="notes">${esc(i.notes)}</textarea></label></div>
+  <div class="panel"><h2>Self-serve flow (what the client sees)</h2>${insWizard(c)}</div></div>`;
+}
+
+/* Documents */
+function docGrid(c,opts={}){const docs=c.docs||[];
+  return docs.length?`<div class="docs">${docs.map(d=>{const img=/^image\//.test(d.type||"");const ent=(c.entities||[]).find(e=>e.id===d.entityId);
+    return `<div class="doc"><div class="th">${img?`<img src="${esc(d.url)}" alt="${esc(d.category)}">`:`<span>${esc((d.name.split(".").pop()||"FILE").toUpperCase().slice(0,4))}</span>`}</div>
+    <div class="bd"><span class="c">${esc(d.category)}</span><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.name)}</a><span class="muted">${ent?esc(ent.name)+" · ":""}${fmtDate(d.at)}</span>${opts.client?"":`<button class="btn ghost sm" style="align-self:flex-start;margin-top:4px" data-act="deldoc" data-id="${esc(d.id)}">Remove</button>`}</div></div>`}).join("")}</div>`:`<div class="empty"><p>No documents yet.</p></div>`}
+function uploader(c,opts={}){
+  return `<div class="drop" id="drop">
+    <label class="f" style="flex:1 1 180px">Document type<select id="u-cat">${DOC_CATS.map(x=>`<option ${x===opts.cat?"selected":""}>${x}</option>`).join("")}</select></label>
+    ${opts.client?"":`<label class="f" style="flex:1 1 160px">Entity (optional)<select id="u-ent"><option value="">—</option>${(c.entities||[]).map(e=>`<option value="${e.id}">${esc(e.name)}</option>`).join("")}</select></label>`}
+    <label class="btn gold" style="display:inline-flex;align-items:center">Choose file<input type="file" id="u-file" accept="image/*,application/pdf" hidden></label>
+  </div><p class="fine" style="margin-top:6px">Photos or PDFs, up to 20 MB. ${assets?"":"Uploading needs the published page opened in Claude with edit access."}</p>`}
+function tDocs(c){return `<div class="panel"><h2>Upload</h2>${uploader(c)}</div><div class="panel"><h2>Document vault</h2>${docGrid(c)}</div>`}
+
+/* ---------- Client portal ---------- */
+function portal(){
+  if(!S.clients.length)return `<div class="portal wrap"><div class="empty"><h3>No clients yet</h3><p>Preview the client sign-up, or add a client in the Back Office.</p><button class="btn gold" data-act="signup">Preview client sign-up</button></div></div>`;
+  const c=portalClient();const p=prog(c);const pct=overall(c);const first=(c.name||"").split(" ")[0]||"there";
+  const hasDoc=cat=>(c.docs||[]).some(d=>d.category===cat);
+  const needs=[];
+  if(c.services.personal&&!hasDoc("Driver's license / ID"))needs.push(["Driver's license / ID","A clear photo of the front of your license or state ID."]);
+  if(c.services.personal&&!hasDoc("Proof of address"))needs.push(["Proof of address","A utility bill, bank statement or lease dated in the last 60 days."]);
+  if(c.services.personal&&!hasDoc("Credit report"))needs.push(["Credit report","Your three reports from annualcreditreport.com."]);
+  if(c.services.entity&&c.entitySteps.ein&&!hasDoc("EIN letter (CP 575)"))needs.push(["EIN letter (CP 575)","The IRS letter confirming your EIN."]);
+  const jour=(steps,list)=>{const flat=list.flatMap(x=>x.i||[x]);const n=nextStep(steps,list);return `<div class="journey">${list.map(ph=>{const items=ph.i||[ph];const done=items.every(i=>steps[i[0]]);const isCur=n&&items.some(i=>i[0]===n.key);return `<div class="jstep ${done?"done":isCur?"cur":""}"><i></i>${esc(ph.p||ph[1])}</div>`}).join("")}</div>${n?`<div class="next"><div class="k">UP NEXT</div><div><div class="x">${esc(n.label)}</div><div class="y">Your Full Circle team is working on this step.</div></div></div>`:`<div class="next"><div class="k">STATUS</div><div class="x">Complete</div></div>`}`};
+  const ESP=[{p:"Design",i:ES.slice(0,1)},{p:"File",i:ES.slice(1,4)},{p:"EIN & agreement",i:ES.slice(4,6)},{p:"Connect",i:ES.slice(6,8)},{p:"Maintain",i:ES.slice(8)}];
+  return `<div class="portal wrap">
+  <div class="row" style="justify-content:space-between"><span class="pill info">Previewing as client</span>
+    <div class="row"><label class="f" style="flex-direction:row;align-items:center;gap:8px">Client<select id="pc" data-act="pclient" style="width:auto">${S.clients.map(x=>`<option value="${x.id}" ${x.id===c.id?"selected":""}>${esc(x.name)}</option>`).join("")}</select></label>
+    <button class="btn sm" data-act="signup">Preview sign-up</button></div></div>
+  <section class="hero"><div><div class="eyebrow">Your Full Circle plan · ${esc(c.plan)}</div><h1>Welcome back, ${esc(first)}.</h1><p>Here's where you stand across structure, credit and protection, and what comes next.</p></div>${ring(pct,96,"Overall")}</section>
+  ${pillarCards(c)}
+  ${pkgPanel(c,true)}
+  ${needs.length?`<div class="panel"><h2>What we need from you</h2>${needs.map(([cat,d])=>`<div class="next"><div class="k">UPLOAD</div><div style="flex:1;min-width:0"><div class="x">${esc(cat)}</div><div class="y">${esc(d)}</div></div><button class="btn sm gold" data-act="needup" data-v="${esc(cat)}">Upload</button></div>`).join("")}</div>`:""}
+  ${c.services.entity?`<div class="panel"><h2>Your business structure</h2>${treeHTML(c,{client:true})}<div style="margin-top:14px">${jour(c.entitySteps,ESP)}</div></div>`:""}
+  ${c.services.biz?`<div class="panel"><h2>Business credit</h2>${jour(c.biz.steps,BC)}<div class="grid3" style="margin-top:12px">${[["D&B PAYDEX","dnb"],["Experian","exp"],["Equifax","eqf"]].map(([l,k])=>`<div class="score"><div class="b">${l}</div><div class="v">${esc(c.biz[k]||"—")}</div></div>`).join("")}</div><div class="edu" style="margin-top:12px">${EDU_BIZ}</div></div>`:""}
+  ${c.services.personal?`<div class="panel"><h2>Personal credit</h2>${jour(c.personal.steps,PS)}<div class="grid3" style="margin-top:12px">${[["Equifax","eq"],["Experian","ex"],["TransUnion","tu"]].map(([l,k])=>`<div class="score"><div class="b">${l}</div><div class="v">${esc(c.personal[k]||"—")}</div></div>`).join("")}</div>
+    ${(c.personal.negatives||[]).length?`<div class="tbl" style="margin-top:12px"><table><thead><tr><th>Bureau</th><th>Item</th><th>Status</th></tr></thead><tbody>${c.personal.negatives.map(n=>`<tr><td>${esc(n.bureau)}</td><td>${esc(n.creditor)} · ${esc(n.type)}</td><td><span class="pill ${n.status==="Deleted"||n.status==="Updated"?"good":n.status==="Disputed"?"warn":""}">${esc(n.status)}</span></td></tr>`).join("")}</tbody></table></div>`:""}
+    <div class="edu" style="margin-top:12px">${EDU_PERS}</div></div>`:""}
+  ${c.services.insurance?`<div class="panel"><h2>Protect your family and business</h2>${["Application started","Underwriting","Approved","In force"].includes(c.insurance.status)?`<div class="rec"><div class="fine" style="text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--accent)">${esc(c.insurance.status)}</div><div class="big">${esc(c.insurance.type||"Life insurance")}</div><div class="amt">${c.insurance.coverage?money(+c.insurance.coverage):""}</div><p class="fine">Your agent will reach out with next steps.</p></div>`:insWizard(c,true)}</div>`:""}
+  <div class="panel"><h2>Your documents</h2>${uploader(c,{client:true,cat:S.needCat})}<div style="margin-top:12px">${docGrid(c,{client:true})}</div></div>
+  </div>`;
+}
+
+/* ---------- Modals ---------- */
+function pkgCard(p,sel,act){return `<button class="pkgc ${p.feat?"feat":""}" data-act="${act}" data-v="${esc(p.n)}" aria-pressed="${sel}">
+  ${p.feat?`<span class="pill info" style="align-self:flex-start">Most complete</span>`:""}
+  <b class="pn">${esc(p.n)}</b><span class="pf">${esc(p.for)}</span>
+  <span class="pp">${money(p.price)} <small>+ state fees, then ${money(PLATFORM_FEE)}/mo</small></span>
+  <ul>${p.items.map(([w,t])=>`<li><i class="who ${w}">${WHO[w]}</i><span>${esc(t)}</span></li>`).join("")}</ul></button>`}
+function settingsModal(){
+  $("#modal").innerHTML=`<div class="scrim" data-act="closem"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="st-h">
+  <h2 id="st-h">Packages &amp; pricing</h2>
+  <p class="muted" style="margin:0">Prices show on the sign-up cards and in each client's portal. Paste each package's GoHighLevel payment link; it becomes the client's "Pay &amp; start" button.</p>
+  ${PKGS.map((p,i)=>`<div class="erow"><div class="top"><b>${esc(p.n)}</b></div><div class="form">
+    <label class="f">Setup price ($)<input type="number" min="0" id="st-p-${i}" value="${esc(p.price)}"></label>
+    <label class="f" style="grid-column:1/-1">Payment link (https://…)<input type="text" id="st-l-${i}" inputmode="url" placeholder="https://link.fastpaydirect.com/…" value="${esc((SETTINGS.links||{})[p.n]||"")}"></label>
+  </div></div>`).join("")}
+  <label class="f">Platform subscription ($ / month)<input type="number" min="0" id="st-fee" value="${esc(PLATFORM_FEE)}" style="max-width:160px"></label>
+  <p class="fine" id="st-err" hidden style="color:var(--bad)">Payment links must start with https://</p>
+  <div class="row end"><button class="btn" data-act="closem">Cancel</button><button class="btn gold" data-act="savesettings">Save pricing</button></div>
+  </div></div>`}
+function doneModal(c,isPortal){const p=pkgOf(c);const link=payLink(p.n);
+  $("#modal").innerHTML=`<div class="scrim" data-act="closem"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="dn-h">
+  <h2 id="dn-h">${isPortal?"You're in, "+esc((c.name||"").split(" ")[0])+".":"Client created"}</h2>
+  <p style="margin:0">${esc(p.n)} · <b>${money(p.price)}</b> setup + state fees, then ${money(PLATFORM_FEE)}/mo.</p>
+  ${link?(isPortal?`<p class="muted" style="margin:0">Complete payment to lock in your setup. Your advisor starts your structure as soon as it clears.</p>
+     <a class="btn gold" style="text-align:center;text-decoration:none" href="${esc(link)}" target="_blank" rel="noopener">Pay &amp; start my setup</a>`
+   :`<p class="muted" style="margin:0">Send the client this payment link:</p><div class="row"><input type="text" id="dn-link" readonly value="${esc(link)}" style="flex:1"><button class="btn" data-act="copylink">Copy</button></div>`)
+   :`<p class="muted" style="margin:0">${isPortal?"Your advisor will send your payment link and agreement shortly.":"No payment link is set for this package yet. Add one under Packages & pricing."}</p>`}
+  <div class="row end"><button class="btn${link&&isPortal?"":" gold"}" data-act="closem">${isPortal?"Go to my portal":"Open client"}</button></div></div></div>`}
+function newModal(){
+  const su=S.signup||(S.signup={step:0,pkg:"Full Circle Legacy"});const p=PKGS.find(x=>x.n===su.pkg);
+  const isPortal=S.mode==="portal";
+  const body=su.step===0?`<p class="muted" style="margin:0">${isPortal?"Choose the setup that fits your business. You can add services later.":"Choose the client's package. Their structure and services are set up from it."}</p>
+    <div class="pkgs">${PKGS.map(x=>pkgCard(x,x.n===su.pkg,"supkg")).join("")}</div>
+    <div class="row end"><button class="btn" data-act="closem">Cancel</button><button class="btn gold" data-act="sunext">Continue with ${esc(su.pkg)}</button></div>`
+  :`<div class="row" style="justify-content:space-between"><span class="pill info">${esc(p.n)} · ${money(p.price)}</span><button class="btn ghost sm" data-act="suback">Change package</button></div>
+    <div class="form">
+      <label class="f">Full name<input type="text" id="n-name" required></label>
+      <label class="f">Email<input type="email" id="n-email"></label>
+      <label class="f">Phone<input type="tel" id="n-phone"></label>
+      <label class="f">City<input type="text" id="n-city"></label>
+    </div>
+    <div><div class="f" style="margin-bottom:4px">Included services</div>${PILLARS.map(x=>`<label class="chk"><input type="checkbox" id="n-svc-${x.k}" ${p.svc[x.k]?"checked":""}><span><b>${x.t}</b> — ${x.s}</span></label>`).join("")}</div>
+    <label class="chk"><input type="checkbox" id="n-tpl" checked><span>Start the structure map from the ${esc(p.n)} template</span></label>
+    <p class="fine">${isPortal?"No payment is taken here. A Full Circle advisor confirms your package and sends the agreement.":"Payment and the engagement agreement run through your checkout (GoHighLevel)."}</p>
+    <p class="fine" id="n-err" hidden style="color:var(--bad)">Add the client's name to continue.</p>
+    <div class="row end"><button class="btn" data-act="closem">Cancel</button><button class="btn gold" data-act="create">${isPortal?"Start my setup":"Create client"}</button></div>`;
+  $("#modal").innerHTML=`<div class="scrim" data-act="closem"><div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="nm-h">
+    <h2 id="nm-h">${isPortal?"Start your Full Circle setup":"New client"}</h2>
+    <div class="steps-n"><i class="on"></i><i class="${su.step>0?"on":""}"></i></div>${body}</div></div>`;
+  if(su.step===1)setTimeout(()=>$("#n-name")&&$("#n-name").focus(),0);
+}
+function delModal(c){
+  $("#modal").innerHTML=`<div class="scrim" data-act="closem"><div class="modal" role="dialog" aria-modal="true"><h2>Delete ${esc(c.name)}?</h2><p>This removes the client record, structure, credit progress and document links. Uploaded files stay in storage.</p><div class="row end"><button class="btn" data-act="closem">Keep client</button><button class="btn danger" data-act="dodel">Delete client</button></div></div></div>`;
+}
+
+/* ---------- Events ---------- */
+document.addEventListener("click",async e=>{
+  const t=e.target.closest("[data-act]");if(!t)return;const a=t.dataset.act;const c=cur();
+  if(a==="closem"){if(e.target===t||t.tagName==="BUTTON"){$("#modal").innerHTML="";S.signup=null}return}
+  if(a==="supkg"){S.signup.pkg=t.dataset.v;newModal();return}
+  if(a==="sunext"){S.signup.step=1;newModal();return}
+  if(a==="suback"){S.signup.step=0;newModal();return}
+  if(a==="signup"){S.signup=null;newModal();return}
+  if(a==="settings"){settingsModal();return}
+  if(a==="copylink"){const i=$("#dn-link");const v=i.value;try{await navigator.clipboard.writeText(v);toast("Link copied")}catch(_){i.select();toast("Press copy to copy the selected link")}return}
+  if(a==="savesettings"){const st={prices:{},links:{},platformFee:Math.max(0,+$("#st-fee").value||0)};let bad=false;
+    PKGS.forEach((p,i)=>{st.prices[p.n]=Math.max(0,+$("#st-p-"+i).value||0);const l=$("#st-l-"+i).value.trim();if(l&&!/^https:\/\//i.test(l))bad=true;st.links[p.n]=l});
+    if(bad){$("#st-err").hidden=false;return}
+    applySettings(st);$("#modal").innerHTML="";render();
+    if(db){try{await db.doc("settings/packages").set(st);toast("Pricing saved")}catch(err){toast("Couldn't save pricing: "+(err.message||err.code))}}else toast("Pricing updated for this session");return}
+  if(["field","ent","biz","pers","ins","trade","neg","w","svc","step","pclient"].includes(a))return;
+  if(a==="mode"){S.mode=t.dataset.v;S.wiz.step=0;render();window.scrollTo(0,0)}
+  else if(a==="filter"){S.filter=t.dataset.v;render()}
+  else if(a==="open"){S.sel=t.dataset.id;S.tab="overview";S.mobileDetail=true;S.wiz.step=0;render();if(innerWidth<860)window.scrollTo(0,0)}
+  else if(a==="back"){S.mobileDetail=false;render()}
+  else if(a==="tab"){S.tab=t.dataset.v;render()}
+  else if(a==="new"){S.signup=null;newModal()}
+  else if(a==="create"){const name=$("#n-name").value.trim();if(!name){$("#n-err").hidden=false;return}
+    const pk=PKGS.find(x=>x.n===S.signup.pkg);
+    const nc=blank({id:uid(),name,email:$("#n-email").value.trim(),phone:$("#n-phone").value.trim(),city:$("#n-city").value.trim(),plan:pk.n,stage:"Onboarding",
+      services:Object.fromEntries(PILLARS.map(x=>[x.k,$("#n-svc-"+x.k).checked])),owner:user&&user.id?await user.id().catch(()=>null):null});
+    if($("#n-tpl").checked){nc.entities=tplEntities(pk.tpl);nc.entitySteps.design=true}
+    const wasPortal=S.mode==="portal";
+    $("#modal").innerHTML="";S.signup=null;
+    if(wasPortal){S.portalId=nc.id}else{S.sel=nc.id;S.tab="overview";S.mobileDetail=true}
+    if(db)S.clients.push(nc);await save(nc);render();window.scrollTo(0,0);doneModal(nc,wasPortal)}
+  else if(a==="askdel"&&c)delModal(c);
+  else if(a==="dodel"&&c){$("#modal").innerHTML="";const id=c.id;S.sel=null;S.mobileDetail=false;await remove(id);render()}
+  else if(a==="viewportal"){S.portalId=t.dataset.id;S.mode="portal";S.wiz.step=0;render();window.scrollTo(0,0)}
+  else if(a==="tpl"&&c){c.entities=(c.entities||[]).concat(tplEntities(t.dataset.v));c.entitySteps.design=true;await save(c,"Structure added");render()}
+  else if(a==="addent"&&c){c.entities=(c.entities||[]).concat([{id:uid(),name:"",type:"Operating LLC",state:"AZ",status:"Planned",pct:"100"}]);await save(c);render()}
+  else if(a==="delent"&&c){const id=t.dataset.id;c.entities=c.entities.filter(x=>x.id!==id).map(x=>x.parentId===id?Object.assign({},x,{parentId:(c.entities.find(y=>y.id===id)||{}).parentId||""}):x);await save(c,"Entity removed");render()}
+  else if(a==="addtrade"&&c){c.biz.tradelines=(c.biz.tradelines||[]).concat([{vendor:"",limit:"",reports:""}]);await save(c);render()}
+  else if(a==="deltrade"&&c){c.biz.tradelines.splice(+t.dataset.i,1);await save(c);render()}
+  else if(a==="addneg"&&c){c.personal.negatives=(c.personal.negatives||[]).concat([{bureau:"Equifax",creditor:"",type:"Late payment",round:"—",status:"Not started"}]);await save(c);render()}
+  else if(a==="delneg"&&c){c.personal.negatives.splice(+t.dataset.i,1);await save(c);render()}
+  else if(a==="deldoc"&&c){c.docs=c.docs.filter(d=>d.id!==t.dataset.id);await save(c,"Document removed");render()}
+  else if(a==="wgoal"){S.wiz.goal=t.dataset.v;render()}
+  else if(a==="wnext"){S.wiz.step=Math.min(4,S.wiz.step+1);render()}
+  else if(a==="wprev"){S.wiz.step=Math.max(0,S.wiz.step-1);render()}
+  else if(a==="wsubmit"){const target=S.mode==="portal"?portalClient():c;if(!target)return;
+    target.insurance=Object.assign({},target.insurance,{status:"Application started",goal:S.wiz.goal,type:$("#a-type").value,coverage:$("#a-cov").value,term:$("#a-term").value,beneficiary:$("#a-ben").value});
+    S.wiz.step=0;await save(target,"Application started — an agent will follow up");render()}
+  else if(a==="needup"){S.needCat=t.dataset.v;render();const u=$("#u-cat");if(u){u.value=t.dataset.v;$("#drop").scrollIntoView({behavior:"smooth",block:"center"})}}
+});
+document.addEventListener("change",async e=>{
+  const t=e.target;const a=t.dataset&&t.dataset.act;
+  if(t.id==="u-file"&&t.files[0]){await upload(t.files[0]);return}
+  if(!a)return;
+  if(a==="pclient"){S.portalId=t.value;S.wiz.step=0;render();return}
+  if(a==="w"){S.wiz[t.dataset.k]=t.value;return}
+  const c=S.mode==="portal"?portalClient():cur();if(!c)return;const k=t.dataset.k;
+  if(a==="field"){c[k]=k==="ssn4"?t.value.replace(/\D/g,"").slice(0,4):t.value;await save(c,"Saved");if(k==="name"||k==="stage"||k==="plan")render()}
+  else if(a==="svc"){c.services[k]=t.checked;await save(c);render()}
+  else if(a==="step"){const ns=t.dataset.ns;const m=ns==="es"?c.entitySteps:ns==="bc"?c.biz.steps:c.personal.steps;m[k]=t.checked;await save(c);render()}
+  else if(a==="ent"){const en=c.entities.find(x=>x.id===t.dataset.id);if(en){en[k]=t.value;await save(c,"Saved");render()}}
+  else if(a==="biz"){c.biz[k]=t.value;await save(c,"Saved");render()}
+  else if(a==="pers"){c.personal[k]=t.value;await save(c,"Saved");render()}
+  else if(a==="ins"){c.insurance[k]=t.value;await save(c,"Saved");render()}
+  else if(a==="trade"){c.biz.tradelines[+t.dataset.i][k]=t.value;await save(c,"Saved")}
+  else if(a==="neg"){c.personal.negatives[+t.dataset.i][k]=t.value;await save(c,"Saved");render()}
+});
+document.addEventListener("input",e=>{if(e.target.id==="q"){S.q=e.target.value;const pos=e.target.selectionStart;render();const q=$("#q");if(q){q.focus();try{q.setSelectionRange(pos,pos)}catch(_){}}}});
+document.addEventListener("dragover",e=>{const d=e.target.closest&&e.target.closest("#drop");if(d){e.preventDefault();d.classList.add("hot")}});
+document.addEventListener("dragleave",e=>{const d=e.target.closest&&e.target.closest("#drop");if(d)d.classList.remove("hot")});
+document.addEventListener("drop",async e=>{const d=e.target.closest&&e.target.closest("#drop");if(d){e.preventDefault();d.classList.remove("hot");if(e.dataTransfer.files[0])await upload(e.dataTransfer.files[0])}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#modal").innerHTML)$("#modal").innerHTML=""});
+
+async function upload(file){
+  const c=S.mode==="portal"?portalClient():cur();if(!c)return;
+  const cat=($("#u-cat")||{}).value||"Other";const ent=($("#u-ent")||{}).value||"";
+  if(file.size>20*1024*1024){toast("That file is over 20 MB. Try a smaller photo or PDF.");return}
+  let url,id;
+  if(assets){try{toast("Uploading…");const r=await assets.upload(file);url=r.url;id=r.id}catch(err){toast("Upload failed: "+(err.message||err.code));return}}
+  else{url=URL.createObjectURL(file);id=uid()}
+  c.docs=(c.docs||[]).concat([{id,url,name:file.name,type:file.type,category:cat,entityId:ent,at:Date.now()}]);
+  if(cat==="Driver's license / ID")c.personal.steps.id=true;
+  if(cat==="Proof of address")c.personal.steps.poa=true;
+  if(cat==="Credit report")c.personal.steps.reports=true;
+  if(cat==="EIN letter (CP 575)")c.entitySteps.ein=true;
+  if(cat==="Operating agreement")c.entitySteps.oa=true;
+  S.needCat=null;await save(c,"Uploaded "+cat);render();
+}
+
+/* ---------- Boot ---------- */
+function useCap(n){return window.claude&&window.claude.use?window.claude.use(n).catch(()=>null):Promise.resolve(null)}
+async function boot(){
+  const timer=setTimeout(()=>{if(!S.loaded){S.loaded=true;render()}},4000);
+  [db,assets,user]=await Promise.all([useCap("db"),useCap("assets"),useCap("user")]);
+  if(db){S.online=true;
+    db.doc("settings/packages").onSnapshot(d=>{if(d.exists){applySettings(d.data());if(S.loaded&&!$("#modal").innerHTML)render()}},()=>{});
+    unsub=db.collection("clients").onSnapshot(snap=>{
+      S.clients=snap.docs.map(d=>norm(Object.assign({id:d.id},d.data())));
+      if(!S.loaded){S.loaded=true;clearTimeout(timer)}
+      if(S.sel&&!S.clients.find(c=>c.id===S.sel))S.sel=null;
+      const ae=document.activeElement;const id=ae&&ae.id;
+      if(ae&&["INPUT","TEXTAREA"].includes(ae.tagName)&&ae.type!=="checkbox"&&id!=="q")return; // don't clobber typing
+      render();if(id&&$("#"+CSS.escape(id))&&id==="q")$("#q").focus();
+    },err=>{S.online=false;S.loaded=true;render();toast("Couldn't load clients: "+(err.message||err.code))});
+  }else{S.loaded=true;clearTimeout(timer);render()}
+}
+render();boot();
+})();
+</script>
+
+</body></html>

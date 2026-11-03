@@ -1,0 +1,456 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FCFG Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a HUD console. Orbital core up top, tabbed decks below, one column on phones. Single dark look by design. */
+:root{
+  --navy-deep:#06122a;
+  --navy:#0A1F44;
+  --panel:#0f2753;
+  --line:#2a4378;
+  --gold:#C9A646;
+  --gold-soft:#e3c977;
+  --cream:#F5EFE0;
+  --muted:#a9b3c9;
+  --good:#5fc79a;
+  --warn:#e0a84a;
+  --display:"Cinzel", "Trajan Pro", Georgia, serif;
+  --serif:"Cormorant Garamond", Garamond, Georgia, serif;
+  --sans:"IBM Plex Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--navy-deep);color:var(--cream)}
+body{font-family:var(--sans);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:20px 48px;
+  background:radial-gradient(1200px 600px at 50% -10%, #12306a 0%, var(--navy-deep) 60%) fixed, var(--navy-deep)}
+.wrap{max-width:1080px;margin:0 auto;display:grid;gap:24px}
+a{color:var(--gold-soft)}
+h1,h2,h3{text-wrap:balance;margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+/* HUD header */
+.hud{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:24px;background:linear-gradient(180deg, rgba(15,39,83,.8), rgba(6,18,42,.6))}
+.core{width:150px;height:150px;position:relative;flex:none}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--gold);opacity:.55}
+.ring.r2{inset:16px;border-style:dashed;opacity:.45;animation:spin 28s linear infinite}
+.ring.r3{inset:34px;border-color:var(--gold-soft);border-width:2px;border-left-color:transparent;border-bottom-color:transparent;animation:spin 9s linear infinite reverse}
+.ring.r1{animation:spin 60s linear infinite}
+.ring.r1::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.core-mark{position:absolute;inset:52px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle, rgba(201,166,70,.35), rgba(201,166,70,0) 70%);font-family:var(--display);font-weight:700;color:var(--gold);font-size:18px;letter-spacing:.08em}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.ring{animation:none!important}}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.hud h1{font-family:var(--display);font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:.04em;margin-top:6px}
+.greet{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--muted);margin-top:4px}
+.status{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 8px var(--good)}
+.dot.w{background:var(--warn);box-shadow:0 0 8px var(--warn)}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid var(--line);padding-bottom:2px}
+.tab{background:none;border:0;padding:10px 14px;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--gold);border-bottom-color:var(--gold)}
+.tab:hover{color:var(--cream)}
+section.deck{display:grid;gap:20px}
+.deck h2{font-family:var(--display);font-size:22px;letter-spacing:.04em;color:var(--cream)}
+.lead{font-family:var(--serif);font-size:20px;line-height:1.4;color:var(--cream);max-width:62ch}
+.note{color:var(--muted);font-size:13.5px;max-width:70ch}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.panel{border:1px solid var(--line);border-radius:14px;padding:18px;background:rgba(15,39,83,.55);min-width:0}
+.panel h3{font-family:var(--sans);font-size:15.5px;font-weight:600}
+.panel .k{font-family:var(--mono);font-size:11.5px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase}
+.panel p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.kpi .v{font-family:var(--display);font-size:26px;color:var(--gold-soft);margin-top:6px;font-variant-numeric:tabular-nums}
+.today{border-color:var(--gold);background:linear-gradient(180deg, rgba(201,166,70,.12), rgba(15,39,83,.55))}
+.pill{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid}
+.pill.live{color:var(--good);border-color:var(--good)}
+.pill.next{color:var(--warn);border-color:var(--warn)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+
+/* rhythm */
+.week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:700px){.week{grid-template-columns:1fr}.hud{grid-template-columns:1fr;justify-items:start}.core{width:120px;height:120px}.core-mark{inset:40px;font-size:15px}}
+
+/* phases */
+.progress{height:8px;border-radius:99px;background:var(--navy);border:1px solid var(--line);overflow:hidden}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-soft));width:0;transition:width .4s}
+.phase{display:grid;gap:10px}
+.phase ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.phase label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:14px;color:var(--cream)}
+.phase input{accent-color:var(--gold);margin-top:3px;width:16px;height:16px;flex:none}
+.phase input:checked + span, .tlist input:checked + span{color:var(--muted);text-decoration:line-through}
+.gate{font-family:var(--mono);font-size:12px;color:var(--gold-soft)}
+
+/* codes */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+input[type=search],textarea,select{background:var(--navy);border:1px solid var(--line);color:var(--cream);border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;width:100%}
+.toolbar input{max-width:340px}
+.code-card{display:grid;gap:8px}
+.code-name{font-family:var(--mono);font-size:17px;color:var(--gold);font-weight:500}
+.btn{background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:6px 14px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.btn:hover{background:rgba(201,166,70,.15)}
+.btn.solid{background:var(--gold);color:var(--navy-deep)}
+pre{margin:0;white-space:pre-wrap;font-family:var(--mono);font-size:12.5px;line-height:1.55;color:var(--cream);background:var(--navy-deep);border:1px solid var(--line);border-radius:10px;padding:12px;max-height:220px;overflow:auto}
+.builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:760px){.builder{grid-template-columns:1fr}}
+.builder textarea{min-height:120px;resize:vertical}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gold);color:var(--navy-deep);font-family:var(--mono);font-size:13px;padding:8px 16px;border-radius:999px}
+
+/* partner brief */
+.ways{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.way .num{font-family:var(--display);font-size:34px;color:var(--gold);line-height:1}
+.way h3{font-family:var(--display);font-size:18px;letter-spacing:.03em;margin-top:8px}
+.way ul{margin:10px 0 0;padding-left:18px;color:var(--cream);font-size:14px;display:grid;gap:4px}
+.updates{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.updates li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;font-size:14.5px}
+.updates .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--good);border:1px solid var(--good);border-radius:999px;padding:1px 8px;margin-top:2px}
+.updates .tag.p{color:var(--warn);border-color:var(--warn)}
+.disclaim{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+footer{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:center;letter-spacing:.1em}
+</style>
+
+<div class="wrap">
+  <header class="hud">
+    <div class="core" aria-hidden="true">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="core-mark">FCFG</div>
+    </div>
+    <div>
+      <div class="eyebrow">Full Circle Financial Group · Company Brain</div>
+      <h1>Command Center</h1>
+      <div class="greet" id="greet">Systems ready, Breyon.</div>
+      <div class="status">
+        <span class="chip"><span class="dot"></span>GoHighLevel · shared state</span>
+        <span class="chip"><span class="dot"></span>4 pipelines</span>
+        <span class="chip"><span class="dot w"></span>Phase 1 · Foundation</span>
+        <span class="chip" id="clock">--</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" id="t-command" aria-controls="command">Command</button>
+    <button class="tab" role="tab" id="t-tasks" aria-controls="tasks">Tasks</button>
+    <button class="tab" role="tab" id="t-agents" aria-controls="agents">Agents</button>
+    <button class="tab" role="tab" id="t-path" aria-controls="path">Growth Path</button>
+    <button class="tab" role="tab" id="t-codes" aria-controls="codes">Command Codes</button>
+    <button class="tab" role="tab" id="t-derrick" aria-controls="derrick">Partner Brief</button>
+  </nav>
+
+  <!-- COMMAND -->
+  <section class="deck" id="command" role="tabpanel" aria-labelledby="t-command">
+    <p class="lead">Credit opens the door, structure anchors the client, insurance pays every year, business credit is where they grow next. Every agent below moves a client one step along that path.</p>
+    <div>
+      <div class="eyebrow" style="margin-bottom:10px">This week's rhythm</div>
+      <div class="week" id="week"></div>
+    </div>
+    <div>
+      <div class="eyebrow" style="margin-bottom:10px">Phase 2 targets</div>
+      <div class="grid">
+        <div class="panel kpi"><div class="k">Speed to lead</div><div class="v">&lt; 5 min</div><p>Front Desk AI answers 24/7.</p></div>
+        <div class="panel kpi"><div class="k">Consult show rate</div><div class="v">70%+</div><p>No-show rescue at 10 min, 1 day, 3 days.</p></div>
+        <div class="panel kpi"><div class="k">Consult → enrolled</div><div class="v">40%+</div><p>You close; agents prep.</p></div>
+        <div class="panel kpi"><div class="k">Cost per client</div><div class="v">&lt; 30%</div><p>Of package price. Under ~$285 on $950.</p></div>
+        <div class="panel kpi"><div class="k">Ascension</div><div class="v">1 in 4</div><p>Clients buying a second service in 6 months.</p></div>
+        <div class="panel kpi"><div class="k">Referral share</div><div class="v">40%+</div><p>Lenders, realtors, past clients.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TASKS -->
+  <section class="deck" id="tasks" role="tabpanel" aria-labelledby="t-tasks" hidden>
+    <div class="row" style="flex-wrap:wrap">
+      <h2>To do</h2>
+      <span class="chip" id="tpct">0 of 0 done</span>
+    </div>
+    <div class="progress" aria-hidden="true"><span id="tbar"></span></div>
+    <form class="toolbar" id="taddForm" autocomplete="off">
+      <label for="tnew" class="note" style="width:100%">Add a task</label>
+      <input type="text" id="tnew" placeholder="New task" style="background:var(--navy);border:1px solid var(--line);color:var(--cream);border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;flex:1 1 220px;min-width:0">
+      <select id="tgroup" style="width:auto;flex:0 1 180px"></select>
+      <button class="btn solid" type="submit">Add</button>
+      <button class="btn" type="button" id="tclear">Clear done</button>
+    </form>
+    <div class="grid" id="taskGrid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))"></div>
+    <p class="note">Checks and added tasks save in this browser.</p>
+  </section>
+
+  <!-- AGENTS -->
+  <section class="deck" id="agents" role="tabpanel" aria-labelledby="t-agents" hidden>
+    <h2>Agent roster</h2>
+    <p class="note">Rules cost nothing to run. Claude Projects do the thinking. You approve anything with advice or your name on it.</p>
+    <div class="grid" id="agentGrid"></div>
+  </section>
+
+  <!-- PATH -->
+  <section class="deck" id="path" role="tabpanel" aria-labelledby="t-path" hidden>
+    <div class="row" style="flex-wrap:wrap">
+      <h2>Growth path · $3K to $5K start</h2>
+      <span class="chip" id="pct">0% complete</span>
+    </div>
+    <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+    <p class="note">Tick items as you finish them. Progress saves in this browser only. Move to the next phase when you hit its gate.</p>
+    <div class="grid" id="phaseGrid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))"></div>
+  </section>
+
+  <!-- CODES -->
+  <section class="deck" id="codes" role="tabpanel" aria-labelledby="t-codes" hidden>
+    <h2>Command codes</h2>
+    <p class="lead">These are not secret switches inside Claude. They are shortcuts you define once, then type in two words.</p>
+    <div class="panel today">
+      <div class="k">How to install them</div>
+      <p style="color:var(--cream)">Copy the install block, paste it into the instructions of each Claude Project you use (FCFG Credit Analyst, Content, and so on). After that, typing a code like <b>/VERIFY</b> at the start of a message runs the full instruction. Outside a Project, use the builder below to paste the full prompt.</p>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn solid" id="copyInstall">Copy install block</button><button class="btn" id="showInstall">Show it</button></div>
+      <pre id="installBlock" hidden></pre>
+    </div>
+
+    <div class="panel">
+      <div class="k">Prompt builder</div>
+      <div class="builder" style="margin-top:10px">
+        <div style="display:grid;gap:10px">
+          <label for="pickCode" class="note">Code</label>
+          <select id="pickCode"></select>
+          <label for="ctx" class="note">Your request and context</label>
+          <textarea id="ctx">Should FCFG spend $900 on Meta ads to the Blueprint masterclass this month, or put it into realtor and lender lunches?</textarea>
+        </div>
+        <div style="display:grid;gap:10px;align-content:start">
+          <div class="row"><span class="note">Ready to paste into Claude</span><button class="btn solid" id="copyBuilt">Copy prompt</button></div>
+          <pre id="built" style="max-height:300px"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <label for="q" class="note" style="width:100%">Search codes</label>
+      <input type="search" id="q" placeholder="Try: accurate, decision, client">
+    </div>
+    <div class="grid" id="codeGrid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))"></div>
+  </section>
+
+  <!-- DERRICK -->
+  <section class="deck" id="derrick" role="tabpanel" aria-labelledby="t-derrick" hidden>
+    <div class="eyebrow">Partner brief · prepared for Derrick</div>
+    <h2>How AI grows Full Circle</h2>
+    <p class="lead">We are building one company brain: every lead and client in GoHighLevel, AI agents doing the prep and follow-up, and Breyon approving anything that carries advice. That lets us take on more clients without adding payroll first.</p>
+
+    <div class="panel">
+      <div class="k">Updates</div>
+      <ul class="updates" style="margin-top:12px">
+        <li><span class="tag">Done</span><span>Company brain designed: four pipelines (Credit, Structure, Protection, Business Credit), shared tags and fields, nine agents with clear jobs.</span></li>
+        <li><span class="tag">Done</span><span>12-month growth plan in five phases, each with a gate, built around a $3K to $5K starting budget.</span></li>
+        <li><span class="tag p">Phase 1</span><span>Front Desk AI answering texts, DMs and web chat 24/7 and booking consults.</span></li>
+        <li><span class="tag p">Phase 1</span><span>Credit Analyst agent drafting dispute plans and letters for Breyon's approval.</span></li>
+        <li><span class="tag p">Phase 2</span><span>Content engine: one weekly theme becomes posts, reels, an email and a Masked Money script.</span></li>
+        <li><span class="tag p">Phase 3</span><span>Ascension automation flags credit clients ready for structure, protection or business credit.</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="eyebrow" style="margin-bottom:10px">Three ways we get into AI</div>
+      <div class="ways">
+        <div class="panel way">
+          <div class="num">1</div>
+          <h3>Run on AI</h3>
+          <p>Use it inside FCFG first. Lower cost per client and faster delivery are the quickest return.</p>
+          <ul>
+            <li>Agents handle intake, follow-up, dispute prep, content, reporting</li>
+            <li>Funded from the $3K to $5K start budget</li>
+            <li>Measured by cost per client and hours saved each week</li>
+          </ul>
+        </div>
+        <div class="panel way">
+          <div class="num">2</div>
+          <h3>Sell AI</h3>
+          <p>Package what we build and install it for others. This becomes recurring revenue.</p>
+          <ul>
+            <li>"Full Circle AI Install": GoHighLevel + agents for realtors, lenders, insurance agents and credit operators</li>
+            <li>Setup fee plus monthly support retainer</li>
+            <li>Licensing model once 3 paying installs prove it</li>
+          </ul>
+        </div>
+        <div class="panel way">
+          <div class="num">3</div>
+          <h3>Own a piece of AI</h3>
+          <p>Put a set share of profit toward ownership, in two layers.</p>
+          <ul>
+            <li>Our own AI product: equity we control, built from #1 and #2</li>
+            <li>Public markets: diversified funds and companies in AI and the chips and data centers behind it</li>
+            <li>Private AI deals usually require accredited investor status; review with a licensed advisor</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel today">
+      <div class="k">Decisions for our next meeting</div>
+      <ul style="margin:10px 0 0;padding-left:18px;display:grid;gap:6px">
+        <li>Which parts of the build Derrick and Chumeria each own</li>
+        <li>What percent of monthly profit goes back into the AI build and into investing</li>
+        <li>Which industry we pilot the AI Install offer with first</li>
+      </ul>
+    </div>
+    <p class="disclaim">For discussion only. This is not investment, legal or tax advice. Investing carries risk, including loss of principal. Talk with a licensed financial advisor and an attorney before committing company or personal funds.</p>
+  </section>
+
+  <footer>Protection · Structure · Leverage · Scale</footer>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const store = {
+    get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+    set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+
+  // Greeting + clock
+  function tick(){
+    const n = new Date(), h = n.getHours();
+    $('#greet').textContent = (h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening') + ', Breyon. All systems ready.';
+    $('#clock').textContent = n.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}) + ' · ' + n.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  }
+  tick(); setInterval(tick, 30000);
+
+  // Weekly rhythm
+  const week = [
+    ['Mon','Chief of Staff brief','Set your top 5 actions'],
+    ['Tue','Approve disputes','Letters and client updates'],
+    ['Wed','Partner outreach','2 lunches or calls'],
+    ['Thu','Approve content','Next week’s posts'],
+    ['Fri','Review Front Desk AI','10 transcripts, fix 1 rule']
+  ];
+  const dow = new Date().getDay();
+  $('#week').innerHTML = week.map((d,i) => `<div class="panel ${dow===i+1?'today':''}"><div class="row"><span class="k">${d[0]}</span>${dow===i+1?'<span class="pill live">Today</span>':''}</div><h3 style="margin-top:6px">${d[1]}</h3><p>${d[2]}</p></div>`).join('');
+
+  // Agents
+  const agents = [
+    ['Front Desk','Answers SMS, DMs, web chat and missed calls 24/7, qualifies and books','GHL Conversation AI','live'],
+    ['Router','Tags division, urgency and source, moves the card','GHL rules · no AI cost','live'],
+    ['Credit Analyst','Reads the report, drafts dispute plan and letters for approval','Claude Project','live'],
+    ['Follow-Up','Nurture, no-show rescue, reminders, review requests','GHL workflows','live'],
+    ['Ascension','Flags clients ready for the next service and books the call','GHL + Claude summary','next'],
+    ['Structure Prep','Entity and trust intake summary for you or your attorney','Claude Project','next'],
+    ['Protection Prep','Needs analysis and plain-English illustration notes','Claude Project','next'],
+    ['Content','One weekly theme into posts, reels, email, Masked Money script','Claude Project + schedule','next'],
+    ['Chief of Staff','Monday brief: pipeline, stuck deals, cash, top 5 actions','Scheduled task','next']
+  ];
+  $('#agentGrid').innerHTML = agents.map(a => `<div class="panel"><div class="row"><h3>${a[0]}</h3><span class="pill ${a[3]}">${a[3]==='live'?'Phase 1':'Phase 2–3'}</span></div><p>${a[1]}</p><p class="k" style="margin-top:10px">${a[2]}</p></div>`).join('');
+
+  // Phases
+  const phases = [
+    ['Phase 1 · Foundation','Days 1–30','Gate: 5 paying credit clients',['Build 4 pipelines, tags and custom fields in GHL','Turn on speed-to-lead, no-show, enrollment and dispute-clock workflows','Set up Front Desk AI with FAQs, packages and booking link','Create the Credit Analyst Claude Project with your templates','Attorney review of agreement and disclosures','Call 20 past contacts with a free credit review offer','Book 4 partner lunches']],
+    ['Phase 2 · Lead machine','Days 31–60','Gate: 10–15 new clients a month',['Launch the Blueprint masterclass funnel at $30–$50 a day','Turn on the Content agent','Give each referral partner a tagged link','Turn on review and referral requests','Start the Monday Chief of Staff brief']],
+    ['Phase 3 · Ascension','Days 61–90','Gate: 3 structure cases and 3 policies',['Turn on the Ascension workflow','Create Structure Prep and Protection Prep Projects','Script the next-door call','Package credit + LLC + protection bundle']],
+    ['Phase 4 · Team','Months 4–6','Gate: under 50% of your week on delivery',['Hand dispute prep to a trained processor or VA','Bring Vanessa and FCFA agents onto the pipelines','Set revenue-share rules with Derrick and Chumeria','Launch business credit as a paid program']],
+    ['Phase 5 · Productize','Months 7–12','Gate: recurring revenue covers base costs',['Sell the GHL credit system as a done-for-you install','Turn the masterclass into a paid course','Launch Masked Money on YouTube','Review the licensing model after 3 paying installs']]
+  ];
+  let done = store.get('fcfg-done', {});
+  const total = phases.reduce((s,p)=>s+p[3].length,0);
+  $('#phaseGrid').innerHTML = phases.map((p,pi) => `<div class="panel phase"><div><div class="k">${p[1]}</div><h3 style="margin-top:4px">${p[0]}</h3><div class="gate" style="margin-top:4px">${p[2]}</div></div><ul>${p[3].map((t,ti)=>{const id=`ph${pi}-${ti}`;return `<li><label for="${id}"><input type="checkbox" id="${id}" ${done[id]?'checked':''}><span>${t}</span></label></li>`;}).join('')}</ul></div>`).join('');
+  function progress(){
+    const n = Object.values(done).filter(Boolean).length, pc = Math.round(n/total*100);
+    $('#bar').style.width = pc + '%'; $('#pct').textContent = pc + '% complete · ' + n + ' of ' + total;
+  }
+  $('#phaseGrid').addEventListener('change', e => { if(e.target.type==='checkbox'){ done[e.target.id] = e.target.checked; store.set('fcfg-done', done); progress(); } });
+  progress();
+
+  // Tasks
+  const seed = [
+    ['Credit & clients',['Finish NA','Do credit for Nat, Lauren, Derrick, GG, me and RM','Get credit started for the Chichesters','Follow up on Marc with inquiries','Get Anthony Ramos set up','Call MIB and follow up on ChexSystems']],
+    ['Structure',['Dan: file DBA','Dan: reserve name','Derrick: LLC and structure setup','Follow up on status for Caleb: LLC amendment']],
+    ['Insurance',['Submit life app for D','Finish contracting and call for payment for UHL','Get contracts set up','Get health insurance carriers','Get contracted with Instant carrier','Moo: get license for GA']],
+    ['Write apps',['Marquise','Onique','Marquis','Chef Dam','Chichesters']],
+    ['Real estate',["Get items complete for Lauren's home",'Order items with roof','Apply for HELOC','Reply to HOA email','Fill out info for the SLS for second']],
+    ['Operations',['Work on flow and form for the client journey','Complete website','Think through the process and flow','Build systems for the flow','Complete the Typeform']],
+    ['Personal',['Find a dentist for the kids and make appointments']]
+  ];
+  let tasks = store.get('fcfg-tasks-v1', null);
+  if(!tasks){ tasks = []; seed.forEach(g => g[1].forEach(t => tasks.push({id:'t'+tasks.length, g:g[0], t, d:false}))); store.set('fcfg-tasks-v1', tasks); }
+  const groups = seed.map(g=>g[0]);
+  const esc = x => x.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  $('#tgroup').innerHTML = groups.map(g=>`<option>${esc(g)}</option>`).join('');
+  function renderTasks(){
+    $('#taskGrid').innerHTML = groups.map(g => {
+      const list = tasks.filter(t=>t.g===g); if(!list.length) return '';
+      const left = list.filter(t=>!t.d).length;
+      return `<div class="panel phase tlist"><div class="row"><h3>${esc(g)}</h3><span class="chip">${left} open</span></div><ul>${list.map(t=>`<li><label for="${t.id}"><input type="checkbox" id="${t.id}" ${t.d?'checked':''}><span>${esc(t.t)}</span></label></li>`).join('')}</ul></div>`;
+    }).join('');
+    const n = tasks.filter(t=>t.d).length;
+    $('#tpct').textContent = n + ' of ' + tasks.length + ' done';
+    $('#tbar').style.width = (tasks.length ? Math.round(n/tasks.length*100) : 0) + '%';
+  }
+  $('#taskGrid').addEventListener('change', e => { const t = tasks.find(x=>x.id===e.target.id); if(t){ t.d = e.target.checked; store.set('fcfg-tasks-v1', tasks); renderTasks(); } });
+  $('#taddForm').addEventListener('submit', e => { e.preventDefault(); const v=$('#tnew').value.trim(); if(!v) return; tasks.push({id:'t'+Date.now(), g:$('#tgroup').value, t:v, d:false}); store.set('fcfg-tasks-v1', tasks); $('#tnew').value=''; renderTasks(); });
+  $('#tclear').addEventListener('click', () => { tasks = tasks.filter(t=>!t.d); store.set('fcfg-tasks-v1', tasks); renderTasks(); });
+  renderTasks();
+
+  // Codes
+  const codes = [
+    ['/VERIFY','Accuracy','When facts, numbers, laws or current info matter','Before answering: separate what you know from what you are assuming. Search for anything current (prices, laws, rates, who holds a role) instead of answering from memory. Cite sources for specific facts. Rate your confidence high, medium or low on each key claim. If you are not sure, say so instead of guessing.'],
+    ['/BRIEF','Discovery','Before any big build or project','Do not start yet. Restate my goal in one sentence. List what is still unknown. Ask me up to 7 questions, ranked by how much each answer changes the result, multiple choice where possible. Start only after I answer.'],
+    ['/THINK','Decision','Choosing between options','Think this through carefully before answering. Cover second and third-order consequences of each option, what I may be overweighting emotionally, what information would change the decision, and which option protects the downside best. Then give one clear recommendation and why.'],
+    ['/MENTOR','Stress test','Testing a plan before you spend money','Act as a blunt mentor who has built and failed at companies. Find the weak assumptions and the exact places this plan breaks. Disagree when I am wrong and say why. End with the single most important thing I should think about before moving forward.'],
+    ['/DEVIL','Stress test','After you have already decided','Build the strongest case against this decision. Name the assumptions that could be wrong, the 3 most realistic ways it fails, and what I am underestimating. Do not balance it with positives.'],
+    ['/ASSUME','Accuracy','Any long answer or plan','At the end of your answer, list every assumption you made without asking me, so I can correct the wrong ones.'],
+    ['/AUDIT','Review','Checking finished work','Re-read my original goal. Did this actually solve it? Where did you cut corners and why? What would a demanding expert change? Then give me next steps as multiple choice.'],
+    ['/MEMO','Format','Turning a messy idea into a clear plan','Write this as an executive memo: Situation (what exists today), Complication (what is broken or missing), Question (what we are deciding), Answer (the approach, then numbered steps).'],
+    ['/ROLEPLAY','Practice','Before a hard client or partner talk','Play the other person I describe, realistically, and push back when my points are weak. After each exchange, step out briefly to tell me what worked. End with a full debrief.'],
+    ['/DISPUTE','FCFG','Credit Analyst work','Act as the FCFG Credit Analyst. From the report I provide, list each negative item with creditor, status, balance, date and bureau. Flag items that look inaccurate, incomplete, outdated or unverifiable and say why. Propose a Round 1 plan using only my uploaded templates. Mark anything uncertain as [CHECK]. Never promise deletions or dispute accurate information.'],
+    ['/CLIENT','FCFG','Client updates','Write a short, warm client update text (under 60 words) from the notes I give you. Plain English, no guarantees, end with the next step and date.'],
+    ['/CONTENT','FCFG','Weekly content batch','From this week’s theme, write 5 IG captions, 2 reel scripts under 45 seconds, 1 email, and 1 Masked Money video outline. Tie each to Protection, Structure, Leverage or Scale. No guaranteed results. End each with: book a free review.'],
+    ['/SOP','Systems','Turning a task into a repeatable process','Turn what I describe into a numbered SOP: purpose, who owns it, trigger, steps, the GHL stage or tag that changes, and the quality check at the end.'],
+    ['/QUIZ','Learning','After Claude builds something for you','Quiz me with 5 questions on what you just built or explained. Wrong answers show a gap between what I think happened and what did.']
+  ];
+  const install = 'COMMAND CODES\nWhen my message starts with one of these codes, follow its instruction for that message.\n\n' + codes.map(c => c[0] + ' = ' + c[3]).join('\n\n');
+  $('#installBlock').textContent = install;
+  $('#pickCode').innerHTML = codes.map((c,i)=>`<option value="${i}">${c[0]} · ${c[2]}</option>`).join('');
+
+  function renderCodes(){
+    const q = $('#q').value.trim().toLowerCase();
+    const list = codes.filter(c => !q || c.join(' ').toLowerCase().includes(q));
+    $('#codeGrid').innerHTML = list.length ? list.map(c => `<div class="panel code-card"><div class="row"><span class="code-name">${c[0]}</span><span class="chip">${c[1]}</span></div><p style="margin:0">${c[2]}</p><pre>${c[3]}</pre><div><button class="btn" data-code="${c[0]}">Copy prompt</button></div></div>`).join('') : '<p class="note">No codes match that search.</p>';
+  }
+  function build(){
+    const c = codes[+$('#pickCode').value];
+    $('#built').textContent = c[3] + '\n\nMy request:\n' + $('#ctx').value.trim();
+  }
+  $('#q').addEventListener('input', renderCodes);
+  $('#pickCode').addEventListener('change', build);
+  $('#ctx').addEventListener('input', build);
+  renderCodes(); build();
+
+  // Copy helpers
+  let tt;
+  function toast(m){ const t=$('#toast'); t.textContent=m; t.hidden=false; clearTimeout(tt); tt=setTimeout(()=>t.hidden=true,1800); }
+  function copy(text, el){
+    const fallback = () => { if(el){ const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); } toast('Selected. Press copy on your device.'); };
+    try{ navigator.clipboard.writeText(text).then(()=>toast('Copied'), fallback); }catch(e){ fallback(); }
+  }
+  $('#codeGrid').addEventListener('click', e => {
+    const b = e.target.closest('[data-code]'); if(!b) return;
+    const c = codes.find(x=>x[0]===b.dataset.code); copy(c[3], b.parentElement.previousElementSibling);
+  });
+  $('#copyBuilt').addEventListener('click', () => copy($('#built').textContent, $('#built')));
+  $('#copyInstall').addEventListener('click', () => { $('#installBlock').hidden=false; copy(install, $('#installBlock')); });
+  $('#showInstall').addEventListener('click', () => { const b=$('#installBlock'); b.hidden=!b.hidden; });
+
+  // Tabs
+  const ids = ['command','tasks','agents','path','codes','derrick'];
+  function show(id){
+    if(!ids.includes(id)) id='command';
+    ids.forEach(x => { $('#'+x).hidden = x!==id; $('#t-'+x).setAttribute('aria-selected', x===id); });
+    store.set('fcfg-tab', id);
+  }
+  ids.forEach(x => $('#t-'+x).addEventListener('click', () => show(x)));
+  show((location.hash||'').slice(1) || store.get('fcfg-tab','command'));
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,721 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Investor Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one long investor memo; dark navy "vault" ground, gold orbital ring as the single bold 3D moment, data sections set in tight grids. */
+:root{
+  --bg:#F5EFE0; --surface:#FFFBF2; --raise:#EDE4CF; --fg:#0A1F44; --muted:#4A5874; --line:#D8CCAE;
+  --gold:#8F6F1C; --gold-hi:#B48D2A; --navy:#0A1F44;
+  --good:#1E7B4F; --warn:#A8601A; --bad:#A63A2E;
+  --s1:#0A1F44; --s2:#3E5C8A; --s3:#8FA6C8; --s4:#B48D2A; --s5:#D9BE73; --s6:#6B4E12; --s7:#2E8A7A;
+  --display:"Cinzel","Trajan Pro",Georgia,serif;
+  --serif:"Cormorant Garamond",Garamond,Georgia,serif;
+  --sans:"Manrope","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#071631; --surface:#0C2148; --raise:#112a57; --fg:#F5EFE0; --muted:#A9B4CB; --line:#1E3A6B;
+  --gold:#C9A646; --gold-hi:#E3C673; --navy:#0A1F44;
+  --good:#5BC28E; --warn:#E3A25A; --bad:#EE7B6C;
+  --s1:#F5EFE0; --s2:#8FA6C8; --s3:#4D6FA3; --s4:#C9A646; --s5:#E9D59A; --s6:#8C6B1F; --s7:#4DB6A2;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#071631; --surface:#0C2148; --raise:#112a57; --fg:#F5EFE0; --muted:#A9B4CB; --line:#1E3A6B;
+  --gold:#C9A646; --gold-hi:#E3C673; --navy:#0A1F44;
+  --good:#5BC28E; --warn:#E3A25A; --bad:#EE7B6C;
+  --s1:#F5EFE0; --s2:#8FA6C8; --s3:#4D6FA3; --s4:#C9A646; --s5:#E9D59A; --s6:#8C6B1F; --s7:#4DB6A2;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1160px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0;letter-spacing:.02em}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.15}
+h3{font-size:1.05rem;letter-spacing:.05em}
+p{margin:0}
+.lead{font-family:var(--serif);font-size:1.3rem;line-height:1.45;color:var(--fg);max-width:62ch}
+.muted{color:var(--muted)}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.num{font-variant-numeric:tabular-nums}
+a{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:2px}
+
+/* nav */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:10px max(16px,env(safe-area-inset-left,0px))}
+nav.top .wrap{display:flex;gap:18px;align-items:center;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+nav.top .brand{font-family:var(--display);font-weight:700;letter-spacing:.08em;color:var(--fg);text-decoration:none;margin-right:auto;padding-right:12px}
+nav.top a.l{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:600}
+nav.top a.l:hover{color:var(--gold)}
+
+section{padding-block:72px;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;gap:12px;margin-bottom:36px;max-width:780px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:center;padding-block:48px 56px}
+.hero h1{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.04}
+.hero h1 span{color:var(--gold)}
+.hero-copy{display:grid;gap:20px;min-width:0}
+.ask{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ask div{border:1px solid var(--line);padding:12px 14px;border-radius:4px;min-width:0;background:var(--surface)}
+@media (max-width:600px){.ask b{font-size:1.15rem}.ask small{font-size:.62rem;letter-spacing:.06em}.ask div{padding:10px}}
+.ask b{display:block;font-family:var(--display);font-size:1.5rem;color:var(--gold)}
+.ask small{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.stage{position:relative;aspect-ratio:1/1;max-width:100%;min-width:0;border-radius:50%;}
+#orbit{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+#orbit:active{cursor:grabbing}
+.orb-label{position:absolute;transform:translate(-50%,-160%);font-family:var(--display);font-size:.78rem;font-weight:600;letter-spacing:.12em;
+  padding:5px 10px;border-radius:999px;border:1px solid var(--gold);background:var(--surface);color:var(--fg);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
+.orb-label[aria-pressed="true"]{background:var(--gold);color:var(--navy)}
+.stage-hint{position:absolute;bottom:4%;left:50%;transform:translateX(-50%);font-size:.72rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;pointer-events:none}
+.pillar-card{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:18px 20px;display:grid;gap:8px;min-height:150px}
+.pillar-card .tag{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.pillar-card h3{font-size:1.25rem}
+.pillar-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:.92rem}
+
+/* grids */
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.stat{display:grid;gap:6px;padding-top:14px;border-top:2px solid var(--gold)}
+.stat b{font-family:var(--display);font-size:2rem;line-height:1.1}
+.stat p{font-size:.92rem;color:var(--muted)}
+.stat cite{font-style:normal;font-size:.74rem;color:var(--muted);opacity:.85}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:j}
+.step{padding:20px 18px 20px 0;border-top:1px solid var(--line);position:relative;display:grid;gap:8px;align-content:start}
+.step::before{counter-increment:j;content:"Step " counter(j);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.step::after{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+.step h3{font-size:1.1rem}
+.step p{font-size:.92rem;color:var(--muted)}
+.step .role{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--fg)}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--raise)}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tfoot td{font-weight:700;background:var(--raise)}
+.pill{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.pill.ok{color:var(--good)} .pill.est{color:var(--warn)}
+.yes{color:var(--good);font-weight:700} .no{color:var(--muted);opacity:.6} .part{color:var(--warn);font-weight:600}
+tr.us td{background:color-mix(in srgb,var(--gold) 12%,var(--surface));font-weight:600}
+
+/* platform */
+.arch{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.track{border:1px solid var(--line);border-radius:6px;padding:22px;background:var(--surface);display:grid;gap:12px;align-content:start}
+.track ul{margin:0;padding-left:18px;font-size:.92rem;color:var(--muted)}
+.modules{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:20px}
+.mod{border:1px solid var(--line);border-radius:6px;padding:16px;background:var(--surface);display:grid;gap:6px;align-content:start;transition:transform .25s,box-shadow .25s;transform-style:preserve-3d}
+.mod b{font-family:var(--display);font-size:.95rem;letter-spacing:.06em}
+.mod span{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mod p{font-size:.84rem;color:var(--muted)}
+
+/* model */
+.scen{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.scen button,.btn{font:600 .85rem var(--sans);padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.scen button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.model{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px}
+.controls{display:grid;gap:18px;align-content:start}
+.ctl{display:grid;gap:6px}
+.ctl label{display:flex;justify-content:space-between;gap:8px;font-size:.84rem;font-weight:600}
+.ctl label output{color:var(--gold);font-variant-numeric:tabular-nums}
+.ctl small{font-size:.74rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.kpi{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:var(--surface);display:grid;gap:2px}
+.kpi small{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.kpi b{font-family:var(--display);font-size:1.35rem;font-variant-numeric:tabular-nums}
+.kpi.good b{color:var(--good)} .kpi.bad b{color:var(--bad)}
+.chartbox{border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:14px;position:relative;min-width:0}
+.chartbox svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.76rem;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.tip{position:absolute;pointer-events:none;background:var(--bg);border:1px solid var(--gold);border-radius:4px;padding:8px 10px;font-size:.78rem;line-height:1.45;min-width:170px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.tip b{font-family:var(--display)}
+.warnbox{margin-top:14px;padding:12px 16px;border-left:3px solid var(--bad);background:var(--raise);font-size:.9rem;border-radius:0 4px 4px 0}
+.warnbox.ok{border-color:var(--good)}
+.yrtable{margin-top:18px}
+
+/* funnel */
+.funnel{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:stretch}
+.fstep{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:4px;align-content:start;position:relative}
+.fstep b{font-family:var(--display);font-size:1.5rem;font-variant-numeric:tabular-nums;color:var(--gold)}
+.fstep span{font-size:.8rem;font-weight:700}
+.fstep p{font-size:.8rem;color:var(--muted)}
+
+/* funds */
+.funds{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:32px;align-items:center}
+.donut{max-width:340px;width:100%;margin:0 auto}
+.donut path{cursor:pointer;transition:opacity .2s, transform .25s;transform-origin:170px 170px}
+.donut path:hover,.donut path.on{transform:scale(1.04)}
+.fundlist{display:grid;gap:8px}
+.fundrow{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
+.fundrow[aria-pressed="true"]{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.fundrow i{width:14px;height:14px;border-radius:3px;margin-top:4px}
+.fundrow b{display:block;font-size:.95rem}
+.fundrow small{display:block;color:var(--muted);font-size:.82rem;line-height:1.45}
+.fundrow em{font-style:normal;font-family:var(--display);font-weight:600;font-variant-numeric:tabular-nums}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.tl div{border-top:3px solid var(--gold);padding-top:12px;display:grid;gap:6px;align-content:start}
+.tl b{font-family:var(--display);font-size:.95rem}
+.tl ul{margin:0;padding-left:16px;font-size:.86rem;color:var(--muted)}
+
+.risk{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.risk div{border:1px solid var(--line);border-radius:6px;padding:16px 18px;background:var(--surface);display:grid;gap:6px}
+.risk b{font-size:.95rem}
+.risk p{font-size:.88rem;color:var(--muted)}
+
+.team{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px}
+.founder{border:1px solid var(--line);border-radius:6px;padding:24px;background:var(--surface);display:grid;gap:12px}
+.founder h3{font-size:1.4rem}
+.founder ul{margin:0;padding-left:18px;color:var(--muted);font-size:.92rem}
+
+.close{text-align:left;display:grid;gap:22px;padding-block:80px}
+.close h2{font-size:clamp(1.8rem,4vw,2.8rem)}
+.contact{display:flex;gap:12px;flex-wrap:wrap}
+.contact div{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:6px;padding:10px 14px;background:var(--surface)}
+.contact span{user-select:all;font-weight:600}
+.copy{font:600 .74rem var(--sans);border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:999px;padding:4px 10px;cursor:pointer}
+.sources{font-size:.8rem;color:var(--muted);display:grid;gap:4px;padding-block:40px 60px}
+.sources ol{margin:0;padding-left:20px;display:grid;gap:3px}
+.disclaimer{font-size:.78rem;color:var(--muted);max-width:90ch}
+
+@media (max-width:960px){
+  .hero,.model,.funds,.team,.arch{grid-template-columns:minmax(0,1fr)}
+  .g4,.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .modules{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .funnel,.tl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .journey{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stage{max-width:520px;margin:0 auto;width:100%}
+}
+@media (max-width:600px){
+  .g2,.g3,.g4,.risk,.journey,.tl,.funnel{grid-template-columns:minmax(0,1fr)}
+  .modules{grid-template-columns:minmax(0,1fr)}
+  section{padding-block:52px}
+  .orb-label{font-size:.66rem;padding:4px 8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<nav class="top" aria-label="Sections"><div class="wrap">
+  <a class="brand" href="#top">FULL CIRCLE</a>
+  <a class="l" href="#problem">Problem</a><a class="l" href="#solution">Solution</a><a class="l" href="#platform">Platform</a>
+  <a class="l" href="#model">Revenue model</a><a class="l" href="#projections">Projections</a><a class="l" href="#market">Market</a>
+  <a class="l" href="#costs">Costs</a><a class="l" href="#funds">Use of funds</a><a class="l" href="#risk">Compliance</a><a class="l" href="#ask">The ask</a>
+</div></nav>
+
+<div class="wrap" id="top">
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">Full Circle Financial Group · Phoenix, Arizona · Investor plan, November 2026</span>
+    <h1>One operating system for <span>credit, structure, capital</span> and protection.</h1>
+    <p class="lead">Small business owners buy credit repair from one shop, an LLC from another, chase funding from a third and never get to life insurance. Full Circle runs all four as one client journey, and is turning that journey into software: <b>Full Circle OS</b>.</p>
+    <div class="ask">
+      <div><small>Raising</small><b class="num">$250K</b></div>
+      <div><small>Year 3 revenue, base case</small><b class="num" id="heroY3">$1.6M</b></div>
+      <div><small>Break-even, base case</small><b class="num" id="heroBE">Month 7</b></div>
+    </div>
+    <div class="pillar-card" id="pillarCard" aria-live="polite"></div>
+  </div>
+  <div class="stage" id="stage">
+    <canvas id="orbit" aria-label="3D model of the four Full Circle pillars orbiting the client"></canvas>
+    <div id="labels"></div>
+    <div class="stage-hint">Drag to rotate · tap a pillar</div>
+  </div>
+</header>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">The problem</span><h2>Business owners are building on credit they can't use and structure they don't have.</h2>
+  <p class="muted">New businesses are forming at record pace, yet most founders start with weak personal credit, no business credit file and no plan to protect what they build. The services that fix this are sold separately by thousands of tiny, disconnected shops.</p></div>
+  <div class="g4">
+    <div class="stat"><b class="num">5.67M</b><p>US business applications in 2025, an all-time record.</p><cite>U.S. Census Bureau BFS, via FRED</cite></div>
+    <div class="stat"><b class="num">22%</b><p>of small businesses that applied for financing got nothing at all.</p><cite>Federal Reserve Small Business Credit Survey, 2025</cite></div>
+    <div class="stat"><b class="num">25,352</b><p>US credit repair firms, averaging 1.2 employees each. A fragmented, unbranded field.</p><cite>IBISWorld, Jan 2026</cite></div>
+    <div class="stat"><b class="num">$4.5B</b><p>Record IUL new premium in 2025, up 17%. Demand for "own-your-bank" protection is rising.</p><cite>LIMRA, 2026</cite></div>
+  </div>
+</div></section>
+
+<!-- SOLUTION -->
+<section id="solution"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">The solution</span><h2>One simple entry point. Generational wealth as the destination.</h2>
+  <p class="muted">Credit is the hook every owner already feels. Each fix creates the need for the next service, so one acquisition cost buys up to five revenue events.</p></div>
+  <div class="journey">
+    <div class="step"><span class="role">Front door</span><h3>Restore credit</h3><p>Personal credit restoration from $950 to $2,200, built on consumer-law disputes and run as a document preparation service.</p></div>
+    <div class="step"><span class="role">High-ticket anchor</span><h3>Structure the business</h3><p>LLC formation bundled with business address, phone, domain and email in one flow. Wyoming holding company for privacy.</p></div>
+    <div class="step"><span class="role">Ascension</span><h3>Build leverage</h3><p>Business credit build, then funding placement on a 5–10% success fee capped at $10,000.</p></div>
+    <div class="step"><span class="role">Recurring back end</span><h3>Protect and scale</h3><p>Life insurance and IUL through Full Circle Financial Agency, plus a monthly Full Circle OS subscription.</p></div>
+  </div>
+</div></section>
+
+<!-- PLATFORM -->
+<section id="platform"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">The platform</span><h2>Full Circle OS: the "QuickBooks of financial services."</h2>
+  <p class="muted">Clients buy one system instead of five services. Each service runs as its own module inside the client's account, with AI agents guiding the next step. Other credit, insurance and lending professionals can license the same system to run their own clients.</p></div>
+  <div class="arch">
+    <div class="track"><span class="eyebrow">Track 1 · Live in 30–60 days</span><h3>GoHighLevel in SaaS mode</h3>
+      <ul><li>White-labeled client portal and mobile app, billed automatically through Stripe</li><li>CRM pipelines, dispute workflows, webinar funnel and booking already on the stack</li><li>Lets Full Circle sell the OS now while the custom build runs</li><li>Platform cost: $497/month (Agency Pro / SaaS Pro)</li></ul></div>
+    <div class="track"><span class="eyebrow">Track 2 · Months 2–6</span><h3>Custom app: Next.js + Supabase</h3>
+      <ul><li>Proprietary code in a private repository, owned by the new OS entity</li><li>Client dashboard across all four pillars, document vault, progress scoring</li><li>Operator marketplace so other entrepreneurs can offer services on the platform</li><li>Run cost under $150/month at launch (Supabase Pro + Vercel Pro)</li></ul></div>
+  </div>
+  <div class="modules" id="modules">
+    <div class="mod"><span>Leverage</span><b>Restore</b><p>Intake, report import from SmartCredit, dispute rounds, progress reports.</p></div>
+    <div class="mod"><span>Structure</span><b>Form</b><p>LLC + address + phone + domain + email in one checkout. Wyoming holding via a registered agent.</p></div>
+    <div class="mod"><span>Leverage</span><b>Fund</b><p>Business credit tiers, lender matching, funding readiness score.</p></div>
+    <div class="mod"><span>Protection</span><b>Protect</b><p>Needs analysis, IUL illustrations, carrier submissions through FCFA.</p></div>
+    <div class="mod"><span>Scale</span><b>Grow</b><p>AI agents for follow-up, content and reporting. Operator licensing.</p></div>
+  </div>
+</div></section>
+
+<!-- REVENUE MODEL -->
+<section id="model"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Business model</span><h2>Seven revenue streams from one client.</h2>
+  <p class="muted">Prices marked <span class="pill ok">Live</span> are what Full Circle charges today. Prices marked <span class="pill est">Planned</span> are the working assumptions in the projections and will be confirmed in market.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Stream</th><th>What the client buys</th><th class="r">Price</th><th class="r">Attach rate*</th><th>When cash lands</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><b>Credit restoration</b></td><td>Packages at $950, $1,150, $1,500; Clean Slate at $1,850 / $2,200; pay-per-delete option</td><td class="r">$1,200 avg</td><td class="r">100%</td><td>After work is performed, months 1–2</td><td><span class="pill ok">Live</span></td></tr>
+      <tr><td><b>Entity structure</b></td><td>LLC bundle with address, phone, domain, email; optional Wyoming holding company</td><td class="r">$1,497</td><td class="r">35%</td><td>At signup</td><td><span class="pill est">Planned</span></td></tr>
+      <tr><td><b>Business credit build</b></td><td>Vendor tradelines, bureau files, tiered credit build</td><td class="r">$2,500</td><td class="r">25%</td><td>Month 2</td><td><span class="pill est">Planned</span></td></tr>
+      <tr><td><b>Funding placement</b></td><td>Success fee of 5–10% of funds placed, capped at $10,000</td><td class="r">$5,625 avg</td><td class="r">15%</td><td>Month 4, on funding</td><td><span class="pill ok">Live</span></td></tr>
+      <tr><td><b>Life insurance / IUL</b></td><td>First-year agency commission via North American, F&amp;G, National Life Group</td><td class="r">$2,400 avg</td><td class="r">10%</td><td>Month 3</td><td><span class="pill est">Planned</span></td></tr>
+      <tr><td><b>Full Circle OS — client</b></td><td>Monthly portal, monitoring dashboard, AI guidance</td><td class="r">$97/mo</td><td class="r">30%</td><td>Monthly, 8% churn</td><td><span class="pill est">Planned</span></td></tr>
+      <tr><td><b>Full Circle OS — operator</b></td><td>White-label license for other credit, insurance and lending pros</td><td class="r">$297/mo</td><td class="r">n/a</td><td>Monthly from month 7, 3% churn</td><td><span class="pill est">Planned</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="font-size:.8rem;margin-top:10px">*Share of new credit clients who buy the stream. Funding average assumes $75,000 placed at a 7.5% fee. The $97 Full Circle Blueprint masterclass is used as a lead magnet and is excluded from projections.</p>
+
+  <div class="g4" style="margin-top:36px" id="unitEcon"></div>
+</div></section>
+
+<!-- PROJECTIONS -->
+<section id="projections"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Interactive 36-month model</span><h2>Move the assumptions. Watch the business respond.</h2>
+  <p class="muted">Every number on this page comes from one model. Paid ads drive a webinar funnel; each new client then flows through the streams above on the timing shown. Ad budget scales 1.5× in year 2 and 2× in year 3, funded from revenue.</p></div>
+  <div class="scen" role="group" aria-label="Scenario">
+    <button type="button" data-s="cons" aria-pressed="false">Conservative</button>
+    <button type="button" data-s="base" aria-pressed="true">Base case</button>
+    <button type="button" data-s="up" aria-pressed="false">Upside</button>
+  </div>
+  <div class="model">
+    <div class="controls" id="controls"></div>
+    <div style="min-width:0">
+      <div class="kpis" id="kpis"></div>
+      <div class="chartbox" id="chartbox">
+        <svg id="chart" viewBox="0 0 900 340" role="img" aria-label="Monthly revenue by stream with total costs line"></svg>
+        <div class="legend" id="legend"></div>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+      <div id="cashNote"></div>
+      <div class="tbl yrtable"><table>
+        <thead><tr><th></th><th class="r">Year 1</th><th class="r">Year 2</th><th class="r">Year 3</th></tr></thead>
+        <tbody id="yrBody"></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div style="margin-top:48px">
+    <div class="sec-head" style="margin-bottom:20px"><span class="eyebrow">Go-to-market, one month at full budget</span><h3 style="font-size:1.4rem">Paid ads → live webinar → strategy call → client</h3></div>
+    <div class="funnel" id="funnel"></div>
+    <p class="muted" style="font-size:.82rem;margin-top:10px">Finance-industry Facebook lead costs average about $33 (Superads, Oct 2024–Oct 2025); the model uses a more cautious $40 base. Referral lift comes from realtor, mortgage and lender partners and existing clients.</p>
+  </div>
+</div></section>
+
+<!-- MARKET -->
+<section id="market"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Market</span><h2>Four large markets, one buyer.</h2>
+  <p class="muted">Full Circle doesn't need share of any one market. It needs a small number of owners to buy across all of them.</p></div>
+  <div class="g4">
+    <div class="stat"><b class="num">$6.8B</b><p>US credit repair services revenue, 2026.</p><cite>IBISWorld</cite></div>
+    <div class="stat"><b class="num">$756M</b><p>LegalZoom 2025 revenue on 500K formations; over 60% now subscription. Proof that formation leads to recurring revenue.</p><cite>LegalZoom Q4 2025 results</cite></div>
+    <div class="stat"><b class="num">$17.5B</b><p>US individual life new annualized premium, a record in 2025.</p><cite>LIMRA</cite></div>
+    <div class="stat"><b class="num">60%</b><p>of small employer firms applied for financing in the prior year; only 42% received the full amount.</p><cite>Fed SBCS, 2026 Report on Employer Firms</cite></div>
+  </div>
+
+  <div style="margin-top:44px" class="sec-head"><span class="eyebrow">Competition</span><h3 style="font-size:1.4rem">Everyone else sells one piece.</h3></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Provider type</th><th>Personal credit</th><th>Entity formation</th><th>Business credit</th><th>Funding</th><th>Life / IUL</th><th>Client software</th></tr></thead>
+    <tbody>
+      <tr><td>LegalZoom, Bizee (Incfile), Swyft</td><td class="no">—</td><td class="yes">Yes</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="part">Compliance only</td></tr>
+      <tr><td>Typical credit repair firm</td><td class="yes">Yes</td><td class="no">—</td><td class="part">Some</td><td class="no">—</td><td class="no">—</td><td class="part">Portal</td></tr>
+      <tr><td>Nav</td><td class="no">—</td><td class="no">—</td><td class="yes">Monitoring</td><td class="yes">Marketplace</td><td class="no">—</td><td class="yes">Yes</td></tr>
+      <tr><td>Independent insurance agency</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">Yes</td><td class="no">—</td></tr>
+      <tr class="us"><td>Full Circle Financial Group</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Full Circle OS</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<!-- COSTS -->
+<section id="costs"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Cost structure</span><h2>What it costs to run.</h2>
+  <p class="muted">Monthly figures below are month 12 of the current scenario and update with the model. Platform prices are 2026 list prices; items marked est. are estimates.</p></div>
+  <div class="g2">
+    <div class="tbl"><table>
+      <thead><tr><th>Monthly operating cost</th><th class="r">Month 12</th></tr></thead>
+      <tbody id="opex"></tbody>
+      <tfoot><tr><td>Total</td><td class="r" id="opexTotal"></td></tr></tfoot>
+    </table></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Technology stack</th><th class="r">Per month</th></tr></thead>
+      <tbody>
+        <tr><td>GoHighLevel Agency Pro / SaaS Pro</td><td class="r">$497</td></tr>
+        <tr><td>Supabase Pro + compute</td><td class="r">~$60</td></tr>
+        <tr><td>Vercel Pro (2 seats at $20)</td><td class="r">$40</td></tr>
+        <tr><td>AI model usage for agents (est.)</td><td class="r">$300</td></tr>
+        <tr><td>Phone, SMS, email sending usage (est.)</td><td class="r">$250</td></tr>
+        <tr><td>Webinar platform (est.)</td><td class="r">$100</td></tr>
+        <tr><td>Design and video tools (est.)</td><td class="r">$100</td></tr>
+        <tr><td>Workspace email, forms, domains, misc. (est.)</td><td class="r">$253</td></tr>
+        <tr><td>Credit monitoring</td><td class="r">$0 · client-paid via SmartCredit</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total software &amp; AI</td><td class="r">$1,600</td></tr></tfoot>
+    </table></div>
+  </div>
+  <div class="tbl" style="margin-top:20px"><table>
+    <thead><tr><th>One-time startup cost</th><th>Notes</th><th class="r">Amount</th></tr></thead>
+    <tbody>
+      <tr><td>Full Circle OS custom build</td><td>Contract developer over 6 months; Claude-assisted scaffolding lowers hours</td><td class="r">$50,000</td></tr>
+      <tr><td>Webinar, brand and ad creative</td><td>Webinar production, ad library, landing pages</td><td class="r">$20,000</td></tr>
+      <tr><td>Legal and compliance review</td><td>CROA contracts and disclosures, Arizona credit services rules, terms of service, funding disclosures</td><td class="r">$7,500</td></tr>
+      <tr><td>Insurance and bonding</td><td>E&amp;O coverage; Arizona credit services surety bond ($5K–$25K face) if required</td><td class="r">$2,500</td></tr>
+      <tr><td>New OS entity setup</td><td>Separate LLC for Full Circle OS, Wyoming holding company</td><td class="r">$1,000</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<!-- USE OF FUNDS -->
+<section id="funds"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Use of funds</span><h2>Where the $250,000 goes.</h2>
+  <p class="muted">Tap a slice or a line to see what it buys.</p></div>
+  <div class="funds">
+    <svg class="donut" id="donut" viewBox="0 0 340 340" role="img" aria-label="Use of funds breakdown"></svg>
+    <div class="fundlist" id="fundlist"></div>
+  </div>
+</div></section>
+
+<!-- MILESTONES -->
+<section id="milestones"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Milestones, base case</span><h2>Eighteen months to a platform business.</h2></div>
+  <div class="tl">
+    <div><span class="eyebrow">Days 0–90</span><b>Launch the engine</b><ul><li>Paid webinar funnel live</li><li>Full Circle OS v1 on GoHighLevel</li><li>First dispute specialist hired</li><li>Compliance review complete</li></ul></div>
+    <div><span class="eyebrow">Months 4–6</span><b>Systemize</b><ul><li>Custom OS in build</li><li>Structure bundle automated end to end</li><li>About 15 new clients a month</li></ul></div>
+    <div><span class="eyebrow">Months 7–12</span><b>Profit and license</b><ul><li>$50K/month revenue run-rate</li><li>Monthly break-even</li><li>Operator licensing opens</li></ul></div>
+    <div><span class="eyebrow">Year 2</span><b>Scale</b><ul><li>Ad budget 1.5×</li><li>Custom OS replaces portal</li><li>~$1.1M revenue</li></ul></div>
+    <div><span class="eyebrow">Year 3</span><b>Platform</b><ul><li>130+ operator licenses</li><li>~$1.6M revenue</li><li>Series of AI agents running ops</li></ul></div>
+  </div>
+</div></section>
+
+<!-- RISK -->
+<section id="risk"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Compliance and risk</span><h2>Built to pass a regulator's read.</h2>
+  <p class="muted">Credit services are heavily enforced. The model is designed around the rules, not around them.</p></div>
+  <div class="risk">
+    <div><b>No advance fees for credit work</b><p>The federal Credit Repair Organizations Act bars charging before services are fully performed (15 U.S.C. §1679b(b)). The projections collect credit fees after each round of work, not at signup.</p></div>
+    <div><b>Arizona credit services rules</b><p>A.R.S. §44-1701 et seq. covers credit services organizations, including a surety bond of 5% of prior-year fees ($5,000–$25,000) where required. Budgeted.</p></div>
+    <div><b>No guarantees, ever</b><p>All marketing passes the FCFG compliance gate: no promised score increases, deletions or approvals, and required disclosures on every page.</p></div>
+    <div><b>Funding disclosures</b><p>Success fees are disclosed in writing. States such as California and New York have commercial financing disclosure laws; the platform will meet them before selling there.</p></div>
+    <div><b>Concentration risk</b><p>Credit is the entry point. Structure, insurance and software revenue reduce dependence on any one service as the client base matures.</p></div>
+    <div><b>Acquisition cost risk</b><p>If paid conversion runs below plan, ad spend is cut back to the level the cash covers. The conservative scenario shows why that gate matters.</p></div>
+  </div>
+</div></section>
+
+<!-- TEAM -->
+<section id="team"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Team</span><h2>Built by someone who learned structure the hard way.</h2></div>
+  <div class="team">
+    <div class="founder">
+      <span class="eyebrow">Founder and Financial Architect</span>
+      <h3>Breyon Miller</h3>
+      <p class="muted">Former professional basketball player whose career ended early, which is why every Full Circle client leaves with a plan. Founded Full Circle to teach financial literacy to people who were never taught it, especially in urban and minority communities.</p>
+      <ul><li>Licensed life insurance producer in Arizona; appointed with North American, F&amp;G and National Life Group</li><li>Real estate agent, which feeds mortgage-readiness credit clients</li><li>Built the FCFA agent system: 70/80/100% compensation tiers, six-level career path, onboarding</li><li>Active client engagements across credit disputes, business credit builds and multi-phase consulting</li></ul>
+    </div>
+    <div class="track"><span class="eyebrow">Around the founder</span>
+      <ul><li><b>Two revenue-share partners</b> (joined September 2026)</li><li><b>Marketing lead</b> with a licensed loan officer background (joining)</li><li><b>Lender and mortgage referral partners</b> for funding and home-buyer clients</li><li><b>Hires funded by this raise:</b> dispute specialists, a client success lead and a contract developer</li></ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="close" id="ask"><div class="wrap" style="display:grid;gap:22px">
+  <span class="eyebrow">The ask</span>
+  <h2>$250,000 to turn a proven service into a platform.</h2>
+  <p class="lead">The capital funds the acquisition engine and the software at the same time, so every client acquired in year one is also a user of Full Circle OS. Terms are open for discussion.</p>
+  <div class="contact">
+    <div><span id="ph">602-545-0826</span><button class="copy" type="button" data-copy="ph">Copy</button></div>
+    <div><span id="em">Breyon@fullcircle-credit.com</span><button class="copy" type="button" data-copy="em">Copy</button></div>
+  </div>
+</div></section>
+
+<div class="wrap sources">
+  <b>Sources</b>
+  <ol>
+    <li><a href="https://www.ibisworld.com/united-states/market-research-reports/credit-repair-services-industry/" target="_blank" rel="noopener">IBISWorld, Credit Repair Services in the US (Jan 2026)</a></li>
+    <li><a href="https://fred.stlouisfed.org/series/BABATOTALSAUS" target="_blank" rel="noopener">U.S. Census Bureau Business Formation Statistics, via FRED</a></li>
+    <li><a href="https://lonelyentrepreneur.com/founder-funding-gap/" target="_blank" rel="noopener">Federal Reserve Banks, Small Business Credit Survey 2025 findings (summary)</a></li>
+    <li><a href="https://www.limra.com/en/newsroom/news-releases/2026/limra-double-digit-growth-drives-individual-life-insurance-new-premium-to-set-new-sales-record-in-2025/" target="_blank" rel="noopener">LIMRA, 2025 individual life insurance sales</a></li>
+    <li><a href="https://investors.legalzoom.com/node/10066/pdf" target="_blank" rel="noopener">LegalZoom Q4 and full-year 2025 results</a></li>
+    <li><a href="https://www.superads.ai/facebook-ads-costs/cost-per-lead/finance" target="_blank" rel="noopener">Superads, Facebook cost-per-lead benchmarks, Finance</a></li>
+    <li><a href="https://buttondown.com/gohighlevel/archive/gohighlevel-plans-compared/" target="_blank" rel="noopener">GoHighLevel plan pricing, 2026</a> · <a href="https://www.jetadmin.io/blog/supabase-pricing-2026-guide-to-plans-limits-and-real-world-costs/" target="_blank" rel="noopener">Supabase pricing, 2026</a></li>
+    <li><a href="https://law.justia.com/codes/us/title-15/chapter-41/subchapter-ii-a" target="_blank" rel="noopener">Credit Repair Organizations Act, 15 U.S.C. §1679 et seq.</a> · <a href="https://azleg.gov/ars/44/01708.htm" target="_blank" rel="noopener">A.R.S. §44-1708</a></li>
+  </ol>
+  <p class="disclaimer" style="margin-top:14px">Projections are forward-looking estimates built on stated assumptions and are not guarantees of future results. Planned prices and attach rates are untested in market. This document is for discussion only and is not an offer to sell or a solicitation to buy securities.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---------- financial engine ---------- */
+function runModel(p){
+  const M=36,out=[];let subs=0,ops=0,cash=p.raise;const co=[];let be=null,minCash=cash,minM=0,cashOut=null;
+  for(let m=1;m<=M;m++){
+    const yr=Math.ceil(m/12),ramp=m===1?.5:m===2?.6:m===3?.8:1;
+    const spend=p.adSpend*ramp*(yr===1?1:yr===2?p.y2Mult:p.y3Mult);
+    const leads=spend/p.cpl,clients=leads*p.conv*(1+p.referral);co[m]=clients;
+    const c=k=>(m-k>=1?co[m-k]:0);
+    const credit=(c(1)+c(2))*.5*p.creditTicket;
+    const structure=c(0)*p.attStructure*p.structurePrice;
+    const bizcredit=c(2)*p.attBiz*p.bizPrice;
+    const funding=c(4)*p.attFunding*Math.min(p.fundAmt*p.fundFee,10000);
+    const insurance=c(3)*p.attIns*p.insComm;
+    subs=subs*(1-p.subChurn)+c(1)*p.attOS;const os=subs*p.osPrice;
+    const add=m<7?0:yr===1?p.opAddY1:yr===2?p.opAddY2:p.opAddY3;ops=ops*(1-p.opChurn)+add;const licensing=ops*p.opPrice;
+    const service=credit+structure+bizcredit+funding+insurance,revenue=service+os+licensing;
+    const commissions=service*p.salesComm;
+    const fulfil=credit*.15+structure*.25+bizcredit*.10+(os+licensing)*.20;
+    const specialists=Math.max(1,Math.ceil(clients/25));
+    const payroll=(specialists*4000+(m>=7?3500:0)+(m>=4?p.founder:0))*1.10;
+    const dev=m<=6?p.devBuild/6:2500;const fixed=1600+2000+800+750;
+    const costs=spend+commissions+fulfil+payroll+dev+fixed,net=revenue-costs;cash+=net;
+    if(cash<minCash){minCash=cash;minM=m}
+    if(cashOut===null&&cash<0)cashOut=m;
+    if(be===null&&net>=0&&m>3)be=m;
+    out.push({m,spend,leads,clients,specialists,credit,structure,bizcredit,funding,insurance,os,licensing,revenue,commissions,fulfil,payroll,dev,fixed,costs,net,cash,subs,ops});
+  }
+  const yrs=[1,2,3].map(y=>{const r=out.slice((y-1)*12,y*12),s=k=>r.reduce((a,b)=>a+b[k],0);
+    return{revenue:s('revenue'),costs:s('costs'),net:s('net'),clients:s('clients'),spend:s('spend'),ops:r[11].ops}});
+  const fundFee=Math.min(p.fundAmt*p.fundFee,10000);
+  const ltv=p.creditTicket+p.attStructure*p.structurePrice+p.attBiz*p.bizPrice+p.attFunding*fundFee+p.attIns*p.insComm+p.attOS*p.osPrice/p.subChurn;
+  const hit50=(out.find(x=>x.revenue>=50000)||{}).m||null;
+  return{months:out,yrs,ltv,cac:p.cpl/p.conv,blended:p.cpl/p.conv/(1+p.referral),be,minCash,minM,cashOut,hit50};
+}
+const BASE={raise:250000,adSpend:15000,cpl:40,conv:.03,referral:.30,y2Mult:1.5,y3Mult:2.0,
+  creditTicket:1200,structurePrice:1497,bizPrice:2500,fundAmt:75000,fundFee:.075,insComm:2400,
+  attStructure:.35,attBiz:.25,attFunding:.15,attIns:.10,attOS:.30,osPrice:97,subChurn:.08,opPrice:297,opChurn:.03,
+  opAddY1:3,opAddY2:6,opAddY3:8,salesComm:.10,founder:6000,devBuild:50000};
+const SCEN={base:{...BASE},
+  cons:{...BASE,cpl:55,conv:.02,referral:.15,attStructure:.25,attBiz:.18,attFunding:.10,attIns:.07,attOS:.20},
+  up:{...BASE,cpl:32,conv:.035,referral:.40}};
+let P={...BASE};
+
+const $=s=>document.querySelector(s);
+const money=x=>{const a=Math.abs(x),s=x<0?'−':'';return a>=1e6?s+'$'+(a/1e6).toFixed(2)+'M':a>=1e4?s+'$'+Math.round(a/1e3)+'K':s+'$'+Math.round(a).toLocaleString()};
+const full=x=>(x<0?'−$':'$')+Math.round(Math.abs(x)).toLocaleString();
+
+/* ---------- controls ---------- */
+const CTL=[
+  {k:'adSpend',l:'Monthly ad budget (year 1)',min:5000,max:40000,step:1000,f:v=>'$'+v.toLocaleString(),h:'Facebook / Instagram to the live webinar'},
+  {k:'cpl',l:'Cost per lead',min:20,max:90,step:1,f:v=>'$'+v,h:'Finance benchmark ≈ $33'},
+  {k:'conv',l:'Lead → paying client',min:.01,max:.06,step:.0025,f:v=>(v*100).toFixed(2)+'%',h:'Webinar show, book, close'},
+  {k:'referral',l:'Referral lift on top of paid',min:0,max:.8,step:.05,f:v=>'+'+Math.round(v*100)+'%',h:'Realtor, lender and client referrals'},
+  {k:'creditTicket',l:'Average credit ticket',min:600,max:2200,step:50,f:v=>'$'+v.toLocaleString(),h:'Live range $950–$2,200'},
+  {k:'fundAmt',l:'Average funding placed',min:25000,max:150000,step:5000,f:v=>'$'+v.toLocaleString(),h:'Fee 7.5%, capped at $10K'},
+];
+function buildControls(){
+  $('#controls').innerHTML=CTL.map(c=>`<div class="ctl"><label for="c_${c.k}">${c.l}<output id="o_${c.k}"></output></label>
+  <input type="range" id="c_${c.k}" min="${c.min}" max="${c.max}" step="${c.step}"><small>${c.h}</small></div>`).join('');
+  CTL.forEach(c=>{const el=$('#c_'+c.k);el.addEventListener('input',()=>{P[c.k]=+el.value;
+    document.querySelectorAll('.scen button').forEach(b=>b.setAttribute('aria-pressed','false'));render()})});
+}
+function syncControls(){CTL.forEach(c=>{$('#c_'+c.k).value=P[c.k];$('#o_'+c.k).textContent=c.f(P[c.k])})}
+document.querySelectorAll('.scen button').forEach(b=>b.addEventListener('click',()=>{
+  P={...SCEN[b.dataset.s]};document.querySelectorAll('.scen button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));render()}));
+
+/* ---------- chart ---------- */
+const STREAMS=[['credit','Credit','--s1'],['structure','Structure','--s2'],['bizcredit','Business credit','--s3'],['funding','Funding fees','--s4'],['insurance','Insurance','--s5'],['os','OS clients','--s6'],['licensing','OS operators','--s7']];
+$('#legend').innerHTML=STREAMS.map(s=>`<span><i style="background:var(${s[2]})"></i>${s[1]}</span>`).join('')+'<span><i style="background:var(--bad);height:3px;vertical-align:3px"></i>Total costs</span>';
+function drawChart(R){
+  const W=900,H=340,L=58,Rt=10,T=14,B=34,ms=R.months;
+  const max=Math.max(...ms.map(x=>Math.max(x.revenue,x.costs)))*1.08;
+  const nice=[25e3,5e4,1e5,2e5,25e4,5e5,1e6];const stepV=nice.find(n=>max/n<=5)||1e6;const top=Math.ceil(max/stepV)*stepV;
+  const y=v=>T+(H-T-B)*(1-v/top),bw=(W-L-Rt)/36;
+  let g='';
+  for(let v=0;v<=top;v+=stepV){g+=`<line x1="${L}" x2="${W-Rt}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="Manrope">${money(v)}</text>`}
+  g+=`<line x1="${L}" x2="${W-Rt}" y1="${y(50000)}" y2="${y(50000)}" stroke="var(--gold)" stroke-dasharray="4 4" stroke-width="1.2"/><rect x="${L+4}" y="${y(50000)-34}" width="118" height="18" rx="3" fill="var(--surface)"/><text x="${L+10}" y="${y(50000)-21}" font-size="11" fill="var(--gold)" font-family="Manrope" font-weight="700">$50K / month goal</text>`;
+  [1,12,24,36].forEach(m=>{g+=`<text x="${L+(m-.5)*bw}" y="${H-12}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="Manrope">M${m}</text>`});
+  [12,24].forEach(m=>{g+=`<line x1="${L+m*bw}" x2="${L+m*bw}" y1="${T}" y2="${H-B}" stroke="var(--line)" stroke-dasharray="2 3"/>`});
+  ms.forEach((d,i)=>{let acc=0;const x=L+i*bw+bw*.14,w=bw*.72;
+    STREAMS.forEach(s=>{const v=d[s[0]];if(v<=0)return;const y1=y(acc+v),h=y(acc)-y1;acc+=v;g+=`<rect x="${x}" y="${y1}" width="${w}" height="${Math.max(h,0)}" fill="var(${s[2]})"/>`});
+    g+=`<rect class="hit" data-i="${i}" x="${L+i*bw}" y="${T}" width="${bw}" height="${H-T-B}" fill="transparent"/>`});
+  g+=`<polyline fill="none" stroke="var(--bad)" stroke-width="2" points="${ms.map((d,i)=>`${L+(i+.5)*bw},${y(d.costs)}`).join(' ')}"/>`;
+  $('#chart').innerHTML=g;
+  $('#chart').querySelectorAll('.hit').forEach(r=>{
+    const show=e=>{const d=ms[+r.dataset.i],box=$('#chartbox').getBoundingClientRect(),t=$('#tip');
+      t.innerHTML=`<b>Month ${d.m}</b><br>Revenue <b class="num">${full(d.revenue)}</b><br>Costs ${full(d.costs)}<br>Net <span style="color:var(${d.net>=0?'--good':'--bad'})">${full(d.net)}</span><br>New clients ${d.clients.toFixed(1)} · Cash ${money(d.cash)}`;
+      t.hidden=false;const rr=r.getBoundingClientRect();let lx=rr.left-box.left+rr.width/2+10;if(lx>box.width-190)lx=rr.left-box.left-190;t.style.left=Math.max(4,lx)+'px';t.style.top='18px'};
+    r.addEventListener('mouseenter',show);r.addEventListener('click',show)});
+  $('#chart').addEventListener('mouseleave',()=>$('#tip').hidden=true);
+}
+
+/* ---------- render ---------- */
+function render(){
+  syncControls();const R=runModel(P);
+  const y3=R.yrs[2];
+  $('#kpis').innerHTML=[
+    ['Year 1 revenue',money(R.yrs[0].revenue),''],
+    ['Year 3 revenue',money(y3.revenue),''],
+    ['Break-even month',R.be?'Month '+R.be:'Beyond 36',R.be&&R.be<=12?'good':R.be?'':'bad'],
+    ['$50K/month reached',R.hit50?'Month '+R.hit50:'Not in 36 mo',R.hit50&&R.hit50<=12?'good':R.hit50?'':'bad'],
+    ['Lifetime revenue / client',full(R.ltv),''],
+    ['Paid CAC',full(R.cac),''],
+    ['LTV : blended CAC',(R.ltv/R.blended).toFixed(1)+'×',R.ltv/R.blended>=3?'good':R.ltv/R.blended<1.5?'bad':''],
+    ['Lowest cash balance',money(R.minCash),R.minCash<0?'bad':'good'],
+  ].map(k=>`<div class="kpi ${k[2]}"><small>${k[0]}</small><b>${k[1]}</b></div>`).join('');
+  drawChart(R);
+  const used=P.raise-Math.min(R.minCash,P.raise);
+  $('#cashNote').innerHTML=R.cashOut
+    ?`<div class="warnbox"><b>Cash runs out in month ${R.cashOut}</b> if ad spend is held at plan. At these conversion rates, spend should be cut to what revenue covers until conversion is proven. This is the stress test investors should see.</div>`
+    :`<div class="warnbox ok">The raise covers the plan: at most <b>${money(used)}</b> of the $250K is drawn (lowest balance in month ${R.minM||1}), leaving <b>${money(R.minCash)}</b> in reserve.</div>`;
+  const row=(l,f,cls='')=>`<tr><td>${l}</td>${R.yrs.map(y=>`<td class="r ${cls}">${f(y)}</td>`).join('')}</tr>`;
+  $('#yrBody').innerHTML=row('Revenue',y=>full(y.revenue))+row('Total costs',y=>full(y.costs))
+    +`<tr><td><b>Net income</b></td>${R.yrs.map(y=>`<td class="r" style="font-weight:700;color:var(${y.net>=0?'--good':'--bad'})">${full(y.net)}</td>`).join('')}</tr>`
+    +row('Net margin',y=>Math.round(y.net/y.revenue*100)+'%')+row('New clients',y=>Math.round(y.clients).toLocaleString())
+    +row('Ad spend',y=>full(y.spend))+row('Operator licenses at year end',y=>Math.round(y.ops));
+  // unit economics cards
+  const fee=Math.min(P.fundAmt*P.fundFee,10000);
+  $('#unitEcon').innerHTML=[
+    [full(R.ltv),'Lifetime revenue per client','Credit ticket plus weighted value of every stream a client may buy next.'],
+    [full(R.cac),'Paid acquisition cost','Cost per lead ÷ lead-to-client rate.'],
+    [(R.ltv/R.blended).toFixed(1)+'×','LTV to blended CAC','Counting referral clients, who cost nothing to acquire.'],
+    [full(fee),'Average funding fee','7.5% of '+full(P.fundAmt)+' placed, capped at $10,000.']
+  ].map(s=>`<div class="stat"><b class="num">${s[0]}</b><p><b style="color:var(--fg)">${s[1]}.</b> ${s[2]}</p></div>`).join('');
+  // funnel (month 6 = full budget)
+  const spend=P.adSpend,leads=spend/P.cpl,calls=leads*Math.min(P.conv*4,1),paid=leads*P.conv,tot=paid*(1+P.referral);
+  $('#funnel').innerHTML=[
+    [full(spend),'Ad spend','Meta ads to a free live webinar'],
+    [Math.round(leads).toLocaleString(),'Webinar registrants','at '+full(P.cpl)+' per lead'],
+    [Math.round(calls).toLocaleString(),'Strategy calls','assumes 25% of calls close'],
+    [paid.toFixed(1),'Paid clients',(P.conv*100).toFixed(2)+'% of leads'],
+    [tot.toFixed(1),'Total new clients','with +'+Math.round(P.referral*100)+'% referrals · '+money(tot*R.ltv)+' lifetime revenue']
+  ].map(f=>`<div class="fstep"><b>${f[0]}</b><span>${f[1]}</span><p>${f[2]}</p></div>`).join('');
+  // opex at month 12
+  const d=R.months[11];
+  const op=[['Paid advertising',d.spend],['Payroll incl. 10% tax ('+d.specialists+' specialist'+(d.specialists>1?'s':'')+', client success, founder)',d.payroll],['Sales commissions (10% of service revenue)',d.commissions],['Fulfillment and platform costs',d.fulfil],['Platform development and maintenance',d.dev],['Software &amp; AI stack',1600],['Content and webinar production',2000],['Compliance, E&amp;O, bond, legal',800],['Admin and accounting',750]];
+  $('#opex').innerHTML=op.map(o=>`<tr><td>${o[0]}</td><td class="r">${full(o[1])}</td></tr>`).join('');
+  $('#opexTotal').textContent=full(d.costs)+' vs '+full(d.revenue)+' revenue';
+  $('#heroY3').textContent=money(SCENR.yrs[2].revenue);$('#heroBE').textContent='Month '+SCENR.be;
+}
+const SCENR=runModel(BASE);
+
+/* ---------- use of funds ---------- */
+const FUNDS=[
+  ['Customer acquisition',90000,'--s4','Meta ad spend for the webinar funnel through the first 6 months while revenue ramps, plus retargeting.'],
+  ['Full Circle OS build',50000,'--s1','Contract developer for the Next.js + Supabase platform; GoHighLevel SaaS setup for Track 1.'],
+  ['Team',45000,'--s2','First dispute specialist and client success lead for roughly six months, until revenue carries payroll.'],
+  ['Brand, webinar and creative',20000,'--s5','Webinar production, ad creative library, landing pages and brand assets.'],
+  ['Compliance, legal, insurance',15000,'--s7','CROA and Arizona contract review, disclosures, E&O coverage, surety bond, entity setup.'],
+  ['Working capital reserve',30000,'--s3','Six-plus weeks of operating cost held back as a buffer against slower conversion.'],
+];
+let fSel=0;
+function drawFunds(){
+  const cx=170,cy=170,r=150,ri=92,tot=FUNDS.reduce((a,b)=>a+b[1],0);let a0=-Math.PI/2,s='';
+  FUNDS.forEach((f,i)=>{const a1=a0+f[1]/tot*Math.PI*2,lg=a1-a0>Math.PI?1:0,p=(rr,a)=>[cx+rr*Math.cos(a),cy+rr*Math.sin(a)];
+    const [x0,y0]=p(r,a0),[x1,y1]=p(r,a1),[x2,y2]=p(ri,a1),[x3,y3]=p(ri,a0);
+    s+=`<path data-i="${i}" class="${i===fSel?'on':''}" d="M${x0},${y0}A${r},${r} 0 ${lg} 1 ${x1},${y1}L${x2},${y2}A${ri},${ri} 0 ${lg} 0 ${x3},${y3}Z" fill="var(${f[2]})" stroke="var(--bg)" stroke-width="2" opacity="${i===fSel?1:.82}"><title>${f[0]}</title></path>`;a0=a1});
+  const f=FUNDS[fSel];
+  s+=`<text x="170" y="160" text-anchor="middle" font-family="Cinzel" font-size="30" font-weight="600" fill="var(--fg)">${'$'+f[1]/1000+'K'}</text><text x="170" y="186" text-anchor="middle" font-family="Manrope" font-size="12" fill="var(--muted)">${Math.round(f[1]/tot*100)}% of the raise</text>`;
+  $('#donut').innerHTML=s;
+  $('#donut').querySelectorAll('path').forEach(p=>p.addEventListener('click',()=>{fSel=+p.dataset.i;drawFunds()}));
+  $('#fundlist').innerHTML=FUNDS.map((f,i)=>`<button type="button" class="fundrow" aria-pressed="${i===fSel}" data-i="${i}"><i style="background:var(${f[2]})"></i><span><b>${f[0]}</b><small>${f[3]}</small></span><em>$${(f[1]/1000)}K</em></button>`).join('');
+  $('#fundlist').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{fSel=+b.dataset.i;drawFunds()}));
+}
+
+/* ---------- copy ---------- */
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{const el=document.getElementById(b.dataset.copy),t=el.textContent;
+  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)};
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'};
+  try{navigator.clipboard.writeText(t).then(done,sel)}catch(e){sel()}}));
+
+/* ---------- 3D tilt on modules ---------- */
+document.querySelectorAll('.mod').forEach(m=>{
+  m.addEventListener('pointermove',e=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=m.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    m.style.transform=`perspective(600px) rotateY(${x*12}deg) rotateX(${-y*12}deg) translateZ(6px)`;m.style.boxShadow=`${-x*12}px ${-y*12+8}px 24px rgba(0,0,0,.18)`});
+  m.addEventListener('pointerleave',()=>{m.style.transform='';m.style.boxShadow=''})});
+
+/* ---------- pillars + 3D orbit ---------- */
+const PILLARS=[
+  {n:'Leverage',t:'Front door · credit and capital',b:['Personal credit restoration, $950–$2,200','Business credit build in tiers','Funding placement, 5–10% success fee capped at $10K']},
+  {n:'Structure',t:'High-ticket anchor',b:['LLC + address + phone + domain + email in one flow','Wyoming holding company for privacy','Trusts, estate and tax planning as add-ons']},
+  {n:'Protection',t:'Recurring back end',b:['Life insurance and IUL through FCFA','"Become your own bank" strategies','Appointed with North American, F&G, National Life Group']},
+  {n:'Scale',t:'The platform',b:['Full Circle OS client subscription','White-label licenses for other operators','AI agents running follow-up, content and reporting']},
+];
+let pSel=0;
+function showPillar(i){pSel=i;const p=PILLARS[i];
+  $('#pillarCard').innerHTML=`<span class="tag">Pillar · ${p.t}</span><h3>${p.n}</h3><ul>${p.b.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+  document.querySelectorAll('.orb-label').forEach((l,j)=>l.setAttribute('aria-pressed',j===i?'true':'false'))}
+$('#labels').innerHTML=PILLARS.map((p,i)=>`<button type="button" class="orb-label" data-i="${i}">${p.n.toUpperCase()}</button>`).join('');
+document.querySelectorAll('.orb-label').forEach(b=>b.addEventListener('click',()=>showPillar(+b.dataset.i)));
+showPillar(0);
+
+(function three(){
+  const canvas=$('#orbit'),stage=$('#stage');
+  if(!window.THREE){$('.stage-hint').textContent='';return}
+  let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true})}catch(e){return}
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(42,1,.1,100);cam.position.set(0,1.2,10.5);cam.lookAt(0,0,0);
+  const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const root=new THREE.Group();scene.add(root);root.rotation.x=.35;
+  const goldMat=new THREE.MeshStandardMaterial({color:0xC9A646,metalness:.85,roughness:.28,emissive:0x2a1e05});
+  const core=new THREE.Mesh(new THREE.SphereGeometry(.85,48,48),goldMat);root.add(core);
+  const ringMat=new THREE.MeshStandardMaterial({color:0xC9A646,metalness:.9,roughness:.2,emissive:0x3a2a08});
+  const main=new THREE.Mesh(new THREE.TorusGeometry(1.45,.05,24,200),ringMat);main.rotation.x=Math.PI/2;root.add(main);
+  const orbitMat=new THREE.MeshBasicMaterial({color:0xC9A646,transparent:true,opacity:.35});
+  const orbs=[],R=[2.3,2.95,3.55,4.15],tilt=[.25,-.35,.5,-.15],speed=[.45,.34,.26,.2];
+  const orbColors=[0xE9D59A,0x8FA6C8,0xF5EFE0,0x4DB6A2];
+  R.forEach((r,i)=>{const pivot=new THREE.Group();pivot.rotation.z=tilt[i];pivot.rotation.x=tilt[i]*.6;root.add(pivot);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(r,.012,8,220),orbitMat);ring.rotation.x=Math.PI/2;pivot.add(ring);
+    const m=new THREE.Mesh(new THREE.SphereGeometry(.26,32,32),new THREE.MeshStandardMaterial({color:orbColors[i],metalness:.4,roughness:.35,emissive:orbColors[i],emissiveIntensity:.15}));
+    pivot.add(m);orbs.push({m,r,a:i*1.7,s:speed[i]})});
+  const pg=new THREE.BufferGeometry(),N=700,pos=new Float32Array(N*3);
+  for(let i=0;i<N;i++){const r=5+Math.random()*4,t=Math.random()*Math.PI*2,ph=Math.acos(2*Math.random()-1);pos[i*3]=r*Math.sin(ph)*Math.cos(t);pos[i*3+1]=r*Math.cos(ph)*.6;pos[i*3+2]=r*Math.sin(ph)*Math.sin(t)}
+  pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const dust=new THREE.Points(pg,new THREE.PointsMaterial({color:0xC9A646,size:.035,transparent:true,opacity:.7}));scene.add(dust);
+  scene.add(new THREE.AmbientLight(0xffffff,.45));
+  const pl=new THREE.PointLight(0xFFE7A8,1.4,30);pl.position.set(4,5,6);scene.add(pl);
+  const dl=new THREE.DirectionalLight(0x8FA6C8,.6);dl.position.set(-5,-2,3);scene.add(dl);
+  function themeColors(){const dark=getComputedStyle(document.documentElement).colorScheme.includes('dark');
+    dust.material.opacity=dark?.7:.45;orbitMat.opacity=dark?.35:.55;orbitMat.color.set(dark?0xC9A646:0x8F6F1C);
+    orbs[2].m.material.color.set(dark?0xF5EFE0:0x0A1F44);orbs[2].m.material.emissive.set(dark?0xF5EFE0:0x0A1F44)}
+  themeColors();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',themeColors);
+  new MutationObserver(themeColors).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  function size(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+  size();new ResizeObserver(size).observe(stage);
+  let drag=false,lx=0,ly=0,vy=0,vx=0;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  canvas.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId)});
+  canvas.addEventListener('pointermove',e=>{if(!drag)return;vy=(e.clientX-lx)*.006;vx=(e.clientY-ly)*.004;root.rotation.y+=vy;root.rotation.x=Math.max(-.2,Math.min(1.1,root.rotation.x+vx));lx=e.clientX;ly=e.clientY});
+  canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
+  const ray=new THREE.Raycaster(),mv=new THREE.Vector2();
+  canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect();mv.x=(e.clientX-r.left)/r.width*2-1;mv.y=-(e.clientY-r.top)/r.height*2+1;ray.setFromCamera(mv,cam);
+    const hit=ray.intersectObjects(orbs.map(o=>o.m));if(hit.length)showPillar(orbs.findIndex(o=>o.m===hit[0].object))});
+  const labels=[...document.querySelectorAll('.orb-label')],v=new THREE.Vector3();let last=performance.now();
+  function loop(t){const dt=Math.min((t-last)/1000,.05);last=t;
+    if(!drag){root.rotation.y+=vy;vy*=.94;if(!reduce)root.rotation.y+=dt*.08}
+    orbs.forEach((o,i)=>{if(!reduce)o.a+=dt*o.s;o.m.position.set(Math.cos(o.a)*o.r,0,Math.sin(o.a)*o.r);
+      const k=i===pSel?1.5:1;o.m.scale.lerp(new THREE.Vector3(k,k,k),.15);
+      o.m.getWorldPosition(v);v.project(cam);const l=labels[i];l.style.left=((v.x+1)/2*100)+'%';l.style.top=((1-v.y)/2*100)+'%';l.style.opacity=v.z<1?1:0});
+    core.rotation.y+=dt*.2;main.rotation.z+=dt*.15;dust.rotation.y+=dt*.01;
+    renderer.render(scene,cam);requestAnimationFrame(loop)}
+  requestAnimationFrame(loop);
+})();
+
+buildControls();render();drawFunds();
+</script>
+
+</body></html>

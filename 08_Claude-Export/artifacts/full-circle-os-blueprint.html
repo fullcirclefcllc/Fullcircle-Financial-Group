@@ -1,0 +1,457 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle OS Blueprint</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky top bar with 4 views. Blueprint = 3D layer stack (left) + flow/detail panel (right). Score = questions + 3D ring. Services = list + spec. Build = phase checklists. Single dark brand theme. */
+:root{
+  --bg:#06142D; --bg2:#0A1F44; --panel:#0C2350; --panel2:#0F2A5C;
+  --line:rgba(201,166,70,.26); --line2:rgba(245,239,224,.12);
+  --gold:#C9A646; --gold2:#E2C77A; --cream:#F5EFE0; --muted:#A9B3C7; --blue:#7FA3E0; --ok:#5FC59A;
+  --display:"Cinzel",Georgia,serif; --body:"Manrope",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--cream);font-family:var(--body);font-size:15px;line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+a{color:var(--gold2)}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(6,20,45,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-block:12px}
+.brand{font-family:var(--display);font-weight:700;letter-spacing:.14em;font-size:13px;color:var(--gold);text-decoration:none;white-space:nowrap}
+.brand span{font-family:var(--mono);font-weight:400;letter-spacing:.04em;color:var(--cream);margin-left:6px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.tabs a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;white-space:nowrap}
+.tabs a:hover{color:var(--cream)}
+.tabs a.on{color:var(--bg);background:var(--gold)}
+.proto{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--gold2);border:1px dashed var(--line);border-radius:6px;padding:3px 8px;white-space:nowrap}
+main{padding-block:32px 48px}
+.view{display:grid;gap:22px}
+.vhead{display:grid;gap:8px;max-width:820px}
+.eyebrow{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(26px,3.6vw,40px);line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:500;font-size:20px;margin:0}
+h3{font-size:15px;margin:0;font-weight:700}
+.lead{color:var(--muted);font-size:16px;margin:0;max-width:72ch}
+.card{background:var(--bg2);border:1px solid var(--line2);border-radius:14px;padding:18px;min-width:0}
+.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.chip{border:1px solid var(--line2);background:transparent;border-radius:18px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;color:var(--cream)}
+.chip:hover{border-color:var(--gold)}
+.chip.on{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--bg);border:0;border-radius:10px;padding:11px 16px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none}
+.btn.line{background:none;color:var(--cream);border:1px solid var(--line2)}
+.small{font-size:12.5px;color:var(--muted)}
+
+/* ---------- blueprint ---------- */
+.bp{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:980px){.bp{grid-template-columns:1fr}}
+.stagebar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden}
+.seg button{background:none;border:0;padding:7px 14px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--panel2);color:var(--cream)}
+.stage{position:relative;height:var(--sh,640px);perspective:2200px;perspective-origin:50% 20%;overflow:hidden;border:1px solid var(--line2);border-radius:16px;background:radial-gradient(ellipse at 50% 45%,#11306A 0%,#0A1F44 45%,#06142D 100%);touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.stage.grab{cursor:grabbing}
+.stage .hint{position:absolute;left:14px;bottom:12px;font-size:12px;color:var(--muted);pointer-events:none}
+.stack{position:absolute;left:50%;top:64%;width:800px;height:0;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(var(--s,1)) rotateX(var(--rx,50deg)) rotateZ(var(--rz,-24deg));transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.stack.drag{transition:none}
+.plate{position:absolute;left:0;top:0;width:800px;transform-style:preserve-3d;transform:translateY(-50%) translateZ(var(--z));border-radius:18px;padding:16px 18px 18px;background:rgba(12,35,80,.9);border:1px solid var(--pc,var(--line));box-shadow:0 40px 70px rgba(0,0,0,.35)}
+.plate::after{content:"";position:absolute;inset:0;border-radius:18px;transform:translateZ(-10px);background:rgba(4,12,28,.85);border:1px solid var(--pc,var(--line))}
+.plate .ph{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.plate .pn{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:.06em;color:var(--pc2,var(--cream))}
+.plate .pt{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;transform-style:preserve-3d}
+.blk{position:relative;text-align:left;background:rgba(6,20,45,.82);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font-size:15.5px;font-weight:700;line-height:1.25;color:var(--cream);cursor:pointer;min-height:58px;transform:translateZ(1px);transition:transform .3s,background-color .3s,border-color .3s,box-shadow .3s,opacity .3s}
+.blk small{display:block;font-weight:500;font-size:12px;color:var(--muted);margin-top:3px}
+.blk:hover{border-color:var(--gold)}
+.blk .bn{position:absolute;top:-9px;right:-7px;background:var(--gold);color:var(--bg);font:700 10.5px/1 var(--mono);border-radius:9px;padding:4px 6px;display:none;white-space:nowrap}
+.blk.hl{border-color:var(--gold2);background:#13306A;box-shadow:0 0 0 1px var(--gold2),0 0 26px rgba(226,199,122,.35);transform:translateZ(14px)}
+.blk.hl .bn{display:block}
+.blk.sel{border-color:var(--gold);background:#1A3B7A;box-shadow:0 0 0 2px var(--gold),0 0 34px rgba(201,166,70,.55);transform:translateZ(30px)}
+.dim .blk:not(.hl):not(.sel){opacity:.42}
+.listview{display:grid;gap:12px}
+.listview .plate{position:relative;width:auto;transform:none;box-shadow:none}
+.listview .plate::after{display:none}
+@media(max-width:620px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.listview .blk{font-size:13px}}
+.panel{display:grid;gap:14px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+@media(max-width:980px){.panel{position:static}}
+.scen{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.steps{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:4px;counter-reset:st}
+.steps li button{width:100%;display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;align-items:start;text-align:left;background:none;border:1px solid transparent;border-radius:8px;padding:7px 8px;cursor:pointer;font-size:13.5px;color:var(--muted)}
+.steps li button b{font:600 11px/22px var(--mono);text-align:center;border-radius:6px;background:var(--panel);color:var(--gold2)}
+.steps li button.on{border-color:var(--line);background:var(--panel);color:var(--cream)}
+.steps li button.on b{background:var(--gold);color:var(--bg)}
+.playrow{display:flex;gap:8px;align-items:center;margin-top:10px}
+.detail{display:grid;gap:10px}
+.detail .dh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.detail h2{font-size:22px}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;border:1px solid var(--line);color:var(--gold2);border-radius:6px;padding:2px 7px;white-space:nowrap}
+.detail ul{margin:0;padding-left:18px;display:grid;gap:6px;color:var(--cream);font-size:14px}
+.detail p{margin:0;color:var(--muted)}
+
+/* ---------- score ---------- */
+.sc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:900px){.sc{grid-template-columns:1fr}}
+.qs{display:grid;gap:16px}
+.q{display:grid;gap:8px}
+.q .qt{font-weight:700;font-size:14.5px}
+.q .qt span{font-family:var(--mono);font-size:10.5px;color:var(--gold);margin-right:8px;letter-spacing:.08em}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.res{display:grid;gap:14px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+@media(max-width:900px){.res{position:static}}
+.ringbox{position:relative;width:min(100%,320px);aspect-ratio:1;margin:0 auto}
+.ringbox canvas{position:absolute;inset:0;width:100%;height:100%}
+.ringbox .num{position:absolute;inset:0;display:grid;place-content:center;text-align:center;pointer-events:none}
+.ringbox .num b{font-family:var(--display);font-size:64px;line-height:1;font-variant-numeric:tabular-nums}
+.ringbox .num span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.ringbox.flat .ring2d{position:absolute;inset:12%;border-radius:50%;-webkit-mask:radial-gradient(circle,transparent 58%,#000 59%);mask:radial-gradient(circle,transparent 58%,#000 59%)}
+.parts{display:grid;gap:10px}
+.part{display:grid;grid-template-columns:150px minmax(0,1fr) 58px;gap:10px;align-items:center;font-size:13.5px}
+.part .bar{height:8px;border-radius:6px;background:rgba(245,239,224,.1);overflow:hidden}
+.part .bar i{display:block;height:100%;border-radius:6px;transition:width .5s}
+.part .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.gate{border-left:3px solid var(--gold);background:var(--panel);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px}
+.recs{display:flex;flex-wrap:wrap;gap:6px}
+.recs span{font-size:12.5px;font-weight:600;border:1px solid var(--line);border-radius:14px;padding:5px 10px}
+.recs span.lk{border-style:dashed;color:var(--muted)}
+
+/* ---------- services ---------- */
+.sv{display:grid;grid-template-columns:260px minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:860px){.sv{grid-template-columns:1fr}}
+.svlist{display:grid;gap:6px}
+@media(max-width:860px){.svlist{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
+.svlist button{text-align:left;background:var(--bg2);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:700;font-size:14px}
+.svlist button small{display:block;font-weight:500;font-size:11.5px;color:var(--muted)}
+.svlist button.on{border-color:var(--gold);background:var(--panel2)}
+.track{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.track span{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600}
+.track span b{font:600 10.5px var(--mono);color:var(--gold)}
+.svgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:620px){.svgrid{grid-template-columns:1fr}}
+.code{display:flex;flex-wrap:wrap;gap:6px}
+.code span{font:12px var(--mono);background:rgba(127,163,224,.12);color:#C9D8F5;border-radius:6px;padding:3px 8px;overflow-wrap:anywhere}
+.auto{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.auto li{display:grid;gap:2px;font-size:13.5px;border-left:2px solid var(--line);padding-left:10px}
+.auto li b{font-weight:600;color:var(--gold2);font-size:12.5px}
+.note{font-size:13.5px;color:var(--muted)}
+
+/* ---------- build ---------- */
+.prog{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pbar{flex:1;min-width:200px;height:10px;border-radius:8px;background:rgba(245,239,224,.1);overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--gold);transition:width .4s}
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.phase h3{font-family:var(--display);font-weight:500;font-size:18px}
+.phase .when{font-family:var(--mono);font-size:11px;color:var(--gold)}
+.ck{display:grid;gap:6px;margin-top:12px}
+.ck label{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;font-size:14px;cursor:pointer}
+.ck input{width:18px;height:18px;margin:2px 0 0;accent-color:#C9A646}
+.ck label.done span{color:var(--muted);text-decoration:line-through}
+footer{border-top:1px solid var(--line);padding-block:22px 40px;color:var(--muted);font-size:12.5px}
+footer p{margin:0 0 6px;max-width:100ch}
+@media(prefers-reduced-motion:reduce){.stack,.blk,.part .bar i,.pbar i{transition:none}}
+</style>
+
+<header class="top"><div class="wrap">
+  <a class="brand" href="#blueprint">FULL CIRCLE<span>OS</span></a>
+  <span class="proto">BLUEPRINT · PROTOTYPE</span>
+  <nav class="tabs" aria-label="Views">
+    <a href="#blueprint" data-v="blueprint">Blueprint</a>
+    <a href="#score" data-v="score">Score check</a>
+    <a href="#services" data-v="services">Services in GHL</a>
+    <a href="#build" data-v="build">Build plan</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <!-- BLUEPRINT -->
+  <section class="view" id="v-blueprint">
+    <div class="vhead">
+      <div class="eyebrow">Platform blueprint</div>
+      <h1>How Full Circle OS runs on GoHighLevel</h1>
+      <p class="lead">Four layers. Clients only touch the top one. Pick a flow to watch a client move through the system, or click any block to see how it's built in GHL.</p>
+    </div>
+    <div class="bp">
+      <div>
+        <div class="stagebar">
+          <div class="seg" role="group" aria-label="View"><button type="button" id="v3d" class="on">3D</button><button type="button" id="vlist">List</button></div>
+          <span class="small" id="draghint">Drag to turn the stack</span>
+        </div>
+        <div class="stage" id="stage"><div class="stack" id="stack"></div><div class="hint">Top: what clients see · Bottom: tools it connects to</div></div>
+        <div class="listview" id="listview" hidden></div>
+      </div>
+      <aside class="panel">
+        <div class="card">
+          <div class="lbl">Watch a flow</div>
+          <div class="scen" id="scen"></div>
+          <ol class="steps" id="steps"></ol>
+          <div class="playrow"><button type="button" class="btn" id="play">Play flow</button><button type="button" class="btn line" id="clearflow">Clear</button></div>
+        </div>
+        <div class="card detail" id="detail" aria-live="polite"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SCORE -->
+  <section class="view" id="v-score" hidden>
+    <div class="vhead">
+      <div class="eyebrow">Lead magnet</div>
+      <h1>The free Full Circle Score</h1>
+      <p class="lead">Six questions, a score from 0 to 100, and the first systems to fix. The live version runs as a GHL survey and texts the score with a booking link.</p>
+    </div>
+    <div class="sc">
+      <div class="card qs" id="qs"></div>
+      <div class="card res">
+        <div class="lbl">Example answers loaded · change any to see it update</div>
+        <div class="ringbox" id="ringbox"><canvas aria-hidden="true"></canvas><div class="num"><b id="snum">0</b><span>Full Circle Score</span></div></div>
+        <div class="parts" id="parts"></div>
+        <div class="gate" id="gate"></div>
+        <div><div class="lbl" style="margin-bottom:8px">Recommended systems</div><div class="recs" id="recs"></div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="https://claude.ai/artifact/Lqr4tSpapzFiTK3h1EHoLS" target="_blank" rel="noopener">Open the client OS prototype</a></div>
+        <p class="small" style="margin:0">Prototype for illustration. This is a readiness estimate, not a credit assessment, and it doesn't guarantee funding.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="view" id="v-services" hidden>
+    <div class="vhead">
+      <div class="eyebrow">Services in GHL</div>
+      <h1>Every service, built the same way</h1>
+      <p class="lead">Each system gets a pipeline whose stages are its framework phases, the fields it needs, its forms and calendar, and the automations that move it forward.</p>
+    </div>
+    <div class="sv">
+      <div class="svlist" id="svlist"></div>
+      <div class="card" id="svdetail" style="display:grid;gap:14px"></div>
+    </div>
+  </section>
+
+  <!-- BUILD -->
+  <section class="view" id="v-build" hidden>
+    <div class="vhead">
+      <div class="eyebrow">Build plan</div>
+      <h1>Ten weeks from GHL setup to pilot</h1>
+      <p class="lead">Phases 1–3 run entirely in GHL and are enough to pilot. Phase 4 adds the custom app and partners.</p>
+    </div>
+    <div class="card prog"><b id="pcount">0 of 0 done</b><div class="pbar"><i id="pbar" style="width:0"></i></div><span class="small">Checkmarks save in this browser only.</span></div>
+    <div class="phases" id="phases"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>Prototype blueprint for Full Circle OS. GHL features and plan names should be confirmed in your account before building. Full Circle Financial Group does not guarantee credit score changes or funding approval; results depend on each client’s history and lender criteria. Insurance is offered through licensed agents. Legal and tax work is done by licensed professionals.</p>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ================= DATA ================= */
+const LAYERS=[
+ {id:'client',name:'Client experience',tag:'What clients see',z:510,pc:'rgba(245,239,224,.45)',pc2:'#F5EFE0'},
+ {id:'app',name:'Full Circle OS app',tag:'Custom front end',z:340,pc:'rgba(226,199,122,.6)',pc2:'#E2C77A'},
+ {id:'ghl',name:'GoHighLevel',tag:'System of record',z:170,pc:'rgba(127,163,224,.75)',pc2:'#B9CDF2'},
+ {id:'int',name:'Integrations',tag:'Connected tools',z:0,pc:'rgba(169,179,199,.4)',pc2:'#A9B3C7'}
+];
+const B={
+ score_page:{l:'client',n:'Score check page',s:'Free lead magnet',w:'A free Full Circle Score check. Owners answer 6 questions and get a 0–100 score with what to fix first.',b:['Funnel page with a survey: 6 questions, name, phone, email and SMS consent','Each answer maps to a contact custom field','Workflow 1 calculates the score and texts it with a booking link'],ph:'Phase 1'},
+ portal:{l:'client',n:'Client portal',s:'Where clients log in',w:'The Phase 1 home for clients: a My OS area with one section per system, checklists and their documents.',b:['Memberships client portal with a My OS area','One section per system; lock the ones they haven’t bought','Document library for ID, EIN letter and statements'],ph:'Phase 2'},
+ app:{l:'client',n:'Full Circle app',s:'Interactive 3D OS',w:'What clients see once the custom app is live: score ring, one next step, system tiles, marketplace and AI guide.',b:['Linked from the client portal','Reads and writes the client’s data through the GHL API','A working prototype already exists (open it from Score check)'],ph:'Phase 4'},
+ studio:{l:'client',n:'Partner Studio',s:'Providers list services',w:'Entrepreneurs build their service as a system and submit it for approval.',b:['Partner application creates a Partner Listing record','Approval moves the listing to Live (workflow 11)','Partner OS snapshot loads their own sub-account'],ph:'Phase 4'},
+ score_engine:{l:'app',n:'Score engine',s:'0–100 readiness',w:'Turns answers and finished tasks into the Full Circle Score: structure 30, personal credit 40, business credit 30.',b:['Phase 1: workflow math in GHL updates the score fields','Phase 4: the app recalculates on every task and writes fc_score','A score of 70 or more unlocks the Funding Engine'],ph:'Phase 1 → 4'},
+ systems:{l:'app',n:'Systems & tasks',s:'8 service systems',w:'Each service runs as a system with phases and tasks. Progress is stored per client in the Client Systems object.',b:['Custom object Client Systems: one record per client per system','Pipeline stages match each system’s phases','Task templates for every phase'],ph:'Phase 2'},
+ ai_guide:{l:'app',n:'AI guide',s:'Explains every step',w:'Answers questions about the client’s own plan within compliance rules, and hands licensed questions to an advisor.',b:['Phase 1: Conversation AI with the Full Circle playbook as its knowledge base','Guardrails: no guarantees; no legal, tax or policy advice','Phase 4: AI guide in the app with the client’s plan as context'],ph:'Phase 2 → 4'},
+ market:{l:'app',n:'Marketplace',s:'Add systems and partners',w:'Clients add Full Circle and partner systems. Each add creates an opportunity your advisor confirms.',b:['Adding a system creates an opportunity in that system’s pipeline','Advisor confirms price on the call; invoice or subscription follows','Live partner listings appear here'],ph:'Phase 4'},
+ contacts:{l:'ghl',n:'Contacts & fields',s:'Score + intake',w:'Each client is a contact holding their intake answers, score parts, texting consent and assigned advisor.',b:['Fields: fc_score, score_structure, score_personal_credit, score_business_credit','Intake: goal, entity status, credit range, years, revenue','sms_consent checkbox required before any text'],ph:'Phase 1'},
+ objects:{l:'ghl',n:'Custom objects',s:'Systems · Funding · Partners',w:'Three objects hold what repeats per client: Client Systems, Funding Applications and Partner Listings.',b:['Client Systems linked to the contact and opportunity','Funding Applications: lender, amount, status, fee','Partner Listings: service, phases, status'],ph:'Phase 1'},
+ pipelines:{l:'ghl',n:'Pipelines',s:'Journey + 1 per system',w:'The Full Circle Journey tracks the relationship. Each system has its own pipeline whose stages are its phases.',b:['Journey: New lead → Score done → Call booked → OS launched → Funding ready → Funded → Protected','8 system pipelines plus Partners','One opportunity per system bought'],ph:'Phase 1–2'},
+ workflows:{l:'ghl',n:'Workflows',s:'11 automations',w:'The engine: scoring, launches, nudges, the funding unlock, success fee invoices and partner approvals.',b:['Build workflows 1–5 before the pilot','Workflow 6 unlocks funding at a score of 70','Workflow 8 invoices the 5–10% fee, capped at $10,000'],ph:'Phase 1–4'},
+ forms:{l:'ghl',n:'Forms & surveys',s:'Score, intake, uploads',w:'Collect answers and documents once, then reuse them for lenders and partners.',b:['Score check survey','Full intake form','Secure document upload and partner application'],ph:'Phase 1'},
+ calendars:{l:'ghl',n:'Calendars',s:'4 booking types',w:'Strategy Call, Funding Review, Protection Review and Partner Onboarding.',b:['Protection Review assigned to licensed agents only','A booking moves the Journey stage','Reminder texts only with consent'],ph:'Phase 1–3'},
+ payments:{l:'ghl',n:'Payments',s:'Subscriptions + invoices',w:'Platform subscriptions, one-time setup fees, add-ons and the funding success fee.',b:['A product for each platform tier','Entity setup as a one-time charge','Success fee invoice created by workflow 8'],ph:'Phase 1'},
+ contracts:{l:'ghl',n:'Contracts',s:'E-signature',w:'Client agreement, funding fee disclosure and partner agreement, all signed inside GHL.',b:['Client agreement with credit repair disclosures and 3-day cancellation','Fee disclosure signed before any lender introduction','Partner agreement on approval'],ph:'Phase 1'},
+ convai:{l:'ghl',n:'Conversation AI',s:'Chat, SMS, social',w:'Answers website chat, SMS, Instagram and Facebook, and books strategy calls.',b:['Knowledge base: playbook, frameworks and FAQ','Goal: book the strategy call','Guardrails written into the bot instructions'],ph:'Phase 2'},
+ saas:{l:'ghl',n:'SaaS & snapshots',s:'Client sub-accounts',w:'Clients who buy Business Systems, and approved partners, get their own sub-account loaded from a snapshot.',b:['SaaS mode on the Agency Pro plan','Business OS and Partner OS snapshots','Rebill texts, calls and email at your rates'],ph:'Phase 4'},
+ stripe:{l:'int',n:'Stripe',s:'Payment processing',w:'Processes subscriptions, one-time fees and invoices.',b:['Connect in GHL Payments','Run the pilot in test mode first'],ph:'Phase 1'},
+ qbo:{l:'int',n:'QuickBooks',s:'Your books',w:'Syncs invoices and payments into Full Circle’s accounting.',b:['Native GHL integration','Map each product to an income account'],ph:'Phase 2'},
+ dispute:{l:'int',n:'Dispute software',s:'Credit data stays here',w:'Credit reports, SSNs and disputes stay in dedicated software. Only status updates come into GHL.',b:['Send status (disputes open, score range) by Zapier or webhook','Never paste reports into GHL notes'],ph:'Phase 2'},
+ google:{l:'int',n:'Google Workspace',s:'Calendar & email',w:'Two-way calendar sync and email sending for advisors.',b:['Connect each advisor’s calendar','Set up a sending domain for email'],ph:'Phase 1'},
+ zapier:{l:'int',n:'Zapier & webhooks',s:'Connects the rest',w:'Links tools without a native integration and sends lender hand-offs.',b:['Webhook action when Funding reaches Submitted','Partner notices for new marketplace clients'],ph:'Phase 2'},
+ api:{l:'int',n:'GHL API',s:'Private Integration',w:'How the Full Circle OS app reads and writes client data.',b:['Private Integration with contacts, opportunities, objects and calendars','Token kept on the app’s server only'],ph:'Phase 4'},
+ aiapi:{l:'int',n:'AI model API',s:'Powers the AI guide',w:'Called from the app’s server to answer client questions with their plan as context.',b:['Server-side only','Same guardrails as Conversation AI'],ph:'Phase 4'},
+ bank:{l:'int',n:'Bank statements',s:'Funding documents',w:'Phase 1 uses secure upload. Later, a bank-link provider can pull statements with the client’s permission.',b:['Upload form saves files to the contact','Evaluate bank-link providers in Phase 4'],ph:'Phase 1 → 4'}
+};
+const ORDER={client:['score_page','portal','app','studio'],app:['score_engine','systems','ai_guide','market'],ghl:['contacts','objects','pipelines','workflows','forms','calendars','payments','contracts','convai','saas'],int:['stripe','qbo','dispute','google','zapier','api','aiapi','bank']};
+const SCEN=[
+ {n:'Score check',steps:[['score_page','Owner takes the free score check.'],['forms','The survey saves their answers.'],['contacts','Answers fill the intake and consent fields.'],['workflows','Workflow 1 runs.'],['score_engine','Score calculated: structure, personal credit, business credit.'],['pipelines','Journey opportunity created at Score done.'],['convai','Score sent by text and email with a booking link.'],['calendars','Owner books a Strategy Call.']]},
+ {n:'Launch the OS',steps:[['calendars','Strategy call held; systems chosen.'],['contracts','Client signs the service agreement.'],['payments','First payment taken.'],['stripe','Stripe processes the subscription.'],['workflows','Workflow 3 runs.'],['objects','A Client Systems record for each system bought.'],['pipelines','An opportunity in each system’s pipeline.'],['portal','Client portal access granted.'],['app','Client lands in their OS.']]},
+ {n:'Task → funding unlock',steps:[['app','Client checks off a task.'],['systems','Progress updates for that system.'],['api','The app writes the change to GHL.'],['objects','Client Systems record updated.'],['score_engine','Score recalculated.'],['contacts','fc_score saved, now 72 (example).'],['workflows','Workflow 6: score is 70 or more.'],['pipelines','Funding Engine moves from Locked to Review.'],['calendars','Funding Review booking link sent.']]},
+ {n:'Funding closes',steps:[['objects','Funding Application marked Closed.'],['workflows','Workflow 8 runs.'],['payments','Success fee invoice: 5–10%, capped at $10,000.'],['qbo','Invoice syncs to QuickBooks.'],['pipelines','Journey moves to Funded.'],['calendars','Protection Review link sent.'],['convai','Win message and referral ask.']]},
+ {n:'Partner joins',steps:[['studio','Provider builds their service in Studio.'],['objects','Partner Listing created, In review.'],['contracts','Partner agreement signed.'],['workflows','Workflow 11 runs on approval.'],['saas','Partner sub-account from the Partner OS snapshot.'],['market','Listing goes live in the marketplace.']]}
+];
+const SERVICES=[
+ {n:'Entity & Holding',p:'Structure',price:'One-time setup fee',stages:['Choose','File','Verify','Maintain','Complete'],fields:['entity_type','formation_state','formation_date','ein_on_file','business_bank','duns_number'],forms:['Entity intake','Document upload (EIN letter)'],cal:'Strategy Call',auto:[['Stage moves to File','Advisor task: file Articles of Organization'],['EIN letter uploaded','Move to Verify; structure points added'],['30 days before formation anniversary','Annual report reminder (workflow 10)']],note:'Filing by Full Circle or a filing partner. Legal questions go to an attorney.'},
+ {n:'Credit Restore',p:'Leverage',price:'Monthly, billed after the work is done',stages:['Lead','Consult','Onboard','Audit','Dispute R1–R5','Build','Graduate'],fields:['credit_range','utilization_pct','disputes_open','dispute_round','cert_mail_tracking','last_report_date'],forms:['Credit Restore intake (native GHL)','CROA disclosures + agreement','Report authorization (in dispute software)','12 Full Circle dispute letter templates'],cal:'Strategy Call',auto:[['Letters sent for a round','Wait 35 days, then “Pull reports” task and portal update'],['Results logged','Deleted → mark won; verified → advance to next round'],['Deleted item reappears','Reinsertion-notice letter task'],['Month of work completed','Send that month’s invoice'],['Stage = Graduate','Offer the next system: business credit, funding, protection'],['No update for 30 days','Advisor check-in task']],note:'Runs on the Full Circle Credit Repair Bundle: SOPs, 5-round dispute flow, letter bundle, training library. Credit repair rules: no fees before work is performed, written contract, required disclosures, 3-day cancellation. No promised results.'},
+ {n:'Business Credit Builder',p:'Leverage',price:'Included in the core tier',stages:['Tier 1','Tier 2','Tier 3','Ready'],fields:['net30_accounts','store_cards','business_cards','biz_file_status'],forms:['Vendor account log'],cal:'Strategy Call',auto:[['Net-30 accounts reach 3','Move to Tier 2; win message'],['Every 30 days','Reminder to pay vendor invoices early'],['Tier 3 reached','Alert advisor; score updated']],note:'Vendor lists and requirements change. Review them every quarter.'},
+ {n:'Funding Engine',p:'Leverage',price:'Success fee: 5–10% of amount funded, capped at $10,000',stages:['Locked','Review','Docs','Match','Submitted','Closed / Declined'],fields:['lender','product','amount_requested','amount_approved','status','fee_pct','fee_amount'],forms:['Bank statement upload','Funding intake'],cal:'Funding Review',auto:[['fc_score is 70 or more','Unlock: Locked → Review (workflow 6)'],['Stage moves to Docs','Fee disclosure sent for e-signature (workflow 7)'],['Application Closed','Success fee invoice and Protection Review link (workflow 8)']],note:'Fields live on the Funding Applications object. The fee is disclosed and signed before any lender introduction, and approval is never guaranteed.'},
+ {n:'Protection',p:'Protection',price:'Carrier commission',stages:['Needs','Options','Apply','Underwriting','Placed','Annual review'],fields:['coverage_need','policy_type','carrier','face_amount','placed_date'],forms:['Needs analysis'],cal:'Protection Review (licensed agents)',auto:[['Journey moves to Funded','Send Protection Review link'],['Stage moves to Placed','Journey to Protected; referral ask (workflow 9)'],['Policy anniversary','Annual beneficiary review reminder']],note:'Sold only by agents licensed in the client’s state.'},
+ {n:'Tax Strategy',p:'Structure · Add-on',price:'Add-on, or CPA referral',stages:['Gather','CPA review','Plan','Quarterly'],fields:['tax_partner','entity_election','quarterly_estimates'],forms:['Tax document upload'],cal:'CPA consult (partner calendar)',auto:[['Add-on purchased','Hand off to CPA partner with documents'],['Quarterly due dates','Estimated payment reminders']],note:'Tax advice comes from a licensed CPA.'},
+ {n:'Estate Plan',p:'Structure · Add-on',price:'Add-on, or attorney referral',stages:['Map','Attorney','Sign','Fund trust'],fields:['estate_partner','trust_signed','assets_retitled'],forms:['Asset and beneficiary map'],cal:'Attorney consult (partner calendar)',auto:[['Add-on purchased','Hand off to the estate attorney'],['Trust signed','Checklist to retitle assets into the trust']],note:'Documents are drafted by an estate attorney.'},
+ {n:'Business Systems',p:'Scale',price:'Monthly SaaS subscription',stages:['Setup','Capture','Convert','Grow'],fields:['subaccount_id','snapshot_loaded','go_live_date'],forms:['Business setup intake'],cal:'Onboarding call',auto:[['Subscription paid','SaaS sub-account created; Business OS snapshot loaded'],['Go-live date reached','Training links sent; review requests switched on']],note:'Runs on GHL SaaS mode. Rebill texts and calls at your rates.'},
+ {n:'Partners',p:'Marketplace',price:'Listing fee + revenue share (to set)',stages:['Applied','Vetting','Agreement','Live','Paused'],fields:['service','category','phases','pricing','status'],forms:['Partner application'],cal:'Partner Onboarding',auto:[['Application submitted','Partner Listing created, In review'],['Approved','Agreement sent for e-signature (workflow 11)'],['Agreement signed','Partner sub-account from the Partner OS snapshot']],note:'Fields live on the Partner Listings object. Check license, insurance and references before approval.'}
+];
+const BUILD=[
+ {n:'Foundation',w:'Phase 1 · Weeks 1–2',items:['Register A2P 10DLC so texts deliver','Create contact custom fields and the 3 custom objects','Build the Full Circle Journey pipeline','Build the Score check survey, results page and workflow 1','Set up the Strategy Call calendar and workflow 2','Connect Stripe and create products','Load the attorney-reviewed client agreement']},
+ {n:'Systems',w:'Phase 2 · Weeks 3–4',items:['Create the 8 system pipelines and the Partners pipeline','Write task templates for every phase','Build workflows 3, 4 and 5','Build the My OS area in the client portal','Train Conversation AI with guardrails','Connect QuickBooks and the dispute software']},
+ {n:'Funding & revenue',w:'Phase 3 · Weeks 5–6',items:['Build workflows 6, 7, 8 and 9','Set up Funding Review and Protection Review calendars','Set up lender hand-off by webhook or email','Add referral and review requests after wins','Run 3 test clients end to end']},
+ {n:'App & partners',w:'Phase 4 · Weeks 7–10',items:['Connect the Full Circle OS app with a Private Integration','Add the app as a custom menu link','Build Business OS and Partner OS snapshots; turn on SaaS mode','Build workflows 10 and 11','Pilot with founding clients and partners']}
+];
+const QS=[
+ {id:'entity',t:'Do you have an LLC or corporation?',g:'Structure',o:[['No',0],['Yes',10]],d:1},
+ {id:'ein',t:'EIN and a business bank account?',g:'Structure',o:[['Neither',0],['One of them',5],['Both',10]],d:1},
+ {id:'presence',t:'Business phone, address and website?',g:'Structure',o:[['None',0],['Some',5],['All three',10]],d:1},
+ {id:'credit',t:'Personal credit score, roughly?',g:'Personal credit',o:[['Under 600',5],['600–679',15],['680–719',25],['720+',30]],d:1},
+ {id:'util',t:'How much of your card limits are you using?',g:'Personal credit',o:[['Over 50%',0],['30–50%',4],['10–30%',7],['Under 10%',10]],d:1},
+ {id:'biz',t:'Accounts reporting in the business’s name?',g:'Business credit',o:[['None',0],['1–2',10],['3+ vendor accounts',20],['3+ plus a card',30]],d:1}
+];
+
+/* ================= helpers ================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ================= routing ================= */
+const VIEWS=['blueprint','score','services','build'];
+function route(){const h=(location.hash||'').slice(1);const v=VIEWS.includes(h)?h:'blueprint';
+  VIEWS.forEach(x=>{$('#v-'+x).hidden=x!==v});document.querySelectorAll('.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+  if(v==='blueprint')fitStage();if(v==='score')ring&&ring.resize()}
+addEventListener('hashchange',()=>{route();scrollTo({top:0})});
+
+/* ================= blueprint ================= */
+let sel=null,scen=-1,cur=0,timer=null;
+function blockHTML(id){const b=B[id];return `<button type="button" class="blk" data-id="${id}"><span class="bn"></span>${esc(b.n)}<small>${esc(b.s)}</small></button>`}
+function plateHTML(L){return `<div class="plate" style="--z:${L.z}px;--pc:${L.pc};--pc2:${L.pc2}"><div class="ph"><span class="pn">${L.name}</span><span class="pt">${L.tag}</span></div><div class="pgrid">${ORDER[L.id].map(blockHTML).join('')}</div></div>`}
+$('#stack').innerHTML=[...LAYERS].reverse().map(plateHTML).join('');
+$('#listview').innerHTML=LAYERS.map(plateHTML).join('');
+$('#scen').innerHTML=SCEN.map((s,i)=>`<button type="button" class="chip" data-sc="${i}">${s.n}</button>`).join('');
+
+function paint(){
+  const hl={};if(scen>=0)SCEN[scen].steps.forEach(([id],i)=>{(hl[id]=hl[id]||[]).push(i+1)});
+  const focus=scen>=0?SCEN[scen].steps[cur][0]:sel;
+  document.querySelectorAll('.blk').forEach(el=>{const id=el.dataset.id;el.classList.toggle('hl',!!hl[id]);el.classList.toggle('sel',id===focus);el.querySelector('.bn').textContent=hl[id]?hl[id].join(' · '):'';el.setAttribute('aria-pressed',id===focus)});
+  $('#stack').classList.toggle('dim',scen>=0);$('#listview').classList.toggle('dim',scen>=0);
+  document.querySelectorAll('[data-sc]').forEach(b=>b.classList.toggle('on',+b.dataset.sc===scen));
+  $('#steps').innerHTML=scen<0?'<li class="small" style="padding:6px 2px">Pick a flow to see each step light up.</li>':SCEN[scen].steps.map(([id,t],i)=>`<li><button type="button" data-st="${i}" class="${i===cur?'on':''}"><b>${i+1}</b><span><strong style="color:var(--cream);font-weight:600">${esc(B[id].n)}</strong> · ${esc(t)}</span></button></li>`).join('');
+  $('#play').textContent=timer?'Pause':'Play flow';$('#play').disabled=scen<0;$('#clearflow').disabled=scen<0;
+  const d=focus?B[focus]:null,L=d?LAYERS.find(x=>x.id===d.l):null;
+  $('#detail').innerHTML=d?`<div class="dh"><span class="lbl">${L.name}</span><span class="tag">${d.ph}</span></div><h2>${esc(d.n)}</h2><p>${esc(d.w)}</p><div class="lbl" style="margin-top:4px">Build it in GHL</div><ul>${d.b.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`
+    :`<span class="lbl">How to read this</span><h2>Four layers, one record</h2><p>Every change, whether an advisor makes it in GHL or a client makes it in the app, lands in GoHighLevel. That keeps workflows, billing and reporting in one place.</p><p>Click any block for its build steps.</p>`;
+}
+function stop(){clearInterval(timer);timer=null}
+function play(){if(scen<0)return;if(timer){stop();paint();return}if(cur>=SCEN[scen].steps.length-1)cur=0;
+  timer=setInterval(()=>{if(cur<SCEN[scen].steps.length-1){cur++;paint()}else{stop();paint()}},2000);paint()}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.blk');if(b&&!dragMoved){stop();scen=-1;sel=b.dataset.id;paint();return}
+  const sc=e.target.closest('[data-sc]');if(sc){stop();const i=+sc.dataset.sc;if(scen===i){scen=-1}else{scen=i;cur=0}paint();if(scen>=0)play();return}
+  const st=e.target.closest('[data-st]');if(st){stop();cur=+st.dataset.st;paint();return}
+});
+$('#play').addEventListener('click',play);
+$('#clearflow').addEventListener('click',()=>{stop();scen=-1;sel=null;paint()});
+
+/* 3D stage: fit, drag, view toggle */
+const stage=$('#stage'),stack=$('#stack');let rx=50,rz=-24,dragMoved=false;
+function setRot(){stack.style.setProperty('--rx',rx+'deg');stack.style.setProperty('--rz',rz+'deg')}
+function fitStage(){const w=stage.clientWidth;if(!w)return;const s=Math.min(1,(w-24)/1150);stack.style.setProperty('--s',s.toFixed(3));stage.style.setProperty('--sh',Math.max(340,Math.round(880*s))+'px')}
+let ds=null;
+stage.addEventListener('pointerdown',e=>{if(e.button!==0)return;ds={x:e.clientX,y:e.clientY,rx,rz};dragMoved=false});
+addEventListener('pointermove',e=>{if(!ds)return;const dx=e.clientX-ds.x,dy=e.clientY-ds.y;if(!dragMoved&&Math.hypot(dx,dy)<5)return;
+  if(!dragMoved){dragMoved=true;stack.classList.add('drag');stage.classList.add('grab')}
+  rz=ds.rz+dx*.25;rx=Math.max(20,Math.min(72,ds.rx-dy*.2));setRot()});
+addEventListener('pointerup',()=>{if(!ds)return;ds=null;stack.classList.remove('drag');stage.classList.remove('grab');setTimeout(()=>dragMoved=false,0)});
+function setView(v){const list=v==='list';$('#v3d').classList.toggle('on',!list);$('#vlist').classList.toggle('on',list);stage.hidden=list;$('#listview').hidden=!list;$('#draghint').hidden=list;store.set('fcos-bp-view',v);if(!list)fitStage()}
+$('#v3d').addEventListener('click',()=>setView('3d'));$('#vlist').addEventListener('click',()=>setView('list'));
+if(window.ResizeObserver)new ResizeObserver(fitStage).observe(stage);else addEventListener('resize',fitStage);
+setRot();
+/* default: show the first flow at rest so the page reads complete */
+scen=0;cur=0;paint();
+setView(store.get('fcos-bp-view',matchMedia('(max-width:620px)').matches?'list':'3d'));
+
+/* ================= score check ================= */
+const ans=Object.fromEntries(QS.map(q=>[q.id,q.d]));
+$('#qs').innerHTML=QS.map((q,i)=>`<div class="q"><div class="qt"><span>${q.g.toUpperCase()}</span>${esc(q.t)}</div><div class="opts" role="radiogroup" aria-label="${esc(q.t)}">${q.o.map(([t],j)=>`<button type="button" class="chip" role="radio" data-q="${q.id}" data-o="${j}">${esc(t)}</button>`).join('')}</div></div>`).join('')+`<p class="small" style="margin:0">Live version: contact details and texting consent are collected before results.</p>`;
+const PARTS=[{n:'Structure',max:30,c:'#C9A646',ids:['entity','ein','presence']},{n:'Personal credit',max:40,c:'#F5EFE0',ids:['credit','util']},{n:'Business credit',max:30,c:'#7FA3E0',ids:['biz']}];
+function scoreParts(){return PARTS.map(p=>({...p,v:p.ids.reduce((s,id)=>s+QS.find(q=>q.id===id).o[ans[id]][1],0)}))}
+let ring=null;
+function renderScore(){
+  document.querySelectorAll('[data-q]').forEach(b=>{const on=ans[b.dataset.q]===+b.dataset.o;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});
+  const parts=scoreParts(),total=parts.reduce((s,p)=>s+p.v,0);
+  $('#snum').textContent=total;
+  $('#parts').innerHTML=parts.map(p=>`<div class="part"><span>${p.n}</span><div class="bar"><i style="width:${p.v/p.max*100}%;background:${p.c}"></i></div><span class="v">${p.v} / ${p.max}</span></div>`).join('');
+  $('#gate').innerHTML=total>=70?`<b>Funding unlocked.</b> A score of ${total} clears the bar of 70. Next step: a Funding Review.`:`<b>${70-total} points to unlock funding.</b> The Funding Engine opens at 70, so applications go in when the profile is ready.`;
+  const r=[];if(parts[0].v<25)r.push(['Entity & Holding',0]);if(parts[1].v<30)r.push(['Credit Restore',0]);if(parts[2].v<30)r.push(['Business Credit Builder',0]);r.push(['Funding Engine',total<70?1:0]);r.push(['Protection',0]);
+  $('#recs').innerHTML=r.map(([n,l])=>`<span class="${l?'lk':''}">${n}${l?' · unlocks at 70':''}</span>`).join('');
+  ring&&ring.set(parts);
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;ans[b.dataset.q]=+b.dataset.o;renderScore()});
+
+function makeRing(box){
+  const canvas=box.querySelector('canvas');
+  if(!window.THREE)return flatRing(box);
+  let r;try{r=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true})}catch(e){return flatRing(box)}
+  r.setClearColor(0,0);
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(32,1,.1,50);cam.position.set(0,0,9);
+  const G=new THREE.Group();scene.add(G);G.rotation.x=-.42;
+  scene.add(new THREE.AmbientLight(0xB0BEDA,.7));const k=new THREE.DirectionalLight(0xFFE9BF,1);k.position.set(2,4,6);scene.add(k);
+  const RR=2.15,T=.13,GAP=.05,FULL=Math.PI*2;
+  const slots=[];let start=0;
+  PARTS.forEach(p=>{const len=FULL*p.max/100;slots.push({start,len,c:p.c});start+=len});
+  const mk=(arc,color,op)=>new THREE.Mesh(new THREE.TorusGeometry(RR,T,24,Math.max(8,Math.round(arc*40)),Math.max(.001,arc)),new THREE.MeshStandardMaterial({color,metalness:.35,roughness:.4,transparent:op<1,opacity:op,emissive:color,emissiveIntensity:.18}));
+  const place=(m,s,arc)=>{m.rotation.z=Math.PI/2-(s+arc)};
+  slots.forEach(s=>{const bg=mk(s.len-GAP,new THREE.Color(s.c),.14);place(bg,s.start+GAP/2,s.len-GAP);G.add(bg);s.fg=null;s.cur=0;s.target=0});
+  const core=new THREE.Mesh(new THREE.SphereGeometry(1.35,48,32),new THREE.MeshStandardMaterial({color:0x0C2350,metalness:.25,roughness:.55,emissive:0x081A3A,emissiveIntensity:.6}));G.add(core);
+  function build(s){if(s.fg){G.remove(s.fg);s.fg.geometry.dispose()}const arc=(s.len-GAP)*s.cur;if(arc<.005){s.fg=null;return}s.fg=mk(arc,new THREE.Color(s.c),1);place(s.fg,s.start+GAP/2,arc);G.add(s.fg)}
+  let W=0,t=0,last=0,anim=false;
+  function resize(){W=box.clientWidth;if(!W)return;r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(W,W,false);render()}
+  function render(){r.render(scene,cam)}
+  function frame(now){const dt=last?Math.min(.05,(now-last)/1000):0;last=now;t+=dt;let moving=false;
+    slots.forEach(s=>{const d=s.target-s.cur;if(Math.abs(d)>.002){s.cur+=d*Math.min(1,dt*6);moving=true;build(s)}else if(s.cur!==s.target){s.cur=s.target;build(s)}});
+    if(!reduce)G.rotation.y=Math.sin(t*.5)*.18;
+    render();if(moving||!reduce)requestAnimationFrame(frame);else anim=false}
+  function kick(){if(!anim){anim=true;last=0;requestAnimationFrame(frame)}}
+  if(window.ResizeObserver)new ResizeObserver(resize).observe(box);resize();
+  return{resize,set(parts){parts.forEach((p,i)=>{slots[i].target=p.v/p.max;if(reduce){slots[i].cur=slots[i].target;build(slots[i])}});reduce?render():kick()}};
+}
+function flatRing(box){box.classList.add('flat');const d=document.createElement('div');d.className='ring2d';box.insertBefore(d,box.firstChild);
+  return{resize(){},set(parts){let a=0;const seg=[];parts.forEach(p=>{const len=360*p.max/100,on=len*p.v/p.max;seg.push(`${p.c} ${a}deg ${a+on}deg`,`rgba(245,239,224,.1) ${a+on}deg ${a+len}deg`);a+=len});d.style.background=`conic-gradient(${seg.join(',')})`}}}
+ring=makeRing($('#ringbox'));renderScore();
+
+/* ================= services ================= */
+let svi=0;
+function renderSv(){
+  $('#svlist').innerHTML=SERVICES.map((s,i)=>`<button type="button" data-sv="${i}" class="${i===svi?'on':''}">${esc(s.n)}<small>${esc(s.p)}</small></button>`).join('');
+  const s=SERVICES[svi];
+  $('#svdetail').innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline"><h2 style="font-size:24px">${esc(s.n)}</h2><span class="tag">${esc(s.p)}</span></div>
+  <div><div class="lbl">Pipeline stages = framework phases</div><div class="track">${s.stages.map((x,i)=>`<span><b>${i+1}</b>${esc(x)}</span>`).join('')}</div></div>
+  <div class="svgrid">
+    <div class="card" style="background:var(--panel)"><div class="lbl" style="margin-bottom:8px">Fields</div><div class="code">${s.fields.map(f=>`<span>${esc(f)}</span>`).join('')}</div></div>
+    <div class="card" style="background:var(--panel)"><div class="lbl" style="margin-bottom:8px">Forms · calendar · pricing</div><div style="display:grid;gap:4px;font-size:13.5px"><span>${s.forms.map(esc).join(' · ')}</span><span style="color:var(--muted)">Calendar: ${esc(s.cal)}</span><span style="color:var(--gold2)">${esc(s.price)}</span></div></div>
+    <div class="card" style="background:var(--panel);grid-column:1/-1"><div class="lbl" style="margin-bottom:8px">Automations</div><ul class="auto">${s.auto.map(([t,a])=>`<li><b>When: ${esc(t)}</b><span>${esc(a)}</span></li>`).join('')}</ul></div>
+  </div>
+  <p class="note" style="margin:0"><b style="color:var(--cream)">Guardrail:</b> ${esc(s.note)}</p>`;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-sv]');if(!b)return;svi=+b.dataset.sv;renderSv()});
+renderSv();
+
+/* ================= build plan ================= */
+const done=store.get('fcos-bp-build',{});
+function renderBuild(){let n=0,t=0;
+  $('#phases').innerHTML=BUILD.map((p,pi)=>`<div class="card phase"><div class="when">${p.w}</div><h3>${p.n}</h3><div class="ck">${p.items.map((it,ii)=>{const k=pi+'-'+ii,on=!!done[k];t++;if(on)n++;return `<label class="${on?'done':''}"><input type="checkbox" id="ck-${k}" data-k="${k}" ${on?'checked':''}><span>${esc(it)}</span></label>`}).join('')}</div></div>`).join('');
+  $('#pcount').textContent=`${n} of ${t} done`;$('#pbar').style.width=(t?n/t*100:0)+'%'}
+document.addEventListener('change',e=>{const k=e.target.dataset&&e.target.dataset.k;if(!k)return;done[k]=e.target.checked;store.set('fcos-bp-build',done);renderBuild()});
+renderBuild();
+
+route();
+</script>
+
+</body></html>

@@ -1,0 +1,309 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Financial Group</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+/* Layout: hero splits into copy + a 3D service orbit; pillars as a 2x2 grid, path as a vertical track */
+:root{
+  --navy:#0A1F44; --navy-deep:#06142D; --gold:#C9A646; --gold-soft:#E2C77A;
+  --cream:#F5EFE0; --muted:#A9B3C7; --line:rgba(201,166,70,.28); --panel:rgba(10,31,68,.72);
+  --display:"Cinzel",Georgia,serif; --serif:"Cormorant Garamond",Georgia,serif; --body:"Manrope",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--navy-deep);color:var(--cream);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
+.orbit{position:relative;width:100%;max-width:560px;aspect-ratio:1/.74;justify-self:end;margin:0 0 2.6em}
+.orbit.sm,.orbit.static{margin-bottom:0}
+.orbit canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.orbit::before{content:"";position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,rgba(201,166,70,.12),rgba(201,166,70,0) 66%);pointer-events:none}
+.olabels{position:absolute;inset:0}
+.ol{position:absolute;left:0;top:0;display:block;white-space:nowrap;font-family:var(--body);font-size:12.5px;font-weight:600;line-height:1.25;color:var(--cream);text-decoration:none;padding:6px 11px;border:1px solid rgba(201,166,70,.3);border-radius:10px;background:rgba(6,20,45,.78);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);transition:border-color .2s,background-color .2s;will-change:transform}
+.ol.pt{border-style:dashed}
+.ol .op,.ol .od{display:none}
+.ol.on{border-color:var(--gold);background:rgba(10,31,68,.96)}
+.odetail{position:absolute;left:50%;top:100%;margin:6px 0 0;transform:translateX(-50%);width:min(100%,420px);text-align:center;font-family:var(--body);font-size:13px;line-height:1.45;color:var(--muted);min-height:2.9em;pointer-events:none}
+.odetail b{color:var(--cream);font-weight:600}.odetail i{font-style:normal;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-right:8px}
+.orbit.sm .odetail,.orbit.static .odetail{display:none}
+.ol:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.oc{position:absolute;left:0;top:0;z-index:120;text-align:center;pointer-events:none;white-space:nowrap}
+.oc b{display:block;font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:11.5px;color:var(--gold)}
+.oc span{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.orbit.sm .ol{font-size:11px;padding:4px 8px;white-space:normal;max-width:98px;text-align:center}
+.orbit.sm .ol .op,.orbit.sm .ol .od{display:none!important}
+.orbit.sm .oc b{font-size:9.5px;letter-spacing:.1em}.orbit.sm .oc span{display:none}
+.orbit.static{aspect-ratio:auto}
+.orbit.static::before{display:none}
+.orbit.static .olabels{position:static;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.orbit.static .ol,.orbit.static .oc{position:static;transform:none!important;opacity:1!important}
+.orbit.static .oc{width:100%;margin-bottom:6px}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(6,20,45,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--navy-deep)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.mark{font-family:var(--display);letter-spacing:.18em;font-size:14px;color:var(--gold);text-decoration:none}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+nav a{color:var(--cream);text-decoration:none}
+nav a:hover,nav a:focus-visible{color:var(--gold)}
+@media(max-width:640px){nav ul{display:none}}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.hero{padding-block:clamp(48px,9vh,100px) 64px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:24px 40px;align-items:center}
+.hero-copy{min-width:0}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.hero .orbit{justify-self:center;max-width:460px}}
+.eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,5.6vw,68px);line-height:1.04;margin:18px 0;text-wrap:balance}
+h1 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold-soft);letter-spacing:0}
+.lede{font-family:var(--serif);font-size:clamp(20px,2.4vw,25px);line-height:1.45;color:var(--cream);max-width:58ch;opacity:.92}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-block;padding:14px 26px;border-radius:2px;font-weight:600;font-size:14px;letter-spacing:.06em;text-decoration:none;border:1px solid var(--gold);cursor:pointer;font-family:var(--body)}
+.btn.solid{background:var(--gold);color:var(--navy-deep)}
+.btn.ghost{background:transparent;color:var(--gold)}
+.btn:hover{filter:brightness(1.1)}
+
+section{padding-block:80px}
+h2{font-family:var(--display);font-size:clamp(28px,4vw,44px);font-weight:500;margin:10px 0 14px;text-wrap:balance}
+.intro{font-family:var(--serif);font-size:21px;color:var(--muted);max-width:60ch;margin:0 0 40px}
+
+.pillars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:760px){.pillars{grid-template-columns:1fr}}
+.pillar{background:var(--panel);backdrop-filter:blur(6px);padding:34px 30px;min-width:0;transition:background .3s}
+.pillar:hover{background:rgba(16,42,88,.85)}
+.pillar .verb{font-family:var(--serif);font-style:italic;color:var(--gold-soft);font-size:19px}
+.pillar h3{font-family:var(--display);font-size:24px;letter-spacing:.06em;margin:6px 0 12px;font-weight:500}
+.pillar p{color:var(--muted);margin:0 0 16px}
+.pillar ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.pillar li{padding-left:22px;position:relative;font-size:15px}
+.pillar li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:10px;border:1.5px solid var(--gold);border-radius:50%}
+
+.path{display:grid;gap:0;border-left:1px solid var(--line);margin-left:10px}
+.step{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;padding:22px 0 22px 0;position:relative}
+.step::before{content:"";position:absolute;left:-6px;top:30px;width:11px;height:11px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(201,166,70,.18)}
+.step .n{font-family:var(--display);color:var(--gold);font-size:13px;letter-spacing:.2em;padding-left:22px;padding-top:4px}
+.step h4{font-family:var(--display);font-weight:500;font-size:20px;margin:0 0 4px;letter-spacing:.04em}
+.step p{margin:0;color:var(--muted);max-width:60ch}
+
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;background:var(--panel);border:1px solid var(--line);padding:44px;backdrop-filter:blur(6px)}
+@media(max-width:760px){.feature{grid-template-columns:1fr;padding:28px}}
+.big{font-family:var(--display);font-size:clamp(46px,7vw,82px);color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-family:var(--serif);font-size:22px;color:var(--cream);display:block;margin-top:10px;font-style:italic}
+.terms{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.terms li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;font-size:15px}
+.terms span:last-child{color:var(--gold-soft);text-align:right}
+
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;align-items:start}
+@media(max-width:760px){.story{grid-template-columns:1fr}}
+blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(24px,3vw,32px);line-height:1.3;color:var(--gold-soft);text-wrap:balance}
+.story p{color:var(--muted);font-size:17px;max-width:62ch}
+
+.contact{text-align:left;border-top:1px solid var(--line)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:20px}
+.card{border:1px solid var(--line);padding:22px;background:var(--panel)}
+.card .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.card .val{font-size:19px;margin:6px 0 12px;user-select:all;word-break:break-word}
+.copy{background:none;border:1px solid var(--line);color:var(--cream);padding:6px 12px;font-size:12px;cursor:pointer;font-family:var(--body)}
+.copy:hover{border-color:var(--gold)}
+footer{padding-block:40px 60px;color:var(--muted);font-size:12.5px;line-height:1.6;border-top:1px solid var(--line)}
+footer p{max-width:90ch;margin:0 0 10px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<nav><div class="wrap">
+  <a class="mark" href="#top">FULL CIRCLE</a>
+  <ul><li><a href="#pillars">Services</a></li><li><a href="#path">Process</a></li><li><a href="#funding">Funding</a></li><li><a href="#contact">Contact</a></li></ul>
+</div></nav>
+
+<main class="wrap" id="top">
+  <header class="hero">
+    <div class="hero-copy">
+    <div class="eyebrow">Full Circle Financial Group · Phoenix, Arizona</div>
+    <h1>Build it. Fund it. <em>Protect it.</em></h1>
+    <p class="lede">Credit, business structure, funding and protection in one plan, so the money you build keeps working and stays in the family.</p>
+    <div class="ctas">
+      <a class="btn solid" href="#contact">Book a strategy call</a>
+      <a class="btn ghost" href="#pillars">See the services</a>
+    </div>
+    </div>
+    <figure class="orbit" id="orbit" aria-label="Full Circle services"><canvas aria-hidden="true"></canvas><div class="olabels"></div></figure>
+  </header>
+
+  <section id="pillars">
+    <div class="eyebrow">Four pillars</div>
+    <h2>One firm. Every piece of the circle.</h2>
+    <p class="intro">Most people get credit help from one place, an LLC from another and insurance from a third. We build all of it to fit together.</p>
+    <div class="pillars">
+      <article class="pillar">
+        <div class="verb">Fix it</div><h3>Leverage</h3>
+        <p>Personal and business credit, built in the right order.</p>
+        <ul><li>Personal credit restoration and education</li><li>Business credit build with vendor and revolving tradelines</li><li>Funding readiness review</li></ul>
+      </article>
+      <article class="pillar">
+        <div class="verb">Structure it</div><h3>Structure</h3>
+        <p>The legal and tax foundation lenders and families both need.</p>
+        <ul><li>LLC and holding company formation</li><li>Trusts and estate planning</li><li>Tax strategy coordination</li></ul>
+      </article>
+      <article class="pillar">
+        <div class="verb">Protect it</div><h3>Protection</h3>
+        <p>Life insurance and IUL designed as a living asset, licensed in Arizona.</p>
+        <ul><li>Term, whole life and IUL</li><li>"Become your own bank" policy design</li><li>Key person and business owner coverage</li></ul>
+      </article>
+      <article class="pillar">
+        <div class="verb">Grow it</div><h3>Scale</h3>
+        <p>Systems that let a business run without the owner in every seat.</p>
+        <ul><li>CRM and pipeline setup</li><li>Marketing and client-attraction systems</li><li>AI automation and follow-up</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="path">
+    <div class="eyebrow">The client path</div>
+    <h2>How a plan comes together</h2>
+    <p class="intro">Every client starts at a different point. This is the order we build in.</p>
+    <div class="path">
+      <div class="step"><div class="n">I</div><div><h4>Strategy call</h4><p>We review your credit, your business and your goals, then map which pillars come first.</p></div></div>
+      <div class="step"><div class="n">II</div><div><h4>Clean up personal credit</h4><p>Dispute inaccurate items, set utilization targets and build the habits that keep scores healthy.</p></div></div>
+      <div class="step"><div class="n">III</div><div><h4>Structure the business</h4><p>Form the right entity, get the EIN, banking and business listings in place so the company stands on its own.</p></div></div>
+      <div class="step"><div class="n">IV</div><div><h4>Build business credit and fund</h4><p>Layer tradelines, then match you with lenders when your profile is ready.</p></div></div>
+      <div class="step"><div class="n">V</div><div><h4>Protect and pass it on</h4><p>Put coverage, trusts and estate documents in place so what you built is protected.</p></div></div>
+    </div>
+  </section>
+
+  <section id="funding">
+    <div class="feature">
+      <div>
+        <div class="eyebrow">Funding placement</div>
+        <div class="big">5–10%<small>success fee, capped at $10,000</small></div>
+      </div>
+      <ul class="terms">
+        <li><span>When you pay</span><span>Only when funding closes</span></li>
+        <li><span>Fee range</span><span>5–10% of the amount funded</span></li>
+        <li><span>Maximum fee</span><span>$10,000</span></li>
+        <li><span>Funding types</span><span>Business lines, cards, term loans</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="story">
+      <blockquote>Nobody taught most of us the plan. We built a firm to hand it over.</blockquote>
+      <div>
+        <div class="eyebrow">Why Full Circle</div>
+        <p>Full Circle started with financial literacy for people who were never shown how credit, business and insurance connect, especially in urban and minority communities. It grew into a full firm: protection for families, asset protection for business owners, and a way to reinvest business profits back into the plan.</p>
+        <p>That loop is the full circle. Build credit, structure the business, fund it, protect it, and put the profits back to work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="eyebrow">Start here</div>
+    <h2>Book your strategy call</h2>
+    <div class="cgrid">
+      <div class="card"><div class="lbl">Call or text</div><div class="val" id="ph">602-545-0826</div><button class="copy" type="button" data-copy="ph">Copy number</button></div>
+      <div class="card"><div class="lbl">Email</div><div class="val" id="em">Breyon@fullcircle-credit.com</div><button class="copy" type="button" data-copy="em">Copy email</button></div>
+      <div class="card"><div class="lbl">Founder</div><div class="val">Breyon Miller</div><div style="color:var(--muted);font-size:14px">Founder &amp; Financial Architect</div></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>Full Circle Financial Group does not guarantee any specific credit score change, removal of accurate information, or approval for funding. Results vary by individual credit history and lender criteria. You may dispute inaccurate information with the credit bureaus yourself at no cost.</p>
+  <p>Insurance products are offered through licensed agents in Arizona. Full Circle does not provide legal or tax advice; entity, trust and tax work is coordinated with licensed professionals.</p>
+  <p>© 2026 Full Circle Financial Group</p>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.copy),t=el.textContent.trim();
+  const done=()=>{const o=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=o,1400)};
+  try{navigator.clipboard.writeText(t).then(done,()=>sel(el))}catch(e){sel(el)}
+}));
+function sel(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+
+function orbitDiagram(host,cfg){
+  if(!host)return;
+  const layer=host.querySelector('.olabels'),items=cfg.items;
+  const els=items.map(it=>{const a=document.createElement('a');a.className='ol'+(it.partner?' pt':'');a.href=cfg.href;
+    const p=document.createElement('span');p.className='op';p.textContent=it.p;
+    const nm=document.createElement('span');nm.className='on';nm.textContent=it.n;
+    const d=document.createElement('span');d.className='od';d.textContent=it.d;
+    a.append(p,nm,d);a.setAttribute('aria-label',it.n+': '+it.d);layer.appendChild(a);return a});
+  const center=document.createElement('div');center.className='oc';
+  const cb=document.createElement('b');cb.textContent=cfg.center[0];const cs=document.createElement('span');cs.textContent=cfg.center[1];
+  center.append(cb,cs);layer.appendChild(center);
+  const detail=document.createElement('p');detail.className='odetail';const hint=cfg.hint||'Hover a service to see what it covers.';detail.textContent=hint;host.appendChild(detail);
+  let r;
+  if(!window.THREE){host.classList.add('static');return}
+  try{r=new THREE.WebGLRenderer({canvas:host.querySelector('canvas'),antialias:true,alpha:true})}catch(e){host.classList.add('static');return}
+  r.setClearColor(0x000000,0);
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.1,200);
+  const R=2.6,EL=.64,GOLD=0xC9A646,CREAM=0xF5EFE0;
+  const world=new THREE.Group();scene.add(world);
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.05,64,48),new THREE.MeshStandardMaterial({color:0x0C2350,metalness:.25,roughness:.55,emissive:0x081A3A,emissiveIntensity:.7})));
+  const flat=(m)=>{m.rotation.x=Math.PI/2;world.add(m);return m};
+  flat(new THREE.Mesh(new THREE.TorusGeometry(1.24,.01,10,180),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:.5})));
+  flat(new THREE.Mesh(new THREE.TorusGeometry(R,.012,10,256),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:.8})));
+  const n=items.length,nodes=[];
+  items.forEach((it,i)=>{
+    const a=i/n*Math.PI*2+Math.PI/2,pos=new THREE.Vector3(Math.cos(a)*R,0,Math.sin(a)*R),dir=pos.clone().normalize();
+    const g=new THREE.Group();g.position.copy(pos);world.add(g);
+    g.add(new THREE.Mesh(new THREE.SphereGeometry(.12,32,24),new THREE.MeshStandardMaterial({color:it.partner?0x0A1F44:CREAM,emissive:GOLD,emissiveIntensity:it.partner?.12:.32,metalness:.3,roughness:.4})));
+    const halo=new THREE.Mesh(new THREE.RingGeometry(.19,.205,56),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:.6,side:THREE.DoubleSide}));g.add(halo);
+    const sp=new THREE.Line(new THREE.BufferGeometry().setFromPoints([dir.clone().multiplyScalar(1.26),dir.clone().multiplyScalar(R-.24)]),new THREE.LineBasicMaterial({color:GOLD,transparent:true,opacity:.18}));world.add(sp);
+    const pulse=new THREE.Mesh(new THREE.SphereGeometry(.032,12,8),new THREE.MeshBasicMaterial({color:CREAM,transparent:true,opacity:0}));world.add(pulse);
+    nodes.push({g,halo,sp,pulse,dir,el:els[i]});
+  });
+  scene.add(new THREE.AmbientLight(0x9FB0D0,.75));
+  const key=new THREE.DirectionalLight(0xFFE9BF,.9);key.position.set(3,5,6);scene.add(key);
+  scene.add(new THREE.HemisphereLight(0x3A5590,0x06142D,.25));
+  const v=new THREE.Vector3();
+  let W=0,H=0,Rx=1,Ry=1,cx=0,cy=0;
+  const proj=(x,y,z)=>{v.set(x,y,z).project(cam);return[(v.x*.5+.5)*W,(-v.y*.5+.5)*H]};
+  function size(){W=host.clientWidth;H=host.clientHeight;if(!W||!H)return;
+    r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(W,H,false);cam.aspect=W/H;
+    const ratio=W<480?.42:.5,D=R/(ratio*Math.tan(cam.fov*Math.PI/360)*cam.aspect);
+    cam.position.set(0,D*Math.sin(EL),D*Math.cos(EL));cam.lookAt(0,0,0);cam.updateProjectionMatrix();cam.updateMatrixWorld();
+    [cx,cy]=proj(0,0,0);Rx=Math.max(1,proj(R,0,0)[0]-cx);Ry=Math.max(1,proj(0,0,R)[1]-cy);
+    host.classList.toggle('sm',W<480)}
+  let rot=-.3,last=0,t=0,hover=false,active=-1,running=false;
+  function setActive(i){active=i;els.forEach((e,j)=>e.classList.toggle('on',j===i));
+    if(i<0){detail.textContent=hint;return}const it=items[i];detail.textContent='';const tg=document.createElement('i');tg.textContent=it.p;const nm=document.createElement('b');nm.textContent=it.n;detail.append(tg,nm,document.createTextNode(' · '+it.d))}
+  els.forEach((e,i)=>{e.addEventListener('pointerenter',()=>setActive(i));e.addEventListener('pointerleave',()=>setActive(-1));
+    e.addEventListener('focus',()=>setActive(i));e.addEventListener('blur',()=>setActive(-1))});
+  host.addEventListener('pointerenter',()=>hover=true);host.addEventListener('pointerleave',()=>hover=false);
+  function frame(now){
+    const dt=last?Math.min(.05,(now-last)/1000):0;last=now;
+    if(!reduce){t+=dt;if(!hover&&active<0)rot+=dt*.07}
+    world.rotation.y=rot;world.updateMatrixWorld();
+    nodes.forEach((o,i)=>{
+      o.g.getWorldPosition(v);const depth=Math.max(0,Math.min(1,(v.z/R+1)/2)),on=i===active;
+      o.g.scale.setScalar((on?1.45:1)*(.82+.3*depth));
+      o.halo.lookAt(cam.position);
+      o.halo.material.opacity=on?1:.3+.4*depth;
+      o.sp.material.opacity=on?.7:.08+.14*depth;
+      const f=(t*.22+i*.137)%1;
+      o.pulse.position.copy(o.dir).multiplyScalar((R-.24)-(R-1.5)*f);
+      o.pulse.material.opacity=reduce?0:Math.sin(Math.PI*f)*.85*(.4+.6*depth);
+      v.project(cam);
+      const sx=(v.x*.5+.5)*W,sy=(-v.y*.5+.5)*H;
+      const fx=Math.max(-1,Math.min(1,(sx-cx)/Rx)),fy=Math.max(-1,Math.min(1,(sy-cy)/Ry)),gap=16;
+      o.el.style.transform=`translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) translate(${(-50+50*fx).toFixed(1)}%,${(-50+50*fy).toFixed(1)}%) translate(${(gap*fx).toFixed(1)}px,${(gap*fy).toFixed(1)}px)`;
+      o.el.style.opacity=on?'1':(.55+.45*depth).toFixed(2);
+      o.el.style.zIndex=on?'200':String(Math.round(depth*100));
+    });
+    center.style.transform=`translate(${cx.toFixed(1)}px,${cy.toFixed(1)}px) translate(-50%,-50%)`;
+    r.render(scene,cam);
+    if(running)requestAnimationFrame(frame);
+  }
+  function start(){if(running)return;running=true;last=0;requestAnimationFrame(frame)}
+  size();
+  if(window.ResizeObserver)new ResizeObserver(()=>{size();if(!running)requestAnimationFrame(frame)}).observe(host);else addEventListener('resize',size);
+  if(window.IntersectionObserver)new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)start();else running=false})}).observe(host);else start();
+  requestAnimationFrame(frame);
+}
+orbitDiagram(document.getElementById('orbit'),{"href": "#pillars", "center": ["FULL CIRCLE", "Financial Group"], "items": [{"n": "Credit Restore", "p": "Leverage", "d": "Dispute inaccurate items and build healthy credit habits."}, {"n": "Business Credit", "p": "Leverage", "d": "Tradelines in your business's name, tier by tier."}, {"n": "Funding", "p": "Leverage", "d": "Lender matching once your profile is ready."}, {"n": "Entity & Holding", "p": "Structure", "d": "LLC or holding company, EIN, banking and listings."}, {"n": "Tax Strategy", "p": "Structure", "d": "Entity elections and owner pay, with a licensed CPA."}, {"n": "Trusts & Estate", "p": "Structure", "d": "Trusts and wills, coordinated with an estate attorney."}, {"n": "Life Insurance & IUL", "p": "Protection", "d": "Coverage designed as a living asset for your family."}, {"n": "Systems & Automation", "p": "Scale", "d": "CRM, follow-up and AI automation for your business."}]});
+</script>
+
+</body></html>

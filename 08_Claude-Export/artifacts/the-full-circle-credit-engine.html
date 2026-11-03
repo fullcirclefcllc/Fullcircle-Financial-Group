@@ -1,0 +1,1255 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>The Full Circle Credit Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F5EFE0;
+  --surface:#FFFDF7;
+  --surface-alt:#EFE7D3;
+  --line:#DCD1B5;
+  --line-strong:#B9A97F;
+  --text:#23304A;
+  --dim:#6E6858;
+  --heading:#0A1F44;
+  --accent:#9C7A26;
+  --accent-bright:#C9A646;
+  --ok:#356B4C;
+  --warn:#9E7020;
+  --crit:#96382A;
+  --rail:#0A1F44;
+  --rail-text:#EFE7D3;
+  --rail-dim:#94A3BC;
+  --shadow:0 1px 2px rgba(10,31,68,.06), 0 8px 24px -14px rgba(10,31,68,.28);
+  --f-display:'Cinzel', 'Times New Roman', serif;
+  --f-lede:'Cormorant Garamond', Georgia, serif;
+  --f-body:'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --f-mono:'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#071125;
+    --surface:#0D1B33;
+    --surface-alt:#12233F;
+    --line:#21375A;
+    --line-strong:#33507C;
+    --text:#E4DDCC;
+    --dim:#93A2BC;
+    --heading:#F0E6CE;
+    --accent:#C9A646;
+    --accent-bright:#E0C67E;
+    --ok:#5FA37A;
+    --warn:#D2A24A;
+    --crit:#D2705C;
+    --rail:#050D1C;
+    --rail-text:#E4DDCC;
+    --rail-dim:#7D8CA6;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#071125;
+  --surface:#0D1B33;
+  --surface-alt:#12233F;
+  --line:#21375A;
+  --line-strong:#33507C;
+  --text:#E4DDCC;
+  --dim:#93A2BC;
+  --heading:#F0E6CE;
+  --accent:#C9A646;
+  --accent-bright:#E0C67E;
+  --ok:#5FA37A;
+  --warn:#D2A24A;
+  --crit:#D2705C;
+  --rail:#050D1C;
+  --rail-text:#E4DDCC;
+  --rail-dim:#7D8CA6;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--f-body); font-size:15.5px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
+h1,h2,h3,h4{color:var(--heading); text-wrap:balance; margin:0}
+h2{font-family:var(--f-display); font-weight:600; font-size:1.45rem; letter-spacing:.02em}
+h3{font-family:var(--f-body); font-weight:600; font-size:1.02rem; letter-spacing:.01em}
+p{margin:0}
+.mono{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+
+/* ---------- shell ---------- */
+.shell{display:grid; grid-template-columns:250px minmax(0,1fr); min-height:100vh}
+.rail{
+  background:var(--rail); color:var(--rail-text); position:sticky; top:0; height:100vh;
+  overflow-y:auto; padding:26px 0 40px; border-right:1px solid rgba(201,166,70,.22);
+}
+.rail-brand{padding:0 22px 20px; border-bottom:1px solid rgba(201,166,70,.18); margin-bottom:14px}
+.orbit{width:44px;height:44px;display:block;margin-bottom:12px}
+.rail-brand .mark{font-family:var(--f-display); font-size:.82rem; letter-spacing:.16em; color:var(--accent-bright); text-transform:uppercase}
+.rail-brand .sub{font-family:var(--f-mono); font-size:.66rem; letter-spacing:.12em; color:var(--rail-dim); text-transform:uppercase; margin-top:5px}
+.rail nav{display:flex; flex-direction:column}
+.rail nav a{
+  display:flex; gap:11px; align-items:baseline; padding:8px 22px; color:var(--rail-dim);
+  text-decoration:none; font-size:.845rem; border-left:2px solid transparent; transition:color .15s, border-color .15s, background .15s;
+}
+.rail nav a .n{font-family:var(--f-mono); font-size:.66rem; opacity:.7; min-width:18px}
+.rail nav a:hover{color:var(--rail-text); background:rgba(201,166,70,.06)}
+.rail nav a.on{color:var(--accent-bright); border-left-color:var(--accent-bright); background:rgba(201,166,70,.09)}
+.rail-foot{padding:20px 22px 0; margin-top:18px; border-top:1px solid rgba(201,166,70,.18); font-size:.72rem; color:var(--rail-dim); line-height:1.5}
+
+main{min-width:0; padding:0 0 90px}
+.wrap{max-width:920px; margin:0 auto; padding:0 34px}
+section{padding:54px 0; border-bottom:1px solid var(--line); scroll-margin-top:20px}
+section:last-of-type{border-bottom:none}
+.eyebrow{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:9px}
+.sec-head{margin-bottom:22px}
+.sec-head p.lede{font-family:var(--f-lede); font-size:1.2rem; line-height:1.5; color:var(--dim); margin-top:9px; max-width:62ch}
+.stack{display:flex; flex-direction:column; gap:16px}
+.stack-lg{display:flex; flex-direction:column; gap:26px}
+
+/* ---------- hero ---------- */
+.hero{
+  background:var(--rail); color:var(--rail-text); padding:56px 0 48px; position:relative; overflow:hidden;
+  border-bottom:1px solid rgba(201,166,70,.3);
+}
+.hero::after{
+  content:""; position:absolute; right:-140px; top:-120px; width:520px; height:520px; border-radius:50%;
+  border:1px solid rgba(201,166,70,.22); box-shadow:0 0 0 44px rgba(201,166,70,.045), 0 0 0 108px rgba(201,166,70,.03);
+  pointer-events:none;
+}
+.hero .wrap{position:relative; z-index:1}
+.hero h1{
+  font-family:var(--f-display); font-weight:700; color:#F5EFE0; font-size:clamp(1.9rem,4.4vw,2.9rem);
+  line-height:1.12; letter-spacing:.005em; max-width:19ch;
+}
+.hero .kicker{font-family:var(--f-mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-bright); margin-bottom:14px}
+.hero .lede{font-family:var(--f-lede); font-size:1.3rem; line-height:1.48; color:#C7CFDE; margin-top:16px; max-width:60ch}
+.hero-meta{display:flex; flex-wrap:wrap; gap:26px; margin-top:30px; padding-top:22px; border-top:1px solid rgba(201,166,70,.2)}
+.hero-meta div{min-width:110px}
+.hero-meta .k{font-family:var(--f-mono); font-size:.63rem; letter-spacing:.14em; text-transform:uppercase; color:var(--rail-dim)}
+.hero-meta .v{font-family:var(--f-display); font-size:1.28rem; color:var(--accent-bright); margin-top:3px}
+
+/* ---------- verdict ---------- */
+.verdict{border:1px solid var(--line-strong); background:var(--surface); box-shadow:var(--shadow); border-radius:3px}
+.verdict-head{padding:16px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:12px}
+.verdict-head .badge{font-family:var(--f-mono); font-size:.65rem; letter-spacing:.13em; text-transform:uppercase; padding:4px 9px; border-radius:2px; background:var(--crit); color:#fff}
+.verdict-body{padding:18px 20px; display:flex; flex-direction:column; gap:13px}
+.verdict-body strong{color:var(--heading)}
+
+/* ---------- generic blocks ---------- */
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:20px 22px}
+.panel-quiet{background:var(--surface-alt); border:1px solid var(--line); border-radius:3px; padding:16px 18px}
+.note{border-left:2px solid var(--accent); padding:2px 0 2px 15px; color:var(--dim); font-size:.92rem}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px}
+.grid3{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px}
+.tile{background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:15px 16px; display:flex; flex-direction:column; gap:5px}
+.tile .lab{font-family:var(--f-mono); font-size:.63rem; letter-spacing:.13em; text-transform:uppercase; color:var(--dim)}
+.tile .val{font-family:var(--f-display); font-size:1.6rem; color:var(--heading); line-height:1.1}
+.tile .hint{font-size:.8rem; color:var(--dim)}
+.pill{display:inline-block; font-family:var(--f-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; padding:3px 8px; border-radius:2px; border:1px solid var(--line-strong); color:var(--dim); white-space:nowrap}
+.pill.ai{border-color:var(--accent); color:var(--accent)}
+.pill.human{border-color:var(--line-strong); color:var(--dim)}
+.pill.gate{border-color:var(--crit); color:var(--crit)}
+.pill.ok{border-color:var(--ok); color:var(--ok)}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:3px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:.86rem; min-width:560px}
+th{
+  text-align:left; font-family:var(--f-mono); font-size:.63rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--dim); font-weight:500; padding:10px 14px; border-bottom:1px solid var(--line-strong); background:var(--surface-alt);
+  white-space:nowrap;
+}
+td{padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+
+/* ---------- scorecard ---------- */
+.score-head{display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:space-between; background:var(--surface); border:1px solid var(--line-strong); border-radius:3px; padding:18px 20px; margin-bottom:18px; box-shadow:var(--shadow)}
+.score-num{display:flex; align-items:baseline; gap:8px}
+.score-num .big{font-family:var(--f-display); font-size:2.6rem; color:var(--heading); line-height:1}
+.score-num .of{font-family:var(--f-mono); font-size:.8rem; color:var(--dim)}
+.score-verdict{font-family:var(--f-lede); font-size:1.12rem; color:var(--text); max-width:44ch}
+.meter{height:7px; background:var(--surface-alt); border:1px solid var(--line); border-radius:2px; overflow:hidden; width:100%; margin-top:12px}
+.meter i{display:block; height:100%; background:var(--accent-bright); width:0; transition:width .35s ease}
+.domain{border:1px solid var(--line); border-radius:3px; background:var(--surface); overflow:hidden}
+.domain > h3{padding:12px 16px; background:var(--surface-alt); border-bottom:1px solid var(--line); font-size:.9rem; display:flex; justify-content:space-between; gap:10px; align-items:center}
+.domain h3 .cnt{font-family:var(--f-mono); font-size:.68rem; color:var(--dim); font-weight:400}
+.checks{display:flex; flex-direction:column}
+.checks label{display:flex; gap:11px; padding:9px 16px; border-bottom:1px solid var(--line); cursor:pointer; font-size:.87rem; align-items:flex-start; transition:background .12s}
+.checks label:last-child{border-bottom:none}
+.checks label:hover{background:var(--surface-alt)}
+.checks input{margin-top:3px; accent-color:var(--accent); flex:none; width:15px; height:15px}
+.checks input:checked + span{color:var(--dim); text-decoration:line-through; text-decoration-color:var(--line-strong)}
+
+/* ---------- lifecycle ---------- */
+.lc{display:flex; flex-direction:column; gap:0; border-left:2px solid var(--line-strong); margin-left:16px}
+.lc-item{position:relative; padding-left:26px}
+.lc-item::before{
+  content:""; position:absolute; left:-7px; top:19px; width:12px; height:12px; border-radius:50%;
+  background:var(--bg); border:2px solid var(--accent); box-sizing:border-box;
+}
+.lc-item.phase-a::before{border-color:var(--accent-bright)}
+.lc-btn{
+  width:100%; text-align:left; background:none; border:none; border-bottom:1px solid var(--line);
+  padding:14px 0; cursor:pointer; display:flex; gap:14px; align-items:baseline; color:var(--text); font-family:inherit; font-size:1rem;
+}
+.lc-btn:hover .lc-name{color:var(--accent)}
+.lc-btn .st{font-family:var(--f-mono); font-size:.68rem; color:var(--dim); min-width:34px; letter-spacing:.06em}
+.lc-name{font-weight:600; color:var(--heading); flex:1; transition:color .15s}
+.lc-btn .chev{color:var(--dim); font-size:.8rem; transition:transform .2s}
+.lc-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.lc-body{padding:4px 0 22px; display:flex; flex-direction:column; gap:14px; border-bottom:1px solid var(--line)}
+.kv{display:grid; grid-template-columns:120px minmax(0,1fr); gap:6px 16px; font-size:.87rem}
+.kv dt{font-family:var(--f-mono); font-size:.63rem; letter-spacing:.11em; text-transform:uppercase; color:var(--dim); padding-top:3px}
+.kv dd{margin:0}
+.tagrow{display:flex; flex-wrap:wrap; gap:6px}
+
+/* ---------- calculator ---------- */
+.calc{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px; align-items:start}
+@media(max-width:760px){.calc{grid-template-columns:1fr}}
+.controls{display:flex; flex-direction:column; gap:16px; background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:20px}
+.ctl label{display:flex; justify-content:space-between; align-items:baseline; font-size:.83rem; color:var(--dim); gap:10px}
+.ctl label b{font-family:var(--f-mono); font-size:.95rem; color:var(--heading); font-weight:500}
+.ctl input[type=range]{width:100%; accent-color:var(--accent); margin-top:7px}
+.results{display:flex; flex-direction:column; gap:12px}
+.res-hero{background:var(--rail); color:var(--rail-text); border-radius:3px; padding:20px; display:flex; flex-direction:column; gap:4px}
+.res-hero .lab{font-family:var(--f-mono); font-size:.63rem; letter-spacing:.14em; text-transform:uppercase; color:var(--rail-dim)}
+.res-hero .val{font-family:var(--f-display); font-size:2.15rem; color:var(--accent-bright); line-height:1.05}
+.res-hero .sub{font-size:.83rem; color:#B9C3D4}
+.res-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.res-cell{background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:12px 13px}
+.res-cell .lab{font-family:var(--f-mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim)}
+.res-cell .val{font-family:var(--f-mono); font-size:1.12rem; color:var(--heading); margin-top:3px; font-variant-numeric:tabular-nums}
+.gauge{background:var(--surface-alt); border:1px solid var(--line); border-radius:3px; padding:13px 14px; font-size:.85rem}
+.gauge .bar{height:8px; background:var(--bg); border:1px solid var(--line); border-radius:2px; overflow:hidden; margin:9px 0 7px}
+.gauge .bar i{display:block; height:100%; background:var(--ok); width:0; transition:width .3s}
+
+/* ---------- agents ---------- */
+.agents{display:grid; grid-template-columns:repeat(auto-fit,minmax(272px,1fr)); gap:12px}
+.agent{border:1px solid var(--line); border-radius:3px; background:var(--surface); display:flex; flex-direction:column; overflow:hidden}
+.agent-top{padding:14px 16px 12px; border-bottom:1px solid var(--line); display:flex; flex-direction:column; gap:6px}
+.agent-name{font-family:var(--f-display); font-size:1.05rem; color:var(--heading); letter-spacing:.05em}
+.agent-role{font-size:.82rem; color:var(--dim)}
+.agent-body{padding:13px 16px; display:flex; flex-direction:column; gap:10px; font-size:.85rem}
+.agent-body .row{display:flex; gap:9px}
+.agent-body .row .k{font-family:var(--f-mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); min-width:52px; padding-top:3px; flex:none}
+.agent-foot{margin-top:auto; padding:10px 16px; background:var(--surface-alt); border-top:1px solid var(--line); font-size:.78rem; color:var(--dim); display:flex; gap:8px; align-items:center}
+
+/* ---------- sprint checklist ---------- */
+.sprint{border:1px solid var(--line); border-radius:3px; background:var(--surface); overflow:hidden}
+.sprint > header{padding:14px 17px; background:var(--surface-alt); border-bottom:1px solid var(--line)}
+.sprint > header .t{font-family:var(--f-display); font-size:1.05rem; color:var(--heading)}
+.sprint > header .d{font-size:.83rem; color:var(--dim); margin-top:3px}
+.sprint .checks label{font-size:.87rem}
+
+/* ---------- diagram ---------- */
+.diagram{background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:8px; overflow-x:auto}
+.diagram svg{display:block; min-width:680px; width:100%; height:auto}
+.diagram .box{fill:var(--surface); stroke:var(--line-strong); stroke-width:1}
+.diagram .box-alt{fill:var(--surface-alt); stroke:var(--line-strong); stroke-width:1}
+.diagram .box-ai{fill:var(--surface); stroke:var(--accent); stroke-width:1.2}
+.diagram .box-gate{fill:var(--surface); stroke:var(--crit); stroke-width:1.3}
+.diagram .box-op{fill:var(--rail); stroke:var(--accent-bright); stroke-width:1.2}
+.diagram .t-h{fill:var(--heading)}
+.diagram .t-b{fill:var(--text)}
+.diagram .t-d{fill:var(--dim)}
+.diagram .t-c{fill:var(--crit)}
+.diagram .t-rail{fill:#F0E6CE}
+.diagram .t-rail-d{fill:#94A3BC}
+.diagram .band{stroke:var(--line); stroke-width:1}
+.diagram .link{stroke:var(--line-strong); stroke-width:1.3; fill:none}
+.diagram .link-fb{stroke:var(--accent); stroke-width:1.2; fill:none; stroke-dasharray:4 4}
+.diagram .ah{fill:var(--line-strong)}
+.diagram .ah-fb{fill:var(--accent)}
+
+/* ---------- toolbar ---------- */
+.toolbar{display:flex; gap:8px; align-items:center; margin-top:14px}
+.btn{
+  font-family:var(--f-mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+  background:none; border:1px solid var(--line-strong); color:var(--dim); padding:6px 12px; border-radius:2px; cursor:pointer;
+}
+.btn:hover{border-color:var(--accent); color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent-bright); outline-offset:2px}
+
+.mobile-nav{display:none}
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .rail{display:none}
+  .mobile-nav{display:block; position:sticky; top:0; z-index:20; background:var(--rail); padding:10px 14px; border-bottom:1px solid rgba(201,166,70,.25)}
+  .mobile-nav select{width:100%; font-family:var(--f-body); font-size:.9rem; padding:8px; background:var(--surface); color:var(--text); border:1px solid var(--line-strong); border-radius:2px}
+  .wrap{padding:0 20px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+</style>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail-brand">
+      <svg class="orbit" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+        <circle cx="22" cy="22" r="7" fill="#C9A646"/>
+        <ellipse cx="22" cy="22" rx="19" ry="9" stroke="#C9A646" stroke-width="1.2" opacity=".8"/>
+        <ellipse cx="22" cy="22" rx="19" ry="9" stroke="#C9A646" stroke-width="1.2" opacity=".45" transform="rotate(60 22 22)"/>
+        <ellipse cx="22" cy="22" rx="19" ry="9" stroke="#C9A646" stroke-width="1.2" opacity=".45" transform="rotate(120 22 22)"/>
+      </svg>
+      <div class="mark">Full Circle</div>
+      <div class="sub">Credit Engine · Audit</div>
+    </div>
+    <nav id="nav">
+      <a href="#verdict"><span class="n">01</span><span>The Verdict</span></a>
+      <a href="#architecture"><span class="n">02</span><span>System Architecture</span></a>
+      <a href="#scorecard"><span class="n">03</span><span>Readiness Scorecard</span></a>
+      <a href="#lifecycle"><span class="n">04</span><span>Client Lifecycle</span></a>
+      <a href="#production"><span class="n">05</span><span>Dispute Production</span></a>
+      <a href="#economics"><span class="n">06</span><span>Six-Figure Math</span></a>
+      <a href="#stack"><span class="n">07</span><span>The Stack</span></a>
+      <a href="#agents"><span class="n">08</span><span>AI Agent Roster</span></a>
+      <a href="#flow"><span class="n">09</span><span>Agent Flow</span></a>
+      <a href="#compliance"><span class="n">10</span><span>Compliance Spine</span></a>
+      <a href="#dashboard"><span class="n">11</span><span>Numbers You Run</span></a>
+      <a href="#build"><span class="n">12</span><span>90-Day Build</span></a>
+    </nav>
+    <div class="rail-foot">
+      Prepared for Breyon Miller<br>Full Circle Financial Group<br><span class="mono" style="font-size:.66rem">Internal operating document</span>
+    </div>
+  </aside>
+
+  <main>
+    <div class="mobile-nav">
+      <select id="msel" aria-label="Jump to section"></select>
+    </div>
+
+    <header class="hero">
+      <div class="wrap">
+        <div class="kicker">Operating Audit &amp; Build Blueprint</div>
+        <h1>Credit repair is not the product. The machine is.</h1>
+        <p class="lede">A full teardown of how a credit repair company actually runs — every stage from stranger to graduate — plus the systems, the AI agent layer, and the arithmetic that makes six figures inevitable instead of hopeful.</p>
+        <div class="hero-meta">
+          <div><div class="k">Subject</div><div class="v">FCFG</div></div>
+          <div><div class="k">Division</div><div class="v">Leverage</div></div>
+          <div><div class="k">Lifecycle stages</div><div class="v">14</div></div>
+          <div><div class="k">AI agents</div><div class="v">12</div></div>
+          <div><div class="k">Build window</div><div class="v">90 days</div></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+
+<!-- ================= 01 VERDICT ================= -->
+<section id="verdict">
+  <div class="sec-head">
+    <div class="eyebrow">01 — Findings</div>
+    <h2>The Verdict</h2>
+    <p class="lede">You don't have a software problem. You have an undefined operating unit — and software was standing in for a decision you hadn't made yet.</p>
+  </div>
+
+  <div class="stack">
+    <div class="verdict">
+      <div class="verdict-head">
+        <span class="badge">Primary finding</span>
+        <strong>The business runs on you, not on a defined process</strong>
+      </div>
+      <div class="verdict-body">
+        <p>DisputeFox and Credit Repair Cloud were never the constraint. Both are competent dispute engines. What was missing underneath them: a written definition of what one client engagement <em>is</em> — how long it lasts, what gets delivered in each round, what triggers the next action, when money moves, and who (or what) is accountable at each step.</p>
+        <p>Without that definition, any software becomes a filing cabinet you pay monthly for. With it, almost any software works — and most of the work stops needing you.</p>
+        <p><strong>The fix is sequenced, not simultaneous:</strong> define the unit → install the compliance spine → build the front of house in GoHighLevel → keep or replace the dispute engine → layer AI agents on top of a process that already works manually.</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>What GoHighLevel can absolutely replace</h3>
+        <p style="margin-top:9px;font-size:.9rem;color:var(--dim)">Lead capture, qualification, booking, pipelines, contracts and e-signature, disclosure sequencing, payments and recurring billing, two-way SMS and email, client portal, task assignment, referral and affiliate tracking, review requests, reporting dashboards, and every automation that moves a client from one stage to the next.</p>
+      </div>
+      <div class="panel">
+        <h3>What it cannot — be honest about this</h3>
+        <p style="margin-top:9px;font-size:.9rem;color:var(--dim)">Credit report import and parsing, automatic negative-item classification, Metro 2 letter generation at volume, bulk letter printing with certified-mail tracking, and side-by-side round-over-round report comparison. GHL has no native concept of a credit report.</p>
+      </div>
+    </div>
+
+    <div class="note">The honest architecture is a <strong>hybrid</strong>: GoHighLevel as the system of record for the client relationship and the money, a dedicated dispute engine as the production floor, and a sync layer between them so a round status change in production automatically fires the client update in GHL. Trying to force the whole thing into GHL is how operators lose six months and end up back on DisputeFox anyway.</div>
+
+    <div class="grid3">
+      <div class="tile"><div class="lab">Diagnosis</div><div class="val" style="font-size:1.15rem">Undefined unit</div><div class="hint">No written engagement spec</div></div>
+      <div class="tile"><div class="lab">Root risk</div><div class="val" style="font-size:1.15rem">Compliance</div><div class="hint">Billing structure &amp; disclosure sequencing</div></div>
+      <div class="tile"><div class="lab">Fastest lever</div><div class="val" style="font-size:1.15rem">Retention</div><div class="hint">One extra month of tenure ≈ 17% more revenue at 6-mo average</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 ARCHITECTURE ================= -->
+<section id="architecture">
+  <div class="sec-head">
+    <div class="eyebrow">02 — Structure</div>
+    <h2>System Architecture</h2>
+    <p class="lede">Four layers. Each one owns a different question. Mixing them is what makes credit repair companies feel chaotic at 40 clients and collapse at 100.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Layer</th><th>The question it answers</th><th>Owns</th><th>System of record</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Front of House</strong></td>
+          <td>Who is coming, and will they buy?</td>
+          <td>Traffic, capture, qualification, booking, consultation, offer, close, compliance packet, payment authorization</td>
+          <td class="num">GoHighLevel</td>
+        </tr>
+        <tr>
+          <td><strong>Production Floor</strong></td>
+          <td>What work is being done on this file right now?</td>
+          <td>Report import, item analysis, strategy, letter generation, round tracking, mailing, result capture</td>
+          <td class="num">Dispute engine</td>
+        </tr>
+        <tr>
+          <td><strong>Client Experience</strong></td>
+          <td>Does the client feel progress?</td>
+          <td>Onboarding, status cadence, progress reports, education, escalation handling, graduation</td>
+          <td class="num">GoHighLevel</td>
+        </tr>
+        <tr>
+          <td><strong>Command</strong></td>
+          <td>Is the business healthy?</td>
+          <td>Unit economics, cohort retention, deletion rate, capacity, cash, compliance audit trail, ascension revenue</td>
+          <td class="num">Reporting layer</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="stack" style="margin-top:18px">
+    <div class="panel-quiet">
+      <h3>The one rule that keeps the layers clean</h3>
+      <p style="margin-top:8px;font-size:.9rem">A client record exists in exactly one place — GoHighLevel. The dispute engine holds <em>work product</em> (reports, letters, rounds), not truth about the relationship. Every status change on the production floor writes back to a GHL custom field. Every client-facing message originates in GHL. If you ever find yourself answering "which system is right?", the layers have leaked.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 SCORECARD ================= -->
+<section id="scorecard">
+  <div class="sec-head">
+    <div class="eyebrow">03 — Diagnostic</div>
+    <h2>Readiness Scorecard</h2>
+    <p class="lede">Check everything that is genuinely true today — built, written down, and running without you. Be brutal; the score is only useful if it's honest.</p>
+  </div>
+
+  <div class="score-head">
+    <div>
+      <div class="score-num"><span class="big" id="scoreVal">0</span><span class="of">/ 42 controls in place</span></div>
+      <div class="meter"><i id="scoreBar"></i></div>
+    </div>
+    <div class="score-verdict" id="scoreVerdict">Start checking boxes to see where the machine stands.</div>
+  </div>
+
+  <div class="stack" id="scorecard-domains"></div>
+  <div class="toolbar"><button class="btn" id="resetScore">Reset scorecard</button></div>
+</section>
+
+<!-- ================= 04 LIFECYCLE ================= -->
+<section id="lifecycle">
+  <div class="sec-head">
+    <div class="eyebrow">04 — The Unit</div>
+    <h2>Life of a New Client</h2>
+    <p class="lede">Fourteen stages from stranger to graduate. Every stage names its owner, its trigger, its service level, and the specific way it fails. Click any stage to open it.</p>
+  </div>
+  <div class="lc" id="lifecycle-list"></div>
+  <div class="note" style="margin-top:20px">Total engagement design: <strong>a 6-month standard term</strong>, four to five dispute rounds at a 35–45 day cadence, a scheduled progress report after every round, and a defined graduation event. A client who cannot tell you what happens next month is a client who cancels next month.</div>
+</section>
+
+<!-- ================= 05 PRODUCTION ================= -->
+<section id="production">
+  <div class="sec-head">
+    <div class="eyebrow">05 — Fulfillment</div>
+    <h2>The Dispute Production Cycle</h2>
+    <p class="lede">This is the factory floor. It repeats on a fixed cadence, and every repetition produces the same artifacts. Standardize it once and it becomes delegable.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Day</th><th>Step</th><th>Owner</th><th>Artifact produced</th></tr></thead>
+      <tbody>
+        <tr><td class="num">0</td><td>Fresh tri-merge report pulled from monitoring; imported into the dispute engine</td><td><span class="pill ai">SCOUT</span></td><td>Imported report snapshot</td></tr>
+        <tr><td class="num">0–1</td><td>Item classification: inaccurate, unverifiable, obsolete, duplicate, mixed file, identity-related, or accurate-and-not-disputable</td><td><span class="pill ai">SCOUT</span> <span class="pill gate">review</span></td><td>Item ledger with reason codes</td></tr>
+        <tr><td class="num">1</td><td>Round strategy set: which items, which recipient (bureau vs furnisher), which legal basis, which escalation level</td><td><span class="pill human">Strategist</span></td><td>Round plan</td></tr>
+        <tr><td class="num">2</td><td>Letters drafted — bureau letters, furnisher letters, method-of-verification requests, letters of explanation where relevant</td><td><span class="pill ai">SCRIBE</span></td><td>Draft letter set</td></tr>
+        <tr><td class="num">2</td><td>Compliance pass: no guarantees, no instructions to dispute accurate information, no false identity claims, client-signed and client-authorized</td><td><span class="pill ai">SENTRY</span> <span class="pill gate">human sign-off</span></td><td>Approved letter set + audit log</td></tr>
+        <tr><td class="num">3</td><td>Print, stuff, mail — certified or tracked where the round warrants it</td><td><span class="pill human">Mail service</span></td><td>Tracking numbers</td></tr>
+        <tr><td class="num">3</td><td>Client notified: round mailed, what was sent, what to expect, what to forward</td><td><span class="pill ai">PULSE</span></td><td>Round-mailed notice</td></tr>
+        <tr><td class="num">4–33</td><td>Investigation window. Client forwards any bureau or furnisher mail received. Two scheduled check-ins.</td><td><span class="pill ai">PULSE</span></td><td>Inbound correspondence log</td></tr>
+        <tr><td class="num">34–40</td><td>Fresh report pulled and compared against the prior snapshot; deletions, changes, and verifications logged</td><td><span class="pill ai">ECHO</span></td><td>Round result diff</td></tr>
+        <tr><td class="num">40</td><td>Progress report generated and delivered; score movement, items removed, items remaining, next round preview</td><td><span class="pill ai">PULSE</span></td><td>Client progress report</td></tr>
+        <tr><td class="num">41</td><td>Billing event fires for completed work; next round auto-scheduled or graduation path opened</td><td><span class="pill ai">LEDGER</span></td><td>Invoice + next round task</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel">
+      <h3>Escalation ladder</h3>
+      <p style="margin-top:8px;font-size:.89rem;color:var(--dim)">Round 1 bureau dispute → Round 2 furnisher direct dispute → Round 3 method-of-verification demand → Round 4 procedural / documentation challenge → Round 5 regulator complaint path or attorney referral. Each rung is a different letter and a different legal basis, not the same letter re-sent. Re-sending the same letter is what gets a dispute marked frivolous.</p>
+    </div>
+    <div class="panel">
+      <h3>Capacity math</h3>
+      <p style="margin-top:8px;font-size:.89rem;color:var(--dim)">One trained processor working a standardized cycle handles roughly 60–90 active files. With SCOUT and SCRIBE handling analysis and drafting and a human reviewing only, that ceiling moves toward 150–200. Your first hire is not a salesperson — it is the processor who owns the floor so you can stay on the front.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 ECONOMICS ================= -->
+<section id="economics">
+  <div class="sec-head">
+    <div class="eyebrow">06 — Arithmetic</div>
+    <h2>The Six-Figure Math</h2>
+    <p class="lede">Six figures in credit repair is a subscription arithmetic problem with a back-end multiplier. Move the sliders and watch which levers actually matter.</p>
+  </div>
+
+  <div class="calc">
+    <div class="controls">
+      <div class="ctl">
+        <label for="c_price">Monthly service fee <b id="v_price">$149</b></label>
+        <input type="range" id="c_price" min="59" max="299" step="5" value="149">
+      </div>
+      <div class="ctl">
+        <label for="c_active">Active clients <b id="v_active">75</b></label>
+        <input type="range" id="c_active" min="10" max="300" step="5" value="75">
+      </div>
+      <div class="ctl">
+        <label for="c_tenure">Average tenure (months) <b id="v_tenure">6</b></label>
+        <input type="range" id="c_tenure" min="2" max="14" step="1" value="6">
+      </div>
+      <div class="ctl">
+        <label for="c_cogs">Cost to serve, per client / month <b id="v_cogs">$28</b></label>
+        <input type="range" id="c_cogs" min="8" max="90" step="1" value="28">
+      </div>
+      <div class="ctl">
+        <label for="c_fixed">Fixed monthly overhead <b id="v_fixed">$2,400</b></label>
+        <input type="range" id="c_fixed" min="500" max="20000" step="100" value="2400">
+      </div>
+      <div class="ctl">
+        <label for="c_attach">Graduates who ascend <b id="v_attach">18%</b></label>
+        <input type="range" id="c_attach" min="0" max="60" step="1" value="18">
+      </div>
+      <div class="ctl">
+        <label for="c_bev">Average ascension ticket <b id="v_bev">$2,500</b></label>
+        <input type="range" id="c_bev" min="500" max="12000" step="100" value="2500">
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="res-hero">
+        <div class="lab">Annual net profit</div>
+        <div class="val" id="r_annualnet">—</div>
+        <div class="sub" id="r_hint">Recurring plus back-end, after cost to serve and overhead.</div>
+      </div>
+      <div class="res-grid">
+        <div class="res-cell"><div class="lab">Recurring MRR</div><div class="val" id="r_mrr">—</div></div>
+        <div class="res-cell"><div class="lab">Back-end / month</div><div class="val" id="r_backend">—</div></div>
+        <div class="res-cell"><div class="lab">Total annual revenue</div><div class="val" id="r_annualrev">—</div></div>
+        <div class="res-cell"><div class="lab">Monthly net</div><div class="val" id="r_monthlynet">—</div></div>
+        <div class="res-cell"><div class="lab">New clients needed / mo</div><div class="val" id="r_newclients">—</div></div>
+        <div class="res-cell"><div class="lab">Client lifetime value</div><div class="val" id="r_ltv">—</div></div>
+        <div class="res-cell"><div class="lab">Max sustainable CAC</div><div class="val" id="r_cac">—</div></div>
+        <div class="res-cell"><div class="lab">Files per processor</div><div class="val" id="r_cap">—</div></div>
+      </div>
+      <div class="gauge">
+        <div><strong>Distance to $100,000 net</strong></div>
+        <div class="bar"><i id="g_bar"></i></div>
+        <div id="g_text" style="color:var(--dim);font-size:.83rem">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:20px">
+    <div class="panel">
+      <h3>Where operators actually price</h3>
+      <p style="margin-top:8px;font-size:.89rem;color:var(--dim)">Industry-typical monthly fees sit between roughly $79 and $149, with some operators adding a first-work fee in the $50–$199 range and others billing per deleted item. Well-run shops report gross margins in the 50–70% band. The published benchmarks put ~100 active clients near $9,900/month gross at $99 and ~250 clients near $25,000/month.</p>
+    </div>
+    <div class="panel">
+      <h3>The lever nobody pulls</h3>
+      <p style="margin-top:8px;font-size:.89rem;color:var(--dim)">Ascension. A credit repair client who graduates with a 700+ score is the most qualified buyer alive for entity structuring, business credit, an IUL, and a mortgage. At an 18% attach rate on a $2,500 average ticket, the back end can exceed the recurring line entirely — which is precisely the FCFG model. Credit repair is the front door; it was never supposed to be the whole house.</p>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:16px">Figures are planning estimates from published industry benchmarks, not guarantees. Model your own numbers for two months before you trust the projection.</div>
+</section>
+
+<!-- ================= 07 STACK ================= -->
+<section id="stack">
+  <div class="sec-head">
+    <div class="eyebrow">07 — Tooling</div>
+    <h2>The Stack You Actually Need</h2>
+    <p class="lede">Nine slots. Fill every one deliberately; leave one empty and a human fills it with manual labor forever.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Slot</th><th>Job</th><th>Recommended</th><th>Order</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CRM / system of record</strong></td><td>Every lead, client, conversation, contract, and dollar</td><td>GoHighLevel (sub-account per brand)</td><td class="num">1st</td></tr>
+        <tr><td><strong>Compliance packet</strong></td><td>Disclosure → contract → cancellation right, in sequence, timestamped</td><td>GHL documents &amp; e-sign, with attorney-reviewed templates</td><td class="num">1st</td></tr>
+        <tr><td><strong>Payments</strong></td><td>Recurring billing tied to completed work, retries, dunning</td><td>Stripe or an NMI/Authorize.net gateway inside GHL</td><td class="num">1st</td></tr>
+        <tr><td><strong>Credit monitoring</strong></td><td>Client-authorized tri-merge report access, refreshed monthly</td><td>IdentityIQ / MyScoreIQ / SmartCredit / MyFreeScoreNow</td><td class="num">2nd</td></tr>
+        <tr><td><strong>Dispute engine</strong></td><td>Import, classify, generate letters, track rounds, compare results</td><td>DisputeFox or Credit Repair Cloud — keep one, master it</td><td class="num">2nd</td></tr>
+        <tr><td><strong>Print &amp; mail</strong></td><td>Physical letters at volume with tracking</td><td>Engine-integrated mail service, or Lob/Click2Mail</td><td class="num">2nd</td></tr>
+        <tr><td><strong>Automation bridge</strong></td><td>Sync production status ↔ GHL; run agent workflows</td><td>n8n (self-hosted, cheapest at volume) or Make / Zapier</td><td class="num">3rd</td></tr>
+        <tr><td><strong>AI layer</strong></td><td>Analysis, drafting, triage, reporting, content</td><td>Claude via API, orchestrated in n8n; voice via Vapi or Retell</td><td class="num">3rd</td></tr>
+        <tr><td><strong>Command dashboard</strong></td><td>Weekly numbers in one screen</td><td>GHL dashboards plus a Looker Studio or Notion roll-up</td><td class="num">3rd</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:16px">Build order matters more than tool choice. First order = you can legally and profitably take a client. Second order = you can actually do the work. Third order = you can do it without touching it. Installing the third order before the first is the most common and most expensive mistake in this industry.</div>
+</section>
+
+<!-- ================= 08 AGENTS ================= -->
+<section id="agents">
+  <div class="sec-head">
+    <div class="eyebrow">08 — Automation</div>
+    <h2>The AI Agent Roster</h2>
+    <p class="lede">Twelve agents, each with one job, defined inputs and outputs, and an explicit place where a human must sign. Agents that draft are safe. Agents that send legal correspondence unsupervised are a lawsuit.</p>
+  </div>
+  <div class="agents" id="agent-grid"></div>
+  <div class="note" style="margin-top:18px"><strong>The non-negotiable gate:</strong> no dispute letter, no legal claim, and no promise about outcomes leaves the building without a named human approving it. Log every approval with the approver, timestamp, and version. That log is your defense.</div>
+</section>
+
+<!-- ================= 09 FLOW ================= -->
+<section id="flow">
+  <div class="sec-head">
+    <div class="eyebrow">09 — Orchestration</div>
+    <h2>How the Agents Connect</h2>
+    <p class="lede">The flow of a mature agency: attention flows down the left, work flows through the middle, money and intelligence flow back up the right.</p>
+  </div>
+
+  <div class="diagram">
+    <svg viewBox="0 0 980 620" role="img" aria-label="Diagram of the twelve-agent workflow across five bands: demand, conversion, production, retention, and command">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path class="ah" d="M0 0 L10 5 L0 10 z"/>
+        </marker>
+        <marker id="arf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path class="ah-fb" d="M0 0 L10 5 L0 10 z"/>
+        </marker>
+      </defs>
+
+      <g font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.4" class="t-d">
+        <text x="14" y="36">DEMAND</text>
+        <text x="14" y="136">CONVERT</text>
+        <text x="14" y="264">PRODUCE</text>
+        <text x="14" y="418">RETAIN</text>
+        <text x="14" y="538">COMMAND</text>
+      </g>
+      <g class="band">
+        <line x1="112" y1="52" x2="966" y2="52"/>
+        <line x1="112" y1="170" x2="966" y2="170"/>
+        <line x1="112" y1="308" x2="966" y2="308"/>
+        <line x1="112" y1="464" x2="966" y2="464"/>
+        <line x1="112" y1="574" x2="966" y2="574"/>
+      </g>
+
+      <g font-family="IBM Plex Sans, sans-serif">
+        <g><rect class="box-alt" x="130" y="12" width="150" height="36" rx="2"/><text class="t-b" x="205" y="35" text-anchor="middle" font-size="12">Traffic &amp; Content</text></g>
+        <g><rect class="box-ai" x="330" y="12" width="128" height="36" rx="2"/><text class="t-h" x="394" y="29" text-anchor="middle" font-size="12" font-weight="600">HERALD</text><text class="t-d" x="394" y="42" text-anchor="middle" font-size="9">content engine</text></g>
+        <g><rect class="box-ai" x="508" y="12" width="128" height="36" rx="2"/><text class="t-h" x="572" y="29" text-anchor="middle" font-size="12" font-weight="600">BRIDGE</text><text class="t-d" x="572" y="42" text-anchor="middle" font-size="9">partner referrals</text></g>
+        <g><rect class="box-ai" x="686" y="12" width="128" height="36" rx="2"/><text class="t-h" x="750" y="29" text-anchor="middle" font-size="12" font-weight="600">VOX</text><text class="t-d" x="750" y="42" text-anchor="middle" font-size="9">voice intake</text></g>
+
+        <g><rect class="box-ai" x="130" y="110" width="128" height="42" rx="2"/><text class="t-h" x="194" y="129" text-anchor="middle" font-size="12" font-weight="600">ATLAS</text><text class="t-d" x="194" y="143" text-anchor="middle" font-size="9">triage &amp; qualify</text></g>
+        <g><rect class="box-alt" x="310" y="110" width="150" height="42" rx="2"/><text class="t-b" x="385" y="129" text-anchor="middle" font-size="12">Credit Audit Call</text><text class="t-d" x="385" y="143" text-anchor="middle" font-size="9">human · closes the sale</text></g>
+        <g><rect class="box-gate" x="512" y="110" width="140" height="42" rx="2"/><text class="t-h" x="582" y="129" text-anchor="middle" font-size="12" font-weight="600">SENTRY</text><text class="t-c" x="582" y="143" text-anchor="middle" font-size="9">compliance packet</text></g>
+        <g><rect class="box-ai" x="704" y="110" width="128" height="42" rx="2"/><text class="t-h" x="768" y="129" text-anchor="middle" font-size="12" font-weight="600">LEDGER</text><text class="t-d" x="768" y="143" text-anchor="middle" font-size="9">billing authority</text></g>
+
+        <g><rect class="box-ai" x="130" y="236" width="128" height="46" rx="2"/><text class="t-h" x="194" y="256" text-anchor="middle" font-size="12" font-weight="600">SCOUT</text><text class="t-d" x="194" y="270" text-anchor="middle" font-size="9">report analysis</text></g>
+        <g><rect class="box-alt" x="312" y="236" width="128" height="46" rx="2"/><text class="t-b" x="376" y="256" text-anchor="middle" font-size="12">Round Plan</text><text class="t-d" x="376" y="270" text-anchor="middle" font-size="9">human strategist</text></g>
+        <g><rect class="box-ai" x="494" y="236" width="128" height="46" rx="2"/><text class="t-h" x="558" y="256" text-anchor="middle" font-size="12" font-weight="600">SCRIBE</text><text class="t-d" x="558" y="270" text-anchor="middle" font-size="9">letter drafting</text></g>
+        <g><rect class="box-gate" x="676" y="236" width="138" height="46" rx="2"/><text class="t-h" x="745" y="252" text-anchor="middle" font-size="12" font-weight="600">SENTRY</text><text class="t-c" x="745" y="265" text-anchor="middle" font-size="9">pre-send review</text><text class="t-c" x="745" y="276" text-anchor="middle" font-size="8" letter-spacing=".6">HUMAN SIGN-OFF</text></g>
+        <g><rect class="box-alt" x="848" y="236" width="112" height="46" rx="2"/><text class="t-b" x="904" y="256" text-anchor="middle" font-size="12">Print &amp; Mail</text><text class="t-d" x="904" y="270" text-anchor="middle" font-size="9">tracked</text></g>
+
+        <g><rect class="box-ai" x="130" y="390" width="128" height="46" rx="2"/><text class="t-h" x="194" y="410" text-anchor="middle" font-size="12" font-weight="600">ECHO</text><text class="t-d" x="194" y="424" text-anchor="middle" font-size="9">result audit</text></g>
+        <g><rect class="box-ai" x="312" y="390" width="128" height="46" rx="2"/><text class="t-h" x="376" y="410" text-anchor="middle" font-size="12" font-weight="600">PULSE</text><text class="t-d" x="376" y="424" text-anchor="middle" font-size="9">client comms</text></g>
+        <g><rect class="box-ai" x="494" y="390" width="128" height="46" rx="2"/><text class="t-h" x="558" y="410" text-anchor="middle" font-size="12" font-weight="600">ASCEND</text><text class="t-d" x="558" y="424" text-anchor="middle" font-size="9">graduation offer</text></g>
+        <g><rect class="box-alt" x="676" y="390" width="152" height="46" rx="2"/><text class="t-b" x="752" y="410" text-anchor="middle" font-size="12">Entity · Credit · IUL</text><text class="t-d" x="752" y="424" text-anchor="middle" font-size="9">FCFG back end</text></g>
+
+        <g><rect class="box-ai" x="330" y="510" width="150" height="44" rx="2"/><text class="t-h" x="405" y="530" text-anchor="middle" font-size="12" font-weight="600">ORACLE</text><text class="t-d" x="405" y="544" text-anchor="middle" font-size="9">weekly KPI brief</text></g>
+        <g><rect class="box-op" x="540" y="510" width="150" height="44" rx="2"/><text class="t-rail" x="615" y="530" text-anchor="middle" font-size="12" font-weight="600">OPERATOR</text><text class="t-rail-d" x="615" y="544" text-anchor="middle" font-size="9">decisions only</text></g>
+      </g>
+
+      <g class="link">
+        <path d="M394 48 L394 78"/>
+        <path d="M572 48 L572 78"/>
+        <path d="M750 48 L750 78"/>
+        <path d="M194 78 L750 78"/>
+      </g>
+      <g class="link" marker-end="url(#ar)">
+        <path d="M194 78 L194 106"/>
+        <path d="M258 131 L306 131"/>
+        <path d="M460 131 L508 131"/>
+        <path d="M652 131 L700 131"/>
+        <path d="M768 152 L768 196 L194 196 L194 232"/>
+        <path d="M258 259 L308 259"/>
+        <path d="M440 259 L490 259"/>
+        <path d="M622 259 L672 259"/>
+        <path d="M814 259 L844 259"/>
+        <path d="M904 282 L904 344 L194 344 L194 386"/>
+        <path d="M258 413 L308 413"/>
+        <path d="M440 413 L490 413"/>
+        <path d="M622 413 L672 413"/>
+      </g>
+      <g class="link-fb" marker-end="url(#arf)">
+        <path d="M376 436 L376 452 L142 452 L142 290 L182 290 L182 286"/>
+        <path d="M752 436 L752 490 L405 490 L405 506"/>
+        <path d="M480 532 L536 532"/>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="9" class="t-d">
+        <text x="150" y="466">next round loop</text>
+        <text x="600" y="484">revenue signal</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="grid3" style="margin-top:16px">
+    <div class="tile"><div class="lab">Solid line</div><div class="val" style="font-size:1rem">Work handoff</div><div class="hint">One agent's output is the next one's input</div></div>
+    <div class="tile"><div class="lab">Dashed line</div><div class="val" style="font-size:1rem">Feedback loop</div><div class="hint">Results re-enter the system as new work or new revenue</div></div>
+    <div class="tile"><div class="lab">Red border</div><div class="val" style="font-size:1rem">Human gate</div><div class="hint">Nothing passes without a named signature</div></div>
+  </div>
+</section>
+
+<!-- ================= 10 COMPLIANCE ================= -->
+<section id="compliance">
+  <div class="sec-head">
+    <div class="eyebrow">10 — Guardrails</div>
+    <h2>The Compliance Spine</h2>
+    <p class="lede">The fastest way to lose a credit repair company is not poor results. It's how you took the money and what you promised before you took it.</p>
+  </div>
+
+  <div class="stack">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Requirement</th><th>What it means operationally</th><th>Where it lives in your build</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Written contract</strong><br><span class="mono" style="font-size:.72rem;color:var(--dim)">15 U.S.C. §1679d</span></td><td>Full description of services, total payments, and the date services will be completed — signed before any work begins</td><td>GHL document + e-sign, stage-gated</td></tr>
+          <tr><td><strong>Separate disclosure</strong><br><span class="mono" style="font-size:.72rem;color:var(--dim)">15 U.S.C. §1679c</span></td><td>"Consumer Credit File Rights" statement delivered as a standalone document <em>before</em> the contract is signed — it cannot be buried inside the contract</td><td>Separate GHL document, sequenced first, timestamped</td></tr>
+          <tr><td><strong>Three-day cancellation</strong><br><span class="mono" style="font-size:.72rem;color:var(--dim)">15 U.S.C. §1679e</span></td><td>Unconditional right to cancel within three business days, disclosed in the contract, with a cancellation form provided</td><td>Automatic 3-day hold before work starts</td></tr>
+          <tr><td><strong>No advance fees</strong><br><span class="mono" style="font-size:.72rem;color:var(--dim)">CROA + Telemarketing Sales Rule</span></td><td>No payment collected before the promised services are performed. Compliant patterns: bill monthly in arrears after each month's work, or charge per item after deletion is documented</td><td>LEDGER fires billing only on a completed-round event</td></tr>
+          <tr><td><strong>No misrepresentation</strong></td><td>No guaranteed score increases, no promises to remove accurate information, no advice to create a new credit identity</td><td>SENTRY pre-send review on every letter and ad</td></tr>
+          <tr><td><strong>State registration &amp; bonding</strong></td><td>Several states require registration and a surety bond; some cap fees or require client escrow accounts. Requirements differ sharply by state</td><td>Verify per state before marketing into it</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel-quiet">
+      <h3>Build the audit trail as you go, not after</h3>
+      <p style="margin-top:8px;font-size:.9rem">Every client file should be able to produce, on demand: the disclosure with its delivery timestamp, the signed contract, the cancellation window record, the signed authorization for each dispute round, copies of every letter sent with tracking, every bureau response received, and every invoice with the completed work it was tied to. Build this into the pipeline and it costs nothing. Reconstruct it later and it costs everything.</p>
+    </div>
+
+    <div class="note">This section summarizes federal statutory structure for operational planning. It is not legal advice — have a consumer-finance attorney review your contract, disclosure, billing structure, and state registration position before you enroll a client.</div>
+  </div>
+</section>
+
+<!-- ================= 11 DASHBOARD ================= -->
+<section id="dashboard">
+  <div class="sec-head">
+    <div class="eyebrow">11 — Instrumentation</div>
+    <h2>The Numbers You Run Weekly</h2>
+    <p class="lede">Twelve figures. If a number isn't on this list, it doesn't get a dashboard tile.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Definition</th><th>Healthy range</th><th>What it warns you about</th></tr></thead>
+      <tbody>
+        <tr><td>Leads / week</td><td>New qualified contacts entering the pipeline</td><td class="num">Set to your capacity</td><td>Demand engine health</td></tr>
+        <tr><td>Booking rate</td><td>Qualified leads → consultation booked</td><td class="num">35–55%</td><td>Offer clarity, follow-up speed</td></tr>
+        <tr><td>Show rate</td><td>Booked → attended</td><td class="num">65–80%</td><td>Reminder sequence, lead quality</td></tr>
+        <tr><td>Close rate</td><td>Attended → enrolled</td><td class="num">30–50%</td><td>Sales process, pricing fit</td></tr>
+        <tr><td>Time to first round</td><td>Enrollment → Round 1 mailed</td><td class="num">≤ 7 days</td><td>Onboarding friction — the #1 early cancel cause</td></tr>
+        <tr><td>Deletion rate</td><td>Items removed ÷ items disputed, per round</td><td class="num">Track your own baseline</td><td>Strategy quality, letter effectiveness</td></tr>
+        <tr><td>Round cadence adherence</td><td>Rounds mailed on schedule</td><td class="num">≥ 95%</td><td>Production floor slipping</td></tr>
+        <tr><td>Average tenure</td><td>Months a client stays enrolled</td><td class="num">5–8 months</td><td>The single biggest revenue lever</td></tr>
+        <tr><td>Monthly churn</td><td>Cancellations ÷ active clients</td><td class="num">8–15%</td><td>Communication cadence, expectation setting</td></tr>
+        <tr><td>Failed payment rate</td><td>Declines ÷ billing attempts</td><td class="num">&lt; 8%</td><td>Card updater and dunning gaps</td></tr>
+        <tr><td>Ascension attach rate</td><td>Graduates buying a back-end service</td><td class="num">15–30%</td><td>Whether the front door leads anywhere</td></tr>
+        <tr><td>Net profit per active client</td><td>(Fee − cost to serve) less allocated overhead</td><td class="num">Positive by month 2</td><td>Whether growth helps or hurts you</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 12 BUILD ================= -->
+<section id="build">
+  <div class="sec-head">
+    <div class="eyebrow">12 — Execution</div>
+    <h2>The 90-Day Build</h2>
+    <p class="lede">Three sprints, in order. Do not start sprint two until sprint one can survive a real client. Your progress is saved on this device.</p>
+  </div>
+
+  <div class="score-head">
+    <div>
+      <div class="score-num"><span class="big" id="buildVal">0</span><span class="of">/ 30 build tasks complete</span></div>
+      <div class="meter"><i id="buildBar"></i></div>
+    </div>
+    <div class="score-verdict" id="buildVerdict">Sprint 1 first. Compliance and cash before automation.</div>
+  </div>
+
+  <div class="stack-lg" id="sprints"></div>
+  <div class="toolbar"><button class="btn" id="resetBuild">Reset build tracker</button></div>
+</section>
+
+<section id="closing" style="border-bottom:none">
+  <div class="panel" style="border-color:var(--line-strong)">
+    <div class="eyebrow">Closing</div>
+    <h2 style="margin-bottom:10px">What this audit is really saying</h2>
+    <p style="font-family:var(--f-lede);font-size:1.18rem;line-height:1.5;color:var(--text)">You already know how to fix credit. That was never the bottleneck. The bottleneck is that the knowledge lives in you instead of in a system — so every new client costs you the same energy as the first one, and the business can't grow past your calendar.</p>
+    <p style="margin-top:12px;color:var(--dim);font-size:.93rem">Define the unit. Install the spine. Build the front of house. Standardize the floor. Then — and only then — let the agents run it. Six figures is 75 clients and a back door that leads somewhere. The machine described here is built for ten times that.</p>
+  </div>
+</section>
+
+    </div><!-- /wrap -->
+  </main>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- data ---------------- */
+const DOMAINS = [
+ {t:"Legal &amp; compliance foundation", items:[
+  "Attorney-reviewed service agreement in use for every client",
+  "Standalone Consumer Credit File Rights disclosure delivered before contract signing",
+  "Three-business-day cancellation right disclosed, with a cancellation form provided",
+  "Billing structure charges only after work is performed — no advance fees",
+  "State registration and bonding position verified for every state you enroll in"
+ ]},
+ {t:"Offer &amp; pricing architecture", items:[
+  "One written offer with a defined term, deliverables, and price",
+  "Pricing model chosen deliberately (monthly in arrears vs per-deletion) and documented",
+  "A defined graduation event and back-end ascension offer",
+  "Refund and cancellation policy written and consistently applied"
+ ]},
+ {t:"Lead generation &amp; qualification", items:[
+  "At least two live lead sources producing weekly volume",
+  "A written qualification standard — who you take and who you decline",
+  "Inbound response time under five minutes, automated",
+  "A referral partner program with at least three active partners"
+ ]},
+ {t:"Sales process &amp; conversion", items:[
+  "A scripted credit audit consultation with a fixed structure",
+  "Booking, reminder, and no-show recovery sequences running automatically",
+  "Objection responses written down, not improvised",
+  "Close rate measured weekly"
+ ]},
+ {t:"Onboarding &amp; intake", items:[
+  "A single intake form capturing everything needed to start work",
+  "Monitoring enrollment, ID and address documents collected before day one",
+  "Signed dispute authorization on file for each round",
+  "First round mailed within seven days of enrollment"
+ ]},
+ {t:"Dispute production", items:[
+  "A written round cadence with dates, not vibes",
+  "Item classification standard with defined reason codes",
+  "An escalation ladder — each round is a different legal basis, not a resend",
+  "Every letter, tracking number, and bureau response stored on the client file",
+  "Round results compared against the prior report and logged"
+ ]},
+ {t:"Client communication &amp; retention", items:[
+  "Scheduled touchpoints between rounds, not only when the client calls",
+  "A progress report delivered after every round",
+  "An expectation-setting session at enrollment covering timeline and realistic outcomes",
+  "A defined save path for cancellation requests"
+ ]},
+ {t:"Financial controls", items:[
+  "Business bank account and bookkeeping separate from personal",
+  "Failed payment retry and dunning automation running",
+  "Cost to serve per client actually calculated",
+  "Monthly P&amp;L reviewed"
+ ]},
+ {t:"Data, reporting &amp; QA", items:[
+  "One dashboard with the weekly numbers, checked on a fixed day",
+  "Cohort retention tracked by enrollment month",
+  "A QA check on outgoing work before it mails",
+  "Complete audit trail reconstructable for any client file"
+ ]},
+ {t:"Team &amp; delegation", items:[
+  "Written SOP for every recurring task",
+  "At least one role fully off your plate",
+  "A named owner for the production floor",
+  "Onboarding path for a new team member that doesn't require you to teach live"
+ ]}
+];
+
+const LIFECYCLE = [
+ {n:"00", name:"Attention", phase:"a", obj:"Put a specific promise in front of a specific person who has the problem right now.",
+  own:["HERALD","BRIDGE"], sys:"Content engine, paid traffic, partner network",
+  trig:"Always on", sla:"Weekly publishing cadence", art:"Content, ads, partner intros",
+  comp:"No guaranteed results in any ad, ever. Advertising claims are the most commonly cited violation.",
+  fail:"Generic 'fix your credit' messaging that attracts price shoppers instead of mortgage-motivated buyers.",
+  met:"Qualified leads per week, cost per lead"},
+
+ {n:"01", name:"Capture", phase:"a", obj:"Convert attention into an identified contact with a reason to talk.",
+  own:["ATLAS","VOX"], sys:"GHL form, chat widget, missed-call text-back, AI voice intake",
+  trig:"Form submit, inbound call, DM", sla:"First response under 5 minutes, 24/7",
+  art:"Contact record with source, motivation, and timeline",
+  comp:"Capture consent for SMS and calls at the point of capture.",
+  fail:"Leads sitting unanswered overnight. Speed to lead is the highest-leverage automation you will ever build.",
+  met:"Response time, capture-to-conversation rate"},
+
+ {n:"02", name:"Qualification", phase:"a", obj:"Separate the people you can genuinely help from the people you'd be taking money from.",
+  own:["ATLAS"], sys:"GHL workflow + scoring, AI triage on the transcript",
+  trig:"Contact created", sla:"Scored within 10 minutes",
+  art:"Qualification score, disqualification reason, routing decision",
+  comp:"If someone's file is accurate and current, say so and decline. That conversation protects you and often earns the referral anyway.",
+  fail:"Enrolling anyone with a pulse, then carrying clients you cannot move.",
+  met:"Qualified rate, disqualification reasons"},
+
+ {n:"03", name:"Credit Audit Consultation", phase:"a", obj:"Show them what's actually on their file, what it's costing them, and what a realistic path looks like.",
+  own:["Human — you or a closer"], sys:"Booked call, screen-shared report review, scripted structure",
+  trig:"Qualified lead books", sla:"Booked within 48 hours of qualifying",
+  art:"Findings summary, recommended plan, price presented",
+  comp:"Educate, never guarantee. Frame outcomes as work performed, not scores promised.",
+  fail:"Pitching before diagnosing. The audit is the sale — the price is a formality after it.",
+  met:"Show rate, close rate"},
+
+ {n:"04", name:"Enrollment Decision", phase:"a", obj:"Get a clear yes or a clear no, with the terms understood.",
+  own:["Human"], sys:"GHL opportunity stage + follow-up sequence",
+  trig:"Consultation ends", sla:"Decision or scheduled follow-up before the call ends",
+  art:"Won or lost opportunity with reason",
+  comp:"No pressure tactics on a consumer-protection-regulated service.",
+  fail:"Leaving without a next step. 'Think about it' with no date is a no.",
+  met:"Close rate, average days to close"},
+
+ {n:"05", name:"Compliance Packet", phase:"b", obj:"Deliver the disclosure, then the contract, then honor the cancellation window — in that order, timestamped.",
+  own:["SENTRY"], sys:"GHL documents, e-signature, automated sequencing",
+  trig:"Opportunity marked won", sla:"Packet delivered same day",
+  art:"Signed disclosure, signed agreement, cancellation notice, timestamps",
+  comp:"This is the stage that ends companies. The disclosure is a separate document delivered before the contract. The three-day right is unconditional.",
+  fail:"Bundling everything into one PDF and calling it done.",
+  met:"Packet completion rate, time to signature"},
+
+ {n:"06", name:"Payment Authorization", phase:"b", obj:"Put a payment method on file with a billing schedule tied to work performed — not collected upfront.",
+  own:["LEDGER"], sys:"Stripe or gateway inside GHL, card updater, dunning",
+  trig:"Contract signed + cancellation window elapsed", sla:"Authorized before onboarding call",
+  art:"Payment method on file, billing schedule, first charge date",
+  comp:"No fee collected before services are performed. Bill monthly in arrears, or per documented deletion.",
+  fail:"Charging a setup fee on day one because everyone else seems to.",
+  met:"Authorization rate, failed payment rate"},
+
+ {n:"07", name:"Onboarding &amp; Intake", phase:"b", obj:"Collect everything the production floor needs so Round 1 is never waiting on the client.",
+  own:["PULSE"], sys:"Intake form, document upload, monitoring enrollment walkthrough",
+  trig:"Payment authorized", sla:"Complete within 72 hours",
+  art:"ID, proof of address, monitoring credentials, signed dispute authorization, goal and timeline on record",
+  comp:"Client-authorized access only. Never access a report without written authorization on file.",
+  fail:"Chasing documents for three weeks. Make onboarding a scheduled 20-minute call, not an email chain.",
+  met:"Time to complete intake, document completion rate"},
+
+ {n:"08", name:"Analysis &amp; Strategy", phase:"b", obj:"Turn a raw tri-merge report into a classified item ledger and a multi-round plan.",
+  own:["SCOUT","Human strategist"], sys:"Dispute engine import, AI classification, strategist review",
+  trig:"Intake complete", sla:"Within 48 hours of intake",
+  art:"Item ledger with reason codes, round-by-round strategy, realistic timeline shared with client",
+  comp:"Only dispute what there is a good-faith basis to dispute. Document the basis for each item.",
+  fail:"Shotgunning every negative item in Round 1 — it produces frivolous-dispute responses and burns the file.",
+  met:"Items identified, disputable rate"},
+
+ {n:"09", name:"Round Production", phase:"c", obj:"Execute the round: draft, review, mail, notify, track.",
+  own:["SCRIBE","SENTRY","PULSE"], sys:"Dispute engine + print/mail + GHL notification",
+  trig:"Strategy approved, then every 35–45 days", sla:"Round 1 mailed within 7 days of enrollment",
+  art:"Approved letter set, tracking numbers, client round-mailed notice",
+  comp:"Human sign-off before anything mails. Log the approver and timestamp.",
+  fail:"Round 2 slipping to day 60 because nobody owns the calendar.",
+  met:"Round cadence adherence, days from enrollment to Round 1"},
+
+ {n:"10", name:"Investigation Window", phase:"c", obj:"Keep the client engaged and capture every piece of inbound mail during the waiting period.",
+  own:["PULSE"], sys:"Scheduled SMS/email cadence, document upload link",
+  trig:"Round mailed", sla:"Two touchpoints inside the window",
+  art:"Inbound correspondence log, engagement record",
+  comp:"Never tell a client to ignore or lie to a furnisher.",
+  fail:"Silence. This window is where clients decide you've stopped working — it's the #1 cancellation zone.",
+  met:"Touchpoint completion, response rate"},
+
+ {n:"11", name:"Result Audit &amp; Progress Report", phase:"c", obj:"Prove what changed. Then set up the next round before they can wonder.",
+  own:["ECHO","PULSE"], sys:"Fresh report pull, side-by-side comparison, branded report generation",
+  trig:"Day 35–40 of the round", sla:"Report delivered within 5 days of the pull",
+  art:"Round diff, branded progress report, next-round preview",
+  comp:"Report what happened. Do not attribute score changes to work you didn't do.",
+  fail:"Delivering only the score. Clients need to see items removed, items pending, and what's next.",
+  met:"Deletion rate, report delivery on time"},
+
+ {n:"12", name:"Graduation", phase:"d", obj:"End the engagement deliberately, with a documented outcome and a next step.",
+  own:["Human","ASCEND"], sys:"Graduation call, final report, credit-building plan",
+  trig:"Goal reached or term complete", sla:"Scheduled, never drifted into",
+  art:"Final results package, maintenance plan, testimonial request",
+  comp:"Do not continue billing a client whose work is complete.",
+  fail:"Letting engagements dribble out. A graduation ceremony creates the testimonial and the referral.",
+  met:"Graduation rate, testimonial capture rate"},
+
+ {n:"13", name:"Ascension &amp; Referral", phase:"d", obj:"Convert a repaired client into the next FCFG engagement and into a referral source.",
+  own:["ASCEND","BRIDGE"], sys:"GHL ascension pipeline, partner handoff, affiliate tracking",
+  trig:"Graduation", sla:"Offer presented within 7 days",
+  art:"Entity, business credit, IUL, or mortgage referral opportunity; referral link issued",
+  comp:"Separate engagement, separate agreement, separate disclosures where required.",
+  fail:"Treating graduation as the end. This is where the margin lives — the front door was only ever the front door.",
+  met:"Attach rate, referral rate, revenue per graduate"}
+];
+
+const AGENTS = [
+ {n:"ATLAS", r:"Lead triage &amp; qualification", job:"Reads every inbound lead, scores fit against your written standard, routes the qualified ones to booking and the rest to a nurture track.", inp:"Form submissions, call transcripts, chat threads", out:"Qualification score, motivation summary, routing decision", tool:"GHL + Claude via n8n", gate:"None — advisory scoring only", kpi:"Speed to lead, qualified rate"},
+ {n:"VOX", r:"Voice intake &amp; missed-call recovery", job:"Answers when you can't. Captures name, situation, timeline, and books the credit audit directly onto the calendar.", inp:"Inbound and missed calls", out:"Transcript, contact record, booked appointment", tool:"Vapi or Retell → GHL", gate:"Escalates to human on any legal or pricing question", kpi:"Answer rate, booking rate"},
+ {n:"SCOUT", r:"Credit report analyst", job:"Parses the imported tri-merge report, classifies every negative item by type and reason code, and flags the items with the strongest disputable basis.", inp:"Imported credit report", out:"Item ledger with reason codes and priority", tool:"Dispute engine + Claude", gate:"Strategist reviews classification before it becomes a plan", kpi:"Classification accuracy, items surfaced"},
+ {n:"SCRIBE", r:"Dispute letter drafter", job:"Drafts the round's letter set from the approved strategy — bureau letters, furnisher letters, method-of-verification demands — each unique, each tied to a documented basis.", inp:"Approved round plan, item ledger, client data", out:"Draft letter set", tool:"Dispute engine templates + Claude", gate:"Mandatory — nothing mails unreviewed", kpi:"Draft-to-approval rate, turnaround time"},
+ {n:"SENTRY", r:"Compliance auditor", job:"Reviews every outgoing letter, ad, script, and proposal against a fixed rule set: no guarantees, no accurate-information disputes, no identity claims, correct disclosure sequencing.", inp:"Any outgoing artifact", out:"Pass, or flagged issues with the offending language", tool:"Claude with a written rule set + human sign-off", gate:"This agent <em>is</em> the gate", kpi:"Flags caught pre-send, zero violations"},
+ {n:"LEDGER", r:"Billing &amp; revenue sentinel", job:"Fires billing only on a completed-work event, runs retries and dunning on declines, and never allows a charge before services are performed.", inp:"Round completion events, payment status", out:"Invoices, retry sequences, revenue log", tool:"Stripe/gateway + GHL workflows", gate:"Refunds and exceptions require human approval", kpi:"Failed payment rate, collection rate"},
+ {n:"PULSE", r:"Client communication", job:"Runs the entire client-facing cadence — onboarding nudges, round-mailed notices, in-window check-ins, progress reports, renewal conversations.", inp:"Pipeline stage changes, round events", out:"SMS, email, portal updates, progress reports", tool:"GHL workflows + Claude for personalization", gate:"Templates approved once; personalization runs free", kpi:"Engagement rate, churn"},
+ {n:"ECHO", r:"Result auditor", job:"Compares each new report against the prior snapshot, logs every deletion, change, and verification, and produces the diff that becomes the progress report.", inp:"Prior and current report snapshots", out:"Round result diff, deletion log", tool:"Dispute engine comparison + Claude summary", gate:"Spot-check before results are published to the client", kpi:"Deletion rate, reporting accuracy"},
+ {n:"HERALD", r:"Content &amp; marketing engine", job:"Turns real client outcomes and credit education into a weekly publishing cadence across social, email, and the site — all pre-screened by SENTRY.", inp:"Anonymized results, education library, offer", out:"Posts, emails, ad copy, scripts", tool:"Claude + scheduler", gate:"SENTRY review before publishing", kpi:"Leads generated, cost per lead"},
+ {n:"BRIDGE", r:"Referral partner agent", job:"Works the loan officer, realtor, auto dealer, and tax preparer network — sends declined-borrower recapture sequences and reports outcomes back to the partner.", inp:"Partner referrals, declined borrower lists", out:"Partner pipeline, status reports, payouts", tool:"GHL affiliate tracking + Claude", gate:"Compensation arrangements reviewed for RESPA exposure", kpi:"Referrals per partner, partner retention"},
+ {n:"ORACLE", r:"Reporting &amp; KPI analyst", job:"Compiles the weekly command brief — the twelve numbers, cohort retention, capacity, and the one thing that changed most.", inp:"GHL, gateway, and production data", out:"Weekly brief with a recommended focus", tool:"n8n + Claude → dashboard and email", gate:"None — reporting only", kpi:"Brief delivered on schedule"},
+ {n:"ASCEND", r:"Graduation &amp; ascension", job:"Detects graduation readiness, opens the next FCFG conversation — entity structuring, business credit, protection, real estate — and hands the warm file to a human closer.", inp:"Score movement, goal completion, term end", out:"Ascension opportunity, briefing for the closer", tool:"GHL pipeline + Claude briefing", gate:"Human closes; agent only opens the door", kpi:"Attach rate, revenue per graduate"}
+];
+
+const SPRINTS = [
+ {t:"Sprint 1 · Days 1–30", d:"Make it legal, make it sellable, make it collect money. Nothing else.", items:[
+  "Have a consumer-finance attorney review your agreement, disclosure, and billing structure",
+  "Verify state registration and bonding requirements for every state you will enroll in",
+  "Write the engagement spec: term, round cadence, deliverables, graduation event",
+  "Choose your pricing model and write it down — monthly in arrears or per deletion",
+  "Set up the GoHighLevel sub-account with the client pipeline and its stages",
+  "Build the compliance packet in GHL: disclosure first, contract second, cancellation window automated",
+  "Connect the payment gateway with billing tied to a completed-work event",
+  "Build the intake form and the document collection flow",
+  "Write the credit audit consultation script end to end",
+  "Enroll three clients manually through the whole flow and fix what breaks"
+ ]},
+ {t:"Sprint 2 · Days 31–60", d:"Standardize the production floor and make the client feel progress without you.", items:[
+  "Commit to one dispute engine and configure it fully — no parallel systems",
+  "Set your monitoring provider and write the client enrollment walkthrough",
+  "Document the item classification standard with reason codes",
+  "Build the escalation ladder — a distinct letter strategy for each round",
+  "Set up print and mail with tracking",
+  "Build the round cadence calendar with automatic task creation",
+  "Build the progress report template and the after-round delivery automation",
+  "Write the in-window client touchpoint sequence",
+  "Build the cancellation save path",
+  "Write SOPs for every recurring task on the floor"
+ ]},
+ {t:"Sprint 3 · Days 61–90", d:"Layer the agents on a process that already works, then open the back door.", items:[
+  "Stand up n8n and connect GHL, the dispute engine, and the gateway",
+  "Deploy ATLAS for lead triage and speed-to-lead response",
+  "Deploy VOX for missed-call recovery and after-hours intake",
+  "Deploy SCOUT for report analysis with strategist review",
+  "Deploy SCRIBE for letter drafting with mandatory human sign-off",
+  "Deploy SENTRY with a written compliance rule set covering letters and ads",
+  "Deploy PULSE for the full client communication cadence",
+  "Deploy ECHO and automate progress report generation",
+  "Build the ascension pipeline and the graduation offer",
+  "Deploy ORACLE and run your first weekly command brief"
+ ]}
+];
+
+/* ---------------- render ---------------- */
+const esc = s => s;
+
+// scorecard
+const dWrap = document.getElementById('scorecard-domains');
+let scoreTotal = 0;
+DOMAINS.forEach((d,di)=>{
+  scoreTotal += d.items.length;
+  const el = document.createElement('div');
+  el.className = 'domain';
+  el.innerHTML = '<h3>'+d.t+'<span class="cnt">'+d.items.length+' controls</span></h3><div class="checks">'+
+    d.items.map((it,ii)=>'<label><input type="checkbox" data-sc="'+di+'-'+ii+'"><span>'+it+'</span></label>').join('')+'</div>';
+  dWrap.appendChild(el);
+});
+
+// lifecycle
+const lcWrap = document.getElementById('lifecycle-list');
+LIFECYCLE.forEach((s,i)=>{
+  const item = document.createElement('div');
+  item.className = 'lc-item phase-'+s.phase;
+  const bid = 'lcb'+i;
+  item.innerHTML =
+   '<button class="lc-btn" aria-expanded="false" aria-controls="'+bid+'">'+
+     '<span class="st mono">'+s.n+'</span><span class="lc-name">'+s.name+'</span><span class="chev">&#9656;</span>'+
+   '</button>'+
+   '<div class="lc-body" id="'+bid+'" hidden>'+
+     '<p style="font-family:var(--f-lede);font-size:1.08rem;color:var(--text)">'+s.obj+'</p>'+
+     '<div class="tagrow">'+s.own.map(o=>'<span class="pill '+(/^[A-Z]{4,6}$/.test(o)?'ai':'human')+'">'+o+'</span>').join('')+'</div>'+
+     '<dl class="kv">'+
+       '<dt>System</dt><dd>'+s.sys+'</dd>'+
+       '<dt>Trigger</dt><dd>'+s.trig+'</dd>'+
+       '<dt>Service level</dt><dd>'+s.sla+'</dd>'+
+       '<dt>Produces</dt><dd>'+s.art+'</dd>'+
+       '<dt>Compliance</dt><dd>'+s.comp+'</dd>'+
+       '<dt>Fails when</dt><dd>'+s.fail+'</dd>'+
+       '<dt>Metric</dt><dd>'+s.met+'</dd>'+
+     '</dl>'+
+   '</div>';
+  lcWrap.appendChild(item);
+});
+lcWrap.addEventListener('click', e=>{
+  const btn = e.target.closest('.lc-btn'); if(!btn) return;
+  const open = btn.getAttribute('aria-expanded')==='true';
+  btn.setAttribute('aria-expanded', String(!open));
+  document.getElementById(btn.getAttribute('aria-controls')).hidden = open;
+});
+
+// agents
+const ag = document.getElementById('agent-grid');
+AGENTS.forEach(a=>{
+  const el = document.createElement('div');
+  el.className='agent';
+  el.innerHTML =
+   '<div class="agent-top"><div class="agent-name">'+a.n+'</div><div class="agent-role">'+a.r+'</div></div>'+
+   '<div class="agent-body">'+
+     '<p>'+a.job+'</p>'+
+     '<div class="row"><span class="k">In</span><span>'+a.inp+'</span></div>'+
+     '<div class="row"><span class="k">Out</span><span>'+a.out+'</span></div>'+
+     '<div class="row"><span class="k">Built on</span><span>'+a.tool+'</span></div>'+
+     '<div class="row"><span class="k">KPI</span><span>'+a.kpi+'</span></div>'+
+   '</div>'+
+   '<div class="agent-foot"><span class="pill gate">Human gate</span><span>'+a.gate+'</span></div>';
+  ag.appendChild(el);
+});
+
+// sprints
+const spWrap = document.getElementById('sprints');
+let buildTotal = 0;
+SPRINTS.forEach((s,si)=>{
+  buildTotal += s.items.length;
+  const el = document.createElement('div');
+  el.className='sprint';
+  el.innerHTML = '<header><div class="t">'+s.t+'</div><div class="d">'+s.d+'</div></header><div class="checks">'+
+    s.items.map((it,ii)=>'<label><input type="checkbox" data-bd="'+si+'-'+ii+'"><span>'+it+'</span></label>').join('')+'</div>';
+  spWrap.appendChild(el);
+});
+
+/* ---------------- state ---------------- */
+function load(key){ try{ return JSON.parse(localStorage.getItem(key)||'{}'); }catch(e){ return {}; } }
+function save(key,val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+
+function wire(attr, storeKey, total, valEl, barEl, verdictEl, verdicts){
+  const store = load(storeKey);
+  const boxes = Array.from(document.querySelectorAll('[data-'+attr+']'));
+  boxes.forEach(b=>{ if(store[b.dataset[attr]]) b.checked = true; });
+  function paint(){
+    const n = boxes.filter(b=>b.checked).length;
+    valEl.textContent = n;
+    barEl.style.width = (total? (n/total*100):0)+'%';
+    verdictEl.textContent = verdicts(n, total);
+  }
+  boxes.forEach(b=>b.addEventListener('change', ()=>{
+    const s = load(storeKey);
+    if(b.checked) s[b.dataset[attr]] = 1; else delete s[b.dataset[attr]];
+    save(storeKey, s); paint();
+  }));
+  paint();
+  return {boxes, storeKey, paint};
+}
+
+const sc = wire('sc','fcfg_audit_score', scoreTotal,
+  document.getElementById('scoreVal'), document.getElementById('scoreBar'), document.getElementById('scoreVerdict'),
+  (n,t)=>{
+    const p = t? n/t : 0;
+    if(n===0) return "Start checking boxes to see where the machine stands.";
+    if(p<0.25) return "Founder-dependent. The business is currently a set of habits, not a system — and it cannot survive volume. Start with Sprint 1.";
+    if(p<0.5)  return "Partially built. The pieces that exist are probably front-of-house; the production floor and the compliance spine are where the gaps bite.";
+    if(p<0.75) return "Systemized but leaky. You can take clients safely. Now close the retention and reporting gaps before you add traffic.";
+    if(p<0.95) return "Scalable. The machine runs. Layer the agent tier and hire the processor — you are the constraint now, not the system.";
+    return "Institutional. Document it, license it, and sell the build-out. This is what other operators pay for.";
+  });
+
+const bd = wire('bd','fcfg_audit_build', buildTotal,
+  document.getElementById('buildVal'), document.getElementById('buildBar'), document.getElementById('buildVerdict'),
+  (n,t)=>{
+    if(n===0) return "Sprint 1 first. Compliance and cash before automation.";
+    if(n<10) return "Sprint 1 in progress — legal foundation and the ability to collect money.";
+    if(n<20) return "Sprint 1 done. The floor is being standardized; resist the urge to automate early.";
+    if(n<30) return "Sprint 3 — agents going live on a process that already works manually.";
+    return "Build complete. Run the weekly brief and start the ascension engine.";
+  });
+
+document.getElementById('resetScore').addEventListener('click', ()=>{
+  sc.boxes.forEach(b=>b.checked=false); save('fcfg_audit_score',{}); sc.paint();
+});
+document.getElementById('resetBuild').addEventListener('click', ()=>{
+  bd.boxes.forEach(b=>b.checked=false); save('fcfg_audit_build',{}); bd.paint();
+});
+
+/* ---------------- calculator ---------------- */
+const money = n => '$'+Math.round(n).toLocaleString('en-US');
+const ids = ['price','active','tenure','cogs','fixed','attach','bev'];
+function calc(){
+  const price=+c_price.value, active=+c_active.value, tenure=+c_tenure.value,
+        cogs=+c_cogs.value, fixed=+c_fixed.value, attach=+c_attach.value/100, bev=+c_bev.value;
+
+  v_price.textContent = money(price);
+  v_active.textContent = active;
+  v_tenure.textContent = tenure;
+  v_cogs.textContent = money(cogs);
+  v_fixed.textContent = money(fixed);
+  v_attach.textContent = Math.round(attach*100)+'%';
+  v_bev.textContent = money(bev);
+
+  const mrr = active*price;
+  const graduatesPerMonth = active/tenure;
+  const backendRev = graduatesPerMonth*attach*bev;
+  const backendMargin = 0.8;
+  const monthlyRev = mrr + backendRev;
+  const monthlyNet = active*(price-cogs) - fixed + backendRev*backendMargin;
+  const ltv = (price-cogs)*tenure + attach*bev*backendMargin;
+  const cac = ltv/3;
+
+  r_mrr.textContent = money(mrr);
+  r_backend.textContent = money(backendRev);
+  r_annualrev.textContent = money(monthlyRev*12);
+  r_monthlynet.textContent = money(monthlyNet);
+  r_annualnet.textContent = money(monthlyNet*12);
+  r_newclients.textContent = Math.ceil(graduatesPerMonth);
+  r_ltv.textContent = money(ltv);
+  r_cac.textContent = money(cac);
+  r_cap.textContent = Math.ceil(active/75)+' processor'+(Math.ceil(active/75)===1?'':'s');
+
+  const target = 100000;
+  const pct = Math.max(0, Math.min(1, (monthlyNet*12)/target));
+  g_bar.style.width = (pct*100).toFixed(1)+'%';
+  g_bar.style.background = pct>=1 ? 'var(--ok)' : (pct>=0.5 ? 'var(--warn)' : 'var(--crit)');
+  if(monthlyNet*12 >= target){
+    const surplus = monthlyNet*12 - target;
+    g_text.textContent = 'Past the line by '+money(surplus)+' a year. The next constraint is capacity, not demand.';
+  } else {
+    const gap = target - monthlyNet*12;
+    const needed = (price-cogs)>0 ? Math.ceil((gap/12)/(price-cogs)) : 0;
+    g_text.textContent = money(gap)+' short. Roughly '+needed+' more active clients at these terms — or raise tenure and attach rate instead of chasing volume.';
+  }
+  r_hint.textContent = monthlyNet>=0
+    ? 'Recurring plus back-end, after cost to serve and overhead.'
+    : 'Negative. Overhead exceeds contribution — fix price or cost to serve before adding clients.';
+}
+ids.forEach(k=>document.getElementById('c_'+k).addEventListener('input', calc));
+calc();
+
+/* ---------------- nav ---------------- */
+const links = Array.from(document.querySelectorAll('#nav a'));
+const sel = document.getElementById('msel');
+links.forEach(a=>{
+  const o = document.createElement('option');
+  o.value = a.getAttribute('href'); o.textContent = a.textContent.replace(/^\d+/,'').trim();
+  sel.appendChild(o);
+});
+sel.addEventListener('change', ()=>{ const t=document.querySelector(sel.value); if(t) t.scrollIntoView({behavior:'smooth'}); });
+
+const secs = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      links.forEach(l=>l.classList.toggle('on', l.getAttribute('href')==='#'+en.target.id));
+    }
+  });
+},{rootMargin:'-15% 0px -70% 0px'});
+secs.forEach(s=>io.observe(s));
+})();
+</script>
+
+</body></html>

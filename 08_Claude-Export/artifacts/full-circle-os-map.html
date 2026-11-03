@@ -1,0 +1,346 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle OS Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one long map — orbit of systems, journey, platform layers, launch flow, money, guardrails, roadmap. */
+:root{
+  --bg:#F5EFE0; --surface:#FFFDF7; --surface-2:#EFE6D0; --ink:#0A1F44; --muted:#3E4C66; --line:#E2D8BE;
+  --gold:#C9A646; --gold-ink:#7A5F17; --band:#0A1F44; --band-2:#12295A; --on-band:#F5EFE0; --on-band-muted:#C9C2B0;
+  --p-structure:#B08A2E; --p-leverage:#2F5E9E; --p-protection:#2E7D6B; --p-scale:#7A4E8C;
+  --ok:#1F6B3A; --ok-bg:#DDEBDD; --mid:#6E4209; --mid-bg:#F6E3C8; --plan:#3E4C66; --plan-bg:#E7E2D4;
+  --display:"Cormorant Garamond", Georgia, serif; --mark:Cinzel, Georgia, serif; --body:Manrope, "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#081733; --surface:#0E2249; --surface-2:#13295A; --ink:#F3EDDD; --muted:#BCB6A6; --line:#24396B;
+  --gold-ink:#DDBE62; --band:#040D20; --band-2:#0E2249; --on-band:#F5EFE0; --on-band-muted:#C4BDAB;
+  --p-structure:#D9B451; --p-leverage:#79A5E6; --p-protection:#6CC2AC; --p-scale:#C397D6;
+  --ok:#8FD3A4; --ok-bg:#16402A; --mid:#F2C27E; --mid-bg:#4A3313; --plan:#C4BDAB; --plan-bg:#1B2F5C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#081733; --surface:#0E2249; --surface-2:#13295A; --ink:#F3EDDD; --muted:#BCB6A6; --line:#24396B;
+  --gold-ink:#DDBE62; --band:#040D20; --band-2:#0E2249; --on-band:#F5EFE0; --on-band-muted:#C4BDAB;
+  --p-structure:#D9B451; --p-leverage:#79A5E6; --p-protection:#6CC2AC; --p-scale:#C397D6;
+  --ok:#8FD3A4; --ok-bg:#16402A; --mid:#F2C27E; --mid-bg:#4A3313; --plan:#C4BDAB; --plan-bg:#1B2F5C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.1;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+.eyebrow{font-family:var(--mark);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.band .eyebrow{color:var(--gold)}
+section{padding-block:clamp(56px,7vw,88px)}
+.head{display:flex;flex-direction:column;gap:10px;max-width:720px;margin-bottom:36px}
+.head h2{font-size:clamp(32px,4vw,46px)}
+.head p{color:var(--muted);font-size:17px}
+.band{background:var(--band);color:var(--on-band)}
+.band .head p{color:var(--on-band-muted)}
+
+/* hero */
+.hero .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between;padding-block:clamp(48px,6vw,80px)}
+.hero h1{font-size:clamp(44px,6vw,76px);line-height:1}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{color:var(--on-band-muted);font-size:18px;max-width:52ch;margin-top:14px}
+.jump{display:flex;flex-wrap:wrap;gap:8px;max-width:440px}
+.jump a{color:var(--on-band);text-decoration:none;border:1px solid rgba(201,166,70,.5);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;min-height:40px;display:inline-flex;align-items:center}
+.jump a:hover{background:rgba(201,166,70,.15)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* orbit */
+.orbit-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center}
+@media (max-width:900px){.orbit-grid{grid-template-columns:minmax(0,1fr)}}
+.orbit svg{width:100%;height:auto;max-width:640px;display:block;margin-inline:auto}
+.legend{display:flex;flex-direction:column;gap:14px}
+.legend div{display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;align-items:start}
+.legend i{width:14px;height:14px;border-radius:4px;margin-top:5px}
+.legend b{font-family:var(--mark);letter-spacing:.1em;font-size:14px}
+.legend span{display:block;color:var(--muted);font-size:15px}
+
+/* journey */
+.journey{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.journey{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.journey{grid-template-columns:minmax(0,1fr)}}
+.journey li{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px;position:relative}
+.journey .n{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--gold-ink);color:var(--gold-ink);font-family:var(--mark);font-weight:700;display:flex;align-items:center;justify-content:center}
+.journey b{font-size:17px}
+.journey span{color:var(--muted);font-size:14px}
+.journey .sys{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-ink)}
+.loopback{margin-top:16px;display:flex;align-items:center;gap:14px;padding:16px 20px;border:1.5px dashed var(--gold-ink);border-radius:16px;color:var(--ink);font-weight:600}
+.loopback svg{flex:none;color:var(--gold-ink)}
+
+/* layers */
+.layers{display:flex;flex-direction:column;gap:0}
+.layer{border-radius:18px;padding:20px 22px}
+.layer h3{font-family:var(--body);font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border-radius:12px;padding:10px 14px;font-weight:600;font-size:15px}
+.chip small{display:block;font-weight:500;font-size:12.5px;opacity:.8}
+.l-people{background:var(--band-2);border:1px solid rgba(245,239,224,.15)}
+.l-people .chip{background:rgba(245,239,224,.06);border:1px solid rgba(245,239,224,.25)}
+.l-app{background:rgba(201,166,70,.14);border:2px solid var(--gold)}
+.l-app .chip{background:var(--band);border:1px solid rgba(201,166,70,.5)}
+.l-under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:700px){.l-under{grid-template-columns:minmax(0,1fr)}}
+.l-engine{background:var(--band-2);border:1px solid rgba(245,239,224,.15)}
+.l-engine .chip{background:rgba(245,239,224,.06);border:1px solid rgba(245,239,224,.25)}
+.connector{display:flex;justify-content:center;gap:120px;padding:6px 0}
+.connector span{display:flex;flex-direction:column;align-items:center;color:var(--on-band-muted);font-size:12.5px}
+.connector span::before{content:"";width:2px;height:22px;background:var(--gold);margin-bottom:4px}
+
+/* launch */
+.launch-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:28px;align-items:start}
+@media (max-width:900px){.launch-grid{grid-template-columns:minmax(0,1fr)}}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.steps .n{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.steps b{display:block}
+.steps span{color:var(--muted);font-size:14.5px}
+.stack{background:var(--band);color:var(--on-band);border-radius:20px;padding:22px;display:flex;flex-direction:column}
+.stack .box{border:1px solid rgba(245,239,224,.3);border-radius:12px;padding:12px 14px}
+.stack .box.hold{border:1.5px solid var(--gold);background:rgba(201,166,70,.14)}
+.stack .box b{display:block}
+.stack .box small{color:var(--on-band-muted);font-size:13px}
+.stack .ln{width:2px;height:18px;background:var(--gold);margin-left:24px}
+.stack p.note{margin-top:16px;font-size:13px;color:var(--on-band-muted)}
+.stack .t{font-family:var(--mark);font-size:12px;letter-spacing:.14em;color:var(--gold);font-weight:600;margin-bottom:12px}
+
+/* money */
+.money{width:100%;border-collapse:collapse;font-size:15.5px;min-width:620px}
+.money th,.money td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.money thead th{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.money td:first-child{font-weight:700;white-space:nowrap}
+.money .pill{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px}
+
+/* guardrails */
+.rails{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.rails{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.rails{grid-template-columns:minmax(0,1fr)}}
+.rail{border:1px solid rgba(201,166,70,.4);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.rail b{font-size:16.5px}
+.rail span{color:var(--on-band-muted);font-size:14.5px}
+.rail .where{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+
+/* roadmap */
+.road{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;position:relative}
+@media (max-width:1000px){.road{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:600px){.road{grid-template-columns:minmax(0,1fr)}}
+.road > li{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.road .ph{font-family:var(--mark);font-size:12px;letter-spacing:.14em;color:var(--gold-ink);font-weight:700}
+.road b{font-size:17px;line-height:1.25}
+.road ul{margin:0;padding-left:16px;font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.road .gate{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);font-size:13px}
+.road .gate strong{color:var(--gold-ink)}
+.st{align-self:flex-start;font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px}
+.st.ok{background:var(--ok-bg);color:var(--ok)}
+.st.mid{background:var(--mid-bg);color:var(--mid)}
+.st.plan{background:var(--plan-bg);color:var(--plan)}
+.road > li.now{border:2px solid var(--gold)}
+
+footer{background:var(--band);color:var(--on-band-muted);font-size:13px}
+footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
+footer b{font-family:var(--mark);letter-spacing:.1em;color:var(--on-band);font-weight:600}
+</style>
+
+<header class="hero band">
+  <div class="wrap">
+    <div style="min-width:0;flex:1 1 480px">
+      <div class="eyebrow">Full Circle Financial Group</div>
+      <h1 style="margin-top:12px">Full Circle OS, <em>the whole picture.</em></h1>
+      <p>Seven systems on four pillars, one client journey, one platform, and the plan to build it. Everything on one page.</p>
+    </div>
+    <nav class="jump" aria-label="Sections">
+      <a href="#systems">Systems</a><a href="#journey">Journey</a><a href="#platform">Platform</a><a href="#launch">Launch flow</a><a href="#money">Money</a><a href="#guardrails">Guardrails</a><a href="#roadmap">Roadmap</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="systems">
+  <div class="wrap orbit-grid">
+    <figure class="orbit" style="margin:0">
+      <svg viewBox="0 0 640 640" role="img" aria-label="Seven systems orbit one operating system, colored by the four pillars">
+        <circle cx="320" cy="320" r="230" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".7"/>
+        <circle cx="320" cy="320" r="150" fill="none" stroke="var(--gold)" stroke-width="1" opacity=".3"/>
+        <circle cx="320" cy="320" r="92" fill="var(--band)" stroke="var(--gold)" stroke-width="1.5"/>
+        <text x="320" y="312" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-weight="700" font-size="19" fill="#F5EFE0" letter-spacing="2">FULL CIRCLE</text>
+        <text x="320" y="340" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-weight="700" font-size="22" fill="#C9A646" letter-spacing="3">OS</text>
+        <g font-family="Manrope, system-ui, sans-serif">
+          <g><rect x="246" y="60" width="148" height="60" rx="14" fill="var(--surface)" stroke="var(--p-structure)" stroke-width="2.5"/><text x="320" y="86" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">Launch</text><text x="320" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="var(--p-structure)" letter-spacing="1">STRUCTURE</text></g>
+          <g><rect x="426" y="147" width="148" height="60" rx="14" fill="var(--surface)" stroke="var(--p-leverage)" stroke-width="2.5"/><text x="500" y="173" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">Personal Credit</text><text x="500" y="193" text-anchor="middle" font-size="12" font-weight="700" fill="var(--p-leverage)" letter-spacing="1">LEVERAGE</text></g>
+          <g><rect x="470" y="341" width="148" height="60" rx="14" fill="var(--surface)" stroke="var(--p-leverage)" stroke-width="2.5"/><text x="544" y="367" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">Business Credit</text><text x="544" y="387" text-anchor="middle" font-size="12" font-weight="700" fill="var(--p-leverage)" letter-spacing="1">LEVERAGE</text></g>
+          <g><rect x="346" y="497" width="148" height="60" rx="14" fill="var(--surface)" stroke="var(--p-leverage)" stroke-width="2.5"/><text x="420" y="523" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">Funding</text><text x="420" y="543" text-anchor="middle" font-size="12" font-weight="700" fill="var(--p-leverage)" letter-spacing="1">LEVERAGE</text></g>
+          <g><rect x="146" y="497" width="148" height="60" rx="14" fill="var(--surface)" stroke="var(--p-protection)" stroke-width="2.5"/><text x="220" y="523" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">Protection</text><text x="220" y="543" text-anchor="middle" font-size="12" font-weight="700" fill="var(--p-protection)" letter-spacing="1">PROTECTION</text></g>
+          <g><rect x="22" y="341" width="148" height="60" rx="14" fill="var(--surface)" stroke="var(--p-structure)" stroke-width="2.5"/><text x="96" y="367" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">Wealth &amp; Legacy</text><text x="96" y="387" text-anchor="middle" font-size="12" font-weight="700" fill="var(--p-structure)" letter-spacing="1">STRUCTURE</text></g>
+          <g><rect x="66" y="147" width="148" height="60" rx="14" fill="var(--surface)" stroke="var(--p-scale)" stroke-width="2.5"/><text x="140" y="173" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">Growth</text><text x="140" y="193" text-anchor="middle" font-size="12" font-weight="700" fill="var(--p-scale)" letter-spacing="1">SCALE</text></g>
+        </g>
+      </svg>
+    </figure>
+    <div>
+      <div class="head" style="margin-bottom:24px">
+        <div class="eyebrow">The systems</div>
+        <h2>Seven systems, four pillars, one OS.</h2>
+        <p>Every service runs as its own system inside the platform, with its own stages, tasks, documents and deadlines. A client starts with one and adds the rest.</p>
+      </div>
+      <div class="legend">
+        <div><i style="background:var(--p-structure)"></i><p><b>STRUCTURE</b><span>Launch (LLC, Wyoming holding company, address, phone, domain, email) · Wealth &amp; Legacy (trusts, estate, tax strategy)</span></p></div>
+        <div><i style="background:var(--p-leverage)"></i><p><b>LEVERAGE</b><span>Personal Credit · Business Credit · Funding</span></p></div>
+        <div><i style="background:var(--p-protection)"></i><p><b>PROTECTION</b><span>Life insurance, living benefits, key person and buy-sell coverage</span></p></div>
+        <div><i style="background:var(--p-scale)"></i><p><b>SCALE</b><span>Growth: CRM, one inbox, automations and AI assistants</span></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The client journey</div>
+      <h2>Start anywhere. Each step sets up the next.</h2>
+      <p>Most clients enter through credit or a new company. The OS shows the next step until the circle closes.</p>
+    </div>
+    <ol class="journey">
+      <li><div class="n">1</div><span class="sys">Strategy session</span><b>Map the plan</b><span>Where you are, where you're going, which systems and in what order.</span></li>
+      <li><div class="n">2</div><span class="sys">Launch</span><b>Structure</b><span>Form or fix the company, with a private Wyoming holding company where it fits.</span></li>
+      <li><div class="n">3</div><span class="sys">Personal + Business Credit</span><b>Credit</b><span>Clean up personal credit, then build credit in the company's name.</span></li>
+      <li><div class="n">4</div><span class="sys">Funding</span><b>Capital</b><span>Apply when the profile is ready, matched to the right lenders.</span></li>
+      <li><div class="n">5</div><span class="sys">Protection</span><b>Protect</b><span>Income, partners and family covered.</span></li>
+      <li><div class="n">6</div><span class="sys">Wealth &amp; Legacy</span><b>Legacy</b><span>Trusts, estate planning and tax strategy put profits to work.</span></li>
+    </ol>
+    <div class="loopback"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg>Profits go back into the business and the next venture. The circle starts again on stronger footing.</div>
+  </div>
+</section>
+
+<section id="platform" class="band">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The platform</div>
+      <h2>One app in front. GHL and vendors behind it.</h2>
+      <p>Clients, partners and your team all work in the Full Circle OS app. GoHighLevel runs communication and payments. Outside services handle filings, addresses, domains, credit data, lenders and carriers.</p>
+    </div>
+    <div class="layers">
+      <div class="layer l-people"><h3 style="color:var(--gold)">Who uses it</h3>
+        <div class="chips"><div class="chip">Clients<small>Business owners</small></div><div class="chip">Partners<small>Run their own clients</small></div><div class="chip">Full Circle team<small>Strategists, processors, licensed agents</small></div></div>
+      </div>
+      <div class="connector" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="layer l-app"><h3 style="color:var(--gold)">Full Circle OS app (custom build)</h3>
+        <div class="chips"><div class="chip">Launch wizard</div><div class="chip">Systems engine</div><div class="chip">Document vault</div><div class="chip">Billing and plans</div><div class="chip">Partner portal</div><div class="chip">AI guides<small>Claude API</small></div><div class="chip">Encrypted SSN storage</div></div>
+      </div>
+      <div class="connector" aria-hidden="true"><span>two-way sync</span><span>orders and status</span></div>
+      <div class="l-under">
+        <div class="layer l-engine"><h3 style="color:var(--gold)">GoHighLevel engine</h3>
+          <div class="chips"><div class="chip">CRM and pipelines</div><div class="chip">Calls, texts, email</div><div class="chip">Booking</div><div class="chip">Payments and rebilling</div></div>
+        </div>
+        <div class="layer l-engine"><h3 style="color:var(--gold)">Outside services</h3>
+          <div class="chips"><div class="chip">Formation API</div><div class="chip">Wyoming Agents</div><div class="chip">Virtual address</div><div class="chip">GoDaddy domain + email</div><div class="chip">Credit data + disputes</div><div class="chip">Lenders + carriers</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="launch">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The front door</div>
+      <h2>The Launch flow: everything needed to file, in 7 steps.</h2>
+      <p>Built and tested in the app; the same questions are in the GHL Launch form so you can sell it now.</p>
+    </div>
+    <div class="launch-grid">
+      <ol class="steps">
+        <li><div class="n">1</div><div><b>Structure</b><span>Two questions, then a live recommendation: add a Wyoming holding company or start with one LLC.</span></div></li>
+        <li><div class="n">2</div><div><b>Names</b><span>State, ending, company name, two backups, holding company name, industry, what the business does.</span></div></li>
+        <li><div class="n">3</div><div><b>Owners</b><span>Names and percentages (must total 100%), who manages it, and what will show on the public record.</span></div></li>
+        <li><div class="n">4</div><div><b>Addresses and agent</b><span>Business address, registered agents in both states, contact for documents.</span></div></li>
+        <li><div class="n">5</div><div><b>Taxes and EIN</b><span>Tax election, start date, employees. SSN collected later on an encrypted form.</span></div></li>
+        <li><div class="n">6</div><div><b>Phone and domain</b><span>Local or toll-free line, domain, professional inbox.</span></div></li>
+        <li><div class="n">7</div><div><b>Review and launch</b><span>Ready-to-file checklist and the full list of what gets filed for both companies.</span></div></li>
+      </ol>
+      <div class="stack" role="img" aria-label="Privacy structure: you own a Wyoming holding company, which owns your operating company">
+        <div class="t">THE PRIVACY STRUCTURE</div>
+        <div class="box"><b>You</b><small>Owner · kept off public filings</small></div>
+        <div class="ln"></div>
+        <div class="box hold"><b>Holdings LLC · Wyoming</b><small>Owners not listed; agent is organizer and address of record</small></div>
+        <div class="ln"></div>
+        <div class="box"><b>Operating LLC · Arizona</b><small>Runs the business; lists the holding company as its owner</small></div>
+        <p class="note">Arizona lists owners publicly. Privacy covers public records only. Banks, the IRS and courts can still see ownership.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="money" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The money model</div>
+      <h2>How each system earns.</h2>
+      <p>Prices are still placeholders. The rule in each row is fixed and enforced by the platform.</p>
+    </div>
+    <div class="tablebox">
+      <table class="money">
+        <thead><tr><th scope="col">System</th><th scope="col">How it's billed</th><th scope="col">Rule</th></tr></thead>
+        <tbody>
+          <tr><td><span class="dot" style="background:var(--p-structure)"></span>Launch</td><td>One-time package + state fees; holding company add-on; renewals (agent, address, domain)</td><td><span class="pill" style="background:var(--surface-2)">Recurring renewals</span></td></tr>
+          <tr><td><span class="dot" style="background:var(--p-leverage)"></span>Personal Credit</td><td>Monthly, after each round is sent</td><td><span class="pill" style="background:var(--mid-bg);color:var(--mid)">Never upfront · high-risk processor</span></td></tr>
+          <tr><td><span class="dot" style="background:var(--p-leverage)"></span>Business Credit</td><td>Program fee or included in membership</td><td><span class="pill" style="background:var(--surface-2)">No promised scores</span></td></tr>
+          <tr><td><span class="dot" style="background:var(--p-leverage)"></span>Funding</td><td>Success fee 5–10% of the amount funded</td><td><span class="pill" style="background:var(--mid-bg);color:var(--mid)">Only after funding · max $10,000</span></td></tr>
+          <tr><td><span class="dot" style="background:var(--p-protection)"></span>Protection</td><td>Carrier commissions</td><td><span class="pill" style="background:var(--mid-bg);color:var(--mid)">Licensed agents only</span></td></tr>
+          <tr><td><span class="dot" style="background:var(--p-structure)"></span>Wealth &amp; Legacy</td><td>Flat coordination fee; attorneys and CPAs bill the client directly</td><td><span class="pill" style="background:var(--surface-2)">No attorney fee-sharing</span></td></tr>
+          <tr><td><span class="dot" style="background:var(--p-scale)"></span>Growth</td><td>Monthly software plan + usage rebilling (texts, calls, email, AI)</td><td><span class="pill" style="background:var(--surface-2)">Text registration required</span></td></tr>
+          <tr><td>Membership</td><td>Monthly Full Circle OS membership with strategist</td><td><span class="pill" style="background:var(--surface-2)">Recurring</span></td></tr>
+          <tr><td>Partners</td><td>Monthly platform fee + revenue share on systems their clients add</td><td><span class="pill" style="background:var(--mid-bg);color:var(--mid)">No insurance share unless licensed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="guardrails" class="band">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Built-in guardrails</div>
+      <h2>Compliance isn't a policy binder. It's in the code.</h2>
+      <p>Each rule below is enforced by the GHL workflows, the app, or the database itself.</p>
+    </div>
+    <div class="rails">
+      <div class="rail"><span class="where">Workflow + app</span><b>3-day cancellation window</b><span>No credit work or billing until the window passes without a cancellation.</span></div>
+      <div class="rail"><span class="where">Database</span><b>Pay after service</b><span>A credit repair invoice is refused until its round is sent, and only on the high-risk processor.</span></div>
+      <div class="rail"><span class="where">Database</span><b>Funding fee cap</b><span>Refused before funding, and above $10,000.</span></div>
+      <div class="rail"><span class="where">App</span><b>Encrypted SSNs</b><span>Never in GHL. Encrypted before storage, visible only to admins and processors, every access logged.</span></div>
+      <div class="rail"><span class="where">AI guide</span><b>No promises, no advice</b><span>Blocked from guarantees, CPNs, legal or tax advice, and claiming it filed anything. Upset clients go to a strategist.</span></div>
+      <div class="rail"><span class="where">App + agreements</span><b>Licensed-only insurance</b><span>Protection work goes only to licensed agents; no insurance revenue to unlicensed partners.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The roadmap</div>
+      <h2>Six phases, each with a gate.</h2>
+      <p>Revenue starts in Phase 1, on GHL, before the custom app is finished.</p>
+    </div>
+    <ol class="road">
+      <li><span class="ph">PHASE 0</span><span class="st mid">Your decisions</span><b>Foundation</b><ul><li>OS LLC</li><li>Prices</li><li>Vendors + processor</li><li>Attorney review</li></ul><div class="gate"><strong>Gate:</strong> counsel sign-off, processor approved</div></li>
+      <li class="now"><span class="ph">PHASE 1</span><span class="st ok">Kit written</span><b>Sell on GHL</b><ul><li>8 pipelines, 55 fields</li><li>5 forms, 20+ workflows</li><li>Templates + contracts</li></ul><div class="gate"><strong>Gate:</strong> 10 paying clients per live system</div></li>
+      <li class="now"><span class="ph">PHASE 2</span><span class="st ok">Code built + tested</span><b>Client app MVP</b><ul><li>Launch wizard</li><li>Dashboard + vault</li><li>GHL sync</li></ul><div class="gate"><strong>Gate:</strong> Launch + Business Credit run end to end</div></li>
+      <li><span class="ph">PHASE 3</span><span class="st plan">Started</span><b>AI guides + automation</b><ul><li>Claude guides live</li><li>Formation API</li><li>Credit data feeds</li></ul><div class="gate"><strong>Gate:</strong> processor hours per client drop</div></li>
+      <li><span class="ph">PHASE 4</span><span class="st plan">Planned</span><b>Partner platform</b><ul><li>Branded workspaces</li><li>Partner billing</li><li>Revenue share</li></ul><div class="gate"><strong>Gate:</strong> first partners with paying clients</div></li>
+      <li><span class="ph">PHASE 5</span><span class="st plan">Planned</span><b>Scale + harden</b><ul><li>Security audit</li><li>Mobile app</li><li>More states + carriers</li></ul><div class="gate"><strong>Gate:</strong> investor-ready reporting</div></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>FULL CIRCLE OS · FULL CIRCLE FINANCIAL GROUP</b>
+    <span>Planning overview. Not legal or tax advice; compliance points require attorney review.</span>
+  </div>
+</footer>
+
+</body></html>

@@ -1,0 +1,355 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FCFG Company Brain</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a navy "operating room" — 3D brain stage with a function readout beside it, then the revenue calculator as a working ledger */
+:root{
+  --bg:#06132B; --panel:#0C2148; --panel-2:#10295A; --line:rgba(245,239,224,.14);
+  --gold:#C9A646; --gold-soft:rgba(201,166,70,.16); --cream:#F5EFE0; --muted:#A7B1C6; --good:#74C69A; --warn:#E3B04B;
+  --display:"Cinzel", Georgia, serif; --body:"Cormorant Garamond", Georgia, "Times New Roman", serif; --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--cream);font-family:var(--body);font-size:19px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0;letter-spacing:.02em}
+h1{font-size:clamp(30px,4.6vw,48px);line-height:1.1}
+h2{font-size:clamp(22px,3vw,30px)}
+h3{font-size:19px;color:var(--gold)}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.lede{max-width:62ch;color:var(--muted);font-size:20px}
+header{display:flex;flex-direction:column;gap:12px}
+.ring{display:inline-block;width:18px;height:18px;border:1.5px solid var(--gold);border-radius:50%;position:relative;vertical-align:-2px;margin-right:8px}
+.ring::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--gold)}
+
+/* Brain stage */
+.stage{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+.canvas-box{position:relative;aspect-ratio:1.15/1;max-width:100%;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 45%, #13306A 0%, var(--bg) 70%)}
+canvas#brain{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+canvas#brain:active{cursor:grabbing}
+.labels{position:absolute;inset:0;pointer-events:none}
+.lbl{position:absolute;transform:translate(-50%,-150%);font-family:var(--mono);font-size:11px;letter-spacing:.06em;white-space:nowrap;
+  color:var(--cream);background:rgba(6,19,43,.72);border:1px solid var(--line);padding:2px 7px;border-radius:999px;transition:opacity .2s}
+.lbl.on{border-color:var(--gold);color:var(--gold)}
+.hint{position:absolute;left:12px;bottom:10px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.fallback{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
+
+.readout{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.readout .lobe{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.readout h2{color:var(--cream)}
+.readout ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:17px;border-top:1px solid var(--line);padding-top:12px}
+.kv dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding-top:4px}
+.kv dd{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:12px;background:transparent;color:var(--cream);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.chip:hover{border-color:var(--gold)}
+.chip[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--gold);color:var(--gold)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* Calculator */
+.calc{display:flex;flex-direction:column;gap:20px}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:10px;padding:14px 18px;max-width:80ch}
+.presets{display:flex;flex-wrap:wrap;gap:10px}
+.preset{font-family:var(--display);font-size:15px;letter-spacing:.04em;padding:10px 16px;border-radius:10px;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer}
+.preset[aria-pressed="true"]{background:var(--gold);color:var(--bg)}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:820px;font-size:17px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:500;padding:12px 14px;background:var(--panel)}
+td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:14px}
+.svc{font-weight:700}
+.why{color:var(--muted);font-size:15.5px;line-height:1.35;max-width:36ch}
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:2px}
+input[type=number]{width:96px;background:var(--panel-2);color:var(--cream);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-family:var(--mono);font-size:14px;text-align:right}
+.totals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tile .v{font-family:var(--display);font-size:clamp(22px,2.6vw,30px);font-variant-numeric:tabular-nums}
+.tile .s{font-size:15px;color:var(--muted)}
+.goals{display:flex;flex-direction:column;gap:14px}
+.goal{display:grid;grid-template-columns:150px minmax(0,1fr) 110px;gap:14px;align-items:center}
+.goal .name{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.bar{height:12px;background:var(--panel-2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:999px;transition:width .3s}
+.bar i.done{background:var(--good)}
+.goal .pct{font-family:var(--mono);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+.notes{color:var(--muted);font-size:16px;max-width:80ch;display:flex;flex-direction:column;gap:6px}
+
+@media (max-width:860px){
+  .stage{grid-template-columns:1fr}
+  .totals{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .goal{grid-template-columns:1fr 70px}
+  .goal .name{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow"><span class="ring" aria-hidden="true"></span>Full Circle Financial Group</span>
+    <h1>The Company Brain</h1>
+    <p class="lede">Nine functions, mapped to the part of the brain that does the same job. Drag to turn it. Tap a node to see what that function runs, which tools it uses and how you use it every day.</p>
+  </header>
+
+  <section class="stage" aria-label="3D company brain">
+    <div class="canvas-box" id="canvasBox">
+      <canvas id="brain" aria-label="Rotating 3D brain with nine FCFG function nodes"></canvas>
+      <div class="labels" id="labels"></div>
+      <span class="hint">drag to rotate · tap a node</span>
+    </div>
+    <aside class="readout" id="readout" aria-live="polite"></aside>
+  </section>
+
+  <div class="chips" id="chips" role="group" aria-label="Brain functions"></div>
+
+  <section class="calc" aria-labelledby="calcH">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span class="eyebrow">Revenue plan</span>
+      <h2 id="calcH">Prices and client counts to hit the goal</h2>
+      <p class="lede">Recommended prices sit at or under what national competitors charge, so they stay affordable, while delivery costs stay under 35%. Change any price or client count and the totals update.</p>
+    </div>
+    <div class="callout">$50K a month is $600K a year. One million a year takes about <strong>$83,400 a month</strong>. Both plans are below.</div>
+    <div class="presets" role="group" aria-label="Plan presets">
+      <button class="preset" id="planA" aria-pressed="true">$50K / month plan</button>
+      <button class="preset" id="planB" aria-pressed="false">$1M / year plan</button>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Service</th><th>Why this price</th><th class="num">Price ($)</th><th class="num">Clients / mo</th><th class="num">Revenue / mo</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="totals" id="totals"></div>
+    <div class="goals" id="goals"></div>
+    <div class="notes">
+      <p>Assumptions: funding fee is 7% of an average $75K approval. Insurance is an estimated first-year commission per policy; your carrier contracts set the real number. Delivery cost covers software, monitoring, filing fees and labor, before ad spend.</p>
+      <p>Consults needed assumes a 30% close rate on booked strategy calls. Full Circle OS members are counted as active subscribers, not new clients.</p>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+/* ---------- Function data ---------- */
+const NODES = [
+ {id:'frontal', name:'Command & Strategy', lobe:'Frontal lobe · decisions', pos:[0.95,0.30,0.15],
+  does:'Decides what happens today and where the company goes next.',
+  runs:['Command Center across 5 division pipelines','Morning brief: top 3 revenue moves','Investor pitch and $250K raise','Weekly priorities'],
+  tools:'Command Center, Google Calendar, Claude', daily:'10-minute morning brief before anything else.', money:'Points every hour at the highest-revenue move.'},
+ {id:'temporal', name:'Memory', lobe:'Temporal lobe · memory', pos:[0.25,-0.30,0.72],
+  does:'Holds every fact the company runs on, so nobody improvises.',
+  runs:['Offers and pricing library','People and partners','SOPs and templates','Client history'],
+  tools:'Company Brain doc, GHL contact records, Google Drive', daily:'Check it before quoting a price or answering a team question.', money:'Consistent quotes, no discounting from memory.'},
+ {id:'occipital', name:'Vision & Content', lobe:'Occipital lobe · sight', pos:[-1.05,0.15,-0.10],
+  does:'Controls what the market sees from Full Circle.',
+  runs:['Daily Content Engine: reel, Stories, caption, short','Instagram growth system','Masked Money channel','Brand: navy, gold, orbital ring'],
+  tools:'Instagram, TikTok, YouTube, Claude skills', daily:'10-minute content block for tomorrow.', money:'Feeds the credit and funding hook.'},
+ {id:'parietal', name:'Structure', lobe:'Parietal lobe · spatial sense', pos:[-0.35,0.78,0.30],
+  does:'Builds the frame every client business stands on.',
+  runs:['LLC bundle: address, phone, domain, email','Wyoming holding company for privacy','Trusts and estate planning'],
+  tools:'GHL forms, Wyoming Agents, GoDaddy', daily:'Offer structure at the end of every credit consult.', money:'High-ticket anchor: $497 bundle + $997 holding.'},
+ {id:'leverage', name:'Leverage', lobe:'Motor cortex · movement', pos:[0.30,0.72,-0.35],
+  does:'Moves clients forward with credit and capital.',
+  runs:['Personal credit restoration ($950 to $1,500)','Clean Slate Program','Business credit build','Funding placement, 5 to 10% capped at $10K'],
+  tools:'SmartCredit, Typeform intake, GHL pipeline', daily:'Move every file one stage forward in GHL.', money:'Largest share of monthly revenue.'},
+ {id:'limbic', name:'Protection', lobe:'Limbic system · protect instinct', pos:[0.05,-0.10,-0.28],
+  does:'Protects what clients build and creates recurring revenue.',
+  runs:['Life insurance and IUL','North American, F&G, National Life Group','FCFA agents and comp tiers'],
+  tools:'Carrier portals, FCFA onboarding system', daily:'Ask one protection question in every client review.', money:'Recurring back-end revenue and renewals.'},
+ {id:'callosum', name:'Scale & AI Agents', lobe:'Corpus callosum · connects both halves', pos:[0.0,0.30,0.0],
+  does:'Connects every function so the work runs without you.',
+  runs:['Full Circle OS platform','GHL automations','AI agents: content, compliance, scorecard, roadmap','Next: dispute production, follow-up, booking'],
+  tools:'GoHighLevel, Claude, Next.js + Supabase app', daily:'Hand one repeated task to an agent each week.', money:'Membership revenue and lower cost per client.'},
+ {id:'cerebellum', name:'Operations Rhythm', lobe:'Cerebellum · coordination and habit', pos:[-0.85,-0.55,0.20],
+  does:'Turns the plan into repeatable habits.',
+  runs:['Morning, midday, evening rhythm','Intake and onboarding','Dispute production cycle','Friday Weekly Scorecard'],
+  tools:'Typeform, SmartCredit, GHL, Claude scorecard', daily:'10-minute end-of-day log: update the Brain and GHL.', money:'Faster delivery means more clients per month.'},
+ {id:'brainstem', name:'Compliance Gate', lobe:'Brainstem · vital functions', pos:[-0.40,-1.00,0.0],
+  does:'Keeps the company alive. Nothing public skips it.',
+  runs:['Document preparation positioning','CROA and RESPA rules','No guaranteed deletions, scores or approvals','Arizona insurance licensing'],
+  tools:'FCFG Compliance Gate skill', daily:'Every post, ad, script, email and SMS passes before it ships.', money:'Protects every dollar above it.'}
+];
+const EDGES = [['frontal','callosum'],['frontal','temporal'],['callosum','temporal'],['callosum','parietal'],['callosum','leverage'],['callosum','limbic'],['callosum','occipital'],['callosum','cerebellum'],['leverage','parietal'],['parietal','limbic'],['leverage','limbic'],['temporal','leverage'],['cerebellum','brainstem'],['brainstem','occipital'],['occipital','cerebellum'],['brainstem','leverage']];
+
+let selected = 'callosum';
+const readout = document.getElementById('readout');
+const chipsEl = document.getElementById('chips');
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function renderReadout(){
+  const n = NODES.find(x=>x.id===selected);
+  readout.innerHTML = `<span class="lobe">${esc(n.lobe)}</span><h2>${esc(n.name)}</h2><p>${esc(n.does)}</p>
+   <h3>What it runs</h3><ul>${n.runs.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+   <dl class="kv"><dt>Tools</dt><dd>${esc(n.tools)}</dd><dt>Daily use</dt><dd>${esc(n.daily)}</dd><dt>Revenue</dt><dd>${esc(n.money)}</dd></dl>`;
+  chipsEl.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed', c.dataset.id===selected));
+  document.querySelectorAll('.lbl').forEach(l=>l.classList.toggle('on', l.dataset.id===selected));
+  if (window.__brainSelect) window.__brainSelect(selected);
+}
+NODES.forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent=n.name;b.dataset.id=n.id;b.onclick=()=>{selected=n.id;renderReadout()};chipsEl.appendChild(b)});
+
+/* ---------- 3D brain ---------- */
+const box = document.getElementById('canvasBox'), canvas = document.getElementById('brain'), labelsEl = document.getElementById('labels');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function initBrain(){
+  if (!window.THREE) throw new Error('no three');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38,1,0.1,100); camera.position.set(0,0.25,5.0);
+  const group = new THREE.Group(); scene.add(group); group.rotation.set(0.15,-0.6,0);
+
+  // point cloud
+  const pos=[], col=[];
+  const cream=[0.96,0.93,0.88], gold=[0.79,0.65,0.27];
+  function push(x,y,z,g){pos.push(x,y,z);const t=Math.random()*g;const dim=0.55+Math.random()*0.45;col.push((cream[0]*(1-t)+gold[0]*t)*dim,(cream[1]*(1-t)+gold[1]*t)*dim,(cream[2]*(1-t)+gold[2]*t)*dim)}
+  for (const side of [-1,1]){
+    for(let i=0;i<5200;i++){
+      const th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1);
+      const dx=Math.sin(ph)*Math.cos(th), dy=Math.cos(ph), dz=Math.sin(ph)*Math.sin(th);
+      const fold=1+0.055*Math.sin(9*th+3*side)*Math.sin(7*ph)+0.03*Math.sin(17*ph+5*th);
+      const shell = i%6===0 ? 0.7+Math.random()*0.3 : 1;
+      let x=dx*1.18*fold*shell, y=dy*0.85*fold*shell, z=dz*0.66*fold*shell;
+      if (dz*side<0) z = z*0.25; // flat medial face
+      z += side*0.52;
+      if (y<-0.32) y = -0.32+(y+0.32)*0.45;
+      if (x>0.4) y += 0.06*(x-0.4);
+      push(x,y,z,0.35);
+    }
+  }
+  for(let i=0;i<2000;i++){ // cerebellum
+    const th=Math.random()*Math.PI*2, ph=Math.acos(2*Math.random()-1);
+    const dx=Math.sin(ph)*Math.cos(th), dy=Math.cos(ph), dz=Math.sin(ph)*Math.sin(th);
+    push(-0.85+dx*0.46, -0.58+dy*0.27+0.018*Math.sin(dy*34), dz*0.78, 0.8);
+  }
+  for(let i=0;i<600;i++){ // brainstem
+    const t=Math.random(), a=Math.random()*Math.PI*2, r=0.15*(1-t*0.3);
+    push(-0.45+t*0.12+Math.cos(a)*r, -0.45-t*0.8, Math.sin(a)*r, 0.6);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col,3));
+  const cloud = new THREE.Points(g, new THREE.PointsMaterial({size:0.022, vertexColors:true, transparent:true, opacity:0.8, depthWrite:false, blending:THREE.AdditiveBlending}));
+  group.add(cloud);
+
+  // glow texture
+  const tc=document.createElement('canvas'); tc.width=tc.height=64; const cx=tc.getContext('2d');
+  const grd=cx.createRadialGradient(32,32,0,32,32,32); grd.addColorStop(0,'rgba(255,240,200,1)'); grd.addColorStop(0.25,'rgba(201,166,70,.7)'); grd.addColorStop(1,'rgba(201,166,70,0)');
+  cx.fillStyle=grd; cx.fillRect(0,0,64,64); const glowTex=new THREE.CanvasTexture(tc);
+
+  // nodes
+  const nodeObjs={}, hit=[];
+  NODES.forEach(n=>{
+    const v=new THREE.Vector3(...n.pos);
+    const core=new THREE.Mesh(new THREE.SphereGeometry(0.05,16,16), new THREE.MeshBasicMaterial({color:0xC9A646}));
+    core.position.copy(v); group.add(core);
+    const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
+    halo.position.copy(v); halo.scale.setScalar(0.42); group.add(halo);
+    const h=new THREE.Mesh(new THREE.SphereGeometry(0.17,8,8), new THREE.MeshBasicMaterial({visible:false}));
+    h.position.copy(v); h.userData.id=n.id; group.add(h); hit.push(h);
+    const lbl=document.createElement('div'); lbl.className='lbl'; lbl.dataset.id=n.id; lbl.textContent=n.name; labelsEl.appendChild(lbl);
+    nodeObjs[n.id]={v,core,halo,lbl};
+  });
+
+  // edges + pulses
+  const edges=EDGES.map(([a,b],i)=>{
+    const A=nodeObjs[a].v, B=nodeObjs[b].v;
+    const mid=A.clone().add(B).multiplyScalar(0.5); mid.add(mid.clone().normalize().multiplyScalar(0.22)).y+=0.08;
+    const curve=new THREE.QuadraticBezierCurve3(A,mid,B);
+    const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(40)), new THREE.LineBasicMaterial({color:0xC9A646, transparent:true, opacity:0.22}));
+    group.add(line);
+    const p=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending}));
+    p.scale.setScalar(0.14); group.add(p);
+    return {a,b,curve,line,p,off:i*0.137};
+  });
+
+  window.__brainSelect = id => {
+    NODES.forEach(n=>{const o=nodeObjs[n.id]; const on=n.id===id; o.halo.scale.setScalar(on?0.8:0.42); o.core.material.color.set(on?0xF5EFE0:0xC9A646)});
+    edges.forEach(e=>{const on=e.a===id||e.b===id; e.line.material.opacity=on?0.75:0.18; e.p.material.opacity=on?1:0.55});
+  };
+
+  // interaction
+  let dragging=false, moved=0, lx=0, ly=0, vy=0, idleT=0;
+  canvas.addEventListener('pointerdown',e=>{dragging=true;moved=0;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId)});
+  canvas.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lx,dy=e.clientY-ly;moved+=Math.abs(dx)+Math.abs(dy);lx=e.clientX;ly=e.clientY;
+    group.rotation.y+=dx*0.008; group.rotation.x=Math.max(-0.9,Math.min(0.9,group.rotation.x+dy*0.006)); vy=dx*0.0006; idleT=0});
+  canvas.addEventListener('pointerup',e=>{dragging=false; if(moved<6){
+    const r=canvas.getBoundingClientRect(); const m=new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1, -((e.clientY-r.top)/r.height)*2+1);
+    const rc=new THREE.Raycaster(); rc.setFromCamera(m,camera); const hits=rc.intersectObjects(hit);
+    if(hits.length){selected=hits[0].object.userData.id; renderReadout()}
+  }});
+
+  function size(){const w=box.clientWidth,h=box.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+  new ResizeObserver(size).observe(box); size();
+
+  const tmp=new THREE.Vector3(); let last=performance.now(), time=0;
+  function frame(now){
+    const dt=Math.min(0.05,(now-last)/1000); last=now; time+=dt; idleT+=dt;
+    if(!dragging){ if(!reduce && idleT>1.5) group.rotation.y+=dt*0.18; else group.rotation.y+=vy; vy*=0.94 }
+    if(!reduce) edges.forEach(e=>{const t=(time*0.35+e.off)%1; e.p.position.copy(e.curve.getPoint(t))});
+    else edges.forEach(e=>e.p.position.copy(e.curve.getPoint(0.5)));
+    renderer.render(scene,camera);
+    const w=box.clientWidth,h=box.clientHeight;
+    NODES.forEach(n=>{const o=nodeObjs[n.id]; o.core.getWorldPosition(tmp); const depth=tmp.z; tmp.project(camera);
+      o.lbl.style.left=((tmp.x+1)/2*w)+'px'; o.lbl.style.top=((1-tmp.y)/2*h)+'px';
+      o.lbl.style.opacity = n.id===selected ? 1 : (depth< -0.25 ? 0.3 : 0.9); o.lbl.style.zIndex = depth>0?2:1;});
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+try{ initBrain() }catch(err){ const f=document.createElement('div'); f.className='fallback'; f.textContent='The 3D view needs WebGL, which this browser has turned off. Use the function buttons below to explore the brain.'; box.appendChild(f) }
+renderReadout();
+
+/* ---------- Calculator ---------- */
+const SVC = [
+ {id:'credit', name:'Credit restoration', price:1150, cost:.15, a:20, b:30, why:'Average of your $950 to $1,500 tiers. National firms charge $79 to $149 a month for 6+ months, so a flat fee with a payment plan reads as affordable.'},
+ {id:'biz', name:'Business credit build', price:1997, cost:.20, a:4, b:6, why:'Builders charge $1,500 to $5,000. $1,997 is easy to finance out of the first funding round.'},
+ {id:'llc', name:'LLC formation bundle', price:497, cost:.35, a:8, b:12, why:'Plus state fees. Address, phone, domain and email in one flow beats LegalZoom and Incfile once their add-ons stack up.'},
+ {id:'wy', name:'Wyoming holding company', price:997, cost:.40, a:0, b:3, why:'Privacy add-on sold with the LLC bundle. Covers registered agent cost with room for margin.'},
+ {id:'fund', name:'Funding placement', price:5250, cost:.10, a:2, b:3, why:'7% of an average $75K approval, under your $10K cap. Paid only on success.'},
+ {id:'ins', name:'Life insurance / IUL', price:2000, cost:.10, a:2, b:4, why:'Estimated first-year commission per policy. Clients pay premiums, not a fee to you.'},
+ {id:'os', name:'Full Circle OS membership', price:97, cost:.25, a:20, b:60, rec:true, why:'Monthly. Priced like the $97 Blueprint so any client can stay in the system after their service ends.'}
+];
+const fmt = v => '$'+Math.round(v).toLocaleString('en-US');
+const rows = document.getElementById('rows');
+SVC.forEach(s=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="svc">${s.name}${s.rec?'<span class="pill">monthly</span>':''}</td><td class="why">${s.why}</td>
+   <td class="num"><input type="number" min="0" step="1" id="price-${s.id}" aria-label="${s.name} price" value="${s.price}"></td>
+   <td class="num"><input type="number" min="0" step="1" id="qty-${s.id}" aria-label="${s.name} clients per month" value="${s.a}"></td>
+   <td class="num" id="rev-${s.id}"></td>`;
+  rows.appendChild(tr);
+});
+const totals=document.getElementById('totals'), goals=document.getElementById('goals');
+function calc(){
+  let rev=0, gp=0, newClients=0;
+  SVC.forEach(s=>{
+    const p=+document.getElementById('price-'+s.id).value||0, q=+document.getElementById('qty-'+s.id).value||0;
+    const r=p*q; rev+=r; gp+=r*(1-s.cost); if(!s.rec && s.id!=='wy') newClients+=q;
+    document.getElementById('rev-'+s.id).textContent=fmt(r);
+  });
+  // ascension: biz, llc, ins, fund partly come from existing credit clients — count unique as credit + 40% of the rest
+  const credit=+document.getElementById('qty-credit').value||0;
+  const unique=Math.round(credit+(newClients-credit)*0.4);
+  const consults=Math.ceil(unique/0.3);
+  totals.innerHTML=`<div class="tile"><span class="k">Monthly revenue</span><span class="v">${fmt(rev)}</span><span class="s">before ad spend</span></div>
+   <div class="tile"><span class="k">Annual run rate</span><span class="v">${fmt(rev*12)}</span><span class="s">at this pace every month</span></div>
+   <div class="tile"><span class="k">Est. gross profit</span><span class="v">${fmt(gp)}</span><span class="s">${rev?Math.round(gp/rev*100):0}% margin after delivery</span></div>
+   <div class="tile"><span class="k">New clients / mo</span><span class="v">${unique}</span><span class="s">about ${consults} booked consults</span></div>`;
+  const g=(name,target)=>{const pct=Math.min(100,rev/target*100);return `<div class="goal"><span class="name">${name}</span><div class="bar"><i class="${pct>=100?'done':''}" style="width:${pct}%"></i></div><span class="pct">${Math.round(rev/target*100)}%</span></div>`};
+  goals.innerHTML=g('$50K / month',50000)+g('$1M / year ($83.4K/mo)',83334);
+}
+rows.addEventListener('input',()=>{calc(); planA.setAttribute('aria-pressed',false); planB.setAttribute('aria-pressed',false)});
+const planA=document.getElementById('planA'), planB=document.getElementById('planB');
+function setPlan(k){SVC.forEach(s=>{document.getElementById('price-'+s.id).value=s.price;document.getElementById('qty-'+s.id).value=s[k]});planA.setAttribute('aria-pressed',k==='a');planB.setAttribute('aria-pressed',k==='b');calc()}
+planA.onclick=()=>setPlan('a'); planB.onclick=()=>setPlan('b');
+calc();
+})();
+</script>
+
+</body></html>
