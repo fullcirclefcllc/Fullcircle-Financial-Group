@@ -1,0 +1,218 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Value Calculator</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: one column ledger — controls on the left, results on the right; stacks on phones. Orbital ring motif in the header. */
+:root{
+  --bg:#F5EFE0; --panel:#FBF8F0; --fg:#0A1F44; --muted:#4A5568; --line:#DCD2B8;
+  --gold:#8A6D1F; --gold-fill:#C9A646; --navy-fill:#0A1F44; --good:#1E6B4E; --warn:#9A4A12;
+  --market:#7A8699;
+  --f-display:'Cinzel', Georgia, serif; --f-num:'Cormorant Garamond', Georgia, serif; --f-body:'DM Sans', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#081733; --panel:#0E2550; --fg:#F5EFE0; --muted:#BFC7D5; --line:#24406F;
+  --gold:#D9B95A; --gold-fill:#C9A646; --navy-fill:#F5EFE0; --good:#6FD3A7; --warn:#F2A66B; --market:#8A96AA; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#081733; --panel:#0E2550; --fg:#F5EFE0; --muted:#BFC7D5; --line:#24406F;
+  --gold:#D9B95A; --gold-fill:#C9A646; --navy-fill:#F5EFE0; --good:#6FD3A7; --warn:#F2A66B; --market:#8A96AA; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 48px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+header{display:flex;gap:20px;align-items:center}
+header svg{flex:none}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,4vw,36px);margin:0;letter-spacing:.02em;text-wrap:balance}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 4px}
+.lede{color:var(--muted);margin:6px 0 0;max-width:62ch}
+.tabs{display:flex;gap:8px;border-bottom:1px solid var(--line)}
+.tabs button{font:inherit;font-weight:600;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:10px 4px;margin-right:16px;cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--fg);border-color:var(--gold-fill)}
+.tabs button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.grid{display:grid;grid-template-columns:320px 1fr;gap:32px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:1fr}}
+.controls{display:flex;flex-direction:column;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px}
+.ctl label{display:flex;justify-content:space-between;font-weight:600;font-size:14px}
+.ctl output{font-variant-numeric:tabular-nums;color:var(--gold)}
+.ctl input[type=range]{width:100%;accent-color:var(--gold-fill)}
+.ctl .hint{font-size:13px;color:var(--muted);margin:2px 0 0}
+.seg{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:6px}
+.seg button{flex:1;font:inherit;font-size:14px;background:none;border:0;padding:8px;color:var(--fg);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--navy-fill);color:var(--bg);font-weight:700}
+.results{display:flex;flex-direction:column;gap:24px;min-width:0}
+.big{display:flex;flex-wrap:wrap;gap:12px 40px;align-items:baseline}
+.big .num{font-family:var(--f-num);font-weight:600;font-size:clamp(44px,7vw,64px);line-height:1;color:var(--good);font-variant-numeric:lining-nums tabular-nums}
+.big .cap{color:var(--muted);max-width:36ch}
+.bars{display:flex;flex-direction:column;gap:14px}
+.bar{display:grid;grid-template-columns:170px 1fr 92px;gap:12px;align-items:center}
+@media (max-width:520px){.bar{grid-template-columns:1fr 84px}.bar .lbl{grid-column:1/-1}}
+.bar .lbl{font-weight:600;font-size:14px}
+.bar .track{height:28px;background:transparent;border-left:1px solid var(--line);position:relative}
+.bar .fill{height:100%;transition:width .35s ease}
+.bar .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+@media (prefers-reduced-motion:reduce){.bar .fill{transition:none}}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+tfoot td{font-weight:700;border-bottom:0}
+.note{font-size:13px;color:var(--muted);max-width:80ch}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid currentColor}
+.ok{color:var(--good)} .wn{color:var(--warn)}
+</style>
+
+<div class="wrap">
+  <header>
+    <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--gold-fill)" stroke-width="2"/><ellipse cx="32" cy="32" rx="30" ry="11" fill="none" stroke="var(--gold-fill)" stroke-width="1.5" transform="rotate(-24 32 32)"/><circle cx="32" cy="32" r="5" fill="var(--gold-fill)"/></svg>
+    <div>
+      <p class="eyebrow">Full Circle Financial Group</p>
+      <h1>The Full Circle Value Calculator</h1>
+      <p class="lede">Move the sliders to compare what an owner pays across five separate vendors with what the same work costs through FCFG, and to stress-test the investor model.</p>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t-client" aria-selected="true" aria-controls="p-client">Client cost comparison</button>
+    <button role="tab" id="t-inv" aria-selected="false" aria-controls="p-inv">Investor model</button>
+  </div>
+
+  <section id="p-client" role="tabpanel" aria-labelledby="t-client" class="grid">
+    <div class="controls">
+      <div class="ctl"><label for="fund">Funding secured <output id="fundO"></output></label>
+        <input id="fund" type="range" min="0" max="250000" step="5000" value="100000">
+        <p class="hint">Market brokers typically take 9–11%, uncapped. FCFG is paid only after funding closes.</p></div>
+      <div class="ctl"><label for="frate">FCFG success fee <output id="frateO"></output></label>
+        <input id="frate" type="range" min="5" max="10" step="0.5" value="7.5">
+        <p class="hint">5–10% of funding, capped at $20,000.</p></div>
+      <div class="ctl"><label for="cmo">Personal credit months <output id="cmoO"></output></label>
+        <input id="cmo" type="range" min="0" max="12" step="1" value="6">
+        <p class="hint">Billed monthly after each month’s work is done.</p></div>
+      <div class="ctl"><span style="font-weight:600;font-size:14px">Household</span>
+        <div class="seg" id="hh"><button aria-pressed="false" data-v="single">Single</button><button aria-pressed="true" data-v="married">Married</button></div></div>
+      <div class="ctl"><span style="font-weight:600;font-size:14px">How the owner pays FCFG</span>
+        <div class="seg" id="pay"><button aria-pressed="true" data-v="pif">Paid in full</button><button aria-pressed="false" data-v="phased">In phases</button><button aria-pressed="false" data-v="alc">À la carte</button></div></div>
+    </div>
+
+    <div class="results">
+      <div class="big">
+        <div><div class="num" id="save"></div><div class="cap" id="saveCap"></div></div>
+      </div>
+      <div class="bars" id="bars"></div>
+      <div class="tablewrap"><table id="tbl"><thead><tr><th>Service</th><th>Buy separately</th><th>FCFG</th></tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+      <p class="note">Market prices are typical 2025–26 figures for Arizona and US providers: attorney LLC formation and operating agreement, business-credit programs such as Credit Suite ($3–4k), Arizona trust packages ($2,500–3,500 single, $3,000–4,500 married), CPA tax plans and credit repair at about $125 a month. Estate work is drafted by FCFG’s partner Arizona attorney and tax strategy is signed by a partner CPA or enrolled agent; their fees are part of the totals shown.</p>
+    </div>
+  </section>
+
+  <section id="p-inv" role="tabpanel" aria-labelledby="t-inv" class="grid" hidden>
+    <div class="controls">
+      <div class="ctl"><label for="vol">Client volume vs plan <output id="volO"></output></label>
+        <input id="vol" type="range" min="40" max="140" step="5" value="100">
+        <p class="hint">Plan: 100 Foundation clients in year 1, 200 in year 2, 320 in year 3.</p></div>
+      <div class="ctl"><label for="conv">Upgrade to full package <output id="convO"></output></label>
+        <input id="conv" type="range" min="20" max="70" step="5" value="45">
+        <p class="hint">Share of Foundation clients who buy the full Blueprint.</p></div>
+      <div class="ctl"><label for="ins">Life policy placement <output id="insO"></output></label>
+        <input id="ins" type="range" min="10" max="60" step="5" value="35">
+        <p class="hint">Share of clients who place a policy where a need is documented.</p></div>
+      <div class="ctl"><label for="share">Investor share of gross <output id="shareO"></output></label>
+        <input id="share" type="range" min="5" max="12" step="1" value="8">
+        <p class="hint">Paid quarterly after a 6-month holiday, never above 60% of that period’s operating cash flow, until 1.75× is returned.</p></div>
+    </div>
+    <div class="results">
+      <div class="big">
+        <div><div class="num" id="payback"></div><div class="cap" id="paybackCap"></div></div>
+      </div>
+      <div class="tablewrap"><table id="itbl"><thead><tr><th>Year</th><th>Clients</th><th>FCFG net revenue</th><th>Operating profit</th><th>Margin</th><th>Paid to investor</th><th>Cumulative</th></tr></thead><tbody></tbody></table></div>
+      <p class="note">Net revenue excludes partner attorney and CPA fees. Operating profit is after delivery labor, sales pay, $750–1,000 marketing cost per client and fixed overhead that scales with volume. Insurance is modeled at first-year commission net of a 10% chargeback reserve; renewals are deliberately left out. These are planning estimates, not promised returns.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const usd=n=>(n<0?'−':'')+'$'+Math.round(Math.abs(n)).toLocaleString('en-US');
+let hh='married', pay='pif';
+function seg(id,set){$(id).querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $(id).querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));set(b.dataset.v);calc();}));}
+seg('hh',v=>hh=v); seg('pay',v=>pay=v);
+
+function calc(){
+  const fund=+$('fund').value, fr=+$('frate').value/100, cm=+$('cmo').value;
+  $('fundO').textContent=usd(fund); $('frateO').textContent=(fr*100).toFixed(1)+'%'; $('cmoO').textContent=cm+(cm===1?' month':' months');
+  const trust = hh==='married'?4000:3000;
+  const market=[
+    ['Entity structure and funding readiness',2500],
+    ['Business credit build',3500],
+    ['Estate plan, trust and asset-protection structure',trust+1000],
+    ['Tax strategy',3000],
+    ['Personal credit restoration',cm*125],
+    ['Funding broker fee',fund*0.10]];
+  const fcfgFee=Math.min(fund*fr,20000);
+  const credRate = pay==='alc'?197:147;
+  let core = pay==='pif'?9750: pay==='phased'?10750:12250;
+  const fcfg=[ ['Blueprint services (Foundation, Build, Protect, Optimize)',core],
+    ['Personal credit restoration',cm*credRate], ['Funding success fee',fcfgFee]];
+  const mTot=market.reduce((a,r)=>a+r[1],0), fTot=fcfg.reduce((a,r)=>a+r[1],0);
+  const save=mTot-fTot;
+  $('save').textContent=usd(save);
+  $('save').style.color = save>=0?'var(--good)':'var(--warn)';
+  $('saveCap').textContent = save>=0 ? `less than buying the same work separately (${Math.round(save/mTot*100)}% saved), with one team and one plan instead of five vendors.` : 'more than buying separately at this setting.';
+  const max=Math.max(mTot,fTot);
+  $('bars').innerHTML=[['Five separate vendors',mTot,'var(--market)'],['FCFG '+({pif:'paid in full',phased:'in phases',alc:'à la carte'})[pay],fTot,'var(--gold-fill)']]
+    .map(([l,v,c])=>`<div class="bar"><span class="lbl">${l}</span><div class="track"><div class="fill" style="width:${v/max*100}%;background:${c}"></div></div><span class="val">${usd(v)}</span></div>`).join('');
+  const rows=[
+    ['Entity structure and funding readiness',2500,null],
+    ['Business credit build',3500,null],
+    ['Estate plan, trust and asset-protection structure',trust+1000,null],
+    ['Tax strategy',3000,null]];
+  let body=rows.map(r=>`<tr><td>${r[0]}</td><td>${usd(r[1])}</td><td>${r===rows[0]?'':''}</td></tr>`).join('');
+  body = `<tr><td>Foundation, business credit, estate and tax</td><td>${usd(2500+3500+trust+1000+3000)}</td><td>${usd(core)}</td></tr>`+
+    `<tr><td>Personal credit (${cm} mo · ${usd(credRate)}/mo at FCFG)</td><td>${usd(cm*125)}</td><td>${usd(cm*credRate)}</td></tr>`+
+    `<tr><td>Funding fee on ${usd(fund)}</td><td>${usd(fund*0.10)}</td><td>${usd(fcfgFee)}</td></tr>`;
+  $('tbl').tBodies[0].innerHTML=body;
+  $('tbl').tFoot.innerHTML=`<tr><td>Total</td><td>${usd(mTot)}</td><td>${usd(fTot)}</td></tr>`;
+}
+
+// Investor model — mirrors the deck’s assumptions
+function perClient(conv,ins){
+  const pifAdd=7250, phAdd=8250*0.85;
+  const pkg=conv*(0.4*pifAdd+0.6*phAdd);
+  const partner=conv*(2250+1950)*(0.4+0.6*0.85);
+  const alc=(1-conv)*0.2*3500, credit=0.35*6*197, funding=0.40*4500, insur=ins*2500*0.75*0.9, ic=conv*0.4*97*10;
+  const gross=2500+pkg+alc+credit+funding+insur+ic;
+  const net=gross-partner;
+  const delivery=400+conv*600+(1-conv)*0.2*600+credit*0.25+funding*0.1+ic*0.2+0.30*net;
+  return {gross,net,delivery};
+}
+function inv(){
+  const v=+$('vol').value/100, conv=+$('conv').value/100, ins=+$('ins').value/100, sh=+$('share').value/100;
+  $('volO').textContent=Math.round(v*100)+'%'; $('convO').textContent=Math.round(conv*100)+'%'; $('insO').textContent=Math.round(ins*100)+'%'; $('shareO').textContent=Math.round(sh*100)+'%';
+  const pc=perClient(conv,ins);
+  const plan=[[100,1000,200000,.85],[200,850,360000,1],[320,750,540000,1],[400,750,650000,1],[480,750,760000,1]];
+  let cum=0, target=437500, hit=null, html='';
+  plan.forEach(([c0,cac,fx,real],i)=>{
+    const c=c0*v, fixed=fx*(0.5+0.5*v);
+    const net=c*pc.net*real, gross=c*pc.gross*real;
+    const op=net-c*real*pc.delivery-c*cac-fixed;
+    const full=Math.max(0,Math.min(gross*sh*(i===0?0.5:1), Math.max(0,op)*0.6));
+    const due=Math.min(full, target-cum);
+    const before=cum; cum+=due;
+    if(hit===null && cum>=target-1){ const frac=full>0?(target-before)/full:1; hit=(i===0?6+6*frac:12*i+12*frac); }
+    html+=`<tr><td>Year ${i+1}</td><td>${Math.round(c)}</td><td>${usd(net)}</td><td class="${op>=0?'ok':'wn'}">${usd(op)}</td><td>${net?Math.round(op/net*100):0}%</td><td>${usd(due)}</td><td>${usd(cum)}</td></tr>`;
+  });
+  $('itbl').tBodies[0].innerHTML=html;
+  if(hit!==null){ $('payback').textContent='Month '+Math.round(hit); $('paybackCap').textContent=`when a $250,000 investor reaches $437,500 (1.75×), after which a smaller continuing stake remains.`; $('payback').style.color='var(--good)'; }
+  else { $('payback').textContent=(cum/250000).toFixed(2)+'×'; $('paybackCap').textContent='returned by the end of year 5 at these settings; the 1.75× target is not reached yet.'; $('payback').style.color='var(--warn)'; }
+}
+['fund','frate','cmo'].forEach(id=>$(id).addEventListener('input',calc));
+['vol','conv','ins','share'].forEach(id=>$(id).addEventListener('input',inv));
+document.querySelectorAll('[role=tab]').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('[role=tab]').forEach(x=>x.setAttribute('aria-selected',x===t));
+  $('p-client').hidden=t.id!=='t-client'; $('p-inv').hidden=t.id!=='t-inv';
+  try{localStorage.setItem('tab',t.id)}catch(e){}
+}));
+calc(); inv();
+</script>
+
+</body></html>

@@ -1,0 +1,446 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Credit & Funding Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one reading column (~720px) with a sticky chapter bar; each chapter pairs a short explanation with one hands-on tool. */
+:root {
+  --bg: #F5EFE0;
+  --surface: #FFFCF4;
+  --ink: #0A1F44;
+  --ink-soft: #46546E;
+  --line: #DDD3BC;
+  --gold: #A7852B;
+  --gold-fill: #C9A646;
+  --gold-wash: rgba(201,166,70,.16);
+  --good: #2F7A4F;
+  --warn: #A66A12;
+  --bad: #A23B2C;
+  --display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --serif: "Cormorant Garamond", Garamond, Georgia, serif;
+  --ui: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #071833; --surface: #0D2449; --ink: #F5EFE0; --ink-soft: #AEB8CB; --line: #24406E;
+  --gold: #D9B95A; --gold-fill: #C9A646; --gold-wash: rgba(201,166,70,.14);
+  --good: #6CC293; --warn: #E2A84B; --bad: #E58372; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #071833; --surface: #0D2449; --ink: #F5EFE0; --ink-soft: #AEB8CB; --line: #24406E;
+  --gold: #D9B95A; --gold-fill: #C9A646; --gold-wash: rgba(201,166,70,.14);
+  --good: #6CC293; --warn: #E2A84B; --bad: #E58372; color-scheme: dark; }
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--ui); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.col { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+header.hero { padding-block: 48px 28px; }
+.eyebrow { font: 700 11px/1 var(--ui); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+h1 { font: 700 clamp(30px, 6vw, 46px)/1.08 var(--display); margin: 14px 0 14px; text-wrap: balance; letter-spacing: .01em; }
+.lede { font: 600 clamp(20px, 3.4vw, 24px)/1.35 var(--serif); color: var(--ink); max-width: 34ch; margin: 0 0 18px; }
+.intro { color: var(--ink-soft); max-width: 62ch; margin: 0; }
+.paths { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 24px; }
+@media (max-width: 560px) { .paths { grid-template-columns: minmax(0,1fr); } }
+.paths a { display: block; text-decoration: none; color: inherit; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--surface); }
+.paths a:hover { border-color: var(--gold); }
+.paths b { display: block; font: 700 15px/1.3 var(--ui); }
+.paths span { font-size: 13px; color: var(--ink-soft); }
+
+nav.chap { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--bg); border-bottom: 1px solid var(--line); }
+nav.chap .col { display: flex; gap: 4px; overflow-x: auto; padding-block: 10px; scrollbar-width: none; }
+nav.chap a { flex: none; font: 600 13px/1 var(--ui); color: var(--ink-soft); text-decoration: none; padding: 9px 12px; border-radius: 999px; }
+nav.chap a:hover, nav.chap a:focus-visible { color: var(--ink); background: var(--gold-wash); outline: none; }
+
+section.ch { padding-block: 44px 8px; scroll-margin-top: 64px; }
+.num { font: 700 12px/1 var(--ui); letter-spacing: .18em; color: var(--gold); text-transform: uppercase; }
+h2 { font: 700 clamp(24px, 4.4vw, 32px)/1.15 var(--display); margin: 10px 0 12px; text-wrap: balance; }
+h3 { font: 700 17px/1.3 var(--ui); margin: 26px 0 8px; }
+p { margin: 0 0 12px; max-width: 64ch; }
+.soft { color: var(--ink-soft); }
+.pull { font: 500 italic 22px/1.35 var(--serif); color: var(--ink); border-left: 2px solid var(--gold-fill); padding-left: 16px; margin: 18px 0; max-width: 46ch; }
+
+.tool { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin: 18px 0 8px; }
+.tool-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.tool-head .t { font: 700 12px/1 var(--ui); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.tool-head .tag { font-size: 12px; color: var(--ink-soft); }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+@media (max-width: 560px) { .grid2 { grid-template-columns: minmax(0,1fr); } }
+label { display: block; font: 600 13px/1.3 var(--ui); color: var(--ink-soft); margin-bottom: 6px; }
+input[type=number], input[type=text] { width: 100%; box-sizing: border-box; font: 600 16px var(--ui); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--gold-fill); }
+input:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.out { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 16px; }
+@media (max-width: 560px) { .out { grid-template-columns: minmax(0,1fr); } }
+.out div { border-top: 2px solid var(--line); padding-top: 10px; }
+.out div.hl { border-top-color: var(--gold-fill); }
+.out small { display: block; font-size: 12px; color: var(--ink-soft); }
+.out strong { font: 700 22px/1.2 var(--ui); font-variant-numeric: tabular-nums; }
+
+.factors { display: grid; gap: 8px; }
+.factor { display: grid; grid-template-columns: 150px minmax(0,1fr) 44px; gap: 12px; align-items: center; width: 100%; background: none; border: 0; padding: 6px 0; color: var(--ink); text-align: left; cursor: pointer; font: 600 14px var(--ui); }
+@media (max-width: 480px) { .factor { grid-template-columns: 112px minmax(0,1fr) 40px; font-size: 13px; } }
+.factor .bar { height: 12px; background: var(--gold-wash); border-radius: 6px; overflow: hidden; }
+.factor .bar i { display: block; height: 100%; background: var(--gold-fill); border-radius: 6px; }
+.factor .pct { font-variant-numeric: tabular-nums; text-align: right; color: var(--ink-soft); }
+.factor[aria-expanded="true"] { color: var(--gold); }
+.factor-tip { background: var(--gold-wash); border-radius: 10px; padding: 12px 14px; font-size: 14px; margin-top: 10px; }
+
+.meter { position: relative; height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--good) 0 10%, color-mix(in srgb, var(--good) 60%, var(--warn)) 10% 30%, var(--warn) 30% 50%, var(--bad) 50% 100%); margin: 18px 0 6px; opacity: .9; }
+.meter b { position: absolute; top: -6px; width: 4px; height: 24px; background: var(--ink); border-radius: 2px; transform: translateX(-2px); transition: left .3s; }
+.scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.verdict { margin-top: 12px; font-weight: 600; }
+
+.compare { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tablewrap { overflow-x: auto; margin: 14px 0; }
+.compare th, .compare td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.compare thead th { font: 700 12px var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.compare td:first-child { font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
+
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; gap: 3px; }
+.seg button { font: 600 13px var(--ui); color: var(--ink-soft); background: none; border: 0; padding: 8px 14px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.scenario { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 16px; }
+@media (max-width: 560px) { .scenario { grid-template-columns: minmax(0,1fr); } }
+.scenario div { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 14px; }
+.scenario b { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+.risk-hi b { color: var(--bad); } .risk-lo b { color: var(--good); }
+
+.paydex-big { display: flex; align-items: baseline; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.paydex-big strong { font: 700 52px/1 var(--display); font-variant-numeric: tabular-nums; }
+.pill { font: 700 12px var(--ui); letter-spacing: .06em; padding: 5px 10px; border-radius: 999px; }
+.pill.good { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.pill.warn { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.pill.bad { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }
+
+.ladder { list-style: none; padding: 0; margin: 14px 0; display: grid; gap: 8px; counter-reset: rung; }
+.ladder li { display: grid; grid-template-columns: 40px minmax(0,1fr); gap: 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); counter-increment: rung; }
+.ladder li::before { content: counter(rung); font: 700 18px/40px var(--display); text-align: center; width: 40px; height: 40px; border-radius: 50%; background: var(--gold-wash); color: var(--gold); }
+.ladder b { display: block; }
+.ladder span { font-size: 14px; color: var(--ink-soft); }
+
+ul.rules { padding-left: 20px; margin: 8px 0 12px; max-width: 64ch; }
+ul.rules li { margin-bottom: 6px; }
+ul.rules li::marker { color: var(--gold); }
+
+fieldset { border: 0; padding: 0; margin: 0 0 16px; }
+legend { font: 700 15px/1.3 var(--ui); margin-bottom: 8px; padding: 0; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opts label { margin: 0; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; color: var(--ink); font-weight: 600; background: var(--bg); }
+.opts input { accent-color: var(--gold-fill); margin: 0; }
+.opts label:has(input:checked) { border-color: var(--gold-fill); background: var(--gold-wash); }
+.result { border: 2px solid var(--gold-fill); border-radius: 14px; padding: 18px; margin-top: 8px; }
+.result h4 { font: 700 20px/1.2 var(--display); margin: 6px 0 8px; }
+.contact { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
+.contact code { font: 600 15px var(--ui); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; user-select: all; }
+.btn { font: 700 13px var(--ui); border-radius: 999px; padding: 9px 14px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg); cursor: pointer; }
+.btn.ghost { background: none; color: var(--ink); }
+
+footer { padding-block: 40px 56px; font-size: 12px; color: var(--ink-soft); }
+footer p { max-width: 70ch; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .meter b { transition: none; } }
+</style>
+
+<header class="hero col">
+  <div class="eyebrow">Full Circle Financial Group</div>
+  <h1>The Credit &amp; Funding Guide</h1>
+  <p class="lede">Credit is a tool. Structure is the toolbox.</p>
+  <p class="intro">Most of us were never taught how credit works, so we fear it or misuse it. This guide shows why it matters, how lenders score you, and how a business can build credit and access funding without putting your house on the line.</p>
+  <div class="paths">
+    <a href="#personal"><b>Fix it</b><span>Personal credit</span></a>
+    <a href="#business"><b>Build it</b><span>Business credit, no personal guarantee</span></a>
+    <a href="#funding"><b>Fund it</b><span>Funding and how to use it</span></a>
+  </div>
+</header>
+
+<nav class="chap" aria-label="Chapters"><div class="col">
+  <a href="#why">Why it matters</a><a href="#personal">Personal credit</a><a href="#business">Business credit</a><a href="#nopg">No PG</a><a href="#paydex">Paydex</a><a href="#funding">Funding</a><a href="#check">Readiness check</a>
+</div></nav>
+
+<main class="col">
+
+<section class="ch" id="why">
+  <div class="num">Chapter 1</div>
+  <h2>Why credit matters</h2>
+  <p>Your score sets the price you pay to borrow. The same house costs more every month when the rate is higher. Put in two real rate quotes and see the gap.</p>
+  <div class="tool" aria-labelledby="t1">
+    <div class="tool-head"><span class="t" id="t1">What your score costs you</span><span class="tag">30-year fixed, principal and interest</span></div>
+    <div class="grid2">
+      <div><label for="loan">Loan amount ($)</label><input id="loan" type="number" inputmode="numeric" value="350000" min="10000" step="5000"></div>
+      <div></div>
+      <div><label for="rGood">Rate with strong credit (%)</label><input id="rGood" type="number" inputmode="decimal" value="6.5" step="0.125"></div>
+      <div><label for="rLow">Rate while rebuilding (%)</label><input id="rLow" type="number" inputmode="decimal" value="8.0" step="0.125"></div>
+    </div>
+    <div class="out">
+      <div><small>Monthly, strong credit</small><strong id="pGood">—</strong></div>
+      <div><small>Monthly, rebuilding</small><strong id="pLow">—</strong></div>
+      <div class="hl"><small>Extra paid over 30 years</small><strong id="pDiff">—</strong></div>
+    </div>
+    <p class="soft" style="margin:12px 0 0;font-size:13px">Example rates only. Ask a loan officer for today's quotes and swap them in.</p>
+  </div>
+</section>
+
+<section class="ch" id="personal">
+  <div class="num">Chapter 2 · Fix it</div>
+  <h2>How personal credit is scored</h2>
+  <p>FICO scores run from 300 to 850 and weigh five things. Tap one to see what moves it.</p>
+  <div class="tool">
+    <div class="tool-head"><span class="t">The five factors</span><span class="tag">Approximate FICO weights</span></div>
+    <div class="factors" id="factors"></div>
+    <div class="factor-tip" id="factorTip" aria-live="polite">Payment history carries the most weight. One 30-day late can hurt for years, so autopay at least the minimum on every account.</div>
+  </div>
+
+  <h3>Utilization check</h3>
+  <p>The share of your card limits you're using is the fastest number you can change.</p>
+  <div class="tool">
+    <div class="grid2">
+      <div><label for="bal">Total card balances ($)</label><input id="bal" type="number" inputmode="numeric" value="2400" min="0" step="100"></div>
+      <div><label for="lim">Total card limits ($)</label><input id="lim" type="number" inputmode="numeric" value="6000" min="0" step="100"></div>
+    </div>
+    <div class="meter" aria-hidden="true"><b id="uMark" style="left:40%"></b></div>
+    <div class="scale"><span>0%</span><span>10%</span><span>30%</span><span>50%</span><span>100%</span></div>
+    <p class="verdict" id="uVerdict" aria-live="polite"></p>
+  </div>
+
+  <h3>How to use personal credit</h3>
+  <ul class="rules">
+    <li>Pay every account on time. Set autopay for the minimum, then pay more by hand.</li>
+    <li>Keep balances under 30% of each limit, and under 10% before a big application.</li>
+    <li>Keep old accounts open. Age helps.</li>
+    <li>Apply only when you need to. Each hard inquiry dips the score a little.</li>
+    <li>Check all three reports. Dispute what's inaccurate, outdated or unverifiable, and nothing that's true.</li>
+  </ul>
+</section>
+
+<section class="ch" id="business">
+  <div class="num">Chapter 3 · Build it</div>
+  <h2>Business credit is a separate file</h2>
+  <p>Your business can have its own credit history, tied to its EIN instead of your Social Security number. Lenders and vendors check it before they extend terms.</p>
+  <div class="tablewrap">
+    <table class="compare">
+      <thead><tr><th></th><th>Personal credit</th><th>Business credit</th></tr></thead>
+      <tbody>
+        <tr><td>Tied to</td><td>Your Social Security number</td><td>Your business EIN</td></tr>
+        <tr><td>Main bureaus</td><td>Experian, Equifax, TransUnion</td><td>Dun &amp; Bradstreet, Experian Business, Equifax Business</td></tr>
+        <tr><td>Best-known score</td><td>FICO, 300–850</td><td>D&amp;B Paydex, 1–100</td></tr>
+        <tr><td>What drives it</td><td>Five factors, payment history first</td><td>How fast you pay vendors, weighted by dollars</td></tr>
+        <tr><td>Who can see it</td><td>Only with your permission</td><td>Anyone who buys the report</td></tr>
+        <tr><td>Who is liable</td><td>You</td><td>The business, unless you sign a personal guarantee</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The business credit ladder</h3>
+  <ol class="ladder">
+    <li><div><b>Foundation</b><span>LLC or corporation in good standing, EIN, business address and phone, website and domain email, business bank account. The same name, address and phone everywhere.</span></div></li>
+    <li><div><b>Vendor net-30 accounts</b><span>Starter vendors that report to D&amp;B. Small real purchases, paid early. This creates the first Paydex.</span></div></li>
+    <li><div><b>Store and retail credit</b><span>Office, hardware and warehouse store accounts once the file shows a track record.</span></div></li>
+    <li><div><b>Fleet and business cards</b><span>Fuel cards and business cards that underwrite the business file, some without a personal guarantee.</span></div></li>
+    <li><div><b>Bank lines and loans</b><span>Lines of credit and term loans, which look at revenue, time in business and bank history too.</span></div></li>
+  </ol>
+</section>
+
+<section class="ch" id="nopg">
+  <div class="num">Chapter 4 · Protect it</div>
+  <h2>Why no personal guarantee matters</h2>
+  <p>A personal guarantee (PG) is your promise to repay if the business can't. Sign one and the debt can follow you home. Build business credit the right way and, over time, more accounts will rely on the business file instead.</p>
+  <div class="tool">
+    <div class="tool-head"><span class="t">If the business can't repay $50,000</span>
+      <div class="seg" role="group" aria-label="Guarantee"><button id="withPG" aria-pressed="true">With a PG</button><button id="noPG" aria-pressed="false">No PG</button></div>
+    </div>
+    <div class="scenario" id="scenario"></div>
+    <p class="soft" style="margin:12px 0 0;font-size:13px">General illustration, not legal advice. Contract terms vary, and mixing personal and business money can expose you even without a PG.</p>
+  </div>
+  <p class="pull">Separation is protection. Keep business money, accounts and debts in the business.</p>
+</section>
+
+<section class="ch" id="paydex">
+  <div class="num">Chapter 5</div>
+  <h2>How the Paydex works</h2>
+  <p>D&amp;B scores how promptly you pay vendors. Paying on the due date earns about 80. Paying early pushes toward 100. D&amp;B needs at least three payment experiences from two reporting vendors before a score appears. Slide to see how timing changes it.</p>
+  <div class="tool">
+    <label for="days" id="daysLabel">Paid on the due date</label>
+    <input id="days" type="range" min="-30" max="120" step="1" value="0" aria-describedby="daysLabel">
+    <div class="scale"><span>30 days early</span><span>On time</span><span>120 days late</span></div>
+    <div class="paydex-big"><strong id="pdx">80</strong><span class="pill good" id="pdxPill">Low risk</span></div>
+    <p class="soft" id="pdxNote" style="margin-top:8px">80 and up tells vendors and lenders you pay on time.</p>
+  </div>
+</section>
+
+<section class="ch" id="funding">
+  <div class="num">Chapter 6 · Fund it</div>
+  <h2>Funding, and how to use it</h2>
+  <p>Funding is a tool for growth, not free money. Match the product to the job, and know what every application costs before you apply.</p>
+  <div class="tablewrap">
+    <table class="compare">
+      <thead><tr><th>Type</th><th>What it is</th><th>Best for</th><th>Watch for</th></tr></thead>
+      <tbody>
+        <tr><td>0% intro cards</td><td>Credit cards with an introductory 0% rate</td><td>Short-term growth you can pay off inside the promo</td><td>Rate jumps after the promo; each application is a hard inquiry</td></tr>
+        <tr><td>Line of credit</td><td>Draw what you need, pay interest on what you use</td><td>Cash-flow gaps, inventory</td><td>Variable rates, renewal terms</td></tr>
+        <tr><td>Term loan</td><td>A lump sum repaid on a schedule</td><td>Equipment, expansion, one-time projects</td><td>Origination fees, prepayment terms</td></tr>
+        <tr><td>SBA loan</td><td>Bank loan partly backed by the SBA</td><td>Larger, longer-term needs</td><td>Paperwork, time to close, usually a PG</td></tr>
+        <tr><td>Equipment financing</td><td>The equipment secures the loan</td><td>Vehicles, machines, tech</td><td>Total cost over the term</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Rules for using funding well</h3>
+  <ul class="rules">
+    <li>Put it toward something that produces revenue.</li>
+    <li>Write the payoff plan before you apply, with dates.</li>
+    <li>Ask exactly what will be applied for in your name, how many hard inquiries, and every fee.</li>
+    <li>Pay a funding company after approval, not before.</li>
+    <li>Keep card balances low after funding so your scores hold up.</li>
+  </ul>
+</section>
+
+<section class="ch" id="check">
+  <div class="num">Chapter 7</div>
+  <h2>Readiness check</h2>
+  <p>Five quick questions. Your answers point to the path that fits right now.</p>
+  <form class="tool" id="quiz" novalidate>
+    <fieldset><legend>Your personal credit score is about…</legend><div class="opts">
+      <label><input type="radio" name="score" value="1"> Under 620</label>
+      <label><input type="radio" name="score" value="2" checked> 620–679</label>
+      <label><input type="radio" name="score" value="3"> 680–719</label>
+      <label><input type="radio" name="score" value="4"> 720+</label>
+    </div></fieldset>
+    <fieldset><legend>Collections, charge-offs or recent lates on your report?</legend><div class="opts">
+      <label><input type="radio" name="neg" value="1" checked> Yes</label>
+      <label><input type="radio" name="neg" value="0"> No</label>
+    </div></fieldset>
+    <fieldset><legend>Do you have an LLC or corporation with an EIN?</legend><div class="opts">
+      <label><input type="radio" name="entity" value="0"> No</label>
+      <label><input type="radio" name="entity" value="1" checked> Yes, under 1 year</label>
+      <label><input type="radio" name="entity" value="2"> Yes, 1 year or more</label>
+    </div></fieldset>
+    <fieldset><legend>Does your business have vendors reporting to D&amp;B?</legend><div class="opts">
+      <label><input type="radio" name="dnb" value="0" checked> No / not sure</label>
+      <label><input type="radio" name="dnb" value="1"> Yes</label>
+    </div></fieldset>
+    <fieldset><legend>Your main goal</legend><div class="opts">
+      <label><input type="radio" name="goal" value="home" checked> Buy a home or car</label>
+      <label><input type="radio" name="goal" value="capital"> Capital for my business</label>
+      <label><input type="radio" name="goal" value="both"> Both</label>
+    </div></fieldset>
+    <div class="result" id="result" aria-live="polite"></div>
+  </form>
+</section>
+
+</main>
+
+<footer class="col">
+  <p>Full Circle Financial Group provides education and document preparation and dispute services. Results vary and are not guaranteed. We dispute only information believed to be inaccurate, incomplete or unverifiable. Funding depends on lender approval; no funding amount is promised. Nothing here is legal, tax or investment advice.</p>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const usd = n => n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+
+/* Chapter 1: payment gap */
+function pmt(P, ratePct, n = 360) { const r = ratePct / 1200; return r === 0 ? P / n : P * r / (1 - Math.pow(1 + r, -n)); }
+function calcLoan() {
+  const P = Math.max(0, +$("loan").value || 0), a = +$("rGood").value || 0, b = +$("rLow").value || 0;
+  const g = pmt(P, a), l = pmt(P, b);
+  $("pGood").textContent = usd(g); $("pLow").textContent = usd(l);
+  const d = (l - g) * 360;
+  $("pDiff").textContent = (d >= 0 ? "" : "−") + usd(Math.abs(d));
+}
+["loan", "rGood", "rLow"].forEach(id => $(id).addEventListener("input", calcLoan));
+calcLoan();
+
+/* Chapter 2: factors */
+const FACTORS = [
+  ["Payment history", 35, "Payment history carries the most weight. One 30-day late can hurt for years, so autopay at least the minimum on every account."],
+  ["Amounts owed", 30, "Mostly utilization: how much of your limits you use. Paying balances down before the statement date can lift a score within a month."],
+  ["Length of history", 15, "The age of your oldest account and the average age of all of them. Keep old cards open and use them lightly."],
+  ["New credit", 10, "Recent hard inquiries and new accounts. Space out applications, especially before a mortgage."],
+  ["Credit mix", 10, "Having both revolving accounts (cards) and installment loans. Never open a loan just for mix."]
+];
+const fWrap = $("factors");
+FACTORS.forEach(([name, pct, tip], i) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "factor"; b.setAttribute("aria-expanded", i === 0);
+  b.innerHTML = `<span>${name}</span><span class="bar"><i style="width:${pct / 35 * 100}%"></i></span><span class="pct">${pct}%</span>`;
+  b.addEventListener("click", () => { [...fWrap.children].forEach(c => c.setAttribute("aria-expanded", "false")); b.setAttribute("aria-expanded", "true"); $("factorTip").textContent = tip; });
+  fWrap.appendChild(b);
+});
+
+/* Utilization */
+function calcUtil() {
+  const bal = Math.max(0, +$("bal").value || 0), lim = Math.max(0, +$("lim").value || 0);
+  const u = lim > 0 ? bal / lim * 100 : 0;
+  $("uMark").style.left = Math.min(100, u) + "%";
+  let v;
+  if (lim === 0) v = "Add your total limits to see your utilization.";
+  else if (u < 10) v = `${u.toFixed(0)}% used. Excellent. This is where scores look their best.`;
+  else if (u < 30) v = `${u.toFixed(0)}% used. Good. Get under 10% before a big application. Pay down ${usd(Math.max(0, bal - lim * 0.099))} to get there.`;
+  else if (u < 50) v = `${u.toFixed(0)}% used. This is pulling your score down. Pay down ${usd(bal - lim * 0.299)} to get under 30%.`;
+  else v = `${u.toFixed(0)}% used. High utilization is likely costing you points. Pay down ${usd(bal - lim * 0.299)} to get under 30%.`;
+  $("uVerdict").textContent = v;
+}
+["bal", "lim"].forEach(id => $(id).addEventListener("input", calcUtil));
+calcUtil();
+
+/* Chapter 4: PG scenario */
+const SCEN = {
+  pg: [["risk-hi", "Who the lender can pursue", "The business, and you personally under the guarantee."], ["risk-hi", "Your personal credit", "Collections or judgments can follow you to your personal report."], ["risk-hi", "Your personal assets", "Savings, and possibly property, can be at risk depending on the contract and your state."]],
+  nopg: [["risk-lo", "Who the lender can pursue", "Generally the business and its assets."], ["risk-lo", "Your personal credit", "Generally stays separate from the business debt."], ["risk-lo", "Your personal assets", "Generally protected, as long as you kept business and personal money separate."]]
+};
+function setPG(on) {
+  $("withPG").setAttribute("aria-pressed", on); $("noPG").setAttribute("aria-pressed", !on);
+  $("scenario").innerHTML = SCEN[on ? "pg" : "nopg"].map(([c, h, t]) => `<div class="${c}"><b>${h}</b>${t}</div>`).join("");
+}
+$("withPG").addEventListener("click", () => setPG(true));
+$("noPG").addEventListener("click", () => setPG(false));
+setPG(true);
+
+/* Chapter 5: Paydex by payment timing (D&B published key points, interpolated) */
+const PDX = [[-30, 100], [-20, 90], [0, 80], [15, 70], [22, 60], [30, 50], [60, 40], [90, 30], [120, 20]];
+function paydexFor(d) {
+  for (let i = 0; i < PDX.length - 1; i++) { const [d0, s0] = PDX[i], [d1, s1] = PDX[i + 1];
+    if (d >= d0 && d <= d1) return Math.round(s0 + (s1 - s0) * (d - d0) / (d1 - d0)); }
+  return d < -30 ? 100 : 20;
+}
+function calcPdx() {
+  const d = +$("days").value, s = paydexFor(d);
+  $("daysLabel").textContent = d === 0 ? "Paid on the due date" : d < 0 ? `Paid ${-d} days early` : `Paid ${d} days late`;
+  $("pdx").textContent = s;
+  const pill = $("pdxPill");
+  if (s >= 80) { pill.className = "pill good"; pill.textContent = "Low risk"; $("pdxNote").textContent = s > 80 ? "Paying early. Vendors and lenders see a business that pays ahead of terms." : "80 and up tells vendors and lenders you pay on time."; }
+  else if (s >= 50) { pill.className = "pill warn"; pill.textContent = "Moderate risk"; $("pdxNote").textContent = "Paying late. Vendors may ask for prepayment or shorter terms."; }
+  else { pill.className = "pill bad"; pill.textContent = "High risk"; $("pdxNote").textContent = "Seriously late. Most vendors and lenders will decline or require cash up front."; }
+}
+$("days").addEventListener("input", calcPdx);
+calcPdx();
+
+/* Chapter 7: readiness */
+function calcQuiz() {
+  const f = new FormData($("quiz"));
+  const score = +f.get("score"), neg = +f.get("neg"), entity = +f.get("entity"), dnb = +f.get("dnb"), goal = f.get("goal");
+  let path, title, body;
+  if (score <= 2 || neg === 1) {
+    path = "Fix it"; title = "Start with personal credit";
+    body = "Clean, accurate personal credit is the base for every approval, personal or business. We'd start by reviewing your three reports and disputing what's inaccurate or unverifiable, then lowering utilization.";
+  } else if (entity === 0 || dnb === 0) {
+    path = "Build it"; title = "Build your business credit file";
+    body = entity === 0 ? "Your personal credit is in range. Next is the right entity, EIN and a fundable setup, then reporting vendors so your business earns its own Paydex."
+      : "Your personal credit is in range and your entity exists. Next is a fundable setup and reporting vendors so your Paydex shows up.";
+  } else {
+    path = "Fund it"; title = "You may be ready for a funding review";
+    body = "Strong personal credit plus a business file with reporting vendors is the profile lenders look for. A funding review maps options, inquiries and costs before anything is applied for.";
+  }
+  if (goal === "home" && path !== "Fix it") body += " For a home purchase, we'll also coordinate with your loan officer before any new business accounts open.";
+  $("result").innerHTML = `<div class="eyebrow">Your path: ${path}</div><h4>${title}</h4><p style="margin:0">${body}</p>
+    <div class="contact"><span class="soft" style="font-size:14px">Book a strategy call:</span><code id="ph">602-545-0826</code><button type="button" class="btn ghost" id="copyPh">Copy number</button><code id="em">Breyon@fullcircle-credit.com</code></div>`;
+  $("copyPh").addEventListener("click", async e => {
+    try { await navigator.clipboard.writeText("602-545-0826"); e.target.textContent = "Copied"; }
+    catch { const r = document.createRange(); r.selectNodeContents($("ph")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent = "Selected"; }
+  });
+}
+$("quiz").addEventListener("change", calcQuiz);
+$("quiz").addEventListener("submit", e => e.preventDefault());
+calcQuiz();
+</script>
+
+</body></html>

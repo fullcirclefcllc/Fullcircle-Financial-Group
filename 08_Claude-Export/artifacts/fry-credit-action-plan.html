@@ -1,0 +1,557 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Fry Credit Action Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --navy:#0A1F44; --gold:#C9A646; --cream:#F5EFE0;
+  --bg:#F7F3EA; --surface:#FFFDF8; --surface-2:#EFE8D8; --ink:#0F1B33; --ink-2:#4A5468; --line:#DDD3BD;
+  --accent:#0A1F44; --accent-ink:#F5EFE0; --gold-ink:#8A6D1E;
+  --ok:#2F7A4F; --ok-bg:#E3F0E7; --warn:#A5670E; --warn-bg:#FBEFD9; --crit:#A63A2B; --crit-bg:#F7E2DE; --info:#2C4E86; --info-bg:#E2E9F5;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif; --caps:"Cinzel","Trajan Pro",Georgia,serif; --sans:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#08152E; --surface:#0E1F40; --surface-2:#142A52; --ink:#F1EBDD; --ink-2:#AEB6C8; --line:#2A3D63;
+  --accent:#C9A646; --accent-ink:#0A1F44; --gold-ink:#D9BC66;
+  --ok:#7CCB98; --ok-bg:#16382A; --warn:#E7B45C; --warn-bg:#3A2C12; --crit:#EE8E7F; --crit-bg:#3E1D1A; --info:#9DB8E8; --info-bg:#1A2D52;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#08152E; --surface:#0E1F40; --surface-2:#142A52; --ink:#F1EBDD; --ink-2:#AEB6C8; --line:#2A3D63;
+  --accent:#C9A646; --accent-ink:#0A1F44; --gold-ink:#D9BC66;
+  --ok:#7CCB98; --ok-bg:#16382A; --warn:#E7B45C; --warn-bg:#3A2C12; --crit:#EE8E7F; --crit-bg:#3E1D1A; --info:#9DB8E8; --info-bg:#1A2D52;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:1060px;margin:0 auto}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,4vw,36px)}
+h3{font-size:22px}
+p{margin:0}
+.eyebrow{font-family:var(--caps);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.muted{color:var(--ink-2)}
+.num{font-variant-numeric:tabular-nums}
+section{padding-block:44px;border-top:1px solid var(--line);display:grid;gap:22px}
+.sec-head{display:grid;gap:8px;max-width:70ch}
+
+header{padding-block:40px 36px;display:grid;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ring{width:34px;height:34px;flex:none}
+.brand span{font-family:var(--caps);font-size:13px;letter-spacing:.2em}
+header h1{font-size:clamp(38px,6vw,58px);max-width:20ch}
+header h1 em{font-style:italic;color:var(--gold-ink)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:13.5px;color:var(--ink-2)}
+.meta b{color:var(--ink);font-weight:600}
+.lede{font-family:var(--serif);font-size:21px;line-height:1.45;max-width:64ch}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+nav.toc a{font-size:13px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--ink);border-color:var(--gold)}
+
+.status{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.st{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.st h3{font-size:20px}
+.st p{font-size:14px;color:var(--ink-2)}
+.st.lead{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:999px;width:max-content}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-ok{color:var(--ok);background:var(--ok-bg)} .p-warn{color:var(--warn);background:var(--warn-bg)} .p-crit{color:var(--crit);background:var(--crit-bg)} .p-info{color:var(--info);background:var(--info-bg)}
+.live::before{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+
+.callout{border-left:3px solid var(--gold);background:var(--surface-2);padding:16px 20px;border-radius:0 8px 8px 0;display:grid;gap:6px;max-width:84ch}
+.src{font-size:13px;color:var(--ink-2)}
+.src a,footer a{color:var(--gold-ink)}
+
+/* debts */
+.debts{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.debt{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;gap:12px;align-content:start}
+.debt.kelly{border-top:3px solid var(--gold)}
+.debt-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.who-tag{font-family:var(--caps);font-size:11px;letter-spacing:.14em;color:var(--gold-ink)}
+.bal{font-family:var(--serif);font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0;font-size:13.5px}
+dl.kv dt{color:var(--ink-2)}
+dl.kv dd{margin:0;font-variant-numeric:tabular-nums}
+.chain{display:grid;gap:0;border-left:2px solid var(--line);margin-left:4px}
+.chain div{position:relative;padding:0 0 10px 16px;font-size:13px}
+.chain div::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--ink-2)}
+.chain div:last-child{padding-bottom:0}
+.chain div.now::before{border-color:var(--crit);background:var(--crit)}
+.chain b{font-weight:600}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:14px;color:var(--ink-2)}
+.totals b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+.finds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 30px}
+.find{padding:16px 0;border-bottom:1px solid var(--line);display:grid;gap:5px}
+.find h4{margin:0;font-size:16px;font-weight:700;display:flex;gap:10px;align-items:baseline}
+.find h4 span{font-family:var(--caps);font-size:11px;color:var(--gold-ink);letter-spacing:.1em;flex:none}
+.find p{font-size:14px;color:var(--ink-2)}
+
+/* strategy ladder */
+.routes{display:grid;gap:10px}
+.route{display:grid;grid-template-columns:150px 1fr auto;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;align-items:start}
+@media (max-width:640px){.route{grid-template-columns:1fr}}
+.route .tier{font-family:var(--caps);font-size:12px;letter-spacing:.1em;color:var(--gold-ink)}
+.route h4{margin:0 0 3px;font-size:16px}
+.route p{font-size:14px;color:var(--ink-2)}
+.route .res{font-size:12.5px;font-weight:700;white-space:nowrap}
+
+/* phases */
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font:600 13.5px var(--sans);border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:9px 14px;border-radius:8px;cursor:pointer;text-align:left;display:grid;gap:1px}
+.tab small{font-weight:500;font-size:11.5px}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tab:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:16px}
+.panel-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.prog{font-size:13px;color:var(--ink-2)}
+.bar{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+ul.tasks{list-style:none;margin:0;padding:0;display:grid}
+.task{display:grid;grid-template-columns:22px 1fr auto;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line);align-items:start}
+.task:last-child{border-bottom:0}
+.task input{width:18px;height:18px;margin-top:3px;accent-color:var(--navy)}
+.task .t{font-weight:600}
+.task .d{font-size:14px;color:var(--ink-2)}
+.task.done .t{text-decoration:line-through;color:var(--ink-2)}
+.who{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.who.us{background:var(--info-bg);color:var(--info)} .who.you{background:var(--warn-bg);color:var(--warn)} .who.both{background:var(--surface-2);color:var(--ink-2)}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px}
+@media (max-width:760px){.calc{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:14px;align-content:start}
+label{font-size:13px;font-weight:600;display:grid;gap:5px}
+input[type=text],input[type=number],select{font:500 15px var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px 11px;width:100%}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acct-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font:600 12.5px var(--sans);border:1px solid var(--line);background:var(--bg);color:var(--ink-2);border-radius:999px;padding:5px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--gold);color:var(--ink);background:var(--surface-2)}
+.btn{font:600 13px var(--sans);border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:7px;padding:8px 14px;cursor:pointer}
+.verdict{border-radius:10px;padding:14px 16px;display:grid;gap:4px}
+.verdict b{font-size:15px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:460px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:2px}
+.kpi span{font-size:11.5px;color:var(--ink-2);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.kpi b{font-family:var(--serif);font-size:25px;font-variant-numeric:tabular-nums;line-height:1.1}
+.scale{position:relative;height:44px;margin-top:6px}
+.scale .track{position:absolute;left:0;right:0;top:14px;height:10px;border-radius:99px;background:linear-gradient(90deg,var(--ok-bg) 0 30%,var(--warn-bg) 30% 40%,var(--crit-bg) 40% 100%);border:1px solid var(--line)}
+.scale .mk{position:absolute;top:6px;width:2px;height:26px;background:var(--crit);transform:translateX(-1px)}
+.scale .ticks{position:absolute;left:0;right:0;top:30px;display:flex;justify-content:space-between;font-size:11px;color:var(--ink-2)}
+.ladder{width:100%;border-collapse:collapse;font-size:14px}
+.ladder td,.ladder th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+.ladder th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.ladder .r{text-align:right;font-variant-numeric:tabular-nums}
+
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 28px}
+.rule{padding:14px 0;border-bottom:1px solid var(--line);display:grid;gap:4px}
+.rule h4{margin:0;font-size:15.5px;font-weight:700}
+.rule p{font-size:14px;color:var(--ink-2)}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table.trk{width:100%;border-collapse:collapse;min-width:980px;font-size:14px}
+.trk th{text-align:left;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);padding:10px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.trk td{padding:6px 6px;border-bottom:1px solid var(--line)}
+.trk input,.trk select{font-size:13.5px;padding:6px 8px;background:transparent;border-color:transparent}
+.trk input:hover,.trk select:hover{border-color:var(--line)}
+.trk .x{background:none;border:0;color:var(--ink-2);cursor:pointer;font-size:18px;padding:4px 8px}
+.trk-foot{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+
+.costs{display:grid;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.cost{display:grid;grid-template-columns:24px 1fr auto;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);align-items:start}
+.cost input[type=checkbox]{width:18px;height:18px;margin-top:3px;accent-color:var(--navy)}
+.cost .amt{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;white-space:nowrap}
+.cost .d{font-size:13.5px;color:var(--ink-2)}
+.cost.req{background:var(--surface-2)}
+.cost-total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 18px;background:var(--accent);color:var(--accent-ink);flex-wrap:wrap}
+.cost-total b{font-family:var(--serif);font-size:30px;font-variant-numeric:tabular-nums}
+.reserve{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.qty{width:62px!important;padding:4px 6px!important;font-size:13px!important;display:inline-block}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.two ul{margin:0;padding-left:18px;display:grid;gap:8px;font-size:14.5px}
+.timeline{display:grid;border-left:2px solid var(--gold);margin-left:6px}
+.tl{position:relative;padding:0 0 18px 22px;display:grid;gap:2px}
+.tl::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--gold)}
+.tl.on::before{background:var(--gold)}
+.tl .when{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-ink)}
+.tl p{font-size:14px;color:var(--ink-2)}
+footer{padding-block:32px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-2);display:grid;gap:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="brand">
+    <svg class="ring" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="#C9A646" stroke-width="2"/><ellipse cx="20" cy="20" rx="19" ry="7" fill="none" stroke="#C9A646" stroke-width="1.2" transform="rotate(-24 20 20)"/><circle cx="20" cy="20" r="4" fill="#C9A646"/></svg>
+    <span>FULL CIRCLE FINANCIAL GROUP</span>
+  </div>
+  <div class="eyebrow">Credit Strategy &amp; Action Plan</div>
+  <h1>Rick &amp; Kelly Fry — <em>Kelly first</em></h1>
+  <div class="meta">
+    <span>Prepared <b>September 23, 2026</b></span>
+    <span>Prepared by <b>Breyon Miller</b>, Financial Architect</span>
+    <span>Scope <b>Three Mosaic / WebBank solar accounts · $204,454.40 claimed</b></span>
+  </div>
+  <p class="lede">Your disputes are already underway, and we're starting with Kelly. Her two accounts are the largest balances, and both have already changed hands between collectors. That gives us the most to challenge. We'll use Kelly's results to sharpen Rick's disputes, then negotiate only what's still standing.</p>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#status">Where we stand</a><a href="#letters">The accounts</a><a href="#routes">How we remove them</a><a href="#plan">Action plan</a><a href="#settle">Settlement tool</a><a href="#rules">Before you pay</a><a href="#tracker">Tracker</a><a href="#costs">Costs</a><a href="#commit">Dates</a>
+</nav>
+
+<section id="status">
+  <div class="sec-head">
+    <div class="eyebrow">01 · Where we stand</div>
+    <h2>Active, and focused on Kelly</h2>
+  </div>
+  <div class="status">
+    <div class="st lead"><span class="pill p-info live">Actively disputing</span><h3>Kelly: 2 Mosaic accounts</h3><p>$145,085.12 claimed. Disputes are in progress. Next: demand proof of ownership from the current collector and escalate with the credit bureaus.</p></div>
+    <div class="st"><span class="pill p-warn">Queued · next up</span><h3>Rick: 1 Mosaic account</h3><p>$59,369.28 claimed. Rick gets the same playbook, tightened by whatever Kelly's responses reveal.</p></div>
+    <div class="st"><span class="pill p-crit">On hold</span><h3>Settlement offers</h3><p>No payment until the disputes and the legal review are done. Paying first would give away our leverage.</p></div>
+    <div class="st"><span class="pill p-ok">Complete</span><h3>Business entities</h3><p>Inter Mountain Consulting LLC (UT) and Capital Mountain Holdings (WY) are formed, with EINs issued.</p></div>
+  </div>
+</section>
+
+<section id="letters">
+  <div class="sec-head">
+    <div class="eyebrow">02 · What the collection letters show</div>
+    <h2>Three accounts, two collectors, one claimed owner change</h2>
+    <p class="muted">Pulled from the National Recovery Solutions letters (April 22, 2026) and the Asset Recovery Solutions letters (June 25, 2026). Each lists a WebBank account originated through Solar Mosaic.</p>
+  </div>
+  <div class="debts">
+    <article class="debt kelly">
+      <div class="debt-top"><span class="who-tag">KELLY · PRIORITY 1</span><span class="pill p-info">Disputing</span></div>
+      <div><div class="bal">$72,562.51</div><div class="muted" style="font-size:13px">WebBank acct ending 314272</div></div>
+      <dl class="kv"><dt>NRS ref</dt><dd>002147133</dd><dt>ARS ref</dt><dd>24607078</dd><dt>Balance date</dt><dd>Mar 31, 2025 · $0 interest or fees since</dd></dl>
+      <div class="chain">
+        <div><b>WebBank / Solar Mosaic</b> · original loan</div>
+        <div><b>National Recovery Solutions</b> · Apr 22, 2026 · for SMI – Solar Mosaic Inc.</div>
+        <div class="now"><b>Asset Recovery Solutions</b> · Jun 25, 2026 · for Mosaic Funding X LLC</div>
+      </div>
+    </article>
+    <article class="debt kelly">
+      <div class="debt-top"><span class="who-tag">KELLY · PRIORITY 1</span><span class="pill p-info">Disputing</span></div>
+      <div><div class="bal">$72,522.61</div><div class="muted" style="font-size:13px">WebBank acct ending 312429</div></div>
+      <dl class="kv"><dt>NRS ref</dt><dd>002147126</dd><dt>ARS ref</dt><dd>24607077</dd><dt>Balance date</dt><dd>Mar 31, 2025 · $0 interest or fees since</dd></dl>
+      <div class="chain">
+        <div><b>WebBank / Solar Mosaic</b> · original loan</div>
+        <div><b>National Recovery Solutions</b> · Apr 22, 2026 · for SMI – Solar Mosaic Inc.</div>
+        <div class="now"><b>Asset Recovery Solutions</b> · Jun 25, 2026 · for Mosaic Funding X LLC</div>
+      </div>
+    </article>
+    <article class="debt">
+      <div class="debt-top"><span class="who-tag">RICK · PRIORITY 2</span><span class="pill p-warn">Queued</span></div>
+      <div><div class="bal">$59,369.28</div><div class="muted" style="font-size:13px">WebBank acct ending 314136</div></div>
+      <dl class="kv"><dt>NRS ref</dt><dd>002147171</dd><dt>ARS ref</dt><dd>No letter on file</dd><dt>Balance date</dt><dd>Mar 31, 2025 · $0 interest or fees since</dd></dl>
+      <div class="chain">
+        <div><b>WebBank / Solar Mosaic</b> · original loan</div>
+        <div class="now"><b>National Recovery Solutions</b> · Apr 22, 2026 · for SMI – Solar Mosaic Inc.</div>
+        <div><b>Likely moved to ARS as well</b> · please bring any newer letter</div>
+      </div>
+    </article>
+  </div>
+  <div class="totals"><span>Kelly <b>$145,085.12</b></span><span>Rick <b>$59,369.28</b></span><span>Combined <b>$204,454.40</b></span></div>
+
+  <div class="sec-head" style="margin-top:10px"><h3>What we can use from these letters</h3></div>
+  <div class="finds">
+    <div class="find"><h4><span>A</span>The claimed owner changed in 9 weeks</h4><p>In April the debt was "owed to SMI – Solar Mosaic Inc." In June it was "owed to Mosaic Funding X LLC." Anyone who claims they bought a debt has to prove the full chain of ownership, back to WebBank, including the account-level assignment. If they can't document it, they can't verify it to the bureaus.</p></div>
+    <div class="find"><h4><span>B</span>Kelly's two accounts are $39.90 apart</h4><p>$72,562.51 and $72,522.61, both originated through the same channel. We'll require the signed loan contract for each account. The goal is to confirm these are two real, separate systems, not one project booked twice.</p></div>
+    <div class="find"><h4><span>C</span>The letters are addressed to "Susan Fry"</h4><p>We'll check that the name, SSN, and address on Kelly's reports match these accounts exactly. Identity mismatches between a collector's file and a bureau file are valid dispute grounds.</p></div>
+    <div class="find"><h4><span>D</span>The balance is frozen as of March 31, 2025</h4><p>Both collectors show $0 interest, $0 fees, and $0 payments since then. Any tradeline showing a different or growing balance is inaccurate and can be disputed.</p></div>
+    <div class="find"><h4><span>E</span>One debt may be reported several times</h4><p>The original creditor, NRS, and ARS may each report the same account. Only one can show a balance. After a sale, the original tradeline should show $0 and "transferred/sold." Duplicate balances are a strong, documented dispute.</p></div>
+    <div class="find"><h4><span>F</span>The deadlines on the letters don't end your rights</h4><p>The May 24 and August 7 dates only govern when a collector must pause collection. Under the FCRA, you can dispute with the bureaus at any time. Once you've disputed a debt, the collector must report it as disputed.</p></div>
+  </div>
+</section>
+
+<section id="routes">
+  <div class="sec-head">
+    <div class="eyebrow">03 · How we remove them</div>
+    <h2>Four routes, strongest first</h2>
+    <p class="muted">We run routes 1–3 together for Kelly now. Route 4 only applies to what's still standing after the first three.</p>
+  </div>
+  <div class="routes">
+    <div class="route"><div class="tier">Route 1</div><div><h4>Proof of ownership and validation</h4><p>Certified letters to Asset Recovery Solutions and Mosaic Funding X LLC. We demand the signed contract, the full assignment chain from WebBank, the charge-off date, and an itemized payment history, with duplicate-account questions for Kelly's two accounts. Unverifiable debts can't be collected or reported as valid.</p></div><div class="res"><span class="pill p-ok">Can end the debt</span></div></div>
+    <div class="route"><div class="tier">Route 2</div><div><h4>Credit bureau disputes (FCRA §611 / §623)</h4><p>Specific, documented inaccuracies to Experian, Equifax, and TransUnion, and directly to each furnisher: duplicate reporting, wrong balances or dates, missing "disputed" codes, and identity mismatches. Round 2 demands the bureau's method of verification, followed by a CFPB complaint where warranted.</p></div><div class="res"><span class="pill p-ok">Can delete the tradeline</span></div></div>
+    <div class="route"><div class="tier">Route 3</div><div><h4>Solar-loan legal review</h4><p>Mosaic loans are the subject of consumer lawsuits nationwide. If your contracts include the FTC "Holder Rule" notice, any claims you have against the solar installer can also be raised against whoever owns the loan. That applies if the sales pitch, the promised savings, or the installation was misrepresented. A consumer attorney reviews this, often at no cost.</p></div><div class="res"><span class="pill p-ok">Can reduce the balance</span></div></div>
+    <div class="route"><div class="tier">Route 4</div><div><h4>Negotiate what survives</h4><p>This applies only to what is fully verified after routes 1–3. Debt buyers often purchase portfolios for a fraction of face value, so our first ask is deletion in exchange for payment. Otherwise we settle at 20–40% with "paid in full" reporting and a lien release, in writing, before any money moves.</p></div><div class="res"><span class="pill p-warn">Last resort</span></div></div>
+  </div>
+  <div class="callout">
+    <b>Two honest cautions</b>
+    <p>Balances this large can lead to a lawsuit. In Utah, collectors generally have 6 years to sue on a written contract. If either of you receives court papers, call us the same day. A missed response deadline means an automatic judgment. Also, accurate and fully verified information can't be forced off a report. It ages off 7 years from the first delinquency, which is why routes 1–3 come before any payment.</p>
+    <p class="src">Background: <a href="https://solarservicingllc.com/corp-info-faqs/" target="_blank" rel="noopener">Solar Servicing FAQ</a> · <a href="https://blog.prevostlawfirm.com/solar-mosaic-bankruptcy-updates/" target="_blank" rel="noopener">Prevost Law: Mosaic bankruptcy update</a> · <a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-433" target="_blank" rel="noopener">FTC Holder Rule, 16 CFR 433</a> · <a href="https://www.consumerfinance.gov/consumer-tools/debt-collection/" target="_blank" rel="noopener">CFPB: debt collection rights</a></p>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="sec-head">
+    <div class="eyebrow">04 · Action plan</div>
+    <h2>Kelly first, then Rick</h2>
+    <p class="muted">Tick items off during our check-ins. Checkmarks are saved in this browser only.</p>
+  </div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="panel" id="panel" role="tabpanel"></div>
+</section>
+
+<section id="settle">
+  <div class="sec-head">
+    <div class="eyebrow">05 · Settlement tool</div>
+    <h2>If a balance survives, what's a fair number?</h2>
+    <p class="muted">Balances are pre-filled from the letters. Enter any offer they send you. The tool shows where it falls and what to counter with. Ranges are typical for purchased or charged-off debt, not guarantees.</p>
+  </div>
+  <div class="calc">
+    <div class="card">
+      <div class="acct-tabs" id="acctTabs"></div>
+      <label for="c_name">Account<input type="text" id="c_name"></label>
+      <div class="row2">
+        <label for="c_bal">Balance claimed ($)<input type="number" id="c_bal" min="0" step="0.01" inputmode="decimal"></label>
+        <label for="c_offer">Their offer ($)<input type="number" id="c_offer" min="0" step="1" inputmode="decimal" placeholder="From settlement letter"></label>
+      </div>
+      <div class="row2">
+        <label for="c_cash">Lump sum available ($)<input type="number" id="c_cash" min="0" step="1" inputmode="decimal" placeholder="0"></label>
+        <label for="c_status">Who holds it<select id="c_status"><option value="coll">Debt buyer / collector</option><option value="co">Original creditor (charged off)</option></select></label>
+      </div>
+    </div>
+    <div class="card" aria-live="polite">
+      <div class="verdict" id="verdict"></div>
+      <div class="kpis">
+        <div class="kpi"><span>Offer % of balance</span><b id="k_pct">–</b></div>
+        <div class="kpi"><span>Forgiven</span><b id="k_forg">–</b></div>
+        <div class="kpi"><span>Gap to cash</span><b id="k_gap">–</b></div>
+      </div>
+      <div>
+        <div class="eyebrow" style="font-size:10.5px">Where their offer lands</div>
+        <div class="scale" aria-hidden="true"><div class="track"></div><div class="mk" id="mk" hidden></div><div class="ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div></div>
+      </div>
+      <table class="ladder"><thead><tr><th>Counter ladder</th><th class="r">%</th><th class="r">Amount</th></tr></thead><tbody id="ladder"></tbody></table>
+      <p class="muted" style="font-size:12.5px" id="taxNote"></p>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="sec-head">
+    <div class="eyebrow">06 · Before you pay anyone</div>
+    <h2>Eight rules that protect any settlement</h2>
+  </div>
+  <div class="rules">
+    <div class="rule"><h4>Don't pay or promise anything by phone</h4><p>Collectors will call. Say "please put everything in writing" and hang up. A verbal promise can be used against you, and so can a small "good faith" payment.</p></div>
+    <div class="rule"><h4>Get it in writing first</h4><p>You need a signed agreement with the exact amount, the due date, and the words "settled in full" before a single dollar moves.</p></div>
+    <div class="rule"><h4>Ask for deletion first</h4><p>Debt buyers can agree to delete the tradeline. If they won't, "paid in full, $0 balance" is the fallback. The reporting language goes into the agreement.</p></div>
+    <div class="rule"><h4>Confirm who owns the debt</h4><p>With two collectors and two claimed owners so far, the agreement must come from the verified owner. Otherwise a later buyer could come after the same balance.</p></div>
+    <div class="rule"><h4>Release the solar lien</h4><p>Solar loans often carry a UCC fixture filing on the home. The agreement must require a UCC termination within 30 days of payment.</p></div>
+    <div class="rule"><h4>Never give bank access</h4><p>Pay by cashier's check or a one-time card payment. No ACH authorizations and no post-dated checks.</p></div>
+    <div class="rule"><h4>Plan for the 1099-C</h4><p>Forgiven debt over $600 can be reported to the IRS as income. At these balances, that could be a six-figure amount. The insolvency exclusion (Form 982) can remove it. Talk to your CPA before you settle.</p></div>
+    <div class="rule"><h4>Keep the paper trail</h4><p>Keep every letter, green card, agreement, and proof of payment for 7 years. Recheck all 3 reports 45 days after any resolution.</p></div>
+  </div>
+</section>
+
+<section id="tracker">
+  <div class="sec-head">
+    <div class="eyebrow">07 · Item tracker</div>
+    <h2>Every tradeline, one row each</h2>
+    <p class="muted">Pre-loaded with the accounts from the letters. Add a row for every bureau where each account appears. Bureaus generally have 30 days to respond. Edits are saved in this browser.</p>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trk">
+      <thead><tr><th>Person</th><th>Account</th><th>Reported by</th><th>Bureaus</th><th>Route</th><th>Round</th><th>Sent</th><th>Status</th><th></th></tr></thead>
+      <tbody id="trkBody"></tbody>
+    </table>
+  </div>
+  <div class="trk-foot"><button class="btn" type="button" id="addRow">Add item</button><span class="muted" style="font-size:13px" id="trkSum"></span></div>
+</section>
+
+<section id="costs">
+  <div class="sec-head">
+    <div class="eyebrow">08 · Costs</div>
+    <h2>What it takes to get the best result</h2>
+    <p class="muted">No new Full Circle fees. The dispute work is covered by your existing engagement. These are third-party costs you'd pay directly. Figures are estimates; confirm exact pricing at signup.</p>
+  </div>
+  <div class="costs" id="costList"></div>
+  <div class="sec-head" style="margin-top:6px"><h3>Settlement reserve, only if disputes don't remove them</h3><p class="muted" style="font-size:14px">Not included in the total above. It shows what to start setting aside, based on a 20–40% settlement range.</p></div>
+  <div class="reserve" id="reserve"></div>
+</section>
+
+<section id="commit">
+  <div class="sec-head">
+    <div class="eyebrow">09 · Accountability &amp; dates</div>
+    <h2>What we commit to, and what we need from you</h2>
+  </div>
+  <div class="two">
+    <div class="card">
+      <h3>Full Circle commits to</h3>
+      <ul>
+        <li>A written progress update <b>every other Friday</b>, starting October 9, even when there's nothing new.</li>
+        <li>A reply to every email or call within <b>1 business day</b>.</li>
+        <li>Copies of every letter we send and every response we receive.</li>
+        <li>No payment to any creditor without your written sign-off.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>We need from you</h3>
+      <ul>
+        <li>Active SmartCredit monitoring for both of you, with shared access.</li>
+        <li>The Mosaic loan contracts and solar installation agreements. Tell us which property each system was installed on.</li>
+        <li>Any newer letters, especially an ARS letter for Rick and any settlement offers.</li>
+        <li>Any mail from a collector, court, or bureau within 3 days. Court papers: <b>same day</b>.</li>
+        <li>Don't talk to collectors by phone. Refer them to writing.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Key dates</h3>
+    <div class="timeline">
+      <div class="tl on"><span class="when">Now</span><b>Kelly: disputes active</b><p>Round 1 underway on both of Kelly's Mosaic accounts.</p></div>
+      <div class="tl"><span class="when">By Oct 2</span><b>Kelly: proof-of-ownership demands mailed</b><p>To Asset Recovery Solutions and Mosaic Funding X LLC, certified with return receipt.</p></div>
+      <div class="tl"><span class="when">By Oct 9</span><b>Kelly: bureau escalation + attorney review booked</b><p>Duplicate, balance, and identity disputes filed. Solar contracts sent for legal review. First bi-weekly update.</p></div>
+      <div class="tl"><span class="when">By Nov 6</span><b>Kelly: Round 1 responses in → Rick's Round 1 launches</b><p>We apply what worked for Kelly to Rick's account.</p></div>
+      <div class="tl"><span class="when">By Dec 11</span><b>Kelly: Round 2 + CFPB where warranted</b><p>We review what's left and decide together on negotiation.</p></div>
+      <div class="tl"><span class="when">Jan – Mar 2027</span><b>Rick: Round 2 · rebuild both profiles</b><p>Utilization under 10%, positive tradelines, and a final comparison against the baseline.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>Full Circle Financial Group</b> · Breyon Miller · 602-545-0826 · Breyon@fullcircle-credit.com</p>
+  <p>We prepare documents and file disputes on your behalf under the Fair Credit Reporting Act, the Fair Debt Collection Practices Act, and related consumer-protection laws. We don't give legal or tax advice. For the solar-loan review, any lawsuit, and 1099-C questions, consult a licensed attorney or CPA. Accurate, verified information can't be removed, and no specific result is guaranteed.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  const store={get(k,d){try{const v=localStorage.getItem('fry2_'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('fry2_'+k,JSON.stringify(v))}catch(e){}}};
+  const $=s=>document.querySelector(s);
+  const fmt=n=>isFinite(n)?'$'+Math.round(n).toLocaleString('en-US'):'–';
+
+  /* phases */
+  const phases=[
+    {name:'Kelly · Round 1',sub:'Active now',title:'Kelly: challenge ownership and accuracy',when:'Now – Oct 9',tasks:[
+      ['Keep Kelly\'s active disputes on both Mosaic accounts moving','Accounts ending 314272 ($72,562.51) and 312429 ($72,522.61). Log every send date in the tracker.','us'],
+      ['Proof-of-ownership demand to Asset Recovery Solutions','Refs 24607077 and 24607078. Request the signed contract, the full assignment chain WebBank → Solar Mosaic → Mosaic Funding X, the charge-off date, and a payment history. Certified, return receipt.','us'],
+      ['Same demand direct to Mosaic Funding X LLC','The claimed owner has to prove it owns each account, not only the portfolio.','us'],
+      ['Duplicate-account challenge','Require both signed contracts. Confirm two separate solar systems, with install addresses and dates.','us'],
+      ['Audit Kelly\'s 3 reports line by line','Check name ("Susan" vs. "Kelly"), SSN, and addresses; duplicate tradelines; balances other than those as of 3/31/25; and missing "disputed" codes.','us'],
+      ['Gather solar contracts and install paperwork','Loan agreements, installer contract, and any promised-savings materials. Note which property each system was on.','you']
+    ]},
+    {name:'Kelly · Round 2',sub:'Oct – Dec',title:'Kelly: escalate and bring in legal review',when:'Oct 9 – Dec 11',tasks:[
+      ['Bureau disputes on every inaccuracy found','FCRA §611 to Experian, Equifax, and TransUnion with documentation. §623 direct disputes to each furnisher.','us'],
+      ['Consumer-attorney review of the solar contracts','Checks the Holder Rule notice, misrepresentation, TILA disclosures, and installer defects. Many firms do this free or on contingency.','both'],
+      ['Review Round 1 responses together','Deleted, corrected, or "verified." We note what each collector could and couldn\'t produce.','both'],
+      ['Round 2: method-of-verification demands','For anything "verified" without the documents we asked for.','us'],
+      ['CFPB complaints where warranted','For collectors who can\'t prove ownership but keep reporting, or who fail to mark the account disputed.','us'],
+      ['Decision meeting: negotiate, litigate, or keep disputing','Based only on what\'s still standing and fully verified.','both']
+    ]},
+    {name:'Rick',sub:'Starts ~Nov 6',title:'Rick: same playbook, sharpened',when:'Nov 6 – Feb 2027',tasks:[
+      ['Collect any newer letters for account 314136','His NRS letter is ref 002147171. Check whether ARS / Mosaic Funding X has contacted him too.','you'],
+      ['Audit Rick\'s 3 reports','Same checks as Kelly: duplicates, balance vs. $59,369.28 as of 3/31/25, identity data, dispute codes.','us'],
+      ['Proof-of-ownership demand to the current collector and owner','Reuses whatever documentation gaps Kelly\'s responses exposed.','us'],
+      ['Round 1 bureau and furnisher disputes','Only on documented inaccuracies.','us'],
+      ['Add Rick\'s contract to the attorney review','One review can cover all three accounts, if the same installer was involved.','both'],
+      ['Round 2 and resolution decision','Mirrors Kelly\'s path.','both']
+    ]},
+    {name:'Resolve & rebuild',sub:'After disputes',title:'Resolve what survives and rebuild both profiles',when:'Dec 2026 – Mar 2027',tasks:[
+      ['Negotiate only fully verified balances','Ask for deletion first, then "paid in full." Use the counter ladder in Section 05.','us'],
+      ['CPA review before signing any settlement','The 1099-C and insolvency exclusion at these amounts.','you'],
+      ['Signed agreement + cashier\'s check + UCC termination','Follow all eight rules in Section 06.','both'],
+      ['Get revolving utilization under 10%','Pay cards before the statement closing date.','you'],
+      ['Add positive tradelines if a file is thin','A secured card or credit-builder loan, only if needed.','both'],
+      ['Final 3-bureau comparison','Against the starting baseline, then plan the next stage.','both']
+    ]}
+  ];
+  const checks=store.get('checks',{});let active=0;
+  function renderTabs(){
+    $('#tabs').innerHTML=phases.map((p,i)=>`<button class="tab" role="tab" id="tab${i}" aria-selected="${i===active}" aria-controls="panel"><span>${p.name}</span><small>${p.sub}</small></button>`).join('');
+    phases.forEach((p,i)=>$('#tab'+i).onclick=()=>{active=i;renderTabs();renderPanel()});
+  }
+  function renderPanel(){
+    const p=phases[active];const done=p.tasks.filter((t,j)=>checks[active+'-'+j]).length;
+    $('#panel').innerHTML=`<div class="panel-top"><div><div class="eyebrow">${p.when}</div><h3>${p.title}</h3></div><span class="prog num">${done} of ${p.tasks.length} complete</span></div>
+    <div class="bar"><i style="width:${done/p.tasks.length*100}%"></i></div>
+    <ul class="tasks">${p.tasks.map((t,j)=>{const id=active+'-'+j,on=!!checks[id];const w={us:'Full Circle',you:'Rick & Kelly',both:'Together'}[t[2]];
+      return `<li class="task${on?' done':''}"><input type="checkbox" id="ck${id}" ${on?'checked':''} data-id="${id}"><label for="ck${id}" style="display:grid;gap:2px;font-weight:400"><span class="t">${t[0]}</span><span class="d">${t[1]}</span></label><span class="who ${t[2]}">${w}</span></li>`}).join('')}</ul>`;
+    $('#panel').querySelectorAll('input[type=checkbox]').forEach(c=>c.onchange=()=>{checks[c.dataset.id]=c.checked;store.set('checks',checks);renderPanel()});
+  }
+  renderTabs();renderPanel();
+
+  /* calculator */
+  let accts=store.get('accts',[
+    {name:'Kelly · Mosaic 314272',bal:72562.51,offer:0,cash:0,status:'coll'},
+    {name:'Kelly · Mosaic 312429',bal:72522.61,offer:0,cash:0,status:'coll'},
+    {name:'Rick · Mosaic 314136',bal:59369.28,offer:0,cash:0,status:'coll'}
+  ]);let cur=0;
+  const F={name:'#c_name',bal:'#c_bal',offer:'#c_offer',cash:'#c_cash',status:'#c_status'};
+  const R={coll:[.20,.30,.40],co:[.30,.40,.50]};
+  function tabsA(){
+    $('#acctTabs').innerHTML=accts.map((a,i)=>`<button type="button" class="chip" aria-pressed="${i===cur}" data-i="${i}">${a.name}</button>`).join('');
+    $('#acctTabs').querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{cur=+b.dataset.i;load()});
+  }
+  function load(){const a=accts[cur];for(const k in F)$(F[k]).value=(['offer','cash'].includes(k)&&!a[k])?'':a[k];tabsA();calc()}
+  for(const k in F)$(F[k]).addEventListener('input',()=>{const v=$(F[k]).value;accts[cur][k]=['bal','offer','cash'].includes(k)?(parseFloat(v)||0):v;store.set('accts',accts);calc();renderCosts();if(k==='name')tabsA()});
+  function calc(){
+    const a=accts[cur],bal=a.bal||0,offer=a.offer||0,cash=a.cash||0,r=R[a.status],pct=bal&&offer?offer/bal:NaN;
+    $('#k_pct').textContent=isFinite(pct)?Math.round(pct*100)+'%':'–';
+    $('#k_forg').textContent=offer?fmt(Math.max(bal-offer,0)):'–';
+    $('#k_gap').textContent=offer?(offer-cash>0?fmt(offer-cash):'Covered'):'–';
+    const mk=$('#mk');mk.hidden=!isFinite(pct);if(isFinite(pct))mk.style.left=Math.min(pct,1)*100+'%';
+    $('#ladder').innerHTML=['Opening counter','Second counter','Walk-away ceiling'].map((l,i)=>`<tr><td>${l}</td><td class="r">${Math.round(r[i]*100)}%</td><td class="r">${fmt(bal*r[i])}</td></tr>`).join('');
+    let c,h,b;
+    if(!offer){c='p-info';h='Disputes come first';b=`No offer entered. If ${a.name} survives the disputes, open at ${fmt(bal*r[0])} and cap at ${fmt(bal*r[2])}. Ask for deletion in exchange for payment.`}
+    else if(pct<=r[1]){c='p-ok';h='Strong offer';b='It\'s at or below our second counter. Accept only after the disputes finish and the eight rules are in a signed agreement.'}
+    else if(pct<=r[2]){c='p-warn';h='In range, but counter once';b=`Counter at ${fmt(bal*r[0])}–${fmt(bal*r[1])} and make deletion part of the terms.`}
+    else{c='p-crit';h='Too high: counter';b=`It's above our ${Math.round(r[2]*100)}% ceiling. Open at ${fmt(bal*r[0])}, and don't go over ${fmt(bal*r[2])}.`}
+    if(offer&&offer-cash>0&&c!=='p-crit')b+=` You'd need ${fmt(offer-cash)} more than you have available. Ask for a 2–3 payment schedule in writing.`;
+    const v=$('#verdict');v.className='verdict '+c;v.innerHTML=`<b>${h}</b><span style="color:var(--ink);font-size:14px">${b}</span>`;
+    const forg=offer?bal-offer:bal*(1-r[1]);
+    $('#taxNote').textContent=`At ${offer?'this offer':'a 30% settlement'}, about ${fmt(forg)} would be forgiven, so a 1099-C is likely. Review the insolvency exclusion (Form 982) with your CPA first.`;
+  }
+  load();
+
+  /* tracker */
+  const O={person:['Kelly','Rick'],route:['Ownership / validation','Bureau dispute §611','Furnisher dispute §623','Legal review','Negotiate'],round:['Round 1','Round 2','Round 3','—'],status:['In progress','Sent · awaiting response','Deleted','Corrected','Verified · escalate','Settled']};
+  let rows=store.get('rows',[
+    {person:'Kelly',acct:'Mosaic 314272 · $72,562.51',by:'Asset Recovery Solutions',bur:'EX · EQ · TU',route:'Bureau dispute §611',round:'Round 1',sent:'',status:'In progress'},
+    {person:'Kelly',acct:'Mosaic 312429 · $72,522.61',by:'Asset Recovery Solutions',bur:'EX · EQ · TU',route:'Bureau dispute §611',round:'Round 1',sent:'',status:'In progress'},
+    {person:'Kelly',acct:'Both accounts: ownership chain',by:'Mosaic Funding X LLC',bur:'—',route:'Ownership / validation',round:'Round 1',sent:'',status:'In progress'},
+    {person:'Kelly',acct:'Mosaic 314272 / 312429 (original)',by:'WebBank / Solar Mosaic',bur:'Check for duplicates',route:'Furnisher dispute §623',round:'Round 1',sent:'',status:'In progress'},
+    {person:'Rick',acct:'Mosaic 314136 · $59,369.28',by:'National Recovery Solutions',bur:'EX · EQ · TU',route:'Ownership / validation',round:'—',sent:'',status:'In progress'}
+  ]);
+  const sel=(k,v,i)=>`<select data-i="${i}" data-k="${k}" aria-label="${k}">${O[k].map(o=>`<option${o===v?' selected':''}>${o}</option>`).join('')}</select>`;
+  const inp=(k,v,i,ph)=>`<input type="text" data-i="${i}" data-k="${k}" value="${(v||'').replace(/"/g,'&quot;')}" placeholder="${ph}" aria-label="${k}">`;
+  function renderRows(){
+    $('#trkBody').innerHTML=rows.map((r,i)=>`<tr><td>${sel('person',r.person,i)}</td><td>${inp('acct',r.acct,i,'Account')}</td><td>${inp('by',r.by,i,'Furnisher')}</td><td>${inp('bur',r.bur,i,'EX · EQ · TU')}</td><td>${sel('route',r.route,i)}</td><td>${sel('round',r.round,i)}</td><td>${inp('sent',r.sent,i,'mm/dd')}</td><td>${sel('status',r.status,i)}</td><td><button class="x" type="button" data-del="${i}" aria-label="Remove row">×</button></td></tr>`).join('');
+    $('#trkBody').querySelectorAll('[data-k]').forEach(el=>el.addEventListener('input',()=>{rows[+el.dataset.i][el.dataset.k]=el.value;store.set('rows',rows);sum()}));
+    $('#trkBody').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{rows.splice(+b.dataset.del,1);store.set('rows',rows);renderRows()});
+    sum();
+  }
+  function sum(){const k=rows.filter(r=>r.person==='Kelly').length,act=rows.filter(r=>!['Deleted','Corrected','Settled'].includes(r.status)).length;$('#trkSum').textContent=`${rows.length} items · ${k} for Kelly · ${act} open`}
+  $('#addRow').onclick=()=>{rows.push({person:'Kelly',acct:'',by:'',bur:'',route:'Bureau dispute §611',round:'Round 1',sent:'',status:'In progress'});store.set('rows',rows);renderRows()};
+  renderRows();
+
+  /* costs */
+  const costs=[
+    {id:'mon',req:true,t:'Credit monitoring: SmartCredit ×2',d:'Required. One account each for about 5 months, so we can see all 3 bureaus and track every change. Est. ~$30/mo per person.',a:()=>2*30*5},
+    {id:'mail',req:true,t:'Certified mail with return receipt',d:'Required. Proof of delivery for every demand and dispute across 3 accounts, 3 bureaus, and 2 rounds. Est. ~$10.50 per letter.',qty:true,q:30,unit:10.5},
+    {id:'atty',req:false,on:true,t:'Consumer-attorney review of solar contracts',d:'Strongly recommended at these balances. Often free or on contingency. The reserve covers a flat consult fee if one is charged.',a:()=>300},
+    {id:'cpa',req:false,on:true,t:'CPA consult: 1099-C / insolvency',d:'Recommended before signing any settlement. At these amounts, the tax exposure can be larger than the settlement itself.',a:()=>250},
+    {id:'sec',req:false,on:false,t:'Secured card deposit (refundable)',d:'Only if a file is thin after the disputes. The deposit comes back when the card graduates.',a:()=>500},
+    {id:'fcfg',req:true,t:'Full Circle dispute & strategy work',d:'Covered under your existing engagement. No new fee for this plan.',a:()=>0}
+  ];
+  const cs=store.get('costs',{});
+  function renderCosts(){
+    let tot=0;
+    $('#costList').innerHTML=costs.map(c=>{const on=c.req||(cs[c.id]??c.on);const q=c.qty?(cs[c.id+'_q']??c.q):0;const a=c.qty?q*c.unit:c.a();if(on)tot+=a;
+      return `<div class="cost${c.req?' req':''}">${c.req?'<span aria-hidden="true" style="color:var(--gold-ink);font-weight:700">●</span>':`<input type="checkbox" id="co_${c.id}" ${on?'checked':''} data-c="${c.id}">`}
+      <label ${c.req?'':`for="co_${c.id}"`} style="display:grid;gap:2px;font-weight:400"><b>${c.t}</b><span class="d">${c.d}</span>${c.qty?`<span class="d">Letters: <input class="qty" type="number" min="0" id="q_${c.id}" value="${q}" aria-label="Number of letters"></span>`:''}</label>
+      <span class="amt">${a===0?'$0':fmt(a)}</span></div>`}).join('')+`<div class="cost-total"><span>Estimated out-of-pocket to run the plan</span><b>${fmt(tot)}</b></div>`;
+    $('#costList').querySelectorAll('[data-c]').forEach(b=>b.onchange=()=>{cs[b.dataset.c]=b.checked;store.set('costs',cs);renderCosts()});
+    const qi=$('#q_mail');if(qi)qi.onchange=()=>{cs.mail_q=Math.max(0,parseInt(qi.value)||0);store.set('costs',cs);renderCosts()};
+    const grp={Kelly:0,Rick:0};accts.forEach(a=>{grp[a.name.startsWith('Rick')?'Rick':'Kelly']+=a.bal||0});
+    $('#reserve').innerHTML=Object.entries(grp).map(([n,b])=>`<div class="card" style="gap:6px"><span class="who-tag">${n.toUpperCase()}${n==='Kelly'?' · FIRST':''}</span><div class="bal" style="font-size:28px">${fmt(b*.2)} – ${fmt(b*.4)}</div><span class="muted" style="font-size:13px">20–40% of ${fmt(b)} claimed</span></div>`).join('');
+  }
+  renderCosts();
+})();
+</script>
+
+</body></html>

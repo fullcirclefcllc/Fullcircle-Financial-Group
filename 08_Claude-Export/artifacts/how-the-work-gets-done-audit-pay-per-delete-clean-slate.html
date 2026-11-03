@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Credit Restoration Programs — Full Circle Financial Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A1F44;
+    --navy-deep:#061530;
+    --navy-line:#1B3560;
+    --gold:#C9A646;
+    --gold-soft:#E0C878;
+    --cream:#F5EFE0;
+    --cream-dim:#E7DEC9;
+    --ink:#0A1F44;
+    --display:"Cinzel",Georgia,serif;
+    --body:"Cormorant Garamond",Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--cream);color:var(--ink);
+    font-family:var(--body);font-size:19px;line-height:1.62;
+    font-weight:500;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  h1,h2,h3,.tier-price,.rate-amt{font-family:var(--display);font-weight:600;letter-spacing:.01em}
+  h2{font-size:clamp(1.5rem,4.4vw,2.05rem);line-height:1.2;margin:0 0 .5rem}
+  h3{font-size:1.12rem;line-height:1.3;margin:0 0 .35rem}
+  p{margin:0 0 1rem;max-width:66ch}
+  a{color:inherit}
+  :focus-visible{outline:2.5px solid var(--gold);outline-offset:3px}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;background:var(--navy);color:var(--cream);overflow:hidden}
+  .hero .wrap{position:relative;z-index:2;padding-top:30px;padding-bottom:52px}
+  .orbit{position:absolute;inset:auto -30% -55% -30%;height:150%;z-index:1;opacity:.5;pointer-events:none}
+  .orbit ellipse{fill:none;stroke:var(--gold);stroke-width:.9}
+  .orbit .o1{opacity:.55}.orbit .o2{opacity:.34}.orbit .o3{opacity:.2}
+  .spin{transform-origin:50% 50%;animation:spin 70s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .mark{font-family:var(--display);font-size:.78rem;letter-spacing:.22em;color:var(--gold);margin:0 0 30px}
+  .hero h1{font-size:clamp(1.85rem,6.4vw,3.15rem);line-height:1.08;margin:0 0 14px;max-width:19ch}
+  .hero .lede{font-size:clamp(1.05rem,3.4vw,1.28rem);color:var(--cream-dim);max-width:46ch;font-style:italic;margin-bottom:26px}
+  .hairline{height:1px;background:linear-gradient(90deg,var(--gold),rgba(201,166,70,0));margin:0 0 26px}
+
+  .btn{
+    display:inline-block;background:var(--gold);color:var(--navy-deep);
+    font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.06em;
+    padding:15px 26px;border:0;border-radius:2px;text-decoration:none;cursor:pointer;
+  }
+  .btn:hover{background:var(--gold-soft)}
+  .btn-ghost{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+  .btn-ghost:hover{background:rgba(201,166,70,.12)}
+  .btn-nav{background:var(--navy);color:var(--cream)}
+  .btn-nav:hover{background:var(--navy-line)}
+
+  /* ---------- sections ---------- */
+  section{padding:54px 0}
+  .on-navy{background:var(--navy);color:var(--cream)}
+  .on-navy h2,.on-navy h3{color:var(--cream)}
+  .kicker{font-family:var(--display);font-size:.8rem;letter-spacing:.14em;color:var(--gold);margin:0 0 10px}
+  .sub{color:#43536f;max-width:60ch}
+  .on-navy .sub{color:var(--cream-dim)}
+
+  /* ---------- agent rate ---------- */
+  .rate{
+    border:1px solid var(--gold);background:#fffdf7;
+    padding:26px 24px;display:grid;gap:20px;align-items:center;
+  }
+  .rate-amt{font-size:3.1rem;line-height:1;color:var(--navy)}
+  .rate-amt small{display:block;font-family:var(--body);font-size:.92rem;font-style:italic;color:#6b5a2c;letter-spacing:0;margin-top:6px}
+  .cond{background:var(--navy);color:var(--cream-dim);padding:13px 16px;font-size:.92rem;margin-top:18px;border-left:3px solid var(--gold)}
+  .rate ul{margin:0;padding-left:1.1em}
+  .rate li{margin-bottom:5px}
+  @media(min-width:760px){.rate{grid-template-columns:230px 1fr;gap:34px;padding:34px 36px}}
+
+  /* ---------- tier selector ---------- */
+  .tabs{display:grid;gap:10px;margin:0 0 24px}
+  @media(min-width:680px){.tabs{grid-template-columns:repeat(3,1fr)}}
+  .tab{
+    text-align:left;background:transparent;color:var(--cream);
+    border:1px solid var(--navy-line);border-radius:2px;
+    padding:16px 18px;cursor:pointer;font-family:var(--body);font-size:1rem;
+    transition:border-color .18s,background .18s;
+  }
+  .tab:hover{border-color:var(--gold-soft)}
+  .tab[aria-selected="true"]{border-color:var(--gold);background:rgba(201,166,70,.1)}
+  .tab .tn{font-family:var(--display);font-size:1.02rem;display:block}
+  .tab .tp{font-family:var(--display);font-size:1.75rem;color:var(--gold);display:block;line-height:1.1;margin-top:4px}
+  .tab .tl{display:block;font-size:.88rem;color:var(--cream-dim);font-style:italic;margin-top:4px}
+
+  .panel{border:1px solid var(--navy-line);border-top:3px solid var(--gold);padding:26px 22px;background:var(--navy-deep)}
+  .panel h3{font-size:1.32rem;margin-bottom:6px}
+  .panel .ph{font-style:italic;color:var(--cream-dim);margin-bottom:22px;max-width:52ch}
+  .feats{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:9px}
+  @media(min-width:720px){.feats{grid-template-columns:1fr 1fr;gap:9px 28px}}
+  .feats li{position:relative;padding-left:22px;font-size:.99rem;line-height:1.45}
+  .feats li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border:1px solid var(--gold);border-radius:50%}
+  .feats li.hi::before{background:var(--gold)}
+  .meta{display:grid;gap:14px;border-top:1px solid var(--navy-line);padding-top:18px;margin-bottom:22px}
+  @media(min-width:620px){.meta{grid-template-columns:1fr 1fr 1fr}}
+  .meta div span{display:block;font-size:.78rem;letter-spacing:.1em;font-family:var(--display);color:var(--gold);margin-bottom:3px}
+  .meta div strong{font-weight:500;font-size:1.02rem}
+  @media(min-width:760px){.panel{padding:34px 36px}}
+
+  /* ---------- timeline ---------- */
+  .steps{list-style:none;margin:26px 0 0;padding:0;counter-reset:s}
+  .steps li{counter-increment:s;position:relative;padding:0 0 26px 54px;border-left:1px solid var(--cream-dim);margin-left:15px}
+  .steps li:last-child{border-left-color:transparent;padding-bottom:0}
+  .steps li::before{
+    content:counter(s);position:absolute;left:-15px;top:-2px;width:30px;height:30px;
+    background:var(--navy);color:var(--gold);border-radius:50%;
+    font-family:var(--display);font-size:.9rem;display:grid;place-items:center;
+  }
+  .steps h3{margin-bottom:2px}
+  .steps .when{font-size:.88rem;color:#6b5a2c;font-style:italic}
+  .steps p{margin:.25rem 0 0;font-size:.98rem}
+
+  /* ---------- table ---------- */
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:24px}
+  table{border-collapse:collapse;width:100%;min-width:620px;font-size:.95rem}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--cream-dim)}
+  thead th{font-family:var(--display);font-size:.84rem;color:var(--navy);border-bottom:2px solid var(--gold);white-space:nowrap}
+  tbody th{font-weight:500;width:44%}
+  td{text-align:center;width:18.6%}
+  .yes{color:var(--gold);font-size:1.15rem;line-height:1}
+  .no{color:#b9b1a0}
+  .hint{font-size:.85rem;color:#6b5a2c;font-style:italic;margin-top:10px}
+
+  /* ---------- qualifier ---------- */
+  .quiz{border:1px solid var(--navy-line);padding:26px 22px;background:rgba(245,239,224,.04)}
+  .q{border-bottom:1px solid var(--navy-line);padding:15px 0;display:grid;gap:11px}
+  .q:first-of-type{padding-top:0}
+  .q p{margin:0;font-size:1rem;max-width:44ch;color:var(--cream)}
+  .opts{display:flex;gap:9px}
+  .opt{
+    flex:1;background:transparent;color:var(--cream);border:1px solid var(--navy-line);
+    padding:10px;font-family:var(--display);font-size:.85rem;letter-spacing:.08em;
+    border-radius:2px;cursor:pointer;
+  }
+  .opt:hover{border-color:var(--gold-soft)}
+  .opt[aria-pressed="true"]{background:var(--gold);color:var(--navy-deep);border-color:var(--gold);font-weight:700}
+  @media(min-width:640px){.q{grid-template-columns:1fr 210px;align-items:center}.q p{max-width:52ch}}
+  .result{margin-top:22px;padding:20px;border-left:3px solid var(--gold);background:rgba(201,166,70,.09);display:none}
+  .result.show{display:block}
+  .result h3{margin-bottom:6px}
+  .result p{color:var(--cream-dim);margin-bottom:16px}
+  @media(min-width:760px){.quiz{padding:34px 36px}}
+
+  /* ---------- faq ---------- */
+  details{border-bottom:1px solid var(--cream-dim);padding:15px 0}
+  summary{cursor:pointer;font-family:var(--display);font-size:1.02rem;list-style:none;display:flex;justify-content:space-between;gap:14px;align-items:baseline}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--gold);font-size:1.3rem;line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{margin:.7rem 0 0;font-size:.99rem}
+
+  /* ---------- cta + footer ---------- */
+  .cta{background:var(--navy-deep);color:var(--cream);text-align:center;padding:60px 0}
+  .cta h2{max-width:22ch;margin:0 auto .6rem}
+  .cta .sub{margin:0 auto 26px}
+  .picked{font-size:.88rem;color:var(--gold);font-family:var(--display);letter-spacing:.08em;margin-top:18px;min-height:1.2em}
+  .fine{background:var(--cream-dim);padding:44px 0;font-size:.83rem;line-height:1.6;color:#3d4a60}
+  .fine h3{font-size:.86rem;letter-spacing:.12em;margin-bottom:12px}
+  .fine p{max-width:none;margin-bottom:.8rem}
+  .fine strong{color:var(--navy)}
+  .sig{margin-top:26px;padding-top:18px;border-top:1px solid #c9c0ad;font-family:var(--display);font-size:.8rem;letter-spacing:.1em;color:var(--navy)}
+  /* ---------- clean slate ---------- */
+  .rail{display:grid;gap:12px;margin:28px 0 30px}
+  @media(min-width:760px){.rail{grid-template-columns:repeat(3,1fr)}}
+  .rcard{border:1px solid var(--navy-line);padding:20px;background:var(--navy-deep)}
+  .rcard.lead{border-color:var(--gold);border-top:3px solid var(--gold)}
+  .rcard .rl{font-family:var(--display);font-size:.78rem;letter-spacing:.12em;color:var(--gold);display:block;margin-bottom:8px}
+  .rcard .rp{font-family:var(--display);font-size:2.1rem;line-height:1;color:var(--cream);display:block}
+  .rcard .rd{font-size:.93rem;color:var(--cream-dim);font-style:italic;margin-top:8px;display:block}
+  .mech{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+  @media(min-width:760px){.mech{grid-template-columns:1fr 1fr;gap:15px 30px}}
+  .mech li{border-left:2px solid var(--gold);padding:0 0 0 15px}
+  .mech strong{display:block;font-family:var(--display);font-weight:600;font-size:.98rem;color:var(--cream);margin-bottom:2px}
+  .mech span{font-size:.94rem;color:var(--cream-dim)}
+  .vs{display:grid;gap:0;border:1px solid var(--navy-line);margin:0 0 30px}
+  @media(min-width:640px){.vs{grid-template-columns:1fr 1fr}}
+  .vs div{padding:20px}
+  .vs div+div{border-top:1px solid var(--navy-line)}
+  @media(min-width:640px){.vs div+div{border-top:0;border-left:1px solid var(--navy-line)}}
+  .vs span{display:block;font-family:var(--display);font-size:.78rem;letter-spacing:.12em;color:var(--gold);margin-bottom:6px}
+  .vs strong{font-family:var(--display);font-size:1.6rem;font-weight:600;display:block;line-height:1.1}
+  .vs em{font-size:.92rem;color:var(--cream-dim);display:block;margin-top:6px}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<header class="hero">
+  <svg class="orbit" viewBox="0 0 600 400" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <g class="spin">
+      <ellipse class="o1" cx="300" cy="200" rx="255" ry="92"/>
+      <ellipse class="o2" cx="300" cy="200" rx="195" ry="70" transform="rotate(24 300 200)"/>
+      <ellipse class="o3" cx="300" cy="200" rx="130" ry="46" transform="rotate(-18 300 200)"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <p class="mark">FULL CIRCLE FINANCIAL GROUP</p>
+    <h1>How the work actually gets done.</h1>
+    <p class="lede">The audit that comes before anything. Pay per delete, priced item by item. Clean Slate, day by day. No summaries &mdash; the mechanics.</p>
+    <div class="hairline"></div>
+    <a class="btn" href="#audit">The audit</a>
+    <a class="btn btn-ghost" href="#ppd" style="margin-left:8px">Pay per delete</a>
+    <a class="btn btn-ghost" href="#cleanslate" style="margin-left:8px">Clean Slate</a>
+  </div>
+</header>
+
+<!-- ================= AUDIT ================= -->
+<section id="audit">
+  <div class="wrap">
+    <p class="kicker">Step zero &mdash; no charge</p>
+    <h2>The audit</h2>
+    <p class="sub">Nobody pays us anything until this is done and you have seen it. It is not a sales call with a score attached. It is an item-by-item examination of three reports, and it is the only honest basis for telling you what a program can and cannot do for you.</p>
+
+    <h3 style="margin:34px 0 14px;font-size:1.15rem">What we pull apart</h3>
+    <ul class="feats">
+      <li class="hi">Every account on all three reports, inventoried: creditor, account number fragment, date opened, date of last activity, date of first delinquency, balance, status, and the full reported payment grid</li>
+      <li class="hi">The three reports compared against each other &mdash; an item that reports differently at Experian than at TransUnion is itself evidence of inaccuracy, and it is the single most productive thing an audit finds</li>
+      <li>Duplicate reporting: the same debt appearing twice because it was sold, or appearing as both a charge-off and a collection</li>
+      <li>Re-aged accounts: a date of first delinquency that has been moved forward, which illegally extends how long an item can report</li>
+      <li>Balances, high credit and past-due amounts that don't reconcile with each other or across bureaus</li>
+      <li>Collection accounts reporting without documented chain of ownership</li>
+      <li>Required fields left blank &mdash; an incomplete tradeline is a disputable tradeline</li>
+      <li>Hard inquiries with no apparent permissible purpose</li>
+      <li>Personal information variants &mdash; name spellings, old addresses, employer data &mdash; that create mixed or merged files</li>
+      <li>Public record and court data checked against the actual court record where one exists</li>
+    </ul>
+
+    <h3 style="margin:38px 0 14px;font-size:1.15rem">The part most companies skip</h3>
+    <p class="sub">We build an aging calendar for every derogatory on your file. Most negative information falls off on its own seven years from the date of first delinquency. If an item is dropping off in four months by operation of law, we tell you that, and we do not charge you to remove it. Knowing what is about to expire changes which program makes sense and what it should cost you.</p>
+
+    <div class="vs" style="margin-top:28px">
+      <div>
+        <span>You receive</span>
+        <strong>A written audit</strong>
+        <em>Item-by-item map, defect flagged per item, aging calendar, utilization and account-mix snapshot, and a plain recommendation.</em>
+      </div>
+      <div>
+        <span>Then a call</span>
+        <strong>30 to 45 minutes</strong>
+        <em>We walk it with you. What we would file, on what grounds, in what order, and what we think is realistic.</em>
+      </div>
+    </div>
+
+    <ol class="steps" style="margin-top:34px">
+      <li>
+        <h3>You send us what we need</h3>
+        <p class="when">Day 0</p>
+        <p>Intake form, your monitoring access, ID, proof of address and proof of Social. Missing any one of these stops the clock, which is why the intake form asks for all of them at once.</p>
+      </li>
+      <li>
+        <h3>We pull and examine</h3>
+        <p class="when">Within 1 business day</p>
+        <p>All three reports, every item, against the checklist above. A file with thirty derogatories takes longer than one with six, but the turnaround does not change.</p>
+      </li>
+      <li>
+        <h3>The call</h3>
+        <p class="when">Within 48 hours of the audit</p>
+        <p>Including an eligibility determination for Clean Slate and for pay per delete, both of which have real qualification requirements. If your report is not suited to either, this is where we say so.</p>
+      </li>
+      <li>
+        <h3>You decide</h3>
+        <p class="when">No deadline</p>
+        <p>You keep the written audit either way. If you take it somewhere else, that is your right &mdash; it is your report and your document.</p>
+      </li>
+    </ol>
+
+    <div class="cond" style="margin-top:30px">The audit tells you what is on your file and what we believe is challengeable. It does not predict a score, and it is not a promise that anything will be removed.</div>
+  </div>
+</section>
+
+<!-- ================= PAY PER DELETE ================= -->
+<section id="ppd" class="on-navy">
+  <div class="wrap">
+    <p class="kicker">Performance-based</p>
+    <h2>Pay per delete, in detail</h2>
+    <p class="sub">No program fee, no monthly charge, no retainer. We quote you per item after the audit, you approve item by item, and you are invoiced only for what comes off &mdash; verified against your own monitoring, not our word.</p>
+
+    <h3 style="margin:34px 0 18px;font-size:1.15rem">How the money works</h3>
+    <ul class="mech">
+      <li><strong>Priced per item, per bureau</strong><span>An item reporting at all three bureaus is three separate filings against three separate companies, and it is priced that way. Your written quote shows the per-bureau count before you approve anything, so there are no surprises on the invoice.</span></li>
+      <li><strong>You approve the list first</strong><span>You get the quote in writing, item by item. Anything you don't want filed, we don't file. Anything you strike comes off the estimate.</span></li>
+      <li><strong>Invoiced after confirmation</strong><span>A deletion is billable when it shows as removed on your report, not when a bureau letter says it will be. We pull the report and show you.</span></li>
+      <li><strong>Nothing removed, nothing owed</strong><span>An item that comes back verified and stays on the report is $0. We absorb that work.</span></li>
+      <li><strong>No cap and no floor</strong><span>If we remove two items you pay for two items. There is no minimum and no package you have to grow into.</span></li>
+      <li><strong>Payment terms</strong><span>Invoices are net 7 from confirmation. A card on file is authorized at enrollment and is not charged until an invoice issues.</span></li>
+    </ul>
+
+    <h3 style="margin:38px 0 14px;font-size:1.15rem">Per-item schedule</h3>
+    <p class="sub" style="margin-bottom:0">Per item, per bureau. Your written quote after the audit is the binding number; this is the standard schedule it is built from.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Item type</th><th style="text-align:center">Per deletion</th></tr></thead>
+        <tbody>
+          <tr><th>Hard inquiry</th><td class="yes">$50</td></tr>
+          <tr><th>Single late payment</th><td class="yes">$75</td></tr>
+          <tr><th>Medical collection</th><td class="yes">$100</td></tr>
+          <tr><th>Collection or charge-off</th><td class="yes">$125</td></tr>
+          <tr><th>Student loan delinquency</th><td class="yes">$125</td></tr>
+          <tr><th>Repossession</th><td class="yes">$200</td></tr>
+          <tr><th>Foreclosure</th><td class="yes">$250</td></tr>
+          <tr><th>Judgment or tax lien</th><td class="yes">$250</td></tr>
+          <tr><th>Bankruptcy</th><td class="yes">$350</td></tr>
+          <tr><th>Personal information correction</th><td class="no">Included</td></tr>
+          <tr><th>Address or name variant removal</th><td class="no">Included</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint" style="color:var(--cream-dim)">Personal information corrections are included at no charge because they are usually what makes the other filings work.</p>
+
+    <h3 style="margin:38px 0 18px;font-size:1.15rem">What it does not include</h3>
+    <ul class="feats">
+      <li>No aged tradelines</li>
+      <li>No credit monitoring &mdash; you carry your own, and you need it for us to verify deletions</li>
+      <li>No utilization engineering or rebuild plan</li>
+      <li>No rapid rescore coordination with a lender</li>
+      <li>No dedicated case manager</li>
+      <li>No compressed timeline &mdash; filings run on the bureaus' ordinary schedule</li>
+    </ul>
+    <p class="sub" style="margin-top:20px">That list is the honest trade. Pay per delete is subtraction only. If your file needs building as well as cleaning, per-item billing will cost you more and deliver less than a flat program will.</p>
+
+    <ol class="steps" style="margin-top:34px">
+      <li><h3>Free audit</h3><p class="when">Day 0 to 1</p><p>Same audit described above. Nothing is owed and nothing is filed yet.</p></li>
+      <li><h3>Eligibility and written quote</h3><p class="when">On the audit call</p><p>Item by item, per bureau, with a total range. You approve, strike or pause anything on it.</p></li>
+      <li><h3>We file</h3><p class="when">Within 5 business days of approval</p><p>Bureau disputes plus furnisher disputes on the approved items.</p></li>
+      <li><h3>Results and verification</h3><p class="when">Day 35 to 50</p><p>We pull your report, show you what came off, and invoice only those items.</p></li>
+      <li><h3>Second look, your call</h3><p class="when">After results</p><p>Anything verified can be escalated with new evidence. New filing, same terms &mdash; you only pay if it comes off.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= CLEAN SLATE ================= -->
+<section id="cleanslate" class="on-navy" style="background:var(--navy-deep)">
+  <div class="wrap">
+    <p class="kicker">Expedited &mdash; $1,850 / $2,200</p>
+    <h2>Clean Slate, day by day</h2>
+    <p class="sub">The bureaus get thirty days by law and nobody can shorten that. What we can do is refuse to waste a single day of it. Here is the actual calendar.</p>
+
+    <ol class="steps" style="margin-top:30px">
+      <li>
+        <h3>Enrollment and final strategy</h3>
+        <p class="when">Day 0</p>
+        <p>Audit complete, eligibility confirmed, filings drafted and evidence attached. Nothing about day one is improvised &mdash; it is built before the clock starts.</p>
+      </li>
+      <li>
+        <h3>Everything files at once</h3>
+        <p class="when">Within 24 hours</p>
+        <p>Bureau disputes under FCRA &sect;611 to all three, furnisher disputes under &sect;623 direct to each creditor and collector, and debt validation under FDCPA &sect;809(b) on any collector still inside their thirty-day window from first contact. A standard program sends these in sequence. We send them in parallel, which is where most of the time is actually saved.</p>
+      </li>
+      <li>
+        <h3>The statutory window</h3>
+        <p class="when">Days 1 to 30</p>
+        <p>We log the exact date each dispute was received, because that date starts a clock the bureau is legally bound by. A missed deadline is not an annoyance &mdash; it is grounds to demand deletion.</p>
+      </li>
+      <li>
+        <h3>First results, and same-day escalation</h3>
+        <p class="when">Days 30 to 35</p>
+        <p>Deletions confirmed against your monitoring. Anything returned as "verified" gets a method-of-verification demand under &sect;611(a)(7) the same day it lands, requiring the bureau to describe how it verified the item and who it spoke to. Most bureaus cannot answer that question well.</p>
+      </li>
+      <li>
+        <h3>Method-of-verification responses</h3>
+        <p class="when">Days 35 to 45</p>
+        <p>A bureau that cannot describe a real procedure has admitted the investigation was inadequate. That admission is the basis for cycle two &mdash; and it is leverage a once-a-month dispute schedule never gets to use.</p>
+      </li>
+      <li>
+        <h3>Cycle two</h3>
+        <p class="when">Days 40 to 50</p>
+        <p>New filings on new grounds: procedural failure, inconsistency across the three bureaus, documentation the furnisher failed to produce. Escalation letters go to furnisher compliance departments rather than general dispute intake.</p>
+      </li>
+      <li>
+        <h3>Regulatory escalation</h3>
+        <p class="when">Day 45</p>
+        <p>CFPB complaints filed against any bureau or furnisher that missed a deadline, refused a method-of-verification request, or reinserted a previously deleted item. State Attorney General where the conduct warrants it. These are filed on schedule, not as a threat.</p>
+      </li>
+      <li>
+        <h3>Final pull and closeout</h3>
+        <p class="when">Days 50 to 60</p>
+        <p>Fresh tri-bureau report, a written summary of every item and its outcome, and a call. If anything is still outstanding we tell you exactly what it is and what the remaining options are.</p>
+      </li>
+    </ol>
+
+    <h3 style="margin:42px 0 18px;font-size:1.15rem">What the two levels include</h3>
+    <div class="rail">
+      <div class="rcard lead">
+        <span class="rl">CLEAN SLATE &mdash; $1,850</span>
+        <span class="rd" style="margin-bottom:14px">Everything on the calendar above. Removal work, compressed.</span>
+        <ul class="feats" style="margin:0">
+          <li class="hi">Two complete escalation cycles in 45 to 60 days</li>
+          <li class="hi">24-hour filing, parallel not sequential</li>
+          <li>Unlimited items &mdash; no per-item charge</li>
+          <li>Method-of-verification demands as standard</li>
+          <li>CFPB and state escalation on schedule</li>
+          <li>Weekly status in the portal</li>
+          <li>Written closeout summary</li>
+        </ul>
+      </div>
+      <div class="rcard" style="border-color:var(--gold-soft)">
+        <span class="rl">CLEAN SLATE PRIORITY &mdash; $2,200</span>
+        <span class="rd" style="margin-bottom:14px">Remove and rebuild inside the same window. For a hard closing date.</span>
+        <ul class="feats" style="margin:0">
+          <li class="hi">Everything in Clean Slate</li>
+          <li class="hi">2 aged tradelines, placed on day one so they report inside the window</li>
+          <li class="hi">Tri-bureau monitoring, 12 months</li>
+          <li>Utilization engineering executed, not just advised</li>
+          <li>Rapid rescore coordination with your lender</li>
+          <li>Dedicated case manager, direct line</li>
+          <li>Mortgage readiness certification</li>
+          <li>Progress reported to you and your loan officer together</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cond" style="margin:0 0 34px">Already in a standard program? Your full program fee applies as credit toward either level if you upgrade within the first 30 days.</div>
+
+    <h3 style="margin:0 0 14px;font-size:1.15rem">Why we gate it</h3>
+    <p class="sub">Volume is the enemy of speed. A file that fires off disputes on thirty items at once gets flagged as frivolous under &sect;611(a)(3), and a flagged file stops being investigated at all &mdash; which costs you the exact thing you paid for. Aggressive only works when every filing is specific, documented, and defensible. That is why Clean Slate is capped at roughly twelve derogatory items, why we want your documentation, and why we ask you to hold new applications steady for sixty days. It is also why we will tell you no when the answer is no, and put you in a standard program instead.</p>
+
+    <div class="tscroll" style="margin-top:34px">
+      <table>
+        <thead><tr><th>&nbsp;</th><th style="text-align:center">Standard<br>$950&ndash;$1,500</th><th style="text-align:center">Pay per<br>delete</th><th style="text-align:center">Clean Slate<br>$1,850 / $2,200</th></tr></thead>
+        <tbody>
+          <tr><th>Estimated length</th><td class="no">3&ndash;6 months</td><td class="no">3&ndash;6 months</td><td class="yes">45&ndash;60 days</td></tr>
+          <tr><th>Filing cadence</th><td class="no">Monthly</td><td class="no">As approved</td><td class="yes">24 hours, two cycles</td></tr>
+          <tr><th>Cost structure</th><td class="no">Flat</td><td class="no">Per item</td><td class="yes">Flat</td></tr>
+          <tr><th>Item volume suited</th><td class="yes">Any</td><td class="no">Under 15</td><td class="no">Under 12</td></tr>
+          <tr><th>Method-of-verification demands</th><td class="no">On request</td><td class="no">&mdash;</td><td class="yes">Standard</td></tr>
+          <tr><th>Regulatory escalation</th><td class="no">As needed</td><td class="no">&mdash;</td><td class="yes">Scheduled</td></tr>
+          <tr><th>Tradelines</th><td class="yes">$1,150+</td><td class="no">&mdash;</td><td class="yes">Priority</td></tr>
+          <tr><th>Rebuild plan</th><td class="yes">&#9679;</td><td class="no">&mdash;</td><td class="yes">&#9679;</td></tr>
+          <tr><th>Works on a deadline</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="yes">&#9679;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="start">
+  <div class="wrap">
+    <p class="kicker">Next step</p>
+    <h2>It starts with the audit, and the audit is free</h2>
+    <p class="sub">Eight minutes of intake. We pull all three reports, examine every item, and tell you which of these three is actually right for your file &mdash; including when the answer is none of them.</p>
+    <a class="btn" id="mainCta" href="#">Start my intake form</a>
+    <p class="picked" style="color:var(--cream-dim);font-family:var(--body);letter-spacing:0;font-size:.95rem;margin-top:16px">Or call <a href="tel:+16025450826" style="color:var(--gold);text-decoration:none">602.545.0826</a> &nbsp;&middot;&nbsp; <a href="mailto:Breyon@fullcircle-credit.com" style="color:var(--gold);text-decoration:none">Breyon@fullcircle-credit.com</a></p>
+    <p class="picked">
+      <span style="color:var(--cream-dim)">Programs &nbsp;&middot;&nbsp; Expedited services</span>
+    </p>
+  </div>
+</section>
+
+<footer class="fine">
+  <div class="wrap">
+    <h3>Important disclosures</h3>
+    <p><strong>What we are.</strong> Full Circle Financial Group is a document preparation firm. We prepare, file and dispute on your behalf using rights available to you under federal law. Every filing is made in your name with your written authorization.</p>
+    <p><strong>No guarantee of results.</strong> We do not promise, guarantee or predict any specific credit score, any score increase, or that any particular item &mdash; or all items &mdash; will be removed, corrected or updated. Any item on a credit report may be disputed; inaccurate, incomplete, unverifiable and obsolete items carry by far the highest deletion rate, and accurate, verifiable information may remain on your report until it ages off under federal law. Results vary by individual report and depend on the responsiveness of the credit bureaus and data furnishers, and on your own credit activity.</p>
+    <p><strong>Timelines are estimates.</strong> All timeframes on this page are estimates based on statutory investigation windows and prior file experience, not commitments. Credit bureaus are permitted up to 30 days &mdash; and in some circumstances 45 days &mdash; to complete a reinvestigation. Neither we nor any other company can shorten a statutory window. Where this page describes 45 to 60 days, that refers to our filing and escalation cadence, not a guaranteed deletion date.</p>
+    <p><strong>The audit.</strong> The audit is provided at no charge and carries no obligation. It is an examination of the information reported about you; it is not a score projection, a legal opinion, or a representation that any item will be removed.</p>
+    <p><strong>Pay per delete.</strong> Items are priced per item, per bureau. The written quote issued after your audit is the binding figure; the schedule on this page is the standard rate card it is built from. You are invoiced only for items confirmed removed from your report. Not all reports qualify. A deletion at one bureau does not mean the item is removed from the other two, and some furnishers and bureaus will not negotiate deletion at all.</p>
+    <p><strong>Clean Slate.</strong> Eligibility is determined after your audit and not all reports qualify. Where a report is not a candidate, we will say so and recommend a standard program instead. Clean Slate is $1,850 and Clean Slate Priority is $2,200; both are standalone services and neither is included in the $300, $950, $1,150 or $1,500 programs.</p>
+    <p><strong>Tradelines.</strong> Aged tradelines are authorized-user placements on seasoned accounts. Reporting to the credit bureaus is at the sole discretion of the issuing creditor and is not guaranteed as to timing, duration or score impact. Authorized-user positions do not create liability for the primary account balance. Tradelines are included in the $1,150 and $1,500 programs and in Clean Slate Priority only.</p>
+    <p><strong>Your rights.</strong> You have the right to dispute inaccurate information in your credit report directly with the credit bureaus yourself, at no cost, and to obtain a free copy of your credit report. You will receive a written contract and a statement of your Consumer Credit File Rights Under State and Federal Law before any agreement is signed, and you may cancel that contract without penalty or obligation within three business days of signing. Nothing on this page is legal, tax or investment advice.</p>
+    <p style="text-align:center;margin-bottom:.8rem"><strong>Breyon Miller</strong> &middot; Founder &amp; Financial Architect &middot; <a href="tel:+16025450826" style="color:var(--navy)">602.545.0826</a> &middot; <a href="mailto:Breyon@fullcircle-credit.com" style="color:var(--navy)">Breyon@fullcircle-credit.com</a></p>
+    <p class="sig">FULL CIRCLE FINANCIAL GROUP &middot; PROTECTION &middot; STRUCTURE &middot; LEVERAGE &middot; SCALE</p>
+  </div>
+</footer>
+
+<script>
+/* EDIT THIS LINE: paste your Typeform link. */
+const TYPEFORM_URL = "https://re8bdy0ql2x.typeform.com/to/lvmAcVON";
+const SOURCE = "details-page";   /* which page the click came from */
+const AGENT  = "breyon"; /* change per agent if you add team members */
+function link(slug){
+  return TYPEFORM_URL
+    + "#package=" + encodeURIComponent(slug)
+    + "&source="  + encodeURIComponent(SOURCE)
+    + "&agent="   + encodeURIComponent(AGENT);
+}
+document.getElementById('mainCta').href = link('audit-request');
+</script>
+</body>
+</html>

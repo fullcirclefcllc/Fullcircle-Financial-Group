@@ -1,0 +1,298 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Client Journey</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@500;700&display=swap">
+<style>
+/* Layout: one vertical 9:16 "phone video" stage, centered; controls and notes beneath. Single deliberate dark look (brand navy). */
+:root {
+  --navy: #0A1F44;
+  --navy-deep: #06142E;
+  --gold: #C9A646;
+  --gold-soft: rgba(201,166,70,.22);
+  --cream: #F5EFE0;
+  --muted: #A9B4C8;
+  --display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --serif: "Cormorant Garamond", Garamond, Georgia, serif;
+  --ui: "Manrope", system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+html, body { background: var(--navy-deep); color: var(--cream); }
+body { font-family: var(--ui); }
+.wrap {
+  max-width: 980px; margin: 0 auto;
+  padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 40px; align-items: start;
+}
+@media (max-width: 760px) { .wrap { grid-template-columns: minmax(0,1fr); gap: 24px; } }
+
+.stage {
+  position: relative; width: 100%; max-width: 420px; aspect-ratio: 9 / 16;
+  border-radius: 22px; overflow: hidden; margin: 0 auto;
+  background: radial-gradient(120% 70% at 50% 30%, #12305f 0%, var(--navy) 45%, var(--navy-deep) 100%);
+  border: 1px solid var(--gold-soft);
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+}
+.progress { position: absolute; top: 14px; left: 14px; right: 14px; display: flex; gap: 4px; z-index: 5; }
+.progress span { flex: 1; height: 3px; border-radius: 2px; background: rgba(245,239,224,.2); overflow: hidden; }
+.progress span i { display: block; height: 100%; width: 0; background: var(--gold); }
+.brandbar { position: absolute; top: 28px; left: 18px; right: 18px; display: flex; justify-content: space-between; align-items: center; z-index: 5;
+  font: 700 10px/1 var(--ui); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.brandbar b { color: var(--gold); font-weight: 700; }
+
+.orbit { position: absolute; inset: 0; pointer-events: none; }
+.orbit svg { position: absolute; width: 150%; left: -25%; top: 4%; opacity: .55; }
+.orbit .ring { transform-origin: 300px 300px; animation: spin 40s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.scene { position: absolute; inset: 0; padding: 64px 26px 118px; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+.scene[hidden] { display: none !important; }
+.eyebrow { font: 700 11px/1 var(--ui); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.title { font: 700 clamp(26px, 7.4vw, 34px)/1.12 var(--display); letter-spacing: .02em; text-wrap: balance; margin: 0; }
+.caption { font: 500 clamp(19px, 5.2vw, 23px)/1.32 var(--serif); color: var(--cream); margin: 0; text-wrap: pretty; }
+.visual { height: 170px; display: grid; place-items: center; }
+.anim .visual, .anim .title, .anim .caption, .anim .eyebrow { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+.anim .eyebrow { animation-delay: .05s; } .anim .title { animation-delay: .12s; } .anim .visual { animation-delay: .22s; } .anim .caption { animation-delay: .35s; }
+@keyframes rise { from { opacity: .0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* visuals */
+.gauge { width: 170px; height: 100px; }
+.gauge .num { font: 700 30px var(--display); fill: var(--cream); }
+.gauge .lbl { font: 700 9px var(--ui); letter-spacing: .16em; fill: var(--muted); }
+.slots { display: grid; grid-template-columns: repeat(3, 64px); gap: 8px; }
+.slots div { height: 46px; border: 1px solid var(--gold-soft); border-radius: 10px; display: grid; place-items: center; font: 700 12px var(--ui); color: var(--muted); }
+.slots div.on { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.list { display: grid; gap: 10px; width: 100%; max-width: 280px; }
+.list div { display: flex; align-items: center; gap: 10px; font: 600 15px var(--ui); color: var(--cream); opacity: .35; transition: opacity .4s; }
+.list div.on { opacity: 1; }
+.list div::before { content: ""; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--gold); flex: none; }
+.list div.on::before { background: var(--gold) radial-gradient(circle, var(--navy) 0 3px, transparent 3.5px); }
+.rounds { display: flex; align-items: center; gap: 0; }
+.rounds .r { width: 54px; height: 54px; border-radius: 50%; border: 1.5px solid var(--gold); display: grid; place-items: center; font: 700 13px var(--ui); color: var(--gold); }
+.rounds .r.on { background: var(--gold); color: var(--navy); }
+.rounds .bar { width: 34px; height: 1.5px; background: var(--gold-soft); }
+.cards { position: relative; width: 190px; height: 130px; }
+.cards div { position: absolute; width: 170px; height: 104px; border-radius: 12px; border: 1px solid var(--gold-soft); background: linear-gradient(135deg, #17386f, #0d2550); }
+.cards div:nth-child(1) { left: 0; top: 18px; transform: rotate(-8deg); }
+.cards div:nth-child(2) { left: 10px; top: 10px; transform: rotate(-2deg); }
+.cards div:nth-child(3) { left: 20px; top: 2px; transform: rotate(5deg); border-color: var(--gold); }
+.cards div:nth-child(3)::after { content: "FEE AFTER APPROVAL"; position: absolute; left: 14px; bottom: 12px; font: 700 9px var(--ui); letter-spacing: .14em; color: var(--gold); }
+.cards div:nth-child(3)::before { content: ""; position: absolute; left: 14px; top: 16px; width: 28px; height: 20px; border-radius: 4px; background: var(--gold); opacity: .85; }
+.quad { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 280px; }
+.quad div { border: 1px solid var(--gold-soft); border-radius: 12px; padding: 14px 10px; text-align: center; font: 700 14px var(--display); letter-spacing: .08em; }
+.quad div.on { border-color: var(--gold); color: var(--gold); }
+
+.controls { position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; gap: 8px; z-index: 5; }
+.controls button { font: 700 12px var(--ui); letter-spacing: .06em; border-radius: 999px; padding: 11px 14px; cursor: pointer; border: 1px solid var(--gold-soft); background: rgba(6,20,46,.6); color: var(--cream); }
+.controls button.primary { flex: 1; background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.controls button:focus-visible, .tap:focus-visible { outline: 2px solid var(--cream); outline-offset: 2px; }
+.tap { position: absolute; top: 60px; bottom: 70px; width: 30%; z-index: 4; background: none; border: 0; cursor: pointer; }
+.tap.prev { left: 0; } .tap.next { right: 0; }
+.cc { position: absolute; left: 18px; right: 18px; bottom: 66px; z-index: 5; font: 600 11px var(--ui); color: var(--muted); letter-spacing: .04em; }
+
+.notes h1 { font: 700 30px/1.15 var(--display); margin: 0 0 10px; color: var(--cream); text-wrap: balance; }
+.notes p { font: 500 15px/1.6 var(--ui); color: var(--muted); max-width: 60ch; margin: 0 0 14px; }
+.notes h2 { font: 700 11px var(--ui); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin: 26px 0 10px; }
+.notes ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: var(--cream); font: 500 15px/1.5 var(--ui); max-width: 60ch; }
+.notes ol li::marker { color: var(--gold); font-weight: 700; }
+.chapters { display: grid; gap: 6px; }
+.chapters button { text-align: left; background: none; border: 1px solid transparent; border-radius: 10px; padding: 9px 12px; color: var(--cream); font: 600 14px var(--ui); cursor: pointer; display: flex; gap: 12px; }
+.chapters button span { color: var(--gold); font-variant-numeric: tabular-nums; min-width: 22px; }
+.chapters button[aria-current="true"] { border-color: var(--gold-soft); background: rgba(201,166,70,.08); }
+.disc { font-size: 12px !important; }
+@media (prefers-reduced-motion: reduce) { .orbit .ring, .anim * { animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <div class="stage" id="stage" aria-label="Animated client journey video">
+    <div class="orbit" aria-hidden="true">
+      <svg viewBox="0 0 600 600"><g class="ring" fill="none" stroke="#C9A646">
+        <ellipse cx="300" cy="300" rx="250" ry="250" stroke-opacity=".18"/>
+        <ellipse cx="300" cy="300" rx="250" ry="92" stroke-opacity=".35" transform="rotate(-24 300 300)"/>
+        <circle cx="530" cy="232" r="6" fill="#C9A646" stroke="none"/>
+      </g></svg>
+    </div>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <div class="brandbar"><span><b>Full Circle</b> Financial Group</span><span id="counter">1 / 10</span></div>
+    <div id="scenes"></div>
+    <button class="tap prev" id="tapPrev" aria-label="Previous scene"></button>
+    <button class="tap next" id="tapNext" aria-label="Next scene"></button>
+    <div class="cc" id="cc">Tap Play with voice to hear the narration.</div>
+    <div class="controls">
+      <button class="primary" id="voiceBtn">Play with voice</button>
+      <button id="pauseBtn" aria-pressed="false">Pause</button>
+      <button id="restartBtn">Restart</button>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h1>What to expect at Full Circle</h1>
+    <p>A 90-second walkthrough of the client journey, from the free Readiness Score to protection. Send it to every lead after they book and every client after they sign.</p>
+    <h2>Chapters</h2>
+    <div class="chapters" id="chapters"></div>
+    <h2>Post it to Instagram</h2>
+    <ol>
+      <li>Open this page on your phone and tap <strong>Play with voice</strong>.</li>
+      <li>Start your phone's screen recording with the microphone off, so the narration records clean.</li>
+      <li>Trim the start and end, add captions in CapCut or Instagram, then post as a Reel and pin it.</li>
+    </ol>
+    <p class="disc" style="margin-top:22px">Results vary. Funding is not guaranteed and depends on lender approval. Credit repair fees are charged as work is completed.</p>
+  </div>
+</div>
+
+<script>
+const SCENES = [
+  { eyebrow: "Full Circle Financial Group", title: "Here's exactly what happens", text: "Here's exactly what happens when you work with Full Circle.", vis: "quad0" },
+  { eyebrow: "Step 1 of 7", title: "Readiness Score", text: "Take the two-minute Readiness Score so we see where you stand before we ever talk.", vis: "gauge" },
+  { eyebrow: "Step 2 of 7", title: "Strategy call", text: "On a 30-minute call we map your goal, your gaps, your path and your price, in writing.", vis: "slots" },
+  { eyebrow: "Step 3 of 7", title: "Onboarding", text: "You sign the agreement, enroll in credit monitoring, and upload your documents.", vis: "onboard" },
+  { eyebrow: "Step 4 of 7", title: "Personal credit", text: "We dispute inaccurate and unverifiable items in rounds, about every 30 to 45 days. You pay as work is completed.", vis: "rounds" },
+  { eyebrow: "Step 5 of 7", title: "Business credit", text: "We make your business fundable: matching records, a D-U-N-S number, and reporting vendors. Pay early, and your Paydex can post in 30 to 60 days.", vis: "paydex" },
+  { eyebrow: "Step 6 of 7", title: "Funding", text: "When you're ready, we review funding options and explain every inquiry and fee. Our fee comes after approval.", vis: "cards" },
+  { eyebrow: "Step 7 of 7", title: "Protect it", text: "Then we protect what you built, with structure, trusts, and life insurance.", vis: "shield" },
+  { eyebrow: "Your part", title: "Four things we need from you", text: "Answer within 24 hours, send us any bureau mail, pay vendors early, and check with us before opening new accounts.", vis: "yourpart" },
+  { eyebrow: "Full Circle", title: "Fix it. Build it. Fund it. Protect it.", text: "Fix it. Build it. Fund it. Protect it. That's the full circle. Take your free Readiness Score at the link.", vis: "quad" }
+];
+
+const visuals = {
+  quad0: () => `<div class="quad"><div>FIX</div><div>BUILD</div><div>FUND</div><div>PROTECT</div></div>`,
+  quad: () => `<div class="quad" data-seq><div>FIX</div><div>BUILD</div><div>FUND</div><div>PROTECT</div></div>`,
+  gauge: () => gaugeSVG("READINESS", 72),
+  paydex: () => gaugeSVG("PAYDEX", 80),
+  slots: () => `<div class="slots" data-seq><div>GOAL</div><div>GAPS</div><div>PATH</div><div>PRICE</div><div>PLAN</div><div>START</div></div>`,
+  onboard: () => `<div class="list" data-seq><div>Sign the agreement</div><div>Enroll in monitoring</div><div>Upload ID and proof of address</div></div>`,
+  rounds: () => `<div class="rounds" data-seq><div class="r">R1</div><span class="bar"></span><div class="r">R2</div><span class="bar"></span><div class="r">R3</div></div>`,
+  cards: () => `<div class="cards"><div></div><div></div><div></div></div>`,
+  shield: () => `<svg width="120" height="140" viewBox="0 0 120 140" aria-hidden="true"><path d="M60 8 L108 26 V66 C108 98 86 120 60 132 C34 120 12 98 12 66 V26 Z" fill="rgba(201,166,70,.12)" stroke="#C9A646" stroke-width="2"/><path d="M40 70 L55 85 L82 56" fill="none" stroke="#C9A646" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  yourpart: () => `<div class="list" data-seq><div>Reply within 24 hours</div><div>Send us bureau mail</div><div>Pay vendors early</div><div>Ask before new accounts</div></div>`
+};
+
+function gaugeSVG(label, value) {
+  const r = 70, c = Math.PI * r;
+  return `<svg class="gauge" viewBox="0 0 170 100" data-gauge="${value}" aria-hidden="true">
+    <path d="M15 90 A70 70 0 0 1 155 90" fill="none" stroke="rgba(245,239,224,.15)" stroke-width="10" stroke-linecap="round"/>
+    <path class="arc" d="M15 90 A70 70 0 0 1 155 90" fill="none" stroke="#C9A646" stroke-width="10" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}"/>
+    <text class="num" x="85" y="80" text-anchor="middle">0</text>
+    <text class="lbl" x="85" y="97" text-anchor="middle">${label}</text></svg>`;
+}
+
+const scenesEl = document.getElementById("scenes");
+const progressEl = document.getElementById("progress");
+const chaptersEl = document.getElementById("chapters");
+const cc = document.getElementById("cc");
+const counter = document.getElementById("counter");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+SCENES.forEach((s, i) => {
+  const el = document.createElement("section");
+  el.className = "scene"; el.hidden = i !== 0;
+  el.innerHTML = `<div class="eyebrow">${s.eyebrow}</div><h2 class="title">${s.title}</h2><div class="visual">${visuals[s.vis]()}</div><p class="caption">${s.text}</p>`;
+  scenesEl.appendChild(el);
+  const seg = document.createElement("span"); seg.innerHTML = "<i></i>"; progressEl.appendChild(seg);
+  const ch = document.createElement("button");
+  ch.innerHTML = `<span>${String(i + 1).padStart(2, "0")}</span>${s.title}`;
+  ch.addEventListener("click", () => go(i, true));
+  chaptersEl.appendChild(ch);
+});
+
+const synth = "speechSynthesis" in window ? window.speechSynthesis : null;
+let idx = 0, paused = false, voiceOn = false, timer = null, rafId = null, start = 0, dur = 0, elapsed = 0, seqTimers = [];
+
+function durationFor(s) { return Math.max(4200, s.text.split(/\s+/).length * 380 + 1800); }
+
+function animateVisual(scene) {
+  seqTimers.forEach(clearTimeout); seqTimers = [];
+  const g = scene.querySelector("[data-gauge]");
+  if (g) {
+    const target = +g.dataset.gauge, arc = g.querySelector(".arc"), num = g.querySelector(".num");
+    const c = Math.PI * 70, t0 = performance.now(), D = reduce ? 1 : 1400;
+    const step = now => { const p = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - p, 3);
+      arc.setAttribute("stroke-dashoffset", c * (1 - e * target / 100)); num.textContent = Math.round(e * target);
+      if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  const seq = scene.querySelector("[data-seq]");
+  if (seq) {
+    const kids = [...seq.children].filter(k => !k.classList.contains("bar"));
+    kids.forEach(k => k.classList.remove("on"));
+    kids.forEach((k, j) => seqTimers.push(setTimeout(() => k.classList.add("on"), reduce ? 0 : 500 + j * 550)));
+  }
+}
+
+function render() {
+  const nodes = scenesEl.children;
+  [...nodes].forEach((n, i) => { n.hidden = i !== idx; n.classList.remove("anim"); });
+  const cur = nodes[idx]; void cur.offsetWidth; cur.classList.add("anim");
+  [...progressEl.children].forEach((seg, i) => seg.firstChild.style.width = i < idx ? "100%" : "0%");
+  [...chaptersEl.children].forEach((b, i) => b.setAttribute("aria-current", i === idx ? "true" : "false"));
+  counter.textContent = `${idx + 1} / ${SCENES.length}`;
+  animateVisual(cur);
+}
+
+function tick() {
+  if (paused) return;
+  elapsed = performance.now() - start;
+  const p = Math.min(1, elapsed / dur);
+  progressEl.children[idx].firstChild.style.width = (p * 100) + "%";
+  if (p >= 1 && !voiceOn) { next(); return; }
+  rafId = requestAnimationFrame(tick);
+}
+
+function play() {
+  cancelAnimationFrame(rafId);
+  dur = durationFor(SCENES[idx]); start = performance.now() - elapsed;
+  if (voiceOn && synth) speak(SCENES[idx].text);
+  rafId = requestAnimationFrame(tick);
+}
+
+function speak(text) {
+  try {
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.98; u.pitch = 0.95;
+    const voices = synth.getVoices();
+    const pick = voices.find(v => /en-US/i.test(v.lang) && /male|daniel|alex|guy|david|aaron/i.test(v.name)) || voices.find(v => /en-US/i.test(v.lang));
+    if (pick) u.voice = pick;
+    u.onend = () => { if (!paused && voiceOn) setTimeout(() => next(), 500); };
+    synth.speak(u);
+    cc.textContent = "Narration on. Screen-record now to save it as a Reel.";
+  } catch (e) { voiceOn = false; cc.textContent = "Voice isn't available in this browser. The video still plays."; }
+}
+
+function go(i, user) {
+  idx = (i + SCENES.length) % SCENES.length; elapsed = 0;
+  if (synth) synth.cancel();
+  render();
+  if (!paused) play();
+}
+function next() {
+  if (idx === SCENES.length - 1 && voiceOn) { voiceOn = false; document.getElementById("voiceBtn").textContent = "Play with voice"; cc.textContent = "Done. Tap Play with voice to run it again."; }
+  go(idx + 1);
+}
+
+document.getElementById("tapNext").addEventListener("click", () => go(idx + 1, true));
+document.getElementById("tapPrev").addEventListener("click", () => go(idx - 1, true));
+document.getElementById("restartBtn").addEventListener("click", () => { paused = false; setPauseLabel(); go(0, true); });
+const pauseBtn = document.getElementById("pauseBtn");
+function setPauseLabel() { pauseBtn.textContent = paused ? "Resume" : "Pause"; pauseBtn.setAttribute("aria-pressed", paused); }
+pauseBtn.addEventListener("click", () => {
+  paused = !paused; setPauseLabel();
+  if (paused) { cancelAnimationFrame(rafId); if (synth) synth.pause(); }
+  else { if (synth && synth.paused) { synth.resume(); start = performance.now() - elapsed; rafId = requestAnimationFrame(tick); } else play(); }
+});
+const voiceBtn = document.getElementById("voiceBtn");
+if (!synth) { voiceBtn.textContent = "Play"; cc.textContent = "Voice isn't available in this browser. The video still plays."; }
+voiceBtn.addEventListener("click", () => {
+  if (synth) { voiceOn = true; voiceBtn.textContent = "Playing with voice"; synth.getVoices(); }
+  paused = false; setPauseLabel(); go(0, true);
+});
+if (synth && synth.onvoiceschanged !== undefined) synth.onvoiceschanged = () => {};
+
+render();
+if (!reduce) play();
+</script>
+
+</body></html>

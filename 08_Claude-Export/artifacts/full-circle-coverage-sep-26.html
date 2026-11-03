@@ -1,0 +1,492 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Coverage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500;600&display=swap">
+<style>
+:root{
+  --navy:#0A1F44; --navy-2:#132B57; --gold:#C9A646; --gold-soft:#E4CF8E; --cream:#F5EFE0;
+  --bg:#F5EFE0; --surface:#FBF8F0; --surface-2:#EFE6D0; --ink:#0A1F44; --ink-2:#3A4A68; --muted:#6B7690;
+  --line:rgba(10,31,68,.14); --gold-ink:#8C6D1C; --band:#0A1F44; --band-ink:#F5EFE0; --band-muted:#B9C2D6;
+  --shadow:0 18px 40px -24px rgba(10,31,68,.45);
+  --display:"Cinzel", "Trajan Pro", Georgia, serif;
+  --serif:"Cormorant Garamond", Garamond, "Times New Roman", serif;
+  --ui:"Jost", "Futura", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#071630; --surface:#0D2148; --surface-2:#132B57; --ink:#F5EFE0; --ink-2:#D5D9E4; --muted:#9AA6C0;
+    --line:rgba(245,239,224,.14); --gold-ink:#D9BC62; --band:#040E22; --band-ink:#F5EFE0; --band-muted:#9AA6C0;
+    --shadow:0 18px 40px -24px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#071630; --surface:#0D2148; --surface-2:#132B57; --ink:#F5EFE0; --ink-2:#D5D9E4; --muted:#9AA6C0;
+  --line:rgba(245,239,224,.14); --gold-ink:#D9BC62; --band:#040E22; --band-ink:#F5EFE0; --band-muted:#9AA6C0;
+  --shadow:0 18px 40px -24px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0;letter-spacing:.02em}
+p{margin:0}
+.eyebrow{font-family:var(--ui);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--band);color:var(--band-ink);position:relative;overflow:hidden}
+.hero .wrap{padding-block:28px 56px;display:grid;gap:40px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{width:54px;height:54px;flex:none}
+.brand-name{font-family:var(--display);font-size:17px;letter-spacing:.14em;line-height:1.15}
+.brand-name small{display:block;font-family:var(--ui);font-size:10.5px;letter-spacing:.3em;color:var(--gold);margin-top:3px}
+.audience{display:inline-flex;border:1px solid rgba(201,166,70,.5);border-radius:999px;padding:4px;gap:4px}
+.audience button{background:none;border:0;border-radius:999px;padding:8px 16px;font-family:var(--ui);font-size:13px;letter-spacing:.06em;color:var(--band-muted);transition:background .25s,color .25s}
+.audience button[aria-pressed="true"]{background:var(--gold);color:#0A1F44;font-weight:600}
+.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(34px,5.2vw,58px);line-height:1.08;font-weight:600}
+.hero h1 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold);letter-spacing:0;font-size:1.08em}
+.hero .lede{font-size:clamp(19px,2vw,23px);color:var(--band-muted);max-width:34em;margin-top:18px}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px;font-family:var(--ui);font-size:13px;color:var(--band-muted);letter-spacing:.04em}
+.hero-stats b{display:block;font-family:var(--display);font-size:22px;color:var(--band-ink);font-weight:600;letter-spacing:.04em}
+.hero-orbit{position:relative;aspect-ratio:1;max-width:380px;width:100%;justify-self:center}
+.hero-orbit svg{width:100%;height:100%}
+.spin{transform-origin:200px 200px;animation:spin 40s linear infinite}
+.spin.rev{animation-duration:60s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- SECTIONS ---------- */
+section{padding-block:clamp(56px,8vw,96px)}
+.sec-head{display:grid;gap:12px;max-width:44em;margin-bottom:36px}
+.sec-head h2{font-size:clamp(26px,3.4vw,38px);line-height:1.15}
+.sec-head p{color:var(--ink-2);font-size:20px}
+
+/* products */
+.prod-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:14px 14px 0 0;overflow:hidden;background:var(--surface)}
+.prod-tab{background:none;border:0;border-right:1px solid var(--line);padding:22px 20px 20px;text-align:left;display:grid;gap:8px;position:relative;transition:background .2s}
+.prod-tab:last-child{border-right:0}
+.prod-tab:hover{background:var(--surface-2)}
+.prod-tab .ic{width:34px;height:34px;color:var(--gold-ink)}
+.prod-tab .t{font-family:var(--display);font-size:15.5px;letter-spacing:.06em;font-weight:600}
+.prod-tab .s{font-family:var(--ui);font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+.prod-tab::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.prod-tab[aria-selected="true"]{background:var(--surface-2)}
+.prod-tab[aria-selected="true"]::after{transform:scaleX(1)}
+.prod-panel{border:1px solid var(--line);border-top:0;border-radius:0 0 14px 14px;background:var(--surface);padding:clamp(22px,4vw,40px);display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,4vw,48px);box-shadow:var(--shadow)}
+.prod-panel h3{font-size:clamp(22px,2.6vw,28px);margin-top:8px}
+.prod-panel .desc{color:var(--ink-2);margin-top:12px;font-size:20px}
+.fit{margin-top:22px;padding:16px 18px;border-left:2px solid var(--gold);background:var(--surface-2);border-radius:0 10px 10px 0}
+.fit .eyebrow{display:block;margin-bottom:6px}
+.fit p{font-size:19px;font-style:italic}
+.feat{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.feat li{display:grid;grid-template-columns:22px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:18.5px;line-height:1.35}
+.feat li:last-child{border-bottom:0}
+.feat li svg{width:16px;height:16px;margin-top:5px;color:var(--gold-ink)}
+.feat-title{font-family:var(--ui);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.fade{animation:fade .35s ease}
+@keyframes fade{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* orbit system */
+.system{background:var(--surface-2)}
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
+.sys-diagram{max-width:480px;width:100%;justify-self:center}
+.sys-diagram svg{width:100%;height:auto;overflow:visible}
+.node{cursor:pointer}
+.node circle.bg{fill:var(--surface);stroke:var(--gold);stroke-width:1.5;transition:fill .25s}
+.node text{font-family:var(--display);font-size:13px;letter-spacing:.12em;fill:var(--ink);font-weight:600}
+.node text.n{font-family:var(--ui);font-size:10px;letter-spacing:.2em;fill:var(--gold-ink);font-weight:600}
+.node.on circle.bg{fill:var(--navy)}
+.node.on text{fill:#F5EFE0}
+.node.on text.n{fill:var(--gold)}
+.node:focus{outline:none}
+.node:focus-visible circle.bg{stroke-width:3}
+.ring{fill:none;stroke:var(--gold);stroke-width:1;opacity:.55}
+.ring-d{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 6}
+.center-t{font-family:var(--display);fill:var(--ink);font-weight:600;letter-spacing:.14em}
+.center-s{font-family:var(--ui);fill:var(--muted);font-size:10px;letter-spacing:.24em}
+.pillar-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,3vw,32px);box-shadow:var(--shadow)}
+.pillar-card h3{font-size:24px;margin:6px 0 10px}
+.pillar-card p{color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{font-family:var(--ui);font-size:12.5px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:var(--bg)}
+.chip.gold{border-color:var(--gold);color:var(--gold-ink)}
+.flow{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:18px;color:var(--ink-2)}
+.flow b{font-family:var(--ui);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);font-weight:600;display:block;margin-bottom:4px}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;position:relative}
+.journey::before{content:"";position:absolute;top:19px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold-soft))}
+.step{display:grid;justify-items:center;text-align:center;gap:10px;padding-inline:10px;position:relative}
+.step .dot{width:38px;height:38px;border-radius:50%;background:var(--band);color:var(--gold);display:grid;place-items:center;font-family:var(--display);font-size:14px;border:1px solid var(--gold)}
+.step h4{font-family:var(--display);font-size:14px;letter-spacing:.1em;margin:4px 0 0;font-weight:600}
+.step p{font-size:17px;color:var(--ink-2);line-height:1.35;max-width:15em}
+
+/* packages */
+.goal-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:28px}
+.goal-bar .lbl{font-family:var(--ui);font-size:13px;color:var(--muted);margin-right:6px}
+.goal{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 15px;font-family:var(--ui);font-size:13.5px;transition:all .2s}
+.goal[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#F5EFE0}
+:root[data-theme="dark"] .goal[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#0A1F44}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .goal[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#0A1F44}}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.pkg{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:28px 26px;display:flex;flex-direction:column;gap:14px;position:relative;transition:transform .3s,border-color .3s,box-shadow .3s}
+.pkg.rec{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),var(--shadow);transform:translateY(-6px)}
+.pkg .badge{position:absolute;top:-12px;left:26px;background:var(--gold);color:#0A1F44;font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.pkg .tier{font-family:var(--ui);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.pkg h3{font-size:23px}
+.pkg .for{font-style:italic;color:var(--ink-2);font-size:18.5px;line-height:1.35}
+.pkg ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}
+.pkg li{display:grid;grid-template-columns:18px 1fr;gap:10px;font-size:17.5px;line-height:1.35}
+.pkg li::before{content:"";width:7px;height:7px;border:1px solid var(--gold);border-radius:50%;margin-top:8px}
+.pkg li.core::before{background:var(--gold)}
+.pkg .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.pkg .tags span{font-family:var(--ui);font-size:11.5px;letter-spacing:.06em;color:var(--gold-ink)}
+.pkg .tags span+span::before{content:"·";margin-right:6px;color:var(--muted)}
+.legend{font-family:var(--ui);font-size:12.5px;color:var(--muted);margin-top:18px;display:flex;gap:18px;flex-wrap:wrap}
+.legend i{display:inline-block;width:7px;height:7px;border:1px solid var(--gold);border-radius:50%;margin-right:6px;vertical-align:middle}
+.legend i.f{background:var(--gold)}
+
+/* cta */
+.cta{background:var(--band);color:var(--band-ink)}
+.cta .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.cta h2{font-size:clamp(26px,3.4vw,38px)}
+.cta h2 em{font-family:var(--serif);font-style:italic;color:var(--gold);font-weight:500}
+.cta p{color:var(--band-muted);margin-top:12px;font-size:20px}
+.contact{display:grid;gap:12px}
+.crow{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(201,166,70,.4);border-radius:12px;padding:14px 16px}
+.crow .k{font-family:var(--ui);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.crow .v{font-family:var(--ui);font-size:16px;user-select:all;word-break:break-all;color:var(--band-ink)}
+.copy{background:none;border:1px solid rgba(245,239,224,.3);color:var(--band-ink);border-radius:8px;padding:6px 12px;font-family:var(--ui);font-size:12px;flex:none}
+.copy:hover{border-color:var(--gold);color:var(--gold)}
+.fine{background:var(--band);color:var(--band-muted);font-family:var(--ui);font-size:11.5px;line-height:1.6;border-top:1px solid rgba(201,166,70,.25)}
+.fine .wrap{padding-block:22px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.fine p{max-width:70em}
+
+@media (max-width:880px){
+  .hero-grid,.sys-grid,.cta .wrap,.prod-panel{grid-template-columns:1fr}
+  .hero-orbit{max-width:260px;order:-1}
+  .prod-tabs{grid-template-columns:repeat(2,1fr)}
+  .prod-tab:nth-child(2){border-right:0}
+  .prod-tab:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .pkgs{grid-template-columns:1fr}
+  .pkg.rec{transform:none}
+  .journey{grid-template-columns:1fr 1fr;row-gap:32px}
+  .journey::before{display:none}
+}
+@media (max-width:460px){
+  .prod-tab{padding:16px 14px}
+  .prod-tab .s{display:none}
+  .journey{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <svg viewBox="0 0 64 64" aria-label="Full Circle Financial Group logo" role="img">
+          <circle cx="32" cy="32" r="22" fill="none" stroke="#C9A646" stroke-width="1.6"/>
+          <ellipse cx="32" cy="32" rx="30" ry="11" fill="none" stroke="#C9A646" stroke-width="1.2" transform="rotate(-24 32 32)"/>
+          <circle cx="58.5" cy="21" r="2.6" fill="#C9A646"/>
+          <text x="32" y="38.5" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="17" font-weight="700" fill="#F5EFE0" letter-spacing="1">FC</text>
+        </svg>
+        <div class="brand-name">FULL CIRCLE<small>FINANCIAL GROUP</small></div>
+      </div>
+      <div class="audience" role="group" aria-label="Show coverage for">
+        <button id="aud-biz" aria-pressed="true" data-aud="biz">For Entrepreneurs</button>
+        <button id="aud-fam" aria-pressed="false" data-aud="fam">For Families</button>
+      </div>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Protection · Structure · Leverage · Scale</p>
+        <h1 style="margin-top:14px" id="hero-h">Protect the business you built <em>and</em> the people who run it.</h1>
+        <p class="lede" id="hero-p">Life, group benefits, annuities and supplemental health coverage, designed alongside your entity, credit and growth plan so every policy has a job to do.</p>
+        <div class="hero-stats">
+          <div><b>4</b>coverage lines</div>
+          <div><b>1</b>coordinated plan</div>
+          <div><b>3</b>carrier partners</div>
+        </div>
+      </div>
+      <div class="hero-orbit" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#C9A646" stop-opacity=".22"/>
+              <stop offset="1" stop-color="#C9A646" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="200" cy="200" r="190" fill="url(#glow)"/>
+          <circle cx="200" cy="200" r="92" fill="none" stroke="#C9A646" stroke-width="1.4"/>
+          <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(245,239,224,.18)" stroke-dasharray="2 7"/>
+          <g class="spin">
+            <ellipse cx="200" cy="200" rx="182" ry="64" fill="none" stroke="#C9A646" stroke-width="1" opacity=".75" transform="rotate(-24 200 200)"/>
+            <circle cx="366" cy="126" r="7" fill="#C9A646"/>
+          </g>
+          <g class="spin rev">
+            <circle cx="200" cy="50" r="4" fill="#F5EFE0"/>
+            <circle cx="200" cy="350" r="3" fill="#E4CF8E"/>
+          </g>
+          <text x="200" y="196" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="44" font-weight="700" fill="#F5EFE0" letter-spacing="3">FC</text>
+          <text x="200" y="226" text-anchor="middle" font-family="Jost, sans-serif" font-size="10.5" fill="#C9A646" letter-spacing="4">FINANCIAL GROUP</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ PRODUCTS ============ -->
+<section id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What we offer</p>
+      <h2>Four lines of coverage, one advisor</h2>
+      <p>Tap a product to see what it does and who it fits.</p>
+    </div>
+
+    <div class="prod-tabs" role="tablist" aria-label="Products">
+      <button class="prod-tab" role="tab" id="tab-life" data-p="life" aria-selected="true">
+        <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 4 6 8v7c0 6.5 4.2 11.2 10 13 5.8-1.8 10-6.5 10-13V8L16 4Z"/><path d="M11.5 16.2 14.8 19.5 21 13"/></svg>
+        <span class="t">Life Insurance</span><span class="s">Term · IUL · Final expense</span>
+      </button>
+      <button class="prod-tab" role="tab" id="tab-group" data-p="group" aria-selected="false">
+        <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="16" cy="10" r="4"/><circle cx="7" cy="13" r="3"/><circle cx="25" cy="13" r="3"/><path d="M8 27c0-4.4 3.6-8 8-8s8 3.6 8 8M2 25c0-3 2.2-5.5 5-5.9M30 25c0-3-2.2-5.5-5-5.9"/></svg>
+        <span class="t">Group Benefits</span><span class="s">Employer & team coverage</span>
+      </button>
+      <button class="prod-tab" role="tab" id="tab-ann" data-p="ann" aria-selected="false">
+        <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 26h24"/><path d="M7 26V17M13 26V13M19 26V9M25 26V5"/><path d="M5 12 12 7l6 3 9-6"/></svg>
+        <span class="t">Annuities</span><span class="s">Fixed · Indexed · Income</span>
+      </button>
+      <button class="prod-tab" role="tab" id="tab-health" data-p="health" aria-selected="false">
+        <svg class="ic" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 27S4 20 4 11.5A6 6 0 0 1 16 9a6 6 0 0 1 12 2.5C28 20 16 27 16 27Z"/><path d="M9 15h4l2-3 3 6 2-3h3"/></svg>
+        <span class="t">Supplemental Health</span><span class="s">Accident · Critical illness · Hospital</span>
+      </button>
+    </div>
+    <div class="prod-panel" role="tabpanel" id="prod-panel" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ SYSTEM ============ -->
+<section class="system" id="system">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">How it works together</p>
+      <h2>Coverage is one piece of the circle</h2>
+      <p>Insurance works best when it's built on a solid structure and good credit. Tap each pillar to see where it fits.</p>
+    </div>
+    <div class="sys-grid">
+      <div class="sys-diagram">
+        <svg viewBox="0 0 440 440" role="group" aria-label="Four pillars">
+          <circle class="ring-d" cx="220" cy="220" r="185"/>
+          <circle class="ring" cx="220" cy="220" r="150"/>
+          <path d="M220 70 A150 150 0 0 1 370 220" fill="none" stroke="var(--gold)" stroke-width="3" id="arc" opacity=".9"/>
+          <text class="center-t" x="220" y="214" text-anchor="middle" font-size="19">FULL CIRCLE</text>
+          <text class="center-s" x="220" y="238" text-anchor="middle">ONE PLAN</text>
+
+          <g class="node on" tabindex="0" role="button" data-pl="protection" transform="translate(220 70)">
+            <circle class="bg" r="50"/><text class="n" y="-10" text-anchor="middle">01</text><text y="10" text-anchor="middle">PROTECT</text>
+          </g>
+          <g class="node" tabindex="0" role="button" data-pl="structure" transform="translate(370 220)">
+            <circle class="bg" r="50"/><text class="n" y="-10" text-anchor="middle">02</text><text y="10" text-anchor="middle">STRUCTURE</text>
+          </g>
+          <g class="node" tabindex="0" role="button" data-pl="leverage" transform="translate(220 370)">
+            <circle class="bg" r="50"/><text class="n" y="-10" text-anchor="middle">03</text><text y="10" text-anchor="middle">LEVERAGE</text>
+          </g>
+          <g class="node" tabindex="0" role="button" data-pl="scale" transform="translate(70 220)">
+            <circle class="bg" r="50"/><text class="n" y="-10" text-anchor="middle">04</text><text y="10" text-anchor="middle">SCALE</text>
+          </g>
+        </svg>
+      </div>
+      <div class="pillar-card fade" id="pillar-card" aria-live="polite"></div>
+    </div>
+
+    <div class="journey" aria-label="Client journey">
+      <div class="step"><div class="dot">1</div><h4>REVIEW</h4><p>Free strategy session on your credit, coverage and goals.</p></div>
+      <div class="step"><div class="dot">2</div><h4>STRUCTURE</h4><p>Clean up credit and set up the right entity or trust.</p></div>
+      <div class="step"><div class="dot">3</div><h4>PROTECT</h4><p>Place the coverage that fits the structure and the budget.</p></div>
+      <div class="step"><div class="dot">4</div><h4>GROW</h4><p>Annual reviews, business credit and wealth strategy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PACKAGES ============ -->
+<section id="packages">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" id="pkg-eyebrow">Packages for entrepreneurs</p>
+      <h2 id="pkg-h">Pick where you are. We build from there.</h2>
+      <p>Choose what matters most and we'll highlight the package that fits.</p>
+    </div>
+    <div class="goal-bar" role="group" aria-label="Your goals" id="goal-bar"></div>
+    <div class="pkgs" id="pkgs"></div>
+    <div class="legend"><span><i class="f"></i>Core coverage</span><span><i></i>Structure, credit & planning services</span></div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Start with a strategy session</p>
+      <h2 style="margin-top:12px">Let's close the gaps <em>before</em> life finds them.</h2>
+      <p>A 30-minute review of your coverage, credit and structure. You leave with a clear plan whether you work with us or not.</p>
+    </div>
+    <div class="contact">
+      <div class="crow"><div><div class="k">Breyon Miller · Financial Architect</div><div class="v" id="c-phone">602-545-0826</div></div><button class="copy" data-copy="c-phone">Copy</button></div>
+      <div class="crow"><div><div class="k">Email</div><div class="v" id="c-email">Breyon@fullcircle-credit.com</div></div><button class="copy" data-copy="c-email">Copy</button></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="fine">
+  <div class="wrap">
+    <p>Insurance products are offered through Full Circle Financial Agency and issued by independent carriers, including North American, F&amp;G and National Life Group. Coverage, benefits and availability vary by carrier and state. Guarantees depend on the claims-paying ability of the issuing company. Supplemental health plans are not major medical coverage. This page is for general education and is not tax or legal advice.</p>
+    <p>© Full Circle Financial Group</p>
+  </div>
+</footer>
+
+<script>
+const CHECK='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8.5 6.5 12 13 4.5"/></svg>';
+let aud='biz';
+
+const PRODUCTS={
+  life:{name:"Life Insurance",eye:"Protection",
+    desc:"Term for pure protection at the lowest cost, Indexed Universal Life (IUL) for protection plus tax-advantaged cash value, and final expense for simple, lasting coverage.",
+    feats:["Tax-free death benefit to the people or partners you name","IUL cash value tied to market indexes with a 0% floor","Living benefits for chronic, critical or terminal illness (policy-dependent)","Policy loans for opportunities, emergencies or retirement income"],
+    biz:"Key person coverage, buy-sell agreement funding, and executive bonus plans that reward and retain your top people.",
+    fam:"Income replacement, mortgage protection and a tax-free legacy for your kids, plus cash value you can use while you're living."},
+  group:{name:"Group Benefits",eye:"Protection",
+    desc:"Voluntary and employer-sponsored benefits for teams of any size. Many plans cost the business nothing and are paid by employees through payroll.",
+    feats:["Group life, accident, critical illness and hospital indemnity","Voluntary options at zero or low employer cost","Simple enrollment for small teams and 1099 partners","Helps recruit and keep good people"],
+    biz:"A real benefits package that competes with big employers, without a big-company budget.",
+    fam:"Ask your employer about adding these. We can set it up for them, and you get coverage that goes with you."},
+  ann:{name:"Annuities",eye:"Retirement income",
+    desc:"Fixed and fixed indexed annuities grow money tax-deferred with principal protection, then turn savings into income you can't outlive.",
+    feats:["Principal protected from market losses","Tax-deferred growth until you take withdrawals","Guaranteed lifetime income riders available","A place to roll over old 401(k)s and IRAs"],
+    biz:"A safe place for business profits and an owner's exit, with income for life after the sale.",
+    fam:"Retirement income you can count on, so your savings last as long as you do."},
+  health:{name:"Supplemental Health",eye:"Protection",
+    desc:"Pays cash directly to you when you're hurt or sick, on top of your health insurance, to cover deductibles, lost income and bills.",
+    feats:["Accident plans for injuries, ER visits and follow-up care","Critical illness lump sum for cancer, heart attack or stroke","Hospital indemnity that pays per day in the hospital","Cash benefits you can use for anything"],
+    biz:"Keeps you and your team financially steady when an injury or illness takes someone off the job.",
+    fam:"Keeps a hospital stay from turning into credit card debt."}
+};
+
+const PILLARS={
+  protection:{n:"01",t:"Protection",p:"Life, group, annuity and supplemental health coverage. This is what keeps one bad event from undoing everything else you've built.",chips:["Life / IUL","Group benefits","Annuities","Supplemental health"],flow:"Coverage is placed to fit the structure you set up, so the right owner and beneficiary hold each policy."},
+  structure:{n:"02",t:"Structure",p:"Entity formation, trusts and estate planning. Structure decides who owns what, how it's protected and how it passes on.",chips:["LLC & corporation setup","Living trusts","Estate planning","Buy-sell agreements"],flow:"A trust or entity can own your life policy, and a buy-sell agreement needs life insurance to fund it."},
+  leverage:{n:"03",t:"Leverage",p:"Personal credit repair and business credit building. Better credit lowers borrowing costs and opens funding for growth.",chips:["Credit repair","Business credit","Funding readiness"],flow:"Credit is often the first step. Stronger credit frees up monthly cash for the coverage you need."},
+  scale:{n:"04",t:"Scale",p:"Systems, marketing and automation that help a business run without you doing everything.",chips:["Systems","Marketing","AI automation"],flow:"As the business grows, group benefits and key person coverage grow with it."}
+};
+
+const PKGS={
+  biz:{eyebrow:"Packages for entrepreneurs",h:"Pick your stage. We build from there.",
+    goals:[["credit","Build business credit"],["team","Cover my team"],["owner","Protect me as the owner"],["exit","Plan my exit or retirement"]],
+    list:[
+      {tier:"Stage one",name:"Foundation",for:"New or solo owners setting things up the right way.",fits:["credit","owner"],
+       items:[["LLC or corporation formation",0],["Business credit profile setup",0],["Owner term or IUL life policy",1],["Accident and critical illness for the owner",1]],tags:["Structure","Leverage","Protection"]},
+      {tier:"Stage two",name:"Growth",for:"Owners with a team who need benefits and a real succession plan.",fits:["team","owner","credit"],
+       items:[["Everything in Foundation",0],["Group supplemental benefits for employees",1],["Key person life insurance",1],["Buy-sell agreement funded with life",1],["Business credit tier advancement",0]],tags:["Protection","Leverage","Scale"]},
+      {tier:"Stage three",name:"Full Circle",for:"Established owners focused on wealth, taxes and legacy.",fits:["exit","owner","team"],
+       items:[["Everything in Growth",0],["Executive bonus IUL for owners and leaders",1],["Annuity for exit proceeds and retirement income",1],["Trust and estate structure",0],["Annual strategy review",0]],tags:["All four pillars"]}
+    ]},
+  fam:{eyebrow:"Packages for families",h:"Start where you are. Grow from there.",
+    goals:[["credit","Fix my credit"],["family","Protect my family"],["legacy","Leave a legacy"],["retire","Plan retirement income"]],
+    list:[
+      {tier:"Stage one",name:"Foundation",for:"Families getting protected and cleaning up credit.",fits:["credit","family"],
+       items:[["Credit repair and education",0],["Term or final expense life policy",1],["Accident or hospital indemnity plan",1],["Budget and coverage review",0]],tags:["Leverage","Protection"]},
+      {tier:"Stage two",name:"Growth",for:"Households building savings and protection together.",fits:["family","legacy"],
+       items:[["Everything in Foundation",0],["IUL with living benefits",1],["Critical illness coverage",1],["Will and living trust",0]],tags:["Protection","Structure"]},
+      {tier:"Stage three",name:"Full Circle",for:"Families planning retirement and generational wealth.",fits:["retire","legacy"],
+       items:[["Everything in Growth",0],["Annuity with lifetime income",1],["IUL funded for tax-free retirement income",1],["Full estate plan and beneficiary review",0],["Annual strategy review",0]],tags:["All four pillars"]}
+    ]}
+};
+
+const HERO={
+  biz:{h:'Protect the business you built <em>and</em> the people who run it.',p:"Life, group benefits, annuities and supplemental health coverage, designed alongside your entity, credit and growth plan so every policy has a job to do."},
+  fam:{h:'Protect your family today <em>and</em> the legacy you leave.',p:"Life, annuities and supplemental health coverage, built on clean credit and a solid estate plan so your family is covered at every stage."}
+};
+
+let curProd='life', curPillar='protection', goals=new Set();
+
+function renderProd(){
+  const d=PRODUCTS[curProd];
+  const panel=document.getElementById('prod-panel');
+  panel.setAttribute('aria-labelledby','tab-'+curProd);
+  panel.innerHTML=`<div class="fade"><p class="eyebrow">${d.eye}</p><h3>${d.name}</h3><p class="desc">${d.desc}</p>
+    <div class="fit"><span class="eyebrow">${aud==='biz'?'For entrepreneurs':'For families'}</span><p>${d[aud]}</p></div></div>
+    <div class="fade"><p class="feat-title">Key features</p><ul class="feat">${d.feats.map(f=>`<li>${CHECK}<span>${f}</span></li>`).join('')}</ul></div>`;
+}
+function renderPillar(){
+  const p=PILLARS[curPillar];
+  const c=document.getElementById('pillar-card');
+  c.classList.remove('fade');void c.offsetWidth;c.classList.add('fade');
+  c.innerHTML=`<p class="eyebrow">Pillar ${p.n}</p><h3>${p.t}</h3><p>${p.p}</p>
+    <div class="chips">${p.chips.map((x,i)=>`<span class="chip ${curPillar==='protection'?'gold':''}">${x}</span>`).join('')}</div>
+    <div class="flow"><b>How it connects</b>${p.flow}</div>`;
+  document.querySelectorAll('.node').forEach(n=>n.classList.toggle('on',n.dataset.pl===curPillar));
+  const idx=['protection','structure','leverage','scale'].indexOf(curPillar);
+  const ang=[[220,70],[370,220],[220,370],[70,220]];
+  const [x,y]=ang[idx],[nx,ny]=ang[(idx+1)%4];
+  document.getElementById('arc').setAttribute('d',`M${x} ${y} A150 150 0 0 1 ${nx} ${ny}`);
+}
+function renderPkgs(){
+  const P=PKGS[aud];
+  document.getElementById('pkg-eyebrow').textContent=P.eyebrow;
+  document.getElementById('pkg-h').textContent=P.h;
+  document.getElementById('goal-bar').innerHTML='<span class="lbl">I want to:</span>'+P.goals.map(([k,l])=>`<button class="goal" id="g-${aud}-${k}" data-g="${k}" aria-pressed="${goals.has(k)}">${l}</button>`).join('');
+  let best=1;
+  if(goals.size){
+    let top=-1;
+    P.list.forEach((pk,i)=>{const s=pk.fits.filter(f=>goals.has(f)).length*10+i*(goals.size>1?1:-1);if(s>top){top=s;best=i;}});
+  }
+  document.getElementById('pkgs').innerHTML=P.list.map((pk,i)=>`<article class="pkg ${i===best?'rec':''}">
+    ${i===best?`<span class="badge">${goals.size?'Best fit for you':'Most popular'}</span>`:''}
+    <span class="tier">${pk.tier}</span><h3>${pk.name}</h3><p class="for">${pk.for}</p>
+    <ul>${pk.items.map(([t,c])=>`<li class="${c?'core':''}">${t}</li>`).join('')}</ul>
+    <div class="tags">${pk.tags.map(t=>`<span>${t}</span>`).join('')}</div></article>`).join('');
+}
+function setAud(a){
+  aud=a;goals.clear();
+  document.querySelectorAll('.audience button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.aud===a));
+  document.getElementById('hero-h').innerHTML=HERO[a].h;
+  document.getElementById('hero-p').textContent=HERO[a].p;
+  renderProd();renderPkgs();
+  try{localStorage.setItem('fcfg-aud',a)}catch(e){}
+}
+
+document.querySelectorAll('.audience button').forEach(b=>b.addEventListener('click',()=>setAud(b.dataset.aud)));
+document.querySelectorAll('.prod-tab').forEach(t=>t.addEventListener('click',()=>{
+  curProd=t.dataset.p;
+  document.querySelectorAll('.prod-tab').forEach(x=>x.setAttribute('aria-selected',x===t));
+  renderProd();
+}));
+document.querySelectorAll('.node').forEach(n=>{
+  const go=()=>{curPillar=n.dataset.pl;renderPillar();};
+  n.addEventListener('click',go);
+  n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
+});
+document.getElementById('goal-bar').addEventListener('click',e=>{
+  const b=e.target.closest('.goal');if(!b)return;
+  const g=b.dataset.g;goals.has(g)?goals.delete(g):goals.add(g);renderPkgs();
+});
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.copy);const txt=el.textContent;
+  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1600);};
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';setTimeout(()=>b.textContent='Copy',1600);};
+  try{navigator.clipboard.writeText(txt).then(done,sel)}catch(e){sel()}
+}));
+
+let saved='biz';try{saved=localStorage.getItem('fcfg-aud')||'biz'}catch(e){}
+renderPillar();setAud(saved==='fam'?'fam':'biz');
+</script>
+
+</body></html>

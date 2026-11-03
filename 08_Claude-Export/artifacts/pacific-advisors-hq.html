@@ -1,0 +1,680 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Pacific Advisors HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#F5EFE0; --surface:#FFFDF8; --surface2:#FAF5EA; --line:#E3D9C3; --ink:#0A1F44; --muted:#5A6480;
+  --primary:#0A1F44; --primary-ink:#F5EFE0; --primary-soft:#E6E3DA;
+  --accent:#C9A646; --accent-soft:#F3E8C8; --accent-text:#7E6318;
+  --prod:#0A1F44; --prod-soft:#E3E6EE;
+  --good:#2E7D4F; --good-soft:#DDF0E3; --warn:#9A6400; --warn-soft:#FBEFD2; --bad:#B23A3A; --bad-soft:#F7DEDE;
+  --shadow:0 1px 2px rgba(10,31,68,.06),0 4px 14px rgba(10,31,68,.07);
+  --display:"Cinzel","Trajan Pro",Georgia,serif;
+  --serif:"Cormorant Garamond",Garamond,Georgia,serif;
+  --body:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#07152E; --surface:#0D1F3F; --surface2:#122850; --line:#22375E; --ink:#F5EFE0; --muted:#A9B0C4;
+    --primary:#C9A646; --primary-ink:#0A1F44; --primary-soft:#1B2C4E;
+    --accent:#C9A646; --accent-soft:#2E2A1C; --accent-text:#E0C46A;
+    --prod:#8FA8DA; --prod-soft:#16294D;
+    --good:#6FCF97; --good-soft:#173826; --warn:#E8B94F; --warn-soft:#3A3016; --bad:#F08A8A; --bad-soft:#3E1D1D;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#07152E; --surface:#0D1F3F; --surface2:#122850; --line:#22375E; --ink:#F5EFE0; --muted:#A9B0C4;
+  --primary:#C9A646; --primary-ink:#0A1F44; --primary-soft:#1B2C4E;
+  --accent:#C9A646; --accent-soft:#2E2A1C; --accent-text:#E0C46A;
+  --prod:#8FA8DA; --prod-soft:#16294D;
+  --good:#6FCF97; --good-soft:#173826; --warn:#E8B94F; --warn-soft:#3A3016; --bad:#F08A8A; --bad-soft:#3E1D1D;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.5;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{margin:0;text-wrap:balance}
+h1{font-family:var(--display);font-size:25px;font-weight:600;letter-spacing:.02em}
+h2{font-family:var(--display);font-size:18px;font-weight:600;letter-spacing:.03em}
+h3{font-family:var(--serif);font-size:18px;font-weight:700;letter-spacing:.005em}
+.num{font-variant-numeric:tabular-nums}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600}
+.muted{color:var(--muted)}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;padding-block:22px 14px}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{width:44px;height:44px;border-radius:50%;background:#0A1F44;border:1px solid #C9A646;display:grid;place-items:center;flex:none}
+.mark svg{display:block}
+.brand .label{font-family:var(--display);color:var(--accent-text);letter-spacing:.14em}
+nav.tabs button{font-family:var(--display)!important;letter-spacing:.06em}
+nav.tabs{border-bottom-color:var(--accent)}
+.panel{border-top:2px solid color-mix(in srgb,var(--accent) 55%,var(--line))}
+.sync{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.dot.ok{background:var(--good)} .dot.local{background:var(--warn)}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;overflow-x:auto;padding-block:8px;border-bottom:1px solid var(--line);margin-bottom:18px;scrollbar-width:none}
+nav.tabs button{flex:none;border:0;background:transparent;color:var(--muted);font:600 13px var(--body);padding:8px 12px;border-radius:8px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--primary);color:var(--primary-ink)}
+nav.tabs button:hover:not([aria-selected="true"]){background:var(--primary-soft);color:var(--ink)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{border:1px solid var(--line);background:var(--surface);padding:7px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--primary)}
+.btn.primary{background:var(--primary);color:var(--primary-ink);border-color:var(--accent)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.btn.danger{color:var(--bad)}
+.btn.sm{padding:4px 8px;font-size:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+@media (max-width:420px){.g2{grid-template-columns:1fr}}
+.sechead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.stack{display:flex;flex-direction:column;gap:14px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* goal tiles */
+.goal{display:flex;flex-direction:column;gap:8px}
+.goal .big{font-family:var(--serif);font-size:38px;font-weight:700;line-height:1}
+.goal .big small{font-size:15px;color:var(--muted);font-weight:600}
+.bar{height:8px;border-radius:99px;background:var(--surface2);border:1px solid var(--line);position:relative;overflow:hidden}
+.bar>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--primary),color-mix(in srgb,var(--primary) 70%,var(--accent)));border-radius:99px}
+.bar>b{box-shadow:0 0 0 1px var(--surface)}
+.bar>b{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--accent)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.neutral{background:var(--surface2);color:var(--muted);border:1px solid var(--line)}
+.pill.accent{background:var(--accent-soft);color:var(--accent-text)}
+
+/* counters */
+.counters{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.ctr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2)}
+.ctr .nm{font-size:13px;font-weight:500;line-height:1.25}
+.ctr .nm small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+.ctr .ctl{display:flex;align-items:center;gap:6px;flex:none}
+.ctr .ctl button{width:28px;height:28px;border-radius:7px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700;line-height:1}
+.ctr .ctl button:hover{border-color:var(--primary);color:var(--primary)}
+.ctr .val{min-width:34px;text-align:center;font:600 15px var(--mono)}
+.ctr input.money{width:84px;padding:4px 6px;border:1px solid var(--line);border-radius:7px;background:var(--surface);text-align:right;font-family:var(--mono)}
+.grp{display:flex;align-items:center;gap:8px;margin:14px 0 8px}
+.grp:first-child{margin-top:0}
+.sw{width:10px;height:10px;border-radius:3px;flex:none}
+.sw.r{background:var(--accent)} .sw.p{background:var(--prod)}
+
+/* board */
+.boardwrap{overflow-x:auto;padding-bottom:6px}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);gap:10px;min-width:min-content}
+.col{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;min-height:120px}
+.col>header{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.col>header h3{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;cursor:pointer;box-shadow:var(--shadow)}
+.card:hover{border-color:var(--primary)}
+.card .nm{font-weight:600}
+.card .meta{font-size:12px;color:var(--muted)}
+.card .mv{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.card .mv button{border:1px solid var(--line);background:var(--surface2);border-radius:6px;width:26px;height:24px;cursor:pointer;line-height:1}
+.card .mv button:hover{border-color:var(--primary)}
+.card .mv button:disabled{opacity:.3;cursor:default}
+.empty{border:1px dashed var(--line);border-radius:10px;padding:14px;text-align:center;color:var(--muted);font-size:13px}
+.search{padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);min-width:0;width:220px;max-width:100%}
+
+/* tables */
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+tr.gh td{background:var(--surface2);font-weight:600;text-align:left;font-size:12px}
+td.today{background:var(--primary-soft)}
+
+/* agents */
+.agent{display:flex;flex-direction:column;gap:10px}
+.agent .top{display:flex;gap:10px;align-items:center}
+.av{width:40px;height:40px;border-radius:50%;background:var(--primary-soft);color:var(--ink);border:1px solid var(--accent);display:grid;place-items:center;font:600 14px var(--display);flex:none}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;font-size:13px}
+.kv div span{display:block;font-size:11px;color:var(--muted)}
+
+/* tasks */
+.task{display:flex;gap:10px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}
+.task input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color:var(--primary);flex:none}
+.task .t{flex:1;min-width:0}
+.task .t .ttl{font-weight:500;cursor:pointer}
+.task.done .ttl{text-decoration:line-through;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink);border-color:var(--accent)}
+
+/* schedule */
+.sched{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.day{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.day.now{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.day>header{padding:10px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.day>header .theme{font-size:12px;color:var(--muted)}
+.blk{padding:8px 12px;border-left:4px solid transparent;display:grid;grid-template-columns:78px 1fr;gap:8px;font-size:12.5px;border-bottom:1px solid var(--line)}
+.blk:last-child{border-bottom:0}
+.blk .tm{font-family:var(--mono);font-size:11.5px;color:var(--muted);padding-top:1px}
+.blk.r{border-left-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 55%,transparent)}
+.blk.p{border-left-color:var(--prod);background:color-mix(in srgb,var(--prod-soft) 60%,transparent)}
+.blk.x{border-left-color:var(--line)}
+.blk b{font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+
+/* funnel */
+.funnel{display:flex;flex-direction:column;gap:6px}
+.fstep{display:grid;grid-template-columns:1fr 64px 64px 64px;gap:8px;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid var(--line)}
+.fstep:last-child{border-bottom:0}
+.fstep .v{text-align:right;font-family:var(--mono);font-size:13px}
+.fstep.h{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.fstep.h .v{font-family:var(--body);font-size:11px}
+.plan ol,.plan ul{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.plan p{margin:6px 0 0;max-width:70ch}
+.setrow{display:grid;grid-template-columns:1fr 110px;gap:8px;align-items:center;font-size:13px}
+.setrow input{padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:var(--surface);text-align:right;font-family:var(--mono);width:100%}
+
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(6,20,24,.5);display:grid;place-items:center;padding:16px;z-index:50}
+.modal{background:var(--surface);border-radius:14px;width:min(560px,100%);max-height:calc(100% - 32px);overflow:auto;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-block:14px}
+.form .f{display:flex;flex-direction:column;gap:4px}
+.form .f.full{grid-column:1/-1}
+@media (max-width:480px){.form{grid-template-columns:1fr}}
+.form label{font-size:12px;font-weight:600;color:var(--muted)}
+.form input,.form select,.form textarea{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface2);width:100%}
+.form textarea{min-height:80px;resize:vertical}
+.mfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:13px;font-weight:500;z-index:60;box-shadow:var(--shadow)}
+.note{font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.bar>i{transition:width .4s ease}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"><ellipse cx="15" cy="15" rx="12" ry="5.2" transform="rotate(-28 15 15)" stroke="#C9A646" stroke-width="1.6"/><circle cx="15" cy="15" r="4.2" fill="#F5EFE0"/><circle cx="24.6" cy="9.6" r="2" fill="#C9A646"/></svg></div>
+      <div>
+        <div class="label">Pacific Advisors · Breyon Miller</div>
+        <h1>Recruiting &amp; Production HQ</h1>
+      </div>
+    </div>
+    <div class="sync"><span class="dot" id="syncDot"></span><span id="syncTxt">Connecting…</span></div>
+  </header>
+
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+  <main id="view"></main>
+</div>
+<div id="modalRoot"></div>
+
+<script>
+(function(){
+"use strict";
+// ---------- config ----------
+const TABS=[["dash","Dashboard"],["recruit","Recruiting"],["clients","Clients"],["team","Team"],["tasks","Tasks"],["activity","Activity"],["schedule","Schedule & Plan"]];
+const R_STAGES=["New lead","Contacted","Interview set","In front","2nd look / overview","Licensing","Contracted","Not now"];
+const C_STAGES=["New lead","Contacted","Appt set","Fact finder","Presentation","App submitted","Issued / paid","Not now"];
+const SOURCES=["Warm market","Referral","Team member's list","Social media","Real estate / mortgage network","Group overview","Cold outreach","Other"];
+const PRODUCTS=["IUL","Term","Whole life","Annuity","Final expense","Mortgage protection","Other"];
+const A_STATUS=["Active","Onboarding","Pre-licensing","Licensed – field training","Producing","Inactive"];
+const A_ROLES=["Team member","New associate","Licensed agent","Field trainer","Leader"];
+const T_CATS=["Recruiting","Production","Team","Admin"];
+const METRICS=[
+  {k:"r_outreach",l:"Recruit outreach",s:"calls, texts, DMs, invites",g:"r"},
+  {k:"r_convos",l:"Recruit conversations",s:"real back-and-forth",g:"r"},
+  {k:"r_infront",l:"In front",s:"interviews / overviews held",g:"r"},
+  {k:"r_contracted",l:"Contracted",s:"new agents signed",g:"r"},
+  {k:"p_dials",l:"Prospect dials / texts",g:"p"},
+  {k:"p_contacts",l:"Contacts made",g:"p"},
+  {k:"p_set",l:"Appointments set",g:"p"},
+  {k:"p_held",l:"Appointments held",s:"fact finders / presentations",g:"p"},
+  {k:"p_apps",l:"Apps submitted",g:"p"},
+  {k:"p_premium",l:"Premium written",s:"target premium $",g:"p",money:true}
+];
+const DEFAULT_GOALS={recruitGoal:4,inFrontGoal:20,prodGoal:5000,avgCase:1250,hireRate:20,convoToFront:50,outreachToConvo:40,closeRate:33,showRate:75,contactToSet:30,dialToContact:25};
+
+// ---------- helpers ----------
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const today=()=>ymd(new Date());
+const parse=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const monday=d=>{const x=new Date(d);const w=(x.getDay()+6)%7;x.setDate(x.getDate()-w);x.setHours(0,0,0,0);return x};
+const money=n=>"$"+Math.round(n||0).toLocaleString();
+const fmtDate=s=>{if(!s)return"";const d=parse(s);return d.toLocaleDateString(undefined,{month:"short",day:"numeric"})};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const initials=n=>String(n||"?").trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase();
+const ceil=Math.ceil;
+
+// ---------- store ----------
+const S={contacts:{},agents:{},tasks:{},activity:{},settings:{}};
+let db=null, mode="loading";
+const queues={};
+function write(path,fn){queues[path]=(queues[path]||Promise.resolve()).then(fn).catch(e=>{console.warn(e);toast(e&&e.code==="quota_exceeded"?"Storage is full — delete old records to add more.":"Couldn’t save that change. Try again.")});return queues[path]}
+function put(coll,id,obj){S[coll][id]=obj;render();if(db)write(coll+"/"+id,()=>db.doc(coll+"/"+id).set(obj))}
+function del(coll,id){delete S[coll][id];render();if(db)write(coll+"/"+id,()=>db.doc(coll+"/"+id).delete())}
+function goals(){return Object.assign({},DEFAULT_GOALS,S.settings.goals||{})}
+function dayLog(d){return S.activity[d]||{}}
+function bump(key,by,d=today()){const cur=Object.assign({},dayLog(d));cur[key]=Math.max(0,(Number(cur[key])||0)+by);cur.date=d;put("activity",d,cur)}
+function setMetric(key,val,d=today()){const cur=Object.assign({},dayLog(d));cur[key]=Math.max(0,Number(val)||0);cur.date=d;put("activity",d,cur)}
+
+async function initDb(){
+  try{ db = window.claude && window.claude.use ? await window.claude.use("db") : null }catch(e){db=null}
+  if(!db){mode="local";setSync();render();return}
+  mode="live";setSync();
+  ["contacts","agents","tasks","activity","settings"].forEach(c=>{
+    db.collection(c).onSnapshot(snap=>{const m={};snap.docs.forEach(d=>{m[d.id]=d.data()});S[c]=m;render()},
+      e=>{if(e&&e.code==="revoked"){mode="local";setSync()}});
+  });
+}
+function setSync(){
+  const d=$("#syncDot"),t=$("#syncTxt");
+  if(mode==="live"){d.className="dot ok";t.textContent="Saved to your HQ"}
+  else if(mode==="local"){d.className="dot local";t.textContent="Preview mode — changes won’t be kept"}
+}
+
+// ---------- targets ----------
+function targets(){
+  const g=goals(),pc=x=>Math.max(1,Number(x)||1)/100;
+  const m={};
+  m.r_contracted=g.recruitGoal;
+  m.r_infront=Math.max(g.inFrontGoal,ceil(g.recruitGoal/pc(g.hireRate)));
+  m.r_convos=ceil(m.r_infront/pc(g.convoToFront));
+  m.r_outreach=ceil(m.r_convos/pc(g.outreachToConvo));
+  m.p_premium=g.prodGoal;
+  m.p_apps=ceil(g.prodGoal/Math.max(1,g.avgCase));
+  m.p_held=ceil(m.p_apps/pc(g.closeRate));
+  m.p_set=ceil(m.p_held/pc(g.showRate));
+  m.p_contacts=ceil(m.p_set/pc(g.contactToSet));
+  m.p_dials=ceil(m.p_contacts/pc(g.dialToContact));
+  const w={},d={};
+  for(const k in m){w[k]=k==="p_premium"?Math.round(m[k]/4.33):ceil(m[k]/4.33);d[k]=k==="p_premium"?Math.round(w[k]/5):ceil(w[k]/5)}
+  return {m,w,d};
+}
+function sumRange(from,to){const out={};METRICS.forEach(x=>out[x.k]=0);for(const k in S.activity){if(k>=from&&k<=to){METRICS.forEach(x=>out[x.k]+=Number(S.activity[k][x.k])||0)}}return out}
+function monthRange(){const n=new Date();const a=new Date(n.getFullYear(),n.getMonth(),1),b=new Date(n.getFullYear(),n.getMonth()+1,0);return [ymd(a),ymd(b),b.getDate()]}
+function weekRange(){const a=monday(new Date());return [ymd(a),ymd(addDays(a,6))]}
+
+// ---------- UI shell ----------
+let tab="dash";
+try{const h=location.hash.slice(1);if(TABS.some(t=>t[0]===h))tab=h;else{const s=localStorage.getItem("pa_tab");if(s&&TABS.some(t=>t[0]===s))tab=s}}catch(e){}
+const ui={rq:"",cq:"",taskFilter:"today",taskCat:"All",actDate:today()};
+function drawTabs(){
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<button role="tab" aria-selected="${k===tab}" data-tab="${k}">${l}</button>`).join("");
+}
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;try{localStorage.setItem("pa_tab",tab)}catch(e){}render();window.scrollTo({top:0})});
+
+let renderQueued=false;
+function render(){if(renderQueued)return;renderQueued=true;requestAnimationFrame(()=>{renderQueued=false;doRender()})}
+function doRender(){
+  drawTabs();
+  const focused=document.activeElement&&document.activeElement.id;
+  const v=$("#view");
+  const fn={dash:vDash,recruit:()=>vBoard("recruit"),clients:()=>vBoard("client"),team:vTeam,tasks:vTasks,activity:vActivity,schedule:vSchedule}[tab];
+  v.innerHTML=fn();
+  if(focused){const el=document.getElementById(focused);if(el&&el.tagName==="INPUT"){el.focus();try{const l=el.value.length;el.setSelectionRange(l,l)}catch(e){}}}
+}
+
+// ---------- components ----------
+function paceInfo(actual,target,frac){
+  if(!target)return "";
+  const exp=target*frac;
+  if(actual>=target)return `<span class="pill good">Goal hit</span>`;
+  if(actual>=exp*0.95)return `<span class="pill good">On pace</span>`;
+  if(actual>=exp*0.7)return `<span class="pill warn">Slightly behind</span>`;
+  return `<span class="pill bad">Behind pace</span>`;
+}
+function goalTile(label,actual,target,frac,isMoney,note){
+  const pct=Math.min(100,target?actual/target*100:0),exp=Math.min(100,frac*100);
+  return `<div class="panel goal">
+    <div class="row" style="justify-content:space-between"><span class="label">${label}</span>${paceInfo(actual,target,frac)}</div>
+    <div class="big num">${isMoney?money(actual):actual}<small> / ${isMoney?money(target):target}</small></div>
+    <div class="bar" title="Marker shows where you should be today"><i style="width:${pct}%"></i><b style="left:calc(${exp}% - 1px)"></b></div>
+    <div class="note">${note}</div></div>`;
+}
+function counters(d,group){
+  const log=dayLog(d),t=targets().d;
+  return METRICS.filter(m=>!group||m.g===group).map(m=>{
+    const v=Number(log[m.k])||0;
+    const tgt=t[m.k];
+    const ctl=m.money
+      ? `<input class="money" id="money-${d}" type="number" min="0" step="50" value="${v||""}" placeholder="0" data-money="${m.k}" data-date="${d}" aria-label="${m.l}">`
+      : `<button data-bump="${m.k}" data-by="-1" data-date="${d}" aria-label="Minus one ${m.l}">−</button><span class="val">${v}</span><button data-bump="${m.k}" data-by="1" data-date="${d}" aria-label="Plus one ${m.l}">+</button>`;
+    const hit=v>=tgt&&tgt>0;
+    return `<div class="ctr"><div class="nm">${m.l}<small>${m.money?"Daily pace "+money(tgt):"Daily target "+tgt}${hit?" · ✓":""}</small></div><div class="ctl">${ctl}</div></div>`;
+  }).join("");
+}
+
+// ---------- Dashboard ----------
+function vDash(){
+  const g=goals(),T=targets(),[a,b,dim]=monthRange(),mo=sumRange(a,b);
+  const frac=new Date().getDate()/dim;
+  const [wa,wb]=weekRange(),wk=sumRange(wa,wb);
+  const monthName=new Date().toLocaleDateString(undefined,{month:"long"});
+  const recruits=Object.values(S.contacts).filter(c=>c.kind==="recruit");
+  const clients=Object.values(S.contacts).filter(c=>c.kind==="client");
+  const td=today();
+  const dueTasks=Object.entries(S.tasks).filter(([,t])=>!t.done&&t.due&&t.due<=td).sort((x,y)=>(x[1].due||"").localeCompare(y[1].due||""));
+  const followups=Object.entries(S.contacts).filter(([,c])=>c.nextDate&&c.nextDate<=td&&!["Not now","Contracted","Issued / paid"].includes(c.stage)).sort((x,y)=>x[1].nextDate.localeCompare(y[1].nextDate));
+  const dow=new Date().getDay();
+  const blocks=SCHEDULE[dow];
+  const pipeline=(list,stages)=>stages.filter(s=>s!=="Not now").map(s=>{const n=list.filter(c=>c.stage===s).length;return `<div class="row" style="justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--line)"><span>${s}</span><span class="num" style="font-weight:600">${n}</span></div>`}).join("");
+  return `<div class="stack">
+  <div class="sechead"><div><h2>${monthName} scoreboard</h2><div class="note">Gold marker = where you should be by today (day ${new Date().getDate()} of ${dim}).</div></div>
+    <div class="row"><button class="btn" data-go="schedule">Edit goals</button><button class="btn primary" data-add="recruit">+ Recruit</button><button class="btn primary" data-add="client">+ Client</button></div></div>
+  <div class="grid g4">
+    ${goalTile("Recruits contracted",mo.r_contracted,g.recruitGoal,frac,false,`This week: ${wk.r_contracted} · need ~${T.w.r_contracted}/wk`)}
+    ${goalTile("In front of (recruiting)",mo.r_infront,T.m.r_infront,frac,false,`This week: ${wk.r_infront} of ${T.w.r_infront} · ~${T.d.r_infront}/day`)}
+    ${goalTile("Production",mo.p_premium,g.prodGoal,frac,true,`This week: ${money(wk.p_premium)} of ${money(T.w.p_premium)}`)}
+    ${goalTile("Apps submitted",mo.p_apps,T.m.p_apps,frac,false,`At ~${money(g.avgCase)} avg case · this week ${wk.p_apps}`)}
+  </div>
+  <div class="grid g2">
+    <div class="panel">
+      <div class="sechead"><div><h3>Today’s numbers</h3><div class="note">${new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</div></div><button class="btn sm" data-go="activity">Full log</button></div>
+      <div class="grp"><span class="sw r"></span><span class="label">Recruiting</span></div>
+      <div class="counters">${counters(td,"r")}</div>
+      <div class="grp"><span class="sw p"></span><span class="label">Production</span></div>
+      <div class="counters">${counters(td,"p")}</div>
+    </div>
+    <div class="stack">
+      <div class="panel">
+        <div class="sechead"><h3>Today’s 4-hour block</h3><button class="btn sm" data-go="schedule">Week view</button></div>
+        ${blocks?`<div class="day" style="border:0"><div class="note" style="margin-bottom:6px">${esc(blocks.theme)}</div>${blocks.b.map(blk).join("")}</div>`:`<div class="empty">No block scheduled today. Rest, family, and ministry — reset for Monday.</div>`}
+      </div>
+      <div class="panel">
+        <div class="sechead"><h3>Due now</h3><span class="pill ${dueTasks.length+followups.length?"accent":"neutral"}">${dueTasks.length+followups.length}</span></div>
+        ${dueTasks.length+followups.length?`<div>${dueTasks.slice(0,6).map(([id,t])=>taskRow(id,t)).join("")}${followups.slice(0,6).map(([id,c])=>`<div class="task"><span class="sw ${c.kind==="recruit"?"r":"p"}" style="margin-top:6px"></span><div class="t"><div class="ttl" data-edit="${id}">Follow up: ${esc(c.name)}</div><div class="note">${esc(c.next||c.stage)} · ${c.nextDate<td?`<span style="color:var(--bad)">was due ${fmtDate(c.nextDate)}</span>`:"today"}</div></div></div>`).join("")}</div>`:`<div class="empty">Nothing overdue. Add follow-up dates to recruits and clients so they show up here.</div>`}
+      </div>
+    </div>
+  </div>
+  <div class="grid g2">
+    <div class="panel"><div class="sechead"><h3>Recruiting pipeline</h3><button class="btn sm" data-go="recruit">Open</button></div>${pipeline(recruits,R_STAGES)}</div>
+    <div class="panel"><div class="sechead"><h3>Client pipeline</h3><button class="btn sm" data-go="clients">Open</button></div>${pipeline(clients,C_STAGES)}</div>
+  </div>
+  </div>`;
+}
+
+// ---------- Boards ----------
+function vBoard(kind){
+  const isR=kind==="recruit",stages=isR?R_STAGES:C_STAGES,q=(isR?ui.rq:ui.cq).toLowerCase();
+  const list=Object.entries(S.contacts).filter(([,c])=>c.kind===kind&&(!q||JSON.stringify(c).toLowerCase().includes(q)));
+  const T=targets(),[a,b]=monthRange(),mo=sumRange(a,b);
+  const td=today();
+  const cols=stages.map((s,si)=>{
+    const items=list.filter(([,c])=>c.stage===s).sort((x,y)=>(x[1].nextDate||"9").localeCompare(y[1].nextDate||"9"));
+    const sum=!isR&&items.reduce((t,[,c])=>t+(Number(c.premium)||0),0);
+    return `<section class="col"><header><h3>${s}</h3><span class="pill neutral num">${items.length}${sum?" · "+money(sum):""}</span></header>
+    ${items.map(([id,c])=>`<article class="card" data-edit="${id}">
+      <div class="nm">${esc(c.name)}</div>
+      <div class="meta">${[c.source,!isR&&c.product,!isR&&c.premium?money(c.premium):""].filter(Boolean).map(esc).join(" · ")}</div>
+      ${c.next||c.nextDate?`<div class="meta">${c.nextDate?`<span class="pill ${c.nextDate<td?"bad":c.nextDate===td?"accent":"neutral"}">${c.nextDate<td?"Overdue ":""}${fmtDate(c.nextDate)}</span> `:""}${esc(c.next||"")}</div>`:""}
+      <div class="mv"><button data-move="${id}" data-dir="-1" ${si===0?"disabled":""} aria-label="Move back">‹</button><span class="meta">${c.phone?esc(c.phone):""}</span><button data-move="${id}" data-dir="1" ${si===stages.length-1?"disabled":""} aria-label="Move forward">›</button></div>
+    </article>`).join("")||`<div class="empty" style="padding:10px;font-size:12px">—</div>`}
+    </section>`}).join("");
+  const head=isR
+    ?`<div><h2>Recruiting pipeline</h2><div class="note">Goal: ${goals().recruitGoal} contracted and ${T.m.r_infront} in front per month. This month so far: <b>${mo.r_contracted}</b> contracted · <b>${mo.r_infront}</b> in front. Moving someone into “In front” or “Contracted” logs it on today’s numbers; contracted recruits are added to your team.</div></div>`
+    :`<div><h2>Client pipeline</h2><div class="note">Goal: ${money(goals().prodGoal)} per month. This month so far: <b>${money(mo.p_premium)}</b> across <b>${mo.p_apps}</b> apps. Moving a client into “App submitted” logs the app and its premium on today’s numbers.</div></div>`;
+  return `<div class="stack"><div class="sechead">${head}<div class="row"><input class="search" id="q-${kind}" type="search" placeholder="Search ${isR?"recruits":"clients"}" value="${esc(isR?ui.rq:ui.cq)}" data-search="${kind}"><button class="btn primary" data-add="${kind}">+ Add ${isR?"recruit":"client"}</button></div></div>
+  ${list.length||q?"":`<div class="empty">No ${isR?"recruits":"clients"} yet. Add your first one — every name you talk to belongs here.</div>`}
+  <div class="boardwrap"><div class="board">${cols}</div></div></div>`;
+}
+
+// ---------- Team ----------
+function vTeam(){
+  const list=Object.entries(S.agents).sort((a,b)=>(a[1].created||0)-(b[1].created||0));
+  const statusPill=s=>`<span class="pill ${s==="Producing"||s==="Active"?"good":s==="Inactive"?"bad":"warn"}">${esc(s||"Active")}</span>`;
+  return `<div class="stack"><div class="sechead"><div><h2>Your team</h2><div class="note">${list.length} agent${list.length===1?"":"s"}. Every new agent: 20-name warm list in week one, licensed fast, first 3 appointments with you.</div></div><button class="btn primary" data-add="agent">+ Add new agent</button></div>
+  <div class="grid g4">${list.map(([id,a])=>`<div class="panel agent">
+    <div class="top"><div class="av">${esc(initials(a.name))}</div><div style="flex:1;min-width:0"><h3>${esc(a.name)}</h3><div class="note">${esc(a.role||"Team member")}${a.start?" · since "+fmtDate(a.start):""}</div></div>${statusPill(a.status)}</div>
+    <div class="kv"><div><span>Production MTD</span><b class="num">${money(a.prodMTD)}</b></div><div><span>Recruits MTD</span><b class="num">${Number(a.recruitsMTD)||0}</b></div>
+    <div><span>Phone</span>${esc(a.phone||"—")}</div><div><span>Licensed</span>${esc(a.licensed||"—")}</div></div>
+    ${a.next?`<div class="note"><b style="color:var(--ink)">Next:</b> ${esc(a.next)}</div>`:""}
+    <div class="row"><button class="btn sm" data-edit-agent="${id}">Edit</button></div>
+  </div>`).join("")||`<div class="empty">No agents yet.</div>`}</div></div>`;
+}
+
+// ---------- Tasks ----------
+function taskRow(id,t){
+  const td=today();
+  const cls=t.pri==="High"?"bad":t.pri==="Low"?"neutral":"warn";
+  return `<div class="task ${t.done?"done":""}"><input type="checkbox" ${t.done?"checked":""} data-toggle="${id}" aria-label="Done: ${esc(t.title)}"><div class="t"><div class="ttl" data-edit-task="${id}">${esc(t.title)}</div>
+  <div class="row" style="gap:6px;margin-top:3px"><span class="pill neutral">${esc(t.cat||"Admin")}</span><span class="pill ${cls}">${esc(t.pri||"Med")}</span>${t.due?`<span class="note" ${!t.done&&t.due<td?'style="color:var(--bad)"':""}>${t.due<td&&!t.done?"Overdue · ":""}${fmtDate(t.due)}</span>`:""}${t.repeat&&t.repeat!=="None"?`<span class="note">↻ ${esc(t.repeat)}</span>`:""}</div></div></div>`;
+}
+function vTasks(){
+  const td=today(),[,we]=weekRange();
+  const f=ui.taskFilter,cat=ui.taskCat;
+  const all=Object.entries(S.tasks);
+  const list=all.filter(([,t])=>{
+    if(cat!=="All"&&t.cat!==cat)return false;
+    if(f==="done")return t.done;
+    if(t.done)return false;
+    if(f==="today")return !t.due||t.due<=td;
+    if(f==="week")return t.due&&t.due<=we;
+    return true;
+  }).sort((a,b)=>{const pr={High:0,Med:1,Low:2};return (a[1].due||"9").localeCompare(b[1].due||"9")||(pr[a[1].pri]??1)-(pr[b[1].pri]??1)});
+  const chip=(k,l,cur,attr)=>`<button class="chip" aria-pressed="${k===cur}" ${attr}="${k}">${l}</button>`;
+  return `<div class="stack"><div class="sechead"><div><h2>Tasks</h2><div class="note">${all.filter(([,t])=>!t.done).length} open. Repeating tasks come back with a new due date when you check them off.</div></div><button class="btn primary" data-add="task">+ Add task</button></div>
+  <div class="row" style="justify-content:space-between"><div class="chips">${[["today","Today & overdue"],["week","This week"],["all","All open"],["done","Done"]].map(([k,l])=>chip(k,l,f,"data-tf")).join("")}</div>
+  <div class="chips">${["All",...T_CATS].map(c=>chip(c,c,cat,"data-tc")).join("")}</div></div>
+  <div class="panel">${list.map(([id,t])=>taskRow(id,t)).join("")||`<div class="empty">Nothing here. ${f==="today"?"You’re clear for today.":""}</div>`}</div></div>`;
+}
+
+// ---------- Activity ----------
+function vActivity(){
+  const T=targets(),d=ui.actDate;
+  const wkStart=monday(parse(d)),days=[...Array(7)].map((_,i)=>ymd(addDays(wkStart,i)));
+  const wk=sumRange(days[0],days[6]);
+  const n=parse(d),ma=ymd(new Date(n.getFullYear(),n.getMonth(),1)),mbD=new Date(n.getFullYear(),n.getMonth()+1,0),mb=ymd(mbD),mo=sumRange(ma,mb);
+  const fmtV=(m,v)=>m.money?money(v):v;
+  const status=(v,t)=>`<span class="pill ${v>=t?"good":v>=t*.6?"warn":"neutral"}">${Math.round(t?v/t*100:0)}%</span>`;
+  const rows=g=>METRICS.filter(m=>m.g===g).map(m=>`<tr><td>${m.l}</td>${days.map(x=>`<td class="${x===today()?"today":""}">${fmtV(m,Number(dayLog(x)[m.k])||0)||"·"}</td>`).join("")}<td><b>${fmtV(m,wk[m.k])}</b></td><td class="muted">${fmtV(m,T.w[m.k])}</td><td>${status(wk[m.k],T.w[m.k])}</td></tr>`).join("");
+  const mrows=g=>METRICS.filter(m=>m.g===g).map(m=>`<tr><td>${m.l}</td><td class="muted">${fmtV(m,T.d[m.k])}</td><td class="muted">${fmtV(m,T.w[m.k])}</td><td class="muted">${fmtV(m,T.m[m.k])}</td><td><b>${fmtV(m,mo[m.k])}</b></td><td>${status(mo[m.k],T.m[m.k])}</td></tr>`).join("");
+  return `<div class="stack">
+  <div class="sechead"><div><h2>Activity tracker</h2><div class="note">Log daily; weekly and monthly roll up automatically.</div></div>
+  <div class="row"><button class="btn sm" data-shift="-1" aria-label="Previous day">‹</button><input id="actDate" type="date" value="${d}" class="search" style="width:auto"><button class="btn sm" data-shift="1" aria-label="Next day">›</button>${d!==today()?`<button class="btn sm" data-shift="0">Today</button>`:""}</div></div>
+  <div class="panel"><h3 style="margin-bottom:10px">Daily — ${parse(d).toLocaleDateString(undefined,{weekday:"long",month:"short",day:"numeric"})}</h3>
+    <div class="grp"><span class="sw r"></span><span class="label">Recruiting</span></div><div class="counters">${counters(d,"r")}</div>
+    <div class="grp"><span class="sw p"></span><span class="label">Production</span></div><div class="counters">${counters(d,"p")}</div></div>
+  <div class="panel"><h3 style="margin-bottom:10px">Weekly — ${fmtDate(days[0])} to ${fmtDate(days[6])}</h3>
+    <div class="tbl"><table><thead><tr><th>Activity</th>${days.map(x=>`<th>${parse(x).toLocaleDateString(undefined,{weekday:"short"})}</th>`).join("")}<th>Week</th><th>Target</th><th></th></tr></thead>
+    <tbody><tr class="gh"><td colspan="11">Recruiting</td></tr>${rows("r")}<tr class="gh"><td colspan="11">Production</td></tr>${rows("p")}</tbody></table></div></div>
+  <div class="panel"><h3 style="margin-bottom:10px">Monthly — ${n.toLocaleDateString(undefined,{month:"long",year:"numeric"})}</h3>
+    <div class="tbl"><table><thead><tr><th>Activity</th><th>Daily</th><th>Weekly</th><th>Monthly goal</th><th>Actual</th><th></th></tr></thead>
+    <tbody><tr class="gh"><td colspan="6">Recruiting</td></tr>${mrows("r")}<tr class="gh"><td colspan="6">Production</td></tr>${mrows("p")}</tbody></table></div></div>
+  </div>`;
+}
+
+// ---------- Schedule & plan ----------
+const RB="Recruiting block", PB="Production block";
+const baseDay=(extraR,extraP)=>[
+  {t:"9:00–9:15",c:"x",h:"Power start",d:"Check scoreboard, pipeline follow-ups, today’s tasks."},
+  {t:"9:15–10:15",c:"r",h:RB+" · outreach",d:"5+ recruiting touches: warm list, referrals, social DMs, RE/mortgage network. Goal: book interviews."},
+  {t:"10:15–11:00",c:"r",h:RB+" · in front",d:extraR||"1 interview or overview (Zoom or in person). Log it as “In front.”"},
+  {t:"11:00–11:10",c:"x",h:"Reset",d:"Water, update CRM notes."},
+  {t:"11:10–12:10",c:"p",h:PB+" · prospecting",d:"12+ dials/texts to clients, referrals and warm market. Book fact finders."},
+  {t:"12:10–1:00",c:"p",h:PB+" · appointments",d:extraP||"Run an appointment, send apps, or work follow-ups."}
+];
+const SCHEDULE={
+  1:{name:"Monday",theme:"Launch the week + team huddle",b:[{t:"8:30–9:00",c:"x",h:"Team huddle — Jeff & Louis",d:"Last week’s numbers, this week’s targets, who needs field training."},...baseDay()]},
+  2:{name:"Tuesday",theme:"Interview day",b:baseDay("Stack 2 interviews back-to-back (10:15 & 10:40).")},
+  3:{name:"Wednesday",theme:"Field training day",b:baseDay(null,"Bring a new agent on your appointment — they watch, then run the next one.")},
+  4:{name:"Thursday",theme:"Interview day + group overview",b:[...baseDay("Stack 2 interviews back-to-back."),{t:"7:00–8:00 pm",c:"r",h:"Group overview (Zoom)",d:"One-to-many opportunity overview. Every recruit and every agent’s guest is invited. Counts toward “in front.”"}]},
+  5:{name:"Friday",theme:"Follow-up + scorecard",b:baseDay("2nd-look calls with this week’s interviews; push licensing steps.","Close open cases, then 12:40 weekly scorecard: log the week, set Monday’s top 5.")},
+  6:{name:"Saturday",theme:"Optional",b:[{t:"10:00–11:00",c:"r",h:"Optional: in-person overview / BOP",d:"Every other week. Agents bring guests."}]}
+};
+function blk(x){return `<div class="blk ${x.c}"><span class="tm">${x.t}</span><div><b>${esc(x.h)}</b><div class="muted">${esc(x.d)}</div></div></div>`}
+function vSchedule(){
+  const g=goals(),T=targets(),dow=new Date().getDay();
+  const set=(k,l,suf)=>`<div class="setrow"><label for="g-${k}">${l}${suf?` <span class="muted">(${suf})</span>`:""}</label><input id="g-${k}" type="number" min="0" value="${g[k]}" data-goal="${k}"></div>`;
+  const fs=(l,k,m)=>`<div class="fstep"><span>${l}</span><span class="v">${m?money(T.d[k]):T.d[k]}</span><span class="v">${m?money(T.w[k]):T.w[k]}</span><span class="v"><b>${m?money(T.m[k]):T.m[k]}</b></span></div>`;
+  const fh=`<div class="fstep h"><span>Step</span><span class="v">Day</span><span class="v">Week</span><span class="v">Month</span></div>`;
+  return `<div class="stack">
+  <div class="sechead"><div><h2>Weekly block schedule</h2><div class="note">Four protected hours, Monday–Friday, 9:00 am–1:00 pm Arizona time. Phone on focus mode; nothing else gets booked here.</div></div>
+  <div class="legend"><span><i class="sw r"></i>Recruiting (2 hrs)</span><span><i class="sw p"></i>Production (2 hrs)</span></div></div>
+  <div class="sched">${[1,2,3,4,5,6].map(i=>{const s=SCHEDULE[i];return `<div class="day ${i===dow?"now":""}"><header><h3>${s.name}</h3><span class="theme">${esc(s.theme)}</span></header>${s.b.map(blk).join("")}</div>`}).join("")}</div>
+
+  <div class="grid g2">
+    <div class="panel plan">
+      <div class="sechead"><h2>Recruiting plan</h2><span class="pill accent">${g.recruitGoal} contracted / month</span></div>
+      <div class="funnel">${fh}${fs("Outreach touches","r_outreach")}${fs("Real conversations","r_convos")}${fs("In front (interviews + overviews)","r_infront")}${fs("Contracted","r_contracted")}</div>
+      <p>Getting in front of <b>${T.m.r_infront} people</b> a month is about 5 a week. Where they come from:</p>
+      <ul>
+        <li><b>Warm market — 6/month.</b> Build a 100-name list now. 5 touches every morning in the recruiting block.</li>
+        <li><b>Client &amp; network referrals — 4/month.</b> Ask every client and every real estate / mortgage contact: “Who do you know who’s coachable and wants more income?”</li>
+        <li><b>Team lists — 5/month.</b> Jeff, Louis, and every new agent hand you 20 names in week one; you run the first interviews with them watching.</li>
+        <li><b>Thursday group overview — 5/month.</b> One Zoom, many guests. Invite everyone from the week’s outreach.</li>
+        <li><b>Social — feeds all of the above.</b> One recruiting story or post a day; DM everyone who engages.</li>
+      </ul>
+      <p class="note">Conversion math: ~1 in ${Math.round(100/g.hireRate)} people you sit with signs. If you’re in front of 20 and not hitting ${g.recruitGoal}, tighten the 2nd-look step before adding more outreach.</p>
+    </div>
+    <div class="panel plan">
+      <div class="sechead"><h2>Production plan</h2><span class="pill good">${money(g.prodGoal)} / month</span></div>
+      <div class="funnel">${fh}${fs("Dials / texts","p_dials")}${fs("Contacts made","p_contacts")}${fs("Appointments set","p_set")}${fs("Appointments held","p_held")}${fs("Apps submitted","p_apps")}${fs("Premium","p_premium",true)}</div>
+      <p>At a ~${money(g.avgCase)} average case, ${money(g.prodGoal)} is <b>${T.m.p_apps} apps a month</b> — about one a week.</p>
+      <ul>
+        <li><b>Existing clients first.</b> Offer a protection review to everyone you’ve helped with credit or business structure — warmest leads you have.</li>
+        <li><b>Real estate buyers.</b> Mortgage protection conversation at every closing.</li>
+        <li><b>Recruits’ warm markets.</b> New agents’ first appointments are your field-training cases (Wednesday).</li>
+        <li><b>Referrals on every app.</b> Ask for 3 names at delivery; log them as new clients the same day.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="sechead"><div><h2>Goals &amp; conversion rates</h2><div class="note">Change any number and every target on the page recalculates.</div></div></div>
+    <div class="grid g2">
+      <div class="stack" style="gap:8px"><span class="label">Recruiting</span>
+        ${set("recruitGoal","Contracted per month")}${set("inFrontGoal","In front per month (minimum)")}${set("hireRate","In front → contracted","%")}${set("convoToFront","Conversation → in front","%")}${set("outreachToConvo","Outreach → conversation","%")}</div>
+      <div class="stack" style="gap:8px"><span class="label">Production</span>
+        ${set("prodGoal","Premium per month","$")}${set("avgCase","Average case size","$")}${set("closeRate","Held appt → app","%")}${set("showRate","Set → held","%")}${set("contactToSet","Contact → appt set","%")}${set("dialToContact","Dial → contact","%")}</div>
+    </div>
+  </div>
+  </div>`;
+}
+
+// ---------- Modals / forms ----------
+const FIELDS={
+  recruit:[["name","Name","text",1],["phone","Phone","tel"],["email","Email","email"],["source","Source",SOURCES],["stage","Stage",R_STAGES],["nextDate","Follow-up date","date"],["next","Next step","text",0,1],["notes","Notes","textarea"]],
+  client:[["name","Name","text",1],["phone","Phone","tel"],["email","Email","email"],["source","Source",SOURCES],["stage","Stage",C_STAGES],["product","Product",PRODUCTS],["premium","Target premium ($)","number"],["nextDate","Follow-up date","date"],["next","Next step","text",0,1],["notes","Notes","textarea"]],
+  agent:[["name","Name","text",1],["role","Role",A_ROLES],["status","Status",A_STATUS],["start","Start date","date"],["phone","Phone","tel"],["email","Email","email"],["licensed","Licensed?",["Yes","In progress","No"]],["prodMTD","Production this month ($)","number"],["recruitsMTD","Recruits this month","number"],["next","Next action","text",0,1],["notes","Notes","textarea"]],
+  task:[["title","Task","text",1,1],["cat","Category",T_CATS],["pri","Priority",["High","Med","Low"]],["due","Due date","date"],["repeat","Repeats",["None","Daily (weekdays)","Weekly"]],["notes","Notes","textarea"]]
+};
+const TITLES={recruit:"recruit",client:"client",agent:"agent",task:"task"};
+let modal=null;
+function openForm(type,id){
+  const coll=type==="agent"?"agents":type==="task"?"tasks":"contacts";
+  const rec=id?S[coll][id]:{};
+  const defaults={recruit:{stage:"New lead",source:"Warm market"},client:{stage:"New lead",source:"Referral"},agent:{status:"Onboarding",role:"New associate",start:today()},task:{cat:"Recruiting",pri:"Med",due:today(),repeat:"None"}}[type];
+  const v=Object.assign({},id?{}:defaults,rec);
+  const f=FIELDS[type].map(([k,l,t,req,full])=>{
+    const fid="f-"+k;
+    let input;
+    if(Array.isArray(t))input=`<select id="${fid}" name="${k}">${t.map(o=>`<option ${v[k]===o?"selected":""}>${esc(o)}</option>`).join("")}</select>`;
+    else if(t==="textarea")input=`<textarea id="${fid}" name="${k}">${esc(v[k]||"")}</textarea>`;
+    else input=`<input id="${fid}" name="${k}" type="${t}" ${t==="number"?'min="0" step="any"':""} value="${esc(v[k]??"")}" ${req?"required":""}>`;
+    return `<div class="f ${t==="textarea"||full?"full":""}"><label for="${fid}">${l}</label>${input}</div>`;
+  }).join("");
+  modal={type,id,coll,confirm:false};
+  $("#modalRoot").innerHTML=`<div class="scrim" data-close><form class="modal" id="mform" novalidate><h2>${id?"Edit":"Add"} ${TITLES[type]}</h2><div class="form">${f}</div>
+  <div class="mfoot"><div>${id?`<button type="button" class="btn danger" id="mdel">Delete</button>`:""}</div><div class="row"><button type="button" class="btn ghost" data-close>Cancel</button><button type="submit" class="btn primary">Save</button></div></div></form></div>`;
+  setTimeout(()=>{const el=$("#mform input,#mform select");el&&el.focus()},30);
+}
+function closeModal(){modal=null;$("#modalRoot").innerHTML=""}
+document.addEventListener("submit",e=>{
+  if(e.target.id!=="mform")return;e.preventDefault();
+  const fd=new FormData(e.target),o={};
+  for(const [k,v] of fd.entries())o[k]=typeof v==="string"?v.trim():v;
+  const first=FIELDS[modal.type][0][0];
+  if(!o[first]){toast("Add a "+FIELDS[modal.type][0][1].toLowerCase()+" first.");return}
+  ["premium","prodMTD","recruitsMTD"].forEach(k=>{if(k in o)o[k]=Number(o[k])||0});
+  const {type,id,coll}=modal;
+  const prev=id?S[coll][id]:null;
+  const rec=Object.assign({},prev||{},o,{updated:Date.now()});
+  if(!id)rec.created=Date.now();
+  if(type==="recruit"||type==="client")rec.kind=type;
+  const nid=id||uid();
+  closeModal();
+  if(rec.kind&&prev&&prev.stage!==rec.stage)stageSideEffects(rec,prev.stage,nid);
+  else if(rec.kind&&!prev)stageSideEffects(rec,null,nid);
+  put(coll,nid,rec);
+  toast(id?"Saved":"Added "+(rec.name||rec.title));
+});
+
+function stageSideEffects(c,from,id){
+  const stages=c.kind==="recruit"?R_STAGES:C_STAGES;
+  const fi=from?stages.indexOf(from):-1,ti=stages.indexOf(c.stage);
+  if(ti<=fi||c.stage==="Not now")return;
+  const passed=s=>{const i=stages.indexOf(s);return fi<i&&ti>=i};
+  const msgs=[];
+  if(c.kind==="recruit"){
+    if(passed("In front")){bump("r_infront",1);msgs.push("+1 in front")}
+    if(passed("Contracted")){bump("r_contracted",1);msgs.push("+1 contracted");
+      if(!Object.values(S.agents).some(a=>a.fromContact===id)){
+        const aid=uid();put("agents",aid,{name:c.name,phone:c.phone||"",email:c.email||"",role:"New associate",status:"Onboarding",start:today(),licensed:"In progress",prodMTD:0,recruitsMTD:0,next:"Collect 20-name warm list; start pre-licensing",fromContact:id,created:Date.now()});
+        msgs.push("added to team")}}
+  }else{
+    if(passed("App submitted")){bump("p_apps",1);const p=Number(c.premium)||0;if(p){const cur=Object.assign({},dayLog(today()));cur.p_premium=(Number(cur.p_premium)||0)+p;cur.date=today();put("activity",today(),cur)}msgs.push("+1 app"+(p?", +"+money(p):""))}
+  }
+  if(msgs.length)setTimeout(()=>toast("Logged today: "+msgs.join(" · ")),250);
+}
+
+let tt=null;
+function toast(msg){let el=$(".toast");if(!el){el=document.createElement("div");el.className="toast";el.setAttribute("role","status");document.body.appendChild(el)}el.textContent=msg;clearTimeout(tt);tt=setTimeout(()=>el.remove(),2600)}
+
+function nextDue(t){
+  const d=parse(t.due||today());
+  if(t.repeat==="Weekly")return ymd(addDays(d,7));
+  let n=addDays(d,1);while(n.getDay()===0||n.getDay()===6)n=addDays(n,1);
+  const td=parse(today());if(n<td){n=td;while(n.getDay()===0||n.getDay()===6)n=addDays(n,1)}
+  return ymd(n);
+}
+
+// ---------- events ----------
+document.addEventListener("click",e=>{
+  const t=e.target;
+  if(t.closest("[data-close]")&&(t.hasAttribute("data-close")||t.closest("button[data-close]"))){if(t.classList.contains("scrim")||t.closest("button[data-close]"))closeModal();return}
+  if(t.id==="mdel"&&modal){
+    if(!modal.confirm){modal.confirm=true;t.textContent="Tap again to delete";return}
+    del(modal.coll,modal.id);closeModal();toast("Deleted");return}
+  const el=t.closest("[data-go],[data-add],[data-edit],[data-edit-agent],[data-edit-task],[data-move],[data-bump],[data-tf],[data-tc],[data-shift]");
+  if(!el)return;
+  const ds=el.dataset;
+  if(ds.go){tab=ds.go;try{localStorage.setItem("pa_tab",tab)}catch(_){}render();window.scrollTo({top:0});return}
+  if(ds.add){openForm(ds.add);return}
+  if(ds.move){e.stopPropagation();const c=S.contacts[ds.move];if(!c)return;const st=c.kind==="recruit"?R_STAGES:C_STAGES;const i=st.indexOf(c.stage)+Number(ds.dir);if(i<0||i>=st.length)return;const n=Object.assign({},c,{stage:st[i],updated:Date.now()});stageSideEffects(n,c.stage,ds.move);put("contacts",ds.move,n);return}
+  if(ds.edit!==undefined&&ds.edit){const c=S.contacts[ds.edit];if(c)openForm(c.kind,ds.edit);return}
+  if(ds.editAgent){openForm("agent",ds.editAgent);return}
+  if(ds.editTask){openForm("task",ds.editTask);return}
+  if(ds.bump){bump(ds.bump,Number(ds.by),ds.date);return}
+  if(ds.tf){ui.taskFilter=ds.tf;render();return}
+  if(ds.tc){ui.taskCat=ds.tc;render();return}
+  if(ds.shift!==undefined){ui.actDate=ds.shift==="0"?today():ymd(addDays(parse(ui.actDate),Number(ds.shift)));render();return}
+});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset.toggle){const id=t.dataset.toggle,task=S.tasks[id];if(!task)return;
+    if(t.checked&&task.repeat&&task.repeat!=="None"){put("tasks",id,Object.assign({},task,{due:nextDue(task),lastDone:today()}));toast("Done — back on "+fmtDate(nextDue(task)))}
+    else put("tasks",id,Object.assign({},task,{done:t.checked,doneAt:t.checked?today():null}));return}
+  if(t.dataset.money){setMetric(t.dataset.money,t.value,t.dataset.date);return}
+  if(t.dataset.goal){const g=Object.assign({},goals());g[t.dataset.goal]=Math.max(0,Number(t.value)||0);put("settings","goals",g);toast("Targets updated");return}
+  if(t.id==="actDate"&&t.value){ui.actDate=t.value;render()}
+});
+let st=null;
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.search){if(t.dataset.search==="recruit")ui.rq=t.value;else ui.cq=t.value;clearTimeout(st);st=setTimeout(render,150)}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal)closeModal()});
+
+render();
+initDb();
+setTimeout(()=>{if(mode==="loading"){mode="local";setSync()}},11000);
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,821 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FCFG Personal Credit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Know your credit rights and fix what's wrong: what moves a score, a utilization calculator, and how FCFG's dispute process works.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout concept: same gold-circle brand as the FCFG site. Compact hero with the pillar's lit quadrant, the page's signature tool right under it, then why / when / how, myths, working strip, FAQ, call. Single deliberate dark navy look. */
+:root{
+  --void:#050E21;
+  --panel:#0A1A38;
+  --panel-2:#10244A;
+  --gold:#C9A646;
+  --gold-hi:#E6C873;
+  --cream:#F5EFE0;
+  --mute:#A3ABBE;
+  --line:rgba(201,166,70,.24);
+  --hair:rgba(245,239,224,.10);
+  --chalk:#E9E3D2;
+  --ok:#7FC8A0;
+  --warn:#E8B460;
+  --bad:#E08A7A;
+  --f-display:"Cinzel","Trajan Pro","Times New Roman",Georgia,serif;
+  --f-body:"Manrope","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  --gut-l:max(16px, env(safe-area-inset-left, 0px));
+  --gut-r:max(16px, env(safe-area-inset-right, 0px));
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--void)}
+body{background:var(--void);color:var(--cream);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--void)}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;line-height:1.14;margin:0;text-wrap:balance;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--gold-hi)}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.eyebrow{font-size:.75rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.lede{color:var(--mute);font-size:1.08rem;max-width:60ch}
+.sec{padding-block:clamp(64px,9vw,120px);position:relative;scroll-margin-top:64px}
+.sec-head{display:grid;gap:14px;margin-bottom:clamp(28px,4.5vw,52px);max-width:760px}
+.sec-head h2{font-size:clamp(1.85rem,4.2vw,3rem)}
+.fine{font-size:.8rem;color:var(--mute);line-height:1.5}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--gold);color:var(--void);padding:8px 14px;border-radius:6px;font-weight:700}
+.skip:focus{left:16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 .95rem/1 var(--f-body);letter-spacing:.02em;padding:16px 24px;border-radius:999px;border:1px solid var(--gold);text-decoration:none;cursor:pointer;transition:background .25s,color .25s,box-shadow .25s,border-color .25s,transform .2s var(--ease)}
+.btn-gold{background:var(--gold);color:var(--void)}
+.btn-gold:hover{background:var(--gold-hi);box-shadow:0 10px 40px -10px rgba(230,200,115,.55)}
+.btn-ghost{background:transparent;color:var(--cream);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-hi)}
+.btn-sm{padding:11px 18px;font-size:.85rem}
+.btn[disabled]{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn svg{width:16px;height:16px;flex:none}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(5,14,33,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--cream);text-decoration:none;font-family:var(--f-display);font-weight:700;letter-spacing:.06em;font-size:1rem;white-space:nowrap}
+.brand svg{width:28px;height:28px;flex:none}
+.brand small{font-family:var(--f-body);font-size:.68rem;font-weight:800;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;padding-left:10px;border-left:1px solid var(--line)}
+.nav-links{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.nav-links a{display:block;padding:8px 12px;border-radius:999px;color:var(--mute);text-decoration:none;font-size:.88rem;font-weight:600;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--cream)}
+.nav-links a.on{color:var(--gold-hi);background:rgba(201,166,70,.1)}
+.nav-menu{display:none;background:none;border:1px solid var(--line);color:var(--cream);border-radius:999px;width:42px;height:42px;cursor:pointer;align-items:center;justify-content:center;flex:none}
+.nav-progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-hi));transform-origin:left;transform:scaleX(0)}
+@media (max-width:960px){
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--void);border-bottom:1px solid var(--hair);padding:8px var(--gut-r) 16px var(--gut-l)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:14px 12px;font-size:1rem}
+  .nav-menu{display:inline-flex}
+  .nav-cta{display:none}
+}
+@media (max-width:420px){.brand small{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-block:clamp(40px,6vw,88px) clamp(40px,5vw,72px);isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:120px;background:linear-gradient(transparent,var(--void));z-index:-1;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(24px,5vw,64px);align-items:center}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.hero h1{font-size:clamp(2.2rem,5.2vw,4.1rem);font-weight:600}
+.hero h1 em{font-style:normal;color:var(--gold-hi)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.founder{display:flex;align-items:center;gap:12px;color:var(--mute);font-size:.9rem}
+.founder b{color:var(--cream);font-weight:700}
+.founder i{display:block;width:36px;height:1px;background:var(--gold);flex:none}
+.emblem{width:100%;max-width:300px;justify-self:center}
+.emblem svg{display:block;width:100%;height:auto;overflow:visible}
+.em-track{fill:none;stroke:rgba(245,239,224,.07);stroke-width:2}
+.em-tick{stroke:rgba(201,166,70,.3);stroke-width:1.2}
+.em-q{fill:none;stroke:rgba(245,239,224,.08);stroke-width:12;stroke-linecap:round}
+.em-q.lit{stroke:var(--gold);filter:url(#emGlow)}
+.em-draw{fill:none;stroke:var(--gold-hi);stroke-width:3;stroke-linecap:round}
+.em-lbl{font:700 12px var(--f-body);letter-spacing:.22em;fill:var(--mute);opacity:.55}
+.em-lbl.lit{fill:var(--gold-hi);opacity:1}
+.em-c1{font:700 14px var(--f-body);letter-spacing:.3em;fill:var(--gold)}
+.em-c2{font:600 34px var(--f-display);fill:var(--cream)}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr}.emblem{display:none}}
+
+/* why */
+.why-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px clamp(20px,3vw,40px)}
+.why-item{display:grid;gap:10px;align-content:start;padding-top:20px;border-top:1px solid var(--line);min-width:0}
+.why-item svg{width:36px;height:36px}
+.why-item h3{font-size:clamp(1.2rem,2vw,1.45rem)}
+.why-item p{color:var(--mute);max-width:40ch}
+
+/* when */
+.when{background:linear-gradient(180deg,var(--void),var(--panel) 40%,var(--void))}
+.when-list{list-style:none;margin:0;padding:0;display:grid}
+.when-row{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.5fr);gap:12px clamp(20px,4vw,56px);padding-block:22px;border-top:1px solid var(--hair);align-items:baseline}
+.when-row:last-child{border-bottom:1px solid var(--hair)}
+.when-row h3{font-size:clamp(1.15rem,2.1vw,1.5rem);display:flex;gap:14px;align-items:baseline}
+.when-row h3 span{font:800 .7rem var(--f-body);letter-spacing:.2em;color:var(--gold);text-transform:uppercase;flex:none;min-width:5.5em}
+.when-row p{color:var(--mute)}
+.when-row p b{color:var(--cream);font-weight:700}
+@media (max-width:700px){.when-row{grid-template-columns:1fr;gap:6px}.when-row h3{flex-direction:column;gap:4px}}
+
+/* how */
+.how-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,72px);align-items:start}
+.how-grid .sec-head{position:sticky;top:96px;margin-bottom:0}
+.steps-tl{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s;position:relative}
+.steps-tl li{counter-increment:s;position:relative;display:grid;gap:6px;padding:0 0 30px 64px;min-width:0}
+.steps-tl li::before{content:counter(s);position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold-hi);display:grid;place-items:center;font:700 1rem var(--f-display);background:var(--void);z-index:1}
+.steps-tl li::after{content:"";position:absolute;left:19.5px;top:40px;bottom:0;width:1px;background:linear-gradient(var(--line),var(--hair))}
+.steps-tl li:last-child{padding-bottom:0}
+.steps-tl li:last-child::after{display:none}
+.steps-tl h3{font-size:1.2rem;padding-top:7px}
+.steps-tl p{color:var(--mute);max-width:58ch}
+.steps-tl .who{font-size:.78rem;font-weight:700;color:var(--cream);opacity:.8}
+.steps-tl .who b{color:var(--gold);letter-spacing:.14em;font-size:.68rem;text-transform:uppercase;margin-right:6px}
+@media (max-width:860px){.how-grid{grid-template-columns:1fr}.how-grid .sec-head{position:static;margin-bottom:8px}}
+
+/* tool shell */
+.tool{background:radial-gradient(900px 420px at 80% 300px,rgba(201,166,70,.07),transparent 60%);padding-top:clamp(28px,4vw,56px)}
+.card{background:var(--panel);border:1px solid var(--hair);border-radius:22px;padding:clamp(18px,3vw,30px);min-width:0}
+.card-gold{border-color:var(--line)}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.example{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px dashed var(--line);color:var(--gold-hi);font-size:.78rem;font-weight:700}
+
+/* switches + fields */
+.field{display:grid;gap:6px}
+.field label,.lbl{font-weight:700;font-size:.9rem}
+.field input[type=text],.field input[type=number],.inp{font:inherit;color:var(--cream);background:var(--void);border:1px solid var(--hair);border-radius:10px;padding:12px 14px;width:100%;min-width:0}
+.field input:focus,.inp:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(201,166,70,.2)}
+.sw{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--hair);border-radius:14px;background:rgba(5,14,33,.45);cursor:pointer;transition:border-color .25s,background .25s}
+.sw:hover{border-color:var(--line)}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw .knob{flex:none;width:44px;height:26px;border-radius:99px;background:rgba(245,239,224,.12);position:relative;transition:background .25s}
+.sw .knob::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--cream);transition:transform .3s var(--ease)}
+.sw input:checked + .knob{background:var(--gold)}
+.sw input:checked + .knob::after{transform:translateX(18px);background:var(--void)}
+.sw input:focus-visible + .knob{outline:2px solid var(--gold-hi);outline-offset:3px}
+.sw .t{display:grid;min-width:0}
+.sw .t b{font-size:.95rem}
+.sw .t small{color:var(--mute);font-size:.82rem;line-height:1.4}
+.sw:has(input:checked){border-color:var(--gold);background:rgba(201,166,70,.07)}
+
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:linear-gradient(90deg,var(--gold) var(--p,50%),rgba(245,239,224,.12) var(--p,50%))}
+input[type=range]::-moz-range-track{height:6px;border-radius:99px;background:rgba(245,239,224,.12)}
+input[type=range]::-moz-range-progress{height:6px;border-radius:99px;background:var(--gold)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--cream);border:4px solid var(--gold);margin-top:-9px;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--cream);border:4px solid var(--gold)}
+input[type=range]:focus-visible{outline:none}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(230,200,115,.45)}
+input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px rgba(230,200,115,.45)}
+.ctl{display:grid;gap:8px}
+.ctl-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ctl-top label{font-weight:700;font-size:.92rem}
+.ctl-top output{font-family:var(--f-display);font-size:1.25rem;color:var(--gold-hi);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ctl .hint{color:var(--mute);font-size:.78rem;line-height:1.4}
+
+/* tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{flex:1 1 0;min-width:84px;display:grid;gap:2px;text-align:left;background:transparent;border:1px solid var(--hair);color:var(--mute);border-radius:12px;padding:10px 12px;cursor:pointer;font:inherit;transition:border-color .25s,background .25s,color .25s}
+.tab small{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.tab span{font-family:var(--f-display);font-weight:600;font-size:1rem;color:var(--cream);line-height:1.2}
+.tab[aria-selected="true"]{border-color:var(--gold);background:rgba(201,166,70,.1);color:var(--gold)}
+.tab:hover{border-color:var(--gold)}
+.fade-in{animation:fadeup .45s var(--ease) both}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+/* myths */
+.myths{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+.flip{appearance:none;border:0;padding:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;perspective:1200px;display:grid;border-radius:20px}
+.flip-in{display:grid;transition:transform .7s var(--ease);transform-style:preserve-3d;min-height:220px}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{grid-area:1/1;display:grid;align-content:space-between;gap:16px;padding:24px;border-radius:20px;border:1px solid var(--hair);background:var(--panel);backface-visibility:hidden;-webkit-backface-visibility:hidden;min-width:0}
+.face.back{transform:rotateY(180deg);background:linear-gradient(150deg,rgba(201,166,70,.14),rgba(201,166,70,.03) 60%),var(--panel);border-color:var(--line)}
+.face .k{font:800 .7rem var(--f-body);letter-spacing:.22em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:8px}
+.face.back .k{color:var(--gold)}
+.face .k i{width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;font-style:normal;font-size:.6rem}
+.face q{font-family:var(--f-display);font-size:1.22rem;line-height:1.3;quotes:"\201C" "\201D";color:var(--cream)}
+.face p{color:var(--cream);opacity:.92;font-size:.98rem}
+.face .turn{font-size:.78rem;font-weight:700;color:var(--gold-hi);display:flex;align-items:center;gap:8px}
+.face .turn svg{width:14px;height:14px}
+.flip:hover .front{border-color:var(--line)}
+.flip:focus-visible{outline:2px solid var(--gold-hi);outline-offset:4px}
+
+/* working strip */
+.work{border-block:1px solid var(--hair);background:var(--panel)}
+.work-grid{display:grid;grid-template-columns:minmax(0,.9fr) repeat(3,minmax(0,1fr));gap:0}
+.work-head{display:grid;gap:10px;align-content:start;padding:clamp(26px,4vw,44px) clamp(16px,3vw,32px) clamp(26px,4vw,44px) 0}
+.work-head h2{font-size:clamp(1.4rem,2.6vw,1.9rem)}
+.work-item{align-content:start;padding:clamp(26px,4vw,44px) clamp(16px,3vw,32px);display:grid;gap:10px;border-left:1px solid var(--hair);min-width:0}
+.work-item svg{width:40px;height:40px}
+.work-item h3{font-size:1.15rem}
+.work-item p{color:var(--mute);font-size:.95rem}
+@media (max-width:900px){.work-grid{grid-template-columns:1fr}.work-head{padding-right:0;padding-bottom:8px}.work-item{border-left:0;border-top:1px solid var(--hair);padding-inline:0}}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:880px}
+.faq details{border:1px solid var(--hair);border-radius:16px;background:var(--panel);transition:border-color .25s}
+.faq details[open]{border-color:var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px;font-weight:700;font-size:1.02rem;border-radius:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:12px;height:12px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg) translate(-3px,-3px);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(225deg) translate(-3px,-3px)}
+.faq summary:hover{color:var(--gold-hi)}
+.faq .ans{padding:0 20px 20px;color:var(--mute);display:grid;gap:10px;max-width:72ch}
+.faq .ans b{color:var(--cream)}
+.faq details[open] .ans{animation:fadeup .35s var(--ease) both}
+
+/* call to action */
+.cta-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(18px,3vw,40px);align-items:center;border:1px solid var(--line);border-radius:24px;padding:clamp(24px,4vw,48px);background:linear-gradient(135deg,rgba(201,166,70,.08),transparent 60%),var(--panel)}
+.cta-card svg{width:clamp(72px,9vw,104px);height:auto}
+.cta-card h2{font-size:clamp(1.6rem,3vw,2.3rem);margin-bottom:10px}
+.cta-card p{color:var(--mute);max-width:56ch}
+.cta-card .price{margin-top:10px;color:var(--cream);font-weight:700;font-size:.95rem}
+@media (max-width:860px){.cta-card{grid-template-columns:1fr}.cta-card .btn{justify-self:start}}
+
+/* footer */
+footer{padding-block:64px 40px;border-top:1px solid var(--hair);background:var(--void)}
+.foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:40px}
+.foot-brand{display:grid;gap:12px;align-content:start}
+.foot-brand p{color:var(--mute);font-size:.92rem}
+.disc{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.disc li{font-size:.86rem;color:var(--mute);padding-left:18px;position:relative}
+.disc li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.copy{margin-top:40px;padding-top:20px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;color:var(--mute);font-size:.8rem}
+@media (max-width:760px){.foot{grid-template-columns:1fr}}
+
+/* reveal: only elements below the fold at load */
+.rv{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.pre{opacity:0;transform:translateY(24px)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rv.pre{opacity:1;transform:none}
+}
+
+/* ---------- page: personal-credit ---------- */
+.fac-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.fac{appearance:none;font:inherit;color:inherit;text-align:left;cursor:pointer;display:grid;gap:10px;align-content:start;padding:18px 16px;border-radius:18px;border:1px solid var(--hair);background:var(--panel);transition:border-color .25s,background .25s,transform .25s var(--ease)}
+.fac:hover{border-color:var(--line);transform:translateY(-2px)}
+.fac[aria-selected="true"]{border-color:var(--gold);background:linear-gradient(160deg,rgba(201,166,70,.16),rgba(201,166,70,.02) 70%),var(--panel)}
+.fac svg{width:54px;height:54px}
+.fac .ring-bg{fill:none;stroke:rgba(245,239,224,.1);stroke-width:6}
+.fac .ring-v{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .9s var(--ease)}
+.fac .ring-t{font:700 15px var(--f-body);fill:var(--cream)}
+.fac b{font-family:var(--f-display);font-weight:600;font-size:1.05rem;line-height:1.2}
+.fac small{color:var(--mute);font-size:.8rem;line-height:1.35}
+.fac-note{margin:12px 0 18px;max-width:80ch}
+.fac-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;align-items:start}
+.fac-detail{display:grid;gap:14px}
+.fac-detail h3{font-size:clamp(1.4rem,2.6vw,1.9rem)}
+.fd-row{display:grid;gap:4px}
+.fd-row b{font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.fd-row p,.fd-row li{font-size:.95rem;color:var(--cream);opacity:.9}
+.fd-row ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.util{display:grid;gap:16px;background:linear-gradient(160deg,#0D1F42,#081631)}
+.util-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.util-head h3{font-size:1.5rem;margin-top:4px}
+.util-rows{display:grid;gap:10px}
+.u-row{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1fr) minmax(0,1fr) 36px;gap:10px;align-items:end}
+.u-row .nm{font-weight:700;font-size:.9rem;padding-bottom:12px;display:grid;gap:4px}
+.u-row .nm i{display:block;height:4px;border-radius:9px;background:rgba(245,239,224,.1);overflow:hidden}
+.u-row .nm i span{display:block;height:100%;background:var(--gold);transition:width .4s var(--ease),background .3s}
+.u-row .nm i span.hot{background:var(--bad)}
+.u-row .field label{font-size:.72rem;color:var(--mute);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.u-row .inp{padding:10px 12px;font-variant-numeric:tabular-nums}
+.u-row .rm{width:36px;height:42px;border-radius:10px;border:1px solid var(--hair);background:none;color:var(--mute);cursor:pointer;font-size:1.1rem}
+.u-row .rm:hover{border-color:var(--bad);color:var(--bad)}
+.u-row .rm[disabled]{opacity:.3;cursor:not-allowed}
+#addCard{justify-self:start}
+.util-out{display:grid;gap:12px;padding-top:16px;border-top:1px solid var(--hair)}
+.util-big{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.util-big small{flex-basis:100%;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--gold)}
+.util-big b{font-family:var(--f-display);font-size:clamp(2.8rem,6vw,3.8rem);line-height:1}
+.util-big span{color:var(--mute);font-size:.9rem}
+.util-meter{display:grid;gap:4px}
+.um-bar{height:12px;border-radius:99px;background:linear-gradient(90deg,rgba(127,200,160,.25) 0 10%,rgba(201,166,70,.2) 10% 30%,rgba(232,180,96,.22) 30% 50%,rgba(224,138,122,.25) 50%);overflow:hidden}
+.um-bar i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--gold),var(--gold-hi));transition:width .6s var(--ease)}
+.um-ticks{position:relative;height:1.2em;font-size:.72rem;color:var(--mute)}
+.um-ticks span{position:absolute;transform:translateX(-50%)}
+.um-ticks span:last-child{transform:translateX(-100%)}
+.util-coach{font-size:1rem}
+.util-coach b{color:var(--gold-hi)}
+.util-plan{font-size:.9rem;color:var(--mute)}
+.util-plan b{color:var(--cream)}
+.rights{background:linear-gradient(180deg,var(--void),var(--panel) 50%,var(--void))}
+.rights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.right{display:grid;gap:10px;align-content:start;padding:24px;border:1px solid var(--line);border-radius:20px;background:var(--void);min-width:0}
+.right .r-law{font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.right h3{font-size:1.25rem}
+.right p{color:var(--mute);font-size:.95rem}
+@media (max-width:760px){.fac-row{grid-template-columns:repeat(2,minmax(0,1fr))}.fac:last-child{grid-column:1/-1}}
+@media (max-width:860px){.fac-grid{grid-template-columns:1fr}}
+@media (max-width:600px){
+  .fac-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fac{padding:14px 12px}
+  .fac small{display:none}
+  .u-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 36px}
+  .u-row .nm{grid-column:1/-1;padding-bottom:0;grid-template-columns:auto 1fr;align-items:center;gap:10px}
+}
+
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav-in">
+    <a class="brand" href="#hero" aria-label="Full Circle Financial Group, back to top"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#C9A646" stroke-width="2.4"/><circle cx="16" cy="16" r="5" fill="none" stroke="#E6C873" stroke-width="1.4" stroke-dasharray="2 2.2"/></svg>Full Circle<small>Personal credit</small></a>
+    <ul class="nav-links" id="navLinks"><li><a href="#factors">Score factors</a></li><li><a href="#rights">Your rights</a></li><li><a href="#why">Why</a></li><li><a href="#when">When</a></li><li><a href="#how">How</a></li><li><a href="#faq">FAQ</a></li></ul>
+    <a class="btn btn-gold btn-sm nav-cta" data-book href="#">Book your strategy call</a>
+    <button class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14" stroke="#F5EFE0" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="nav-progress" id="navProgress"></div>
+</header>
+
+<main id="main">
+<section class="hero" id="hero" aria-labelledby="heroT">
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Fix it · Personal credit · Phoenix, Arizona</p>
+      <h1 id="heroT">Know your rights. <em>Fix what's wrong.</em></h1>
+      <p class="lede">Your credit reports follow you into most credit applications. We go through all three with you, dispute only what's believed to be inaccurate, and coach the habits that matter. Accurate information can stay, and you can dispute on your own, for free.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="#factors">See what moves a score <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-ghost" data-book href="#">Book your strategy call</a>
+      </div>
+      <div class="founder"><i></i><span>Founded by <b>Breyon Miller</b>, who built the plan he was never handed</span></div>
+    </div>
+    <div class="emblem" id="emblem" data-lit="0" data-draw="75" aria-hidden="true">
+    <svg viewBox="-24 -24 348 348">
+      <defs><filter id="emGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <g id="emTicks"></g>
+      <circle class="em-track" cx="150" cy="150" r="108"/>
+      <circle class="em-draw" id="emDraw" cx="150" cy="150" r="108" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" transform="rotate(-90 150 150)"/>
+      <g id="emQuads"></g>
+      <text class="em-c1" x="150" y="138" text-anchor="middle">I</text>
+      <text class="em-c2" x="150" y="176" text-anchor="middle">Fix</text>
+    </svg></div>
+  </div>
+</section>
+<section class="sec tool" id="factors" aria-labelledby="facT">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Signature tool</p>
+      <h2 id="facT">What moves a score</h2>
+      <p class="lede">FICO groups what goes into its scores into five factors. Tap one to see what it looks at and what tends to help. Then run your own utilization numbers.</p>
+    </div>
+    <div class="fac-row" role="tablist" aria-label="Score factors" id="facTabs"></div>
+    <p class="fine fac-note">Percentages are FICO's published general breakdown for the population. For any one person, the importance of each factor can differ, and other scoring models weigh things differently.</p>
+    <div class="fac-grid">
+      <div class="card fac-detail" id="facPanel" role="tabpanel" tabindex="0" aria-live="polite"></div>
+      <div class="card card-gold util" id="utilCalc" aria-labelledby="utilT">
+        <div class="util-head">
+          <div><p class="tag">Utilization calculator</p><h3 id="utilT">Balances vs. limits</h3></div>
+          <span class="example">Example numbers. Type yours.</span>
+        </div>
+        <div class="util-rows" id="utilRows"></div>
+        <button class="btn btn-ghost btn-sm" type="button" id="addCard">Add a card</button>
+        <div class="util-out" aria-live="polite">
+          <div class="util-big"><small>Overall utilization</small><b id="utilPct" class="tnum">43%</b><span id="utilSum" class="tnum"></span></div>
+          <div class="util-meter">
+            <div class="um-bar"><i id="utilFill"></i></div>
+            <div class="um-ticks tnum" aria-hidden="true"><span style="left:10%">10%</span><span style="left:30%">30%</span><span style="left:50%">50%</span><span style="left:100%">100%</span></div>
+          </div>
+          <p class="util-coach" id="utilCoach"></p>
+          <p class="util-plan tnum" id="utilPlan"></p>
+          <p class="fine">General education, not a prediction. Utilization usually reflects the balance on your statement, which may be reported before you pay. No set number of points comes from any change.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec rights" id="rights" aria-labelledby="rightsT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Your rights</p><h2 id="rightsT">Rights you have, whether or not you hire anyone</h2><p class="lede">Federal law gives you these protections. We'd rather you know them before you talk to any credit repair company, including us.</p></div>
+    <div class="rights-grid">
+      <div class="right rv">
+        <span class="r-law">Fair Credit Reporting Act</span>
+        <h3>Free weekly credit reports</h3>
+        <p>You can get free reports from Equifax, Experian and TransUnion every week at <a href="https://www.annualcreditreport.com" target="_blank" rel="noopener">AnnualCreditReport.com</a>, the official site for free reports.</p>
+      </div>
+      <div class="right rv">
+        <span class="r-law">Fair Credit Reporting Act</span>
+        <h3>Dispute it yourself, for free</h3>
+        <p>You have the right to dispute inaccurate information with the credit bureaus yourself, at no cost. The bureau generally has 30 days to investigate, or up to 45 days in some cases, such as when you send more information during the investigation.</p>
+      </div>
+      <div class="right rv">
+        <span class="r-law">Credit Repair Organizations Act</span>
+        <h3>Three business days to cancel</h3>
+        <p>You can cancel a credit repair contract within 3 business days of signing, without penalty. The contract must be in writing.</p>
+      </div>
+      <div class="right rv">
+        <span class="r-law">Credit Repair Organizations Act</span>
+        <h3>No payment before the work is done</h3>
+        <p>A credit repair company can't charge you before the services are fully performed. Personal credit repair is never billed upfront. You pay only as the law allows, after the work is done, as spelled out in your written agreement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec" id="why" aria-labelledby="whyT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Why you need it</p><h2 id="whyT">Why personal credit matters</h2></div>
+    <div class="why-list">
+      <div class="why-item rv"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="13" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M12 24L24 12" stroke="#E6C873" stroke-width="2" stroke-linecap="round"/><circle cx="13" cy="13" r="2.4" fill="#E6C873"/><circle cx="23" cy="23" r="2.4" fill="#E6C873"/></svg><h3>The cost of borrowing</h3><p>Credit history is one of the things lenders use to set interest rates and terms. The same loan can cost very different amounts depending on the profile behind it.</p></div>
+      <div class="why-item rv"><svg viewBox="0 0 36 36" aria-hidden="true"><rect x="7" y="5" width="22" height="26" rx="2" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M12 19l4 4 8-9" fill="none" stroke="#E6C873" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Approvals</h3><p>Cards, auto loans and mortgages all start with a look at your reports. Errors on them can cost you an approval you would otherwise qualify for.</p></div>
+      <div class="why-item rv"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M5 17L18 6l13 11M9 14v16h18V14" fill="none" stroke="#C9A646" stroke-width="1.8" stroke-linejoin="round"/><rect x="15" y="21" width="6" height="9" fill="none" stroke="#E6C873" stroke-width="1.8"/></svg><h3>Insurance and rentals</h3><p>In many states, insurers may use credit-based insurance scores, and landlords often check credit before approving a lease.</p></div>
+      <div class="why-item rv"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M5 31h26M9 31v-8h18v8M12 23v-7h12v7M15 16v-7h6v7" fill="none" stroke="#C9A646" stroke-width="1.8" stroke-linejoin="round"/></svg><h3>The foundation for funding</h3><p>Many business lenders still look at the owner's personal credit, especially for newer companies. An accurate, well-managed personal file can support what comes after.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec when" id="when" aria-labelledby="whenT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">When you need it</p><h2 id="whenT">When to look at your reports</h2></div>
+    <ul class="when-list">
+      <li class="when-row rv"><h3><span>Before</span>A mortgage, car or funding application</h3><p><b>Review first, apply second.</b> Errors are easier to address before an application than after a denial.</p></li>
+      <li class="when-row rv"><h3><span>After</span>Identity theft</h3><p><b>Act quickly.</b> You can place a fraud alert or a credit freeze with the bureaus for free, and report the theft at IdentityTheft.gov. Then we go through the reports for accounts that aren't yours.</p></li>
+      <li class="when-row rv"><h3><span>After</span>A denial</h3><p><b>Find out why.</b> If you're denied based on your credit report, the lender must tell you which bureau it used, and you can get a free copy of that report within 60 days.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="how" aria-labelledby="howT">
+  <div class="wrap how-grid">
+    <div class="sec-head rv"><p class="eyebrow">How FCFG does it</p><h2 id="howT">How we work through your reports</h2><p class="lede">Every step is tracked in your client portal. Personal credit repair is never billed upfront. You pay only as the law allows, after the work is done, as spelled out in your written agreement.</p></div>
+    <ol class="steps-tl">
+      <li class="rv"><h3>3-bureau report review, together</h3><p>We go through your Equifax, Experian and TransUnion reports with you, line by line. You tell us what you recognize and what you don't.</p><span class="who"><b>You bring</b>A photo ID, proof of address and your reports</span></li>
+      <li class="rv"><h3>Dispute only what's believed to be wrong</h3><p>We dispute items you believe are inaccurate, incomplete, outdated or unverifiable. Accurate, timely information stays on your report, and we never ask you to make a false statement.</p></li>
+      <li class="rv"><h3>Track the bureau responses</h3><p>Bureaus generally have 30 days to investigate a dispute. That can extend to 45 days if you send more information during the investigation, or if you dispute after getting your free annual report. We log every letter and response in your portal and tell you what came back.</p><span class="who"><b>You bring</b>Any mail you receive from the bureaus</span></li>
+      <li class="rv"><h3>Utilization coaching</h3><p>We look at balances against limits on every card and plan pay-downs around your statement dates. The calculator above shows the math.</p></li>
+      <li class="rv"><h3>Monitoring</h3><p>We keep an eye on your reports for changes, new accounts and anything that shouldn't be there, and review it with you on a regular schedule.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="myths" aria-labelledby="mythT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Myth vs fact</p><h2 id="mythT">What people get wrong</h2><p class="lede">Tap a card to turn it over.</p></div>
+    <div class="myths">
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>Checking my own credit will hurt my score.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>Checking your own reports is a soft inquiry. It doesn't affect your scores.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>A credit repair company can remove anything negative.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>Accurate, timely information can stay on your report. We dispute only items believed to be inaccurate, incomplete, outdated or unverifiable.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>Closing old cards helps my score.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>Closing a card removes its limit, which can raise your utilization. It can also shorten your history over time.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>Paying off a collection makes it disappear.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>A paid collection can still appear on your report. Some newer scoring models ignore paid collections, but not every lender uses them.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>I have one credit score.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>You have many. Each bureau has its own report, and lenders use different scoring models and versions.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>My income is part of my credit score.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>Income isn't on your credit report and isn't part of a credit score. Lenders may ask about it separately.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="work" id="working" aria-labelledby="workT">
+  <div class="wrap work-grid">
+    <div class="work-head rv"><p class="eyebrow">What working with us looks like</p><h2 id="workT">The same process for every client.</h2></div>
+    <div class="work-item rv">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M12 20.5l5.2 5L28 14.5" fill="none" stroke="#E6C873" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h3>Same onboarding for everyone</h3><p>Every client starts the same way: a strategy call, a written agreement, then a checklist of what we need from you. No shortcuts, no special tracks.</p></div>
+    <div class="work-item rv">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="9" width="28" height="20" rx="3" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M14 33h12M20 29v4" stroke="#C9A646" stroke-width="1.8" stroke-linecap="round"/><path d="M16 22v-4a4 4 0 0 1 8 0v4" fill="none" stroke="#E6C873" stroke-width="1.8"/><rect x="14.5" y="20" width="11" height="6" rx="1.5" fill="#E6C873"/></svg>
+      <h3>A secure client portal</h3><p>Upload documents in one place and see where each step stands, instead of digging through email threads.</p></div>
+    <div class="work-item rv">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M20 10v10l7 4" fill="none" stroke="#E6C873" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <h3>Updates on a schedule</h3><p>You hear from us on a regular schedule, including the weeks we're waiting on a bureau or a lender. Waiting still gets a status update.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="faq" aria-labelledby="faqT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">FAQ</p><h2 id="faqT">Questions clients ask</h2></div>
+    <div class="faq">
+      <details class="rv"><summary>Do you charge upfront for credit repair?</summary><div class="ans"><p>No. Personal credit repair is never billed upfront. You pay only as the law allows, after the work is done, as spelled out in your written agreement. Under the Credit Repair Organizations Act, a credit repair company can't take payment before the services are fully performed. If you sign up by phone, the FTC's Telemarketing Sales Rule (16 CFR 310.4(a)(2)) also limits when a fee can be requested.</p></div></details>
+      <details class="rv"><summary>Can I dispute items myself?</summary><div class="ans"><p>Yes. You can dispute inaccurate information directly with the credit bureaus, for free. Many people do. We offer an organized process and the tracking, but you never have to hire anyone to dispute.</p></div></details>
+      <details class="rv"><summary>Will you guarantee a score increase or deletions?</summary><div class="ans"><p>No. Nobody can honestly promise a specific score change, deletion or timeline. Results depend on what's on your reports and how the bureaus and creditors respond.</p></div></details>
+      <details class="rv"><summary>How long do negative items stay on a report?</summary><div class="ans"><p>Most negative information can be reported for up to seven years. A Chapter 7 bankruptcy can be reported for up to ten. Accurate items within those periods can stay.</p></div></details>
+      <details class="rv"><summary>What if a bureau verifies the item?</summary><div class="ans"><p>If the item is verified as accurate, it generally stays. You can add a brief statement to your file explaining your side, and we'll talk through other options with you.</p></div></details>
+      <details class="rv"><summary>What's the difference between a hard and soft inquiry?</summary><div class="ans"><p>A hard inquiry happens when you apply for credit and can affect your scores for a time. A soft inquiry, like checking your own reports or a prescreened offer, doesn't affect your scores.</p></div></details>
+      <details class="rv"><summary>What do I need to get started?</summary><div class="ans"><p>A photo ID, proof of address and access to your three reports. You can get free weekly reports at AnnualCreditReport.com.</p></div></details>
+      <details class="rv"><summary>What does it cost?</summary><div class="ans"><p>Pricing is quoted in writing on your strategy call. Personal credit repair is never billed upfront. You pay only as the law allows, after the work is done, as spelled out in your written agreement.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="call" aria-labelledby="ctaT" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-card rv">
+      <svg viewBox="0 0 110 110" aria-hidden="true"><circle cx="55" cy="55" r="46" fill="none" stroke="#C9A646" stroke-width="2"/><circle cx="55" cy="55" r="36" fill="none" stroke="rgba(230,200,115,.4)" stroke-width="1" stroke-dasharray="3 4"/><rect x="34" y="38" width="42" height="38" rx="4" fill="none" stroke="#E6C873" stroke-width="2.2"/><path d="M34 48h42M44 32v10M66 32v10" stroke="#E6C873" stroke-width="2.2" stroke-linecap="round"/><circle cx="55" cy="62" r="4" fill="#E6C873"/></svg>
+      <div>
+        <p class="eyebrow" style="margin-bottom:10px">Next step</p>
+        <h2 id="ctaT">Book your strategy call</h2>
+        <p>We'll go through your three reports together, mark what you believe is wrong, and lay out the plan in writing before you sign anything.</p>
+        <p class="price">Pricing is quoted in writing on your strategy call.</p>
+      </div>
+      <a class="btn btn-gold" data-book href="#">Book your strategy call <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3L3 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-brand">
+        <a class="brand" href="#hero"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#C9A646" stroke-width="2.4"/><circle cx="16" cy="16" r="5" fill="none" stroke="#E6C873" stroke-width="1.4" stroke-dasharray="2 2.2"/></svg>Full Circle Financial Group</a>
+        <p>Fix it. Build it. Fund it. Protect it.<br>Phoenix, Arizona</p>
+        <a class="btn btn-ghost btn-sm" data-link="allServices" href="#" style="justify-self:start;margin-top:8px">See every service, in order</a>
+      </div>
+      <ul class="disc"><li>Results vary. Not a guarantee.</li><li>FCFG does not guarantee any score change, deletion, approval, funding amount or timeline.</li><li>You can dispute inaccurate information on your credit report yourself, for free.</li><li>Personal credit repair is never billed upfront. You pay only as the law allows, after the work is done, as spelled out in your written agreement.</li><li>Life insurance is offered through [Producer name], a licensed Arizona insurance producer, License # [number]. Insurance is optional and never a condition of any credit or funding service.</li><li>Educational only; not legal, tax or financial advice.</li><li>PAYDEX is a trademark of Dun &amp; Bradstreet.</li><li>Full Circle Financial Group · Phoenix, Arizona</li><li>If you enroll in credit repair by phone, the FTC's Telemarketing Sales Rule (16 CFR 310.4(a)(2)) also limits when a fee can be requested.</li></ul>
+    </div>
+    <div class="copy"><span>&copy; <span id="yr">2026</span> Full Circle Financial Group</span><span>Phoenix, Arizona</span></div>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================
+   BOOKING LINK: REPLACE THIS PLACEHOLDER BEFORE GOING LIVE.
+   Paste the real scheduling URL (Calendly, GHL, etc.).
+   ========================================================== */
+const BOOKING_URL = "https://YOUR-BOOKING-LINK"; // <-- PLACEHOLDER
+
+/* ==========================================================
+   PAGE LINKS: replace each "#" with the published URL of that page.
+   ========================================================== */
+const LINKS = {
+  structure: "https://claude.ai/artifact/VSSdNMJtg2xVFYtV33vavL",
+  businessCredit: "https://claude.ai/artifact/PhfbCSQBsNhRc1yoJ9EUSg",
+  personalCredit: "https://claude.ai/artifact/VzWXR7cpfUDvBWttJPpJ3i",
+  lifeInsurance: "https://claude.ai/artifact/FsxZwfNya2fjfBMoH9qKge",
+  allServices: "https://claude.ai/artifact/5WPY4yXLWMvJMu6y8X11r2"
+};
+/* page links leave the frame so they open as full pages */
+document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a[href^='https://claude.ai/artifact/']"); if (a) { a.target = "_top"; } }, true);
+
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const NS = "http://www.w3.org/2000/svg";
+const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+const FC = window.FC = {
+  $, $$, NS,
+  reduce: mq.matches,
+  clamp: (v,a,b) => Math.min(b, Math.max(a, v)),
+  el(tag, attrs={}, parent){ const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; },
+  esc: s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])),
+  usd: n => "$" + Math.round(n).toLocaleString("en-US"),
+  fillTrack(r){ r.style.setProperty("--p", ((r.value-r.min)/(r.max-r.min)*100) + "%"); }
+};
+mq.addEventListener && mq.addEventListener("change", e => { FC.reduce = e.matches; });
+try { $("#yr").textContent = new Date().getFullYear(); } catch(e) {}
+
+/* booking links */
+$$("[data-book]").forEach(a => { a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; });
+/* cross-page links */
+$$("[data-link]").forEach(a => { const u = LINKS[a.dataset.link]; if (u) a.href = u; });
+
+/* nav */
+const menuBtn = $("#navMenu"), links = $("#navLinks");
+menuBtn.addEventListener("click", () => {
+  const open = links.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+});
+$$("a", links).forEach(a => a.addEventListener("click", () => { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded","false"); menuBtn.setAttribute("aria-label","Open menu"); }));
+const navMap = {};
+$$("a", links).forEach(a => { const h = a.getAttribute("href"); if (h && h[0]==="#") navMap[h.slice(1)] = a; });
+if ("IntersectionObserver" in window){
+  const secObs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting){ Object.values(navMap).forEach(a => a.classList.remove("on")); const a = navMap[e.target.id]; if (a) a.classList.add("on"); }
+  }), { rootMargin:"-45% 0px -50% 0px" });
+  Object.keys(navMap).forEach(id => { const s = document.getElementById(id); if (s) secObs.observe(s); });
+}
+const navProg = $("#navProgress");
+let ticking = false;
+function onScroll(){
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  navProg.style.transform = `scaleX(${max>0 ? FC.clamp(window.scrollY/max,0,1) : 0})`;
+}
+window.addEventListener("scroll", () => { if (!ticking){ ticking = true; requestAnimationFrame(() => { ticking = false; onScroll(); }); } }, {passive:true});
+onScroll();
+
+/* hero emblem */
+const em = $("#emblem");
+if (em){
+  const lit = (em.dataset.lit || "").split(",").map(Number);
+  const ticks = $("#emTicks", em), qs = $("#emQuads", em);
+  const polar = (r, deg) => { const a = (deg-90)*Math.PI/180; return [150+r*Math.cos(a), 150+r*Math.sin(a)]; };
+  for (let i=0;i<60;i++){ const [x1,y1] = polar(98,i*6), [x2,y2] = polar(i%15===0?88:93,i*6); FC.el("line",{class:"em-tick",x1,y1,x2,y2},ticks); }
+  ["FIX","BUILD","FUND","PROTECT"].forEach((t,i) => {
+    const a0 = i*90+5, a1 = (i+1)*90-5, R = 124, [x0,y0] = polar(R,a0), [x1,y1] = polar(R,a1);
+    FC.el("path",{class:"em-q"+(lit.includes(i)?" lit":""),d:`M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1}`},qs);
+    const [lx,ly] = polar(162, i*90+45);
+    const tx = FC.el("text",{class:"em-lbl"+(lit.includes(i)?" lit":""),x:lx,y:ly+4,"text-anchor":"middle"},qs); tx.textContent = t;
+  });
+  const draw = $("#emDraw", em);
+  if (!FC.reduce){
+    draw.style.transition = "stroke-dashoffset 1.8s cubic-bezier(.2,.7,.2,1)";
+    requestAnimationFrame(() => requestAnimationFrame(() => draw.setAttribute("stroke-dashoffset", em.dataset.draw || "0")));
+  } else draw.setAttribute("stroke-dashoffset", em.dataset.draw || "0");
+}
+
+/* gold dust */
+const hero = $(".hero"), cv = $("#dust");
+if (hero && cv){
+  const cx = cv.getContext("2d");
+  let W=0,H=0,parts=[],on=true,raf=0;
+  const size = () => {
+    const r = hero.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio||1,2);
+    W = r.width; H = r.height; cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); cx.setTransform(dpr,0,0,dpr,0,0);
+    const n = Math.round(FC.clamp(W*H/12000, 30, 110));
+    parts = Array.from({length:n}, () => ({x:Math.random()*W,y:Math.random()*H,vy:-(.05+Math.random()*.2),vx:(Math.random()-.5)*.12,r:.5+Math.random()*1.6,a:.12+Math.random()*.5,tw:Math.random()*6.28}));
+    paint(true);
+  };
+  const paint = still => {
+    cx.clearRect(0,0,W,H);
+    for (const p of parts){
+      if (!still){ p.x += p.vx; p.y += p.vy; p.tw += .02; if (p.y < -8){ p.y = H+8; p.x = Math.random()*W; } if (p.x<-8) p.x=W+8; if (p.x>W+8) p.x=-8; }
+      cx.globalAlpha = p.a*(.65+.35*Math.sin(p.tw)); cx.fillStyle = p.r>1.5 ? "#E6C873" : "#C9A646";
+      cx.beginPath(); cx.arc(p.x,p.y,p.r,0,6.283); cx.fill();
+    }
+    cx.globalAlpha = 1;
+  };
+  const loop = () => { paint(false); raf = (on && !FC.reduce) ? requestAnimationFrame(loop) : 0; };
+  size();
+  if (!FC.reduce && "IntersectionObserver" in window){
+    new IntersectionObserver(es => { on = es[0].isIntersecting && !document.hidden; if (on && !raf) raf = requestAnimationFrame(loop); }).observe(hero);
+    document.addEventListener("visibilitychange", () => { on = !document.hidden; if (on && !raf) raf = requestAnimationFrame(loop); });
+  }
+  let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(size, 150); });
+}
+
+/* myth vs fact flip cards */
+$$(".flip").forEach(b => {
+  const front = $(".front", b), back = $(".back", b);
+  const set = on => {
+    b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
+    front.setAttribute("aria-hidden", on); back.setAttribute("aria-hidden", !on);
+  };
+  set(false);
+  b.addEventListener("click", () => set(!b.classList.contains("on")));
+});
+
+/* reveals: only for what starts below the fold */
+FC.reveal = () => {
+  if (FC.reduce || !("IntersectionObserver" in window)) return;
+  const vh = window.innerHeight;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.remove("pre"); io.unobserve(e.target); } }), { rootMargin:"0px 0px -6% 0px" });
+  $$(".rv").forEach(n => { if (n.getBoundingClientRect().top > vh) { n.classList.add("pre"); io.observe(n); } });
+};
+})();
+
+(function(){
+"use strict";
+const {$, $$, el, esc, usd, clamp, fillTrack, NS} = window.FC;
+/* ---------- WHAT MOVES A SCORE ---------- */
+const FACTORS = [
+  { id:"pay", name:"Payment history", w:35, line:"Do you pay as agreed?",
+    looks:"Whether accounts have been paid on time, how late any late payments were, how recently they happened, and items like collections or bankruptcies.",
+    helps:["Paying at least the minimum by the due date, every month","Autopay or reminders for every account","Bringing past-due accounts current"],
+    we:"We check every late payment and negative item for accuracy. Anything you believe is inaccurate, incomplete, outdated or unverifiable gets disputed. Accurate history stays." },
+  { id:"util", name:"Amounts owed", w:30, line:"How much of your limits you use",
+    looks:"How much you owe, and especially your credit card balances compared to your limits. That ratio is called utilization, overall and card by card.",
+    helps:["Keeping balances low relative to limits","Paying down before the statement closes","Not closing old cards with open limits without a plan"],
+    we:"We map every card's balance, limit and statement date, then plan pay-downs with you. Run the calculator to see your numbers." },
+  { id:"len", name:"Length of history", w:15, line:"How long you've had credit",
+    looks:"The age of your oldest account, the average age of all accounts, and how long since accounts were used.",
+    helps:["Keeping older accounts open and in good standing","Using older cards now and then so they stay active","Opening new accounts only when you need them"],
+    we:"We flag older accounts worth keeping before you close anything." },
+  { id:"new", name:"New credit", w:10, line:"Recent applications and accounts",
+    looks:"How many accounts you've opened recently and how many hard inquiries are on your report.",
+    helps:["Spacing out applications","Applying only for credit you plan to use","Checking your own reports, which is a soft inquiry and doesn't count"],
+    we:"Before any funding application, every hard inquiry is disclosed in writing so you can decide." },
+  { id:"mix", name:"Credit mix", w:10, line:"The types of credit you use",
+    looks:"Whether you have a mix of revolving accounts, like cards, and installment loans, like auto or student loans.",
+    helps:["Managing the accounts you have well","Not opening loans just to change your mix"],
+    we:"We review your mix with you as part of the full picture. It's rarely a reason to open anything new." }
+];
+const facTabs = $("#facTabs"), facPanel = $("#facPanel");
+FACTORS.forEach((f,i) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "fac"; b.id = "f-" + f.id; b.setAttribute("role","tab"); b.setAttribute("aria-controls","facPanel");
+  const C = 2*Math.PI*22, off = C*(1 - f.w/100);
+  b.innerHTML = `<svg viewBox="0 0 54 54" aria-hidden="true"><circle class="ring-bg" cx="27" cy="27" r="22"/><circle class="ring-v" cx="27" cy="27" r="22" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${off.toFixed(2)}" transform="rotate(-90 27 27)"/><text class="ring-t" x="27" y="32" text-anchor="middle">${f.w}%</text></svg><b>${f.name}</b><small>${f.line}</small>`;
+  b.setAttribute("aria-label", `${f.name}, about ${f.w} percent of a FICO score`);
+  b.addEventListener("click", () => setFac(i));
+  b.addEventListener("keydown", e => {
+    let n = null;
+    if (e.key==="ArrowRight"||e.key==="ArrowDown") n = (i+1)%5; if (e.key==="ArrowLeft"||e.key==="ArrowUp") n = (i+4)%5;
+    if (n!==null){ e.preventDefault(); setFac(n); $("#f-"+FACTORS[n].id).focus(); }
+  });
+  facTabs.appendChild(b);
+});
+function setFac(i){
+  const f = FACTORS[i];
+  $$(".fac", facTabs).forEach((b,k) => { b.setAttribute("aria-selected", k===i); b.tabIndex = k===i ? 0 : -1; });
+  facPanel.setAttribute("aria-labelledby", "f-" + f.id);
+  facPanel.innerHTML = `<div class="fade-in" style="display:grid;gap:14px">
+    <span class="tag">About ${f.w}% of a FICO score</span>
+    <h3>${f.name}</h3>
+    <div class="fd-row"><b>What it looks at</b><p>${f.looks}</p></div>
+    <div class="fd-row"><b>What tends to help</b><ul>${f.helps.map(h => `<li>${h}</li>`).join("")}</ul></div>
+    <div class="fd-row"><b>What we do together</b><p>${f.we}</p></div>
+  </div>`;
+}
+setFac(1);
+
+/* ---------- UTILIZATION CALCULATOR ---------- */
+const rowsEl = $("#utilRows");
+let cards = [ {b:1800, l:5000}, {b:2400, l:3000}, {b:300, l:2500} ];
+let uid = 0;
+function rowHtml(c, i){
+  const L = String.fromCharCode(65+i);
+  return `<div class="u-row" data-i="${i}">
+    <div class="nm">Card ${L}<i><span id="ub-${i}"></span></i></div>
+    <div class="field"><label for="bal-${i}">Balance</label><input class="inp" type="number" inputmode="decimal" min="0" step="50" id="bal-${i}" value="${c.b}"></div>
+    <div class="field"><label for="lim-${i}">Limit</label><input class="inp" type="number" inputmode="decimal" min="0" step="100" id="lim-${i}" value="${c.l}"></div>
+    <button class="rm" type="button" aria-label="Remove card ${L}" ${cards.length<=1?"disabled":""}>&times;</button>
+  </div>`;
+}
+function drawRows(){
+  rowsEl.innerHTML = cards.map(rowHtml).join("");
+  $$(".u-row", rowsEl).forEach(r => {
+    const i = +r.dataset.i;
+    $(`#bal-${i}`, r).addEventListener("input", e => { cards[i].b = Math.max(0, +e.target.value || 0); calc(); });
+    $(`#lim-${i}`, r).addEventListener("input", e => { cards[i].l = Math.max(0, +e.target.value || 0); calc(); });
+    $(".rm", r).addEventListener("click", () => { if (cards.length > 1){ cards.splice(i,1); drawRows(); calc(); const f = $(".inp", rowsEl); if (f) f.focus(); } });
+  });
+  $("#addCard").disabled = cards.length >= 6;
+}
+$("#addCard").addEventListener("click", () => { if (cards.length < 6){ cards.push({b:0, l:1000}); drawRows(); calc(); $(`#bal-${cards.length-1}`).focus(); } });
+function calc(){
+  const B = cards.reduce((s,c) => s + c.b, 0), L = cards.reduce((s,c) => s + c.l, 0);
+  const pct = L > 0 ? B / L * 100 : 0;
+  const shown = L > 0 ? (pct < 1 && B > 0 ? "<1" : Math.round(pct)) : "--";
+  $("#utilPct").textContent = shown + "%";
+  $("#utilSum").textContent = `${usd(B)} of ${usd(L)} in limits`;
+  $("#utilFill").style.width = Math.min(100, pct) + "%";
+  let hot = [];
+  cards.forEach((c,i) => {
+    const p = c.l > 0 ? c.b / c.l * 100 : (c.b > 0 ? 100 : 0);
+    const bar = $("#ub-"+i); if (bar){ bar.style.width = Math.min(100,p) + "%"; bar.classList.toggle("hot", p >= 80); }
+    if (p >= 80) hot.push("Card " + String.fromCharCode(65+i));
+  });
+  let msg;
+  if (L === 0) msg = "Add a credit limit to see utilization.";
+  else if (B === 0) msg = "<b>No balances reported.</b> That's generally fine. Some scoring models treat a small reported balance slightly better than all zeros, but paying in full is still a good habit.";
+  else if (pct < 10) msg = "<b>Low.</b> Utilization under 10% is generally viewed favorably.";
+  else if (pct < 30) msg = "<b>Moderate.</b> Under 30% is a common guideline, and lower is generally better.";
+  else if (pct < 50) msg = "<b>Elevated.</b> Above 30%, utilization can weigh on scores. Paying balances down before the statement closes means a lower balance gets reported.";
+  else msg = "<b>High.</b> Lenders may read high utilization as risk. A pay-down plan, card by card, is usually the first conversation we have.";
+  if (hot.length && L > 0) msg += ` ${hot.join(" and ")} ${hot.length>1?"are":"is"} at 80% or more of ${hot.length>1?"their limits":"its limit"}. High utilization on a single card can count too.`;
+  $("#utilCoach").innerHTML = msg;
+  const t30 = L*0.3, t10 = L*0.1;
+  $("#utilPlan").innerHTML = L > 0 && B > t10
+    ? `Total balances under <b>${usd(t30)}</b> would put you under 30%. Under <b>${usd(t10)}</b> would be under 10%.`
+    : "";
+}
+drawRows(); calc();
+
+window.FC.reveal();
+})();
+</script>
+
+</body></html>

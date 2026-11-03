@@ -1,0 +1,548 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle OS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: navy/cream bands alternate; an orbital ring motif carries from hero to the client loop. */
+:root{
+  --bg:#F5EFE0; --surface:#FFFDF7; --surface-2:#EFE6D0; --ink:#0A1F44; --muted:#3E4C66; --line:#E2D8BE;
+  --gold:#C9A646; --gold-ink:#7A5F17; --band:#0A1F44; --band-2:#12295A; --on-band:#F5EFE0; --on-band-muted:#CFC8B6;
+  --good:#1F6B3A; --good-bg:#DDEBDD; --warn:#7A4A0A; --warn-bg:#F6E3C8;
+  --display:"Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --mark:Cinzel, "Trajan Pro", Georgia, serif;
+  --body:Manrope, "Segoe UI", system-ui, sans-serif;
+  --wrap:1180px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#081733; --surface:#0E2249; --surface-2:#13295A; --ink:#F3EDDD; --muted:#BCB6A6; --line:#24396B;
+  --gold:#C9A646; --gold-ink:#DDBE62; --band:#040D20; --band-2:#0E2249; --on-band:#F5EFE0; --on-band-muted:#C4BDAB;
+  --good:#8FD3A4; --good-bg:#16402A; --warn:#F2C27E; --warn-bg:#4A3313; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#081733; --surface:#0E2249; --surface-2:#13295A; --ink:#F3EDDD; --muted:#BCB6A6; --line:#24396B;
+  --gold:#C9A646; --gold-ink:#DDBE62; --band:#040D20; --band-2:#0E2249; --on-band:#F5EFE0; --on-band-muted:#C4BDAB;
+  --good:#8FD3A4; --good-bg:#16402A; --warn:#F2C27E; --warn-bg:#4A3313; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--band)}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.08;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+.eyebrow{font-family:var(--mark);font-size:12.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.band .eyebrow{color:var(--gold)}
+.section{padding-block:clamp(72px,9vw,120px)}
+.section-head{display:flex;flex-direction:column;gap:14px;max-width:720px;margin-bottom:clamp(36px,5vw,56px)}
+.section-head h2{font-size:clamp(34px,4.4vw,54px)}
+.lede{font-size:18px;color:var(--muted);max-width:62ch}
+.band{background:var(--band);color:var(--on-band)}
+.band .lede{color:var(--on-band-muted)}
+.gold-i{font-style:italic;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border-radius:999px;font-weight:700;font-size:15.5px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;font-family:var(--body);transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-gold{background:var(--gold);color:#0A1F44}
+.btn-ghost{border-color:currentColor;color:inherit;background:transparent}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--band);color:var(--on-band);border-bottom:1px solid rgba(201,166,70,.28)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-word{font-family:var(--mark);font-weight:600;letter-spacing:.1em;font-size:16px}
+.brand-word b{color:var(--gold);font-weight:700}
+.nav{display:flex;align-items:center;gap:6px 22px;flex-wrap:wrap;font-size:14.5px;font-weight:500}
+.nav a{text-decoration:none;color:var(--on-band-muted)}
+.nav a:hover{color:var(--on-band)}
+.nav .btn{min-height:42px;padding:9px 18px;font-size:14px;color:#0A1F44}
+@media (max-width:860px){.nav a.hide-sm{display:none}}
+
+/* hero */
+.hero{background:var(--band);color:var(--on-band);overflow:hidden;position:relative}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center;padding-block:clamp(64px,8vw,112px)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+.hero h1{font-size:clamp(44px,6.4vw,82px);line-height:1.0;margin:18px 0 22px}
+.hero p.lede{font-size:clamp(17px,1.6vw,20px);color:var(--on-band-muted);margin-bottom:34px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero-ctas .btn-ghost{color:var(--on-band)}
+.proof{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;font-size:14px;color:var(--on-band-muted)}
+.proof span{display:inline-flex;gap:8px;align-items:center}
+.proof svg{color:var(--gold);flex:none}
+
+/* orbit */
+.orbit{position:relative;width:min(100%,460px);aspect-ratio:1;margin-inline:auto;max-width:100%}
+.orbit .ring{position:absolute;inset:7%;border:1.5px solid rgba(201,166,70,.7);border-radius:50%}
+.orbit .ring.inner{inset:25%;border-width:1px;border-color:rgba(201,166,70,.35)}
+.orbit .spin{position:absolute;inset:7%;border-radius:50%;animation:spin 28s linear infinite}
+.orbit .spin::after{content:"";position:absolute;top:-6px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px rgba(201,166,70,.18)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.orbit .spin{animation:none}.btn{transition:none}}
+.core{position:absolute;inset:34%;border-radius:50%;background:var(--band-2);border:1px solid rgba(201,166,70,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px}
+.core .mk{font-family:var(--mark);font-weight:700;letter-spacing:.12em;font-size:clamp(14px,2.2vw,19px)}
+.core .mk b{color:var(--gold)}
+.core small{font-size:11.5px;color:var(--on-band-muted);letter-spacing:.06em}
+.node{position:absolute;transform:translate(-50%,-50%);background:var(--band);border:1px solid rgba(201,166,70,.65);border-radius:14px;padding:10px 14px;text-align:center;min-width:118px;box-shadow:0 14px 30px rgba(0,0,0,.28)}
+.node .k{font-family:var(--mark);font-size:12px;letter-spacing:.14em;color:var(--gold);font-weight:600}
+.node .v{font-size:13px;color:var(--on-band)}
+.n1{left:50%;top:7%}.n2{left:93%;top:50%}.n3{left:50%;top:93%}.n4{left:7%;top:50%}
+@media (max-width:520px){.node{min-width:0;padding:8px 10px}.node .v{display:none}.n2{left:88%}.n4{left:12%}}
+
+/* problem */
+.problem{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+@media (max-width:860px){.problem{grid-template-columns:minmax(0,1fr)}}
+.vendor-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.vendor-list li{display:flex;justify-content:space-between;gap:16px;padding:16px 2px;border-bottom:1px solid var(--line);font-size:16px}
+.vendor-list li span:last-child{color:var(--muted);text-align:right}
+.vendor-list li.total{font-weight:700}
+.vendor-list li.total span:last-child{color:var(--ink)}
+.answer{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:16px}
+.answer h3{font-size:30px}
+
+/* systems explorer */
+.explorer{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:900px){.explorer{grid-template-columns:minmax(0,1fr)}}
+.sys-list{display:flex;flex-direction:column;gap:6px}
+@media (max-width:900px){.sys-list{flex-direction:row;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}}
+.sys-tab{display:flex;align-items:center;gap:12px;text-align:left;min-height:56px;padding:10px 14px;border-radius:14px;border:1px solid transparent;background:transparent;color:var(--muted);font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+.sys-tab:hover{background:var(--surface)}
+.sys-tab[aria-selected="true"]{background:var(--band);color:var(--on-band);border-color:var(--band)}
+.sys-tab .pill{font-family:var(--mark);font-size:10.5px;letter-spacing:.14em;color:var(--gold-ink);min-width:78px}
+.sys-tab[aria-selected="true"] .pill{color:var(--gold)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,3.5vw,44px);min-width:0}
+.panel-top{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.panel h3{font-size:clamp(30px,3.4vw,42px)}
+.tag{font-family:var(--mark);font-size:11.5px;letter-spacing:.16em;color:var(--gold-ink);border:1px solid var(--line);border-radius:999px;padding:5px 12px;white-space:nowrap}
+.panel .lede{margin-bottom:26px}
+.panel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+@media (max-width:640px){.panel-grid{grid-template-columns:minmax(0,1fr)}}
+.panel h4{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 12px;color:var(--muted);font-weight:700}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.checks li{display:flex;gap:10px;align-items:flex-start}
+.checks svg{flex:none;margin-top:4px;color:var(--gold-ink)}
+.outcome{margin-top:28px;padding:18px 20px;border-radius:14px;background:var(--surface-2);display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.outcome b{font-family:var(--mark);font-size:12px;letter-spacing:.14em;color:var(--gold-ink)}
+
+/* dashboard mock */
+.dash-wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,64px);align-items:center}
+@media (max-width:960px){.dash-wrap{grid-template-columns:minmax(0,1fr)}}
+.feature-list{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-direction:column;gap:18px}
+.feature-list li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;align-items:start}
+.ico{width:40px;height:40px;border-radius:12px;background:rgba(201,166,70,.16);color:var(--gold);display:flex;align-items:center;justify-content:center}
+.feature-list b{display:block;font-size:16.5px}
+.feature-list span{color:var(--on-band-muted);font-size:15px}
+.dash{background:var(--band-2);border:1px solid rgba(201,166,70,.4);border-radius:22px;padding:22px;box-shadow:0 30px 60px rgba(0,0,0,.35);min-width:0}
+.dash-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid rgba(245,239,224,.12);margin-bottom:16px}
+.dash-head .who{font-family:var(--display);font-size:24px;font-weight:600}
+.dash-head .ex{font-size:11px;letter-spacing:.12em;font-weight:800;color:#0A1F44;background:var(--gold);border-radius:999px;padding:3px 10px}
+.dash-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px}
+@media (max-width:620px){.dash-grid{grid-template-columns:minmax(0,1fr)}}
+.sysrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:12px 14px;border-radius:12px;background:rgba(245,239,224,.05);margin-bottom:8px;font-size:14px}
+.sysrow .bar{grid-column:1/-1;height:6px;border-radius:99px;background:rgba(245,239,224,.12);overflow:hidden}
+.sysrow .bar i{display:block;height:100%;background:var(--gold);border-radius:99px}
+.st{font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.st.live{background:#DDEBDD;color:#1F5A33}.st.prog{background:#F6E3C8;color:#6E4209}.st.next{border:1px solid rgba(245,239,224,.4);color:var(--on-band-muted)}
+.side-card{border-radius:14px;padding:14px 16px;background:rgba(245,239,224,.05);font-size:14px;margin-bottom:12px}
+.side-card .lbl{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-band-muted);font-weight:700;margin-bottom:6px}
+.side-card.guide{border:1px solid rgba(201,166,70,.45)}
+.num{font-family:var(--display);font-size:34px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+
+/* loop */
+.loop{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;position:relative;counter-reset:s}
+@media (max-width:960px){.loop{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:28px}}
+@media (max-width:560px){.loop{grid-template-columns:minmax(0,1fr)}}
+.loop li{list-style:none;padding:0 16px 0 0;position:relative}
+.loop .dot{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--gold-ink);display:flex;align-items:center;justify-content:center;font-family:var(--mark);font-weight:700;color:var(--gold-ink);background:var(--bg);position:relative;z-index:1;margin-bottom:16px}
+.loop li:not(:last-child)::before{content:"";position:absolute;top:22px;left:44px;right:0;height:1.5px;background:var(--line)}
+@media (max-width:560px){.loop li:not(:last-child)::before{display:none}}
+.loop b{display:block;font-size:17px;margin-bottom:4px}
+.loop span{color:var(--muted);font-size:14.5px}
+.loop-back{margin-top:36px;display:flex;align-items:center;gap:14px;color:var(--muted);font-size:15px;flex-wrap:wrap}
+.loop-back svg{color:var(--gold-ink);flex:none}
+
+/* partners, pricing */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+@media (max-width:860px){.two{grid-template-columns:minmax(0,1fr)}}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:stretch}
+@media (max-width:960px){.plans{grid-template-columns:minmax(0,1fr)}}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:32px 28px;display:flex;flex-direction:column;gap:16px;position:relative}
+.plan.feat{background:var(--band);color:var(--on-band);border-color:var(--gold)}
+.plan .pname{font-family:var(--mark);font-weight:600;letter-spacing:.1em;font-size:16px}
+.plan.feat .pname{color:var(--gold)}
+.plan .price{font-family:var(--display);font-size:44px;font-weight:600;line-height:1}
+.plan .price small{font-family:var(--body);font-size:14px;color:var(--muted);font-weight:500}
+.plan.feat .price small,.plan.feat p{color:var(--on-band-muted)}
+.plan p{color:var(--muted);font-size:15px}
+.plan ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:15px;flex-grow:1}
+.plan .btn{width:100%}
+.plan:not(.feat) .btn-ghost{color:var(--ink)}
+.badge{position:absolute;top:-13px;left:28px;background:var(--gold);color:#0A1F44;font-size:11.5px;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:4px 12px}
+.fine{font-size:13px;color:var(--muted);margin-top:22px;max-width:80ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px}
+.card h3{font-size:30px}
+.card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;color:var(--muted)}
+
+/* founder */
+.founder{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,5vw,72px);align-items:center}
+@media (max-width:860px){.founder{grid-template-columns:minmax(0,1fr)}}
+.quote{font-family:var(--display);font-size:clamp(28px,3.4vw,42px);line-height:1.18;font-style:italic;font-weight:500}
+.quote::before{content:"\201C";color:var(--gold)}
+.quote::after{content:"\201D";color:var(--gold)}
+.sig{margin-top:20px;font-weight:700}
+.sig span{display:block;font-weight:500;color:var(--on-band-muted);font-size:14.5px}
+.founder p.body{color:var(--on-band-muted);font-size:17px;max-width:60ch}
+.pillars4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:26px}
+.pillars4 div{border:1px solid rgba(201,166,70,.4);border-radius:14px;padding:14px 16px}
+.pillars4 b{font-family:var(--mark);letter-spacing:.12em;font-size:13px;color:var(--gold);display:block}
+.pillars4 span{font-size:14px;color:var(--on-band-muted)}
+
+/* faq */
+.faq{max-width:860px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:22px 2px;font-weight:700;font-size:17.5px;min-height:48px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--display);font-size:30px;color:var(--gold-ink);line-height:1}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{padding:0 2px 22px;color:var(--muted);max-width:70ch}
+
+/* cta + footer */
+.cta .wrap{display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;padding-block:clamp(64px,8vw,96px)}
+.cta h2{font-size:clamp(36px,4.8vw,60px)}
+.contact{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:16px;color:var(--on-band-muted);font-size:16px}
+.contact b{color:var(--on-band);user-select:all;font-weight:600}
+footer{background:var(--band);color:var(--on-band-muted);font-size:13px;border-top:1px solid rgba(245,239,224,.1)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between;padding-block:32px}
+footer .fm{font-family:var(--mark);letter-spacing:.1em;color:var(--on-band)}
+footer p{max-width:620px}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Full Circle OS home">
+      <svg width="32" height="32" viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="14" stroke="#C9A646" stroke-width="1.5"/><circle cx="17" cy="17" r="8" stroke="#C9A646" stroke-width="1" opacity=".55"/><circle cx="29.1" cy="10" r="2.6" fill="#C9A646"/></svg>
+      <span class="brand-word">FULL CIRCLE <b>OS</b></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#systems">Systems</a>
+      <a href="#platform" class="hide-sm">Platform</a>
+      <a href="#journey" class="hide-sm">How it works</a>
+      <a href="#partners" class="hide-sm">Partners</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#start" class="btn btn-gold">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">The business operating system</div>
+      <h1>Build it. Fund it. Protect it. <span class="gold-i">All in one system.</span></h1>
+      <p class="lede">Full Circle OS brings everything a business owner needs into one place: company structure, personal and business credit, funding, protection and legacy planning. One login, one plan, and a strategist who knows what comes next.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="#start">Start your business</a>
+        <a class="btn btn-ghost" href="#systems">Explore the systems</a>
+      </div>
+      <div class="proof">
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>7 connected systems</span>
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>One dashboard</span>
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>AI guides, human strategists</span>
+      </div>
+    </div>
+    <div class="orbit" role="img" aria-label="The four pillars of Full Circle OS: Structure, Leverage, Protection and Scale, orbiting one operating system">
+      <div class="ring"></div><div class="ring inner"></div><div class="spin"></div>
+      <div class="core"><div class="mk">FULL CIRCLE <b>OS</b></div><small>ONE SYSTEM</small></div>
+      <div class="node n1"><div class="k">STRUCTURE</div><div class="v">Entities &amp; legacy</div></div>
+      <div class="node n2"><div class="k">LEVERAGE</div><div class="v">Credit &amp; funding</div></div>
+      <div class="node n3"><div class="k">PROTECTION</div><div class="v">Insurance</div></div>
+      <div class="node n4"><div class="k">SCALE</div><div class="v">Systems &amp; AI</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap problem">
+    <div>
+      <div class="section-head" style="margin-bottom:28px">
+        <div class="eyebrow">The problem</div>
+        <h2>Most owners build their business from five vendors and no plan.</h2>
+      </div>
+      <ul class="vendor-list" aria-label="What business owners usually piece together">
+        <li><span>An online filing site</span><span>Files the LLC, then it's on you</span></li>
+        <li><span>A credit repair company</span><span>Personal credit only</span></li>
+        <li><span>A lender or broker</span><span>Asks for a business that's not ready</span></li>
+        <li><span>An insurance agent</span><span>Sells a policy, not a strategy</span></li>
+        <li><span>A web and email vendor</span><span>Another login, another bill</span></li>
+        <li class="total"><span>The result</span><span>Five logins, no one steering</span></li>
+      </ul>
+    </div>
+    <div class="answer">
+      <div class="eyebrow">The answer</div>
+      <h3>One operating system, built around a plan.</h3>
+      <p style="color:var(--muted)">Full Circle OS runs every service as its own system inside one platform. Each system knows what the others have done. Your company structure feeds your business credit. Your credit opens funding. Your funding is protected, and your profits go back into building wealth.</p>
+      <p style="color:var(--muted)">That's the full circle: you start anywhere, and the system shows you the next step.</p>
+      <a class="btn btn-gold" href="#systems" style="align-self:flex-start">See the 7 systems</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="systems" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The systems</div>
+      <h2>Seven systems. One platform.</h2>
+      <p class="lede">Each system has its own steps, documents, deadlines and progress tracking. Start with the one you need now and add the rest as you grow.</p>
+    </div>
+    <div class="explorer">
+      <div class="sys-list" role="tablist" aria-label="Full Circle OS systems" id="sysList"></div>
+      <div class="panel" role="tabpanel" id="sysPanel" aria-live="polite">
+        <div class="panel-top"><h3 id="pTitle">Launch System</h3><span class="tag" id="pTag">STRUCTURE</span></div>
+        <p class="lede" id="pLede">Form your company the right way in one guided flow, with the address, phone and email that make it look established from day one.</p>
+        <div class="panel-grid">
+          <div><h4>What's inside</h4><ul class="checks" id="pInside"></ul></div>
+          <div><h4>Who it's for</h4><ul class="checks" id="pFor"></ul></div>
+        </div>
+        <div class="outcome"><b>OUTCOME</b><span id="pOut">A real, private, credit-ready company, ready to open a bank account.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band section" id="platform">
+  <div class="wrap dash-wrap">
+    <div>
+      <div class="section-head" style="margin-bottom:0">
+        <div class="eyebrow">The platform</div>
+        <h2>Your whole business in one dashboard.</h2>
+        <p class="lede">Every client gets their own workspace. Progress, documents, deadlines and next steps for every system live in one place, on desktop and phone.</p>
+      </div>
+      <ul class="feature-list">
+        <li><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M12 7v5l3 2"/></svg></div><div><b>A roadmap, not a pile of tasks</b><span>Your strategist builds your plan once. The OS turns it into steps and shows the next one.</span></div></li>
+        <li><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><b>AI guides in every system</b><span>Ask questions any time, get reminders before deadlines, and know what each document is for. A real strategist steps in when it matters.</span></div></li>
+        <li><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg></div><div><b>A vault for every document</b><span>Articles, EIN letters, operating agreements, policies and lender files, organized and ready to send.</span></div></li>
+        <li><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><div><b>Calls, texts and email in one inbox</b><span>Your business line and email connect to the same workspace, so nothing slips.</span></div></li>
+      </ul>
+    </div>
+    <div class="dash" role="img" aria-label="Example client dashboard showing progress across each system">
+      <div class="dash-head"><div class="who">Miller Ventures LLC</div><span class="ex">EXAMPLE</span></div>
+      <div class="dash-grid">
+        <div>
+          <div class="sysrow"><span>Launch</span><span class="st live">Live</span><span class="bar"><i style="width:100%"></i></span></div>
+          <div class="sysrow"><span>Personal credit</span><span class="st prog">Round 2</span><span class="bar"><i style="width:60%"></i></span></div>
+          <div class="sysrow"><span>Business credit</span><span class="st prog">3 of 5 accounts</span><span class="bar"><i style="width:55%"></i></span></div>
+          <div class="sysrow"><span>Funding</span><span class="st next">Up next</span><span class="bar"><i style="width:10%"></i></span></div>
+          <div class="sysrow"><span>Protection</span><span class="st next">Review set</span><span class="bar"><i style="width:20%"></i></span></div>
+        </div>
+        <div>
+          <div class="side-card"><div class="lbl">Next step</div><b>Open business bank account</b><div style="color:var(--on-band-muted);margin-top:4px">EIN letter and articles are in your vault.</div></div>
+          <div class="side-card"><div class="lbl">Fundability</div><div class="num">78<span style="font-size:18px;color:var(--on-band-muted)"> / 100</span></div><div style="color:var(--on-band-muted);margin-top:4px">2 items left before funding review</div></div>
+          <div class="side-card guide"><div class="lbl">Your guide</div>Your Wyoming annual report is due in 41 days. Want me to schedule it?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="journey">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Start anywhere. The system brings you full circle.</h2>
+      <p class="lede">Most clients start with credit or a new company. From there, every step sets up the next.</p>
+    </div>
+    <ol class="loop" style="margin:0;padding:0">
+      <li><div class="dot">1</div><b>Strategy session</b><span>We map where you are and where you want to be, and build your roadmap.</span></li>
+      <li><div class="dot">2</div><b>Structure</b><span>Form or fix your company, with a private holding company where it fits.</span></li>
+      <li><div class="dot">3</div><b>Credit</b><span>Clean up personal credit and build business credit in your company's name.</span></li>
+      <li><div class="dot">4</div><b>Funding</b><span>Apply for capital when your profile is ready, with lenders matched to it.</span></li>
+      <li><div class="dot">5</div><b>Protection</b><span>Protect your income, your partners and your family.</span></li>
+      <li><div class="dot">6</div><b>Legacy</b><span>Put profits to work through trusts, estate planning and tax strategy.</span></li>
+    </ol>
+    <div class="loop-back"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg>Profits go back into the business and the next venture, and the circle starts again on stronger footing.</div>
+  </div>
+</section>
+
+<section class="section" id="partners" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Built for two kinds of people</div>
+      <h2>Use the OS for your business, or run your services on it.</h2>
+    </div>
+    <div class="two">
+      <div class="card">
+        <div class="eyebrow">For business owners</div>
+        <h3>Everything you need, in order.</h3>
+        <p style="color:var(--muted)">Pick the systems you need. Your strategist and AI guide keep everything moving and tell you what's next.</p>
+        <ul><li>One login for every service</li><li>A clear roadmap from launch to legacy</li><li>Documents and deadlines handled</li><li>Real people when it counts</li></ul>
+        <a class="btn btn-gold" href="#start" style="align-self:flex-start;margin-top:6px">Start your business</a>
+      </div>
+      <div class="card" style="background:var(--surface-2)">
+        <div class="eyebrow">For entrepreneurs and professionals</div>
+        <h3>Offer your services inside Full Circle OS.</h3>
+        <p style="color:var(--muted)">Credit specialists, loan officers, agents, CPAs and consultants can run their own clients on the platform and plug into Full Circle's systems.</p>
+        <ul><li>Your own branded workspace and CRM</li><li>Access to Full Circle's formation, credit and funding systems</li><li>Ready-made client flows and automations</li><li>Revenue share on services your clients add</li></ul>
+        <a class="btn btn-ghost" href="#start" style="align-self:flex-start;margin-top:6px;color:var(--ink)">Apply to partner</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Pricing</div>
+      <h2>Simple plans. Add systems as you grow.</h2>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <div class="pname">LAUNCH</div>
+        <div class="price">[PRICE] <small>one time + state fees</small></div>
+        <p>Form your company and get it ready to operate.</p>
+        <ul><li>LLC formation, registered agent, EIN</li><li>Operating agreement</li><li>Business address, phone, domain and email</li><li>Optional Wyoming holding company</li><li>Dashboard access</li></ul>
+        <a class="btn btn-ghost" href="#start">Start with Launch</a>
+      </div>
+      <div class="plan feat">
+        <span class="badge">MOST CHOSEN</span>
+        <div class="pname">FULL CIRCLE MEMBERSHIP</div>
+        <div class="price">[PRICE] <small>per month</small></div>
+        <p>The full operating system with a strategist behind it.</p>
+        <ul><li>Everything in Launch</li><li>Personal and business credit systems</li><li>Funding readiness and placement</li><li>Protection review</li><li>AI guides and monthly strategy calls</li></ul>
+        <a class="btn btn-gold" href="#start">Become a member</a>
+      </div>
+      <div class="plan">
+        <div class="pname">PARTNER</div>
+        <div class="price">[PRICE] <small>per month</small></div>
+        <p>Run your own clients on Full Circle OS.</p>
+        <ul><li>Branded workspace and CRM</li><li>Client flows and automations</li><li>Access to Full Circle systems</li><li>Revenue share</li></ul>
+        <a class="btn btn-ghost" href="#start">Apply to partner</a>
+      </div>
+    </div>
+    <p class="fine">Funding placement is billed as a success fee of 5–10% of the amount funded, capped at $10,000, and only when you're funded. State filing fees are passed through at cost. Credit results and funding approvals are never guaranteed.</p>
+  </div>
+</section>
+
+<section class="band section">
+  <div class="wrap founder">
+    <div>
+      <div class="eyebrow" style="margin-bottom:18px">Why we built it</div>
+      <p class="quote">My career ended before I had a plan. I built this so no one I work with is ever without one.</p>
+      <div class="sig">Breyon Miller<span>Founder and Financial Architect, Full Circle Financial Group</span></div>
+    </div>
+    <div>
+      <p class="body">Full Circle started as a way to teach financial literacy to people who were never taught it. It grew into structure, credit, funding and protection for business owners, and then into a way of running all of it together. Full Circle OS is that system, built so every client has a plan and a team behind it.</p>
+      <div class="pillars4">
+        <div><b>PROTECTION</b><span>Life insurance and living benefits</span></div>
+        <div><b>STRUCTURE</b><span>Entities, trusts and estate planning</span></div>
+        <div><b>LEVERAGE</b><span>Personal credit, business credit, funding</span></div>
+        <div><b>SCALE</b><span>Systems, marketing and AI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Questions</div>
+      <h2>Good to know.</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Do I have to use every system?</summary><p>No. Start with the system you need now, like Launch or Credit, and add others when you're ready. Everything you've done carries over.</p></details>
+      <details><summary>Do you guarantee credit results or funding?</summary><p>No. Nobody can honestly guarantee those. We build the profile lenders look for, show you exactly where you stand, and only charge the funding success fee when you're funded.</p></details>
+      <details><summary>Why would I want a Wyoming holding company?</summary><p>Some states, Arizona included, list a company's owners on the public record. When a Wyoming holding company owns your operating company, the public filing shows the holding company instead of you. It also keeps the assets you build separate from day-to-day business risk. Banks, the IRS and courts can still see ownership.</p></details>
+      <details><summary>Is Full Circle a law firm or CPA?</summary><p>No. We coordinate your structure, credit, funding and protection, and work alongside your attorney and CPA. For legal and tax decisions, we recommend their review.</p></details>
+      <details><summary>Where do you work with clients?</summary><p>We're based in Phoenix. Formation, credit and funding services are available nationwide. Insurance services are offered where we're licensed.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band cta" id="start">
+  <div class="wrap">
+    <div style="min-width:0;flex:1 1 480px">
+      <h2>Build it once. <span class="gold-i">Build it right.</span></h2>
+      <p class="lede" style="margin-top:14px">Book a strategy session and get your roadmap inside Full Circle OS.</p>
+      <div class="contact"><span>Call <b>602-545-0826</b></span><span>Email <b>Breyon@fullcircle-credit.com</b></span></div>
+    </div>
+    <a class="btn btn-gold" href="#start">Book a strategy session</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fm">FULL CIRCLE OS · BY FULL CIRCLE FINANCIAL GROUP</div>
+    <p>Full Circle Financial Group is not a law firm or accounting firm and does not provide legal or tax advice. Credit and funding outcomes are not guaranteed. Insurance products are offered through licensed agents where permitted.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var check='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  var systems=[
+    {id:'launch',name:'Launch',tag:'STRUCTURE',title:'Launch System',
+     lede:'Form your company the right way in one guided flow, with the address, phone and email that make it look established from day one.',
+     inside:['LLC formation in all 50 states, registered agent and EIN','Optional Wyoming holding company for privacy','Operating agreement and banking resolution','Real business street address with mail scanning','Business phone line, domain and professional email'],
+     who:['New founders who want it done right','Owners operating without an entity','Anyone who wants their name off public filings'],
+     out:'A real, private, credit-ready company, ready to open a bank account.'},
+    {id:'credit',name:'Personal Credit',tag:'LEVERAGE',title:'Personal Credit System',
+     lede:'Clean up and strengthen your personal credit with a clear plan, tracked dispute rounds and education that sticks.',
+     inside:['Three-bureau review and action plan','Dispute rounds tracked in your dashboard','Utilization and payment strategy','Credit education modules','Monitoring and progress updates'],
+     who:['Anyone with errors or negative items','Owners preparing for funding','Future homebuyers'],
+     out:'A stronger personal profile that supports your business goals.'},
+    {id:'bizcredit',name:'Business Credit',tag:'LEVERAGE',title:'Business Credit System',
+     lede:'Build credit in your company\'s name so the business can borrow on its own record, not just yours.',
+     inside:['Fundability checklist across name, address, phone and email','D-U-N-S and business credit file setup','Starter vendor accounts in the right order','Reporting checks and score tracking','Path to revolving and fleet accounts'],
+     who:['Owners with a formed company','Businesses that want to separate personal and business credit','Anyone preparing to scale'],
+     out:'A business credit profile lenders and vendors can see.'},
+    {id:'funding',name:'Funding',tag:'LEVERAGE',title:'Funding System',
+     lede:'When your profile is ready, we match you with the right capital and handle the application package.',
+     inside:['Funding readiness review','Lender matching for your profile','Business lines of credit and term loans','Application package and document prep','Success fee only when you\'re funded'],
+     who:['Owners ready to grow','Real estate investors','Businesses needing working capital'],
+     out:'Capital matched to your profile, with no fee unless you\'re funded.'},
+    {id:'protect',name:'Protection',tag:'PROTECTION',title:'Protection System',
+     lede:'Protect your income, your partners and your family, and use coverage as part of your financial strategy.',
+     inside:['Life insurance with living benefits','Cash value strategies','Key person and buy-sell coverage for partners','Family income protection','Annual coverage review'],
+     who:['Owners with a family or partners','Businesses that depend on one person','Anyone building long-term wealth'],
+     out:'Your family and business stay protected while your wealth grows.'},
+    {id:'legacy',name:'Wealth & Legacy',tag:'STRUCTURE',title:'Wealth & Legacy System',
+     lede:'Put profits to work and pass on what you build, with trusted attorneys and CPAs working alongside us.',
+     inside:['Trust and estate planning coordination','Holding company and asset structure review','Tax strategy with partner CPAs','Succession planning','Reinvestment roadmap'],
+     who:['Profitable owners','Families planning a transfer of wealth','Owners with real estate or several businesses'],
+     out:'A plan that keeps what you build in the family.'},
+    {id:'growth',name:'Growth',tag:'SCALE',title:'Growth System',
+     lede:'Run the business on the same tools we use: CRM, automations and AI assistants that keep clients moving.',
+     inside:['CRM with pipelines and booking','Calls, texts and email in one inbox','Automated follow-up and reminders','AI assistants for client questions','Marketing templates and reporting'],
+     who:['Service businesses','Owners ready to stop doing everything by hand','Partners running clients on the OS'],
+     out:'A business that runs on systems instead of memory.'}
+  ];
+  var list=document.getElementById('sysList');
+  function render(i){
+    var s=systems[i];
+    document.getElementById('pTitle').textContent=s.title;
+    document.getElementById('pTag').textContent=s.tag;
+    document.getElementById('pLede').textContent=s.lede;
+    document.getElementById('pOut').textContent=s.out;
+    document.getElementById('pInside').innerHTML=s.inside.map(function(x){return '<li>'+check+'<span>'+x+'</span></li>';}).join('');
+    document.getElementById('pFor').innerHTML=s.who.map(function(x){return '<li>'+check+'<span>'+x+'</span></li>';}).join('');
+    Array.prototype.forEach.call(list.children,function(b,j){b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1;});
+  }
+  systems.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.type='button';b.className='sys-tab';b.id='tab-'+s.id;b.setAttribute('role','tab');b.setAttribute('aria-controls','sysPanel');
+    b.innerHTML='<span class="pill">'+s.tag+'</span><span>'+s.name+'</span>';
+    b.addEventListener('click',function(){render(i);});
+    b.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowDown'||e.key==='ArrowRight')n=(i+1)%systems.length;
+      if(e.key==='ArrowUp'||e.key==='ArrowLeft')n=(i-1+systems.length)%systems.length;
+      if(n!==null){e.preventDefault();render(n);list.children[n].focus();}
+    });
+    list.appendChild(b);
+  });
+  render(0);
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,797 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase Three — Continuity, Wealth &amp; Partnership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1F44;--navy-lift:#12294f;--gold:#C9A646;--gold-soft:#E0C77E;
+  --cream:#F5EFE0;--cream-dim:#D9CFB8;
+  --rule:rgba(201,166,70,.3);--dim:rgba(245,239,224,.64);
+  --line:rgba(245,239,224,.13);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--navy);color:var(--cream);
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;line-height:1.6}
+h1,h2,h3,h4,.fig,.price,.tno{font-family:"Cinzel",Georgia,serif;font-weight:600;letter-spacing:.01em}
+.wrap{max-width:900px;margin:0 auto;padding:0 26px}
+p{max-width:68ch}
+
+.hero{padding:58px 0 44px;position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.orbit{position:absolute;top:50%;right:-215px;width:530px;height:530px;transform:translateY(-50%);opacity:.32}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{font-family:"Cinzel",serif;font-size:.64rem;letter-spacing:.22em;color:var(--gold);margin:0 0 18px}
+.hero h1{font-size:clamp(1.9rem,5.6vw,3rem);line-height:1.08;margin:0 0 18px}
+.hero h1 em{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;color:var(--gold-soft)}
+.hero .lede{font-size:1.14rem;color:var(--cream-dim);max-width:54ch;margin:0 0 26px}
+.stats{display:flex;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:20px}
+.stats div{padding-right:40px;margin-bottom:10px}
+.stats .fig{display:block;font-size:1.36rem;color:var(--gold);line-height:1.14}
+.stats .lab{font-size:.89rem;color:var(--dim)}
+
+.jump{position:sticky;top:0;z-index:30;background:rgba(6,21,48,.97);border-bottom:1px solid var(--line);
+  padding:11px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.jump .wrap{display:flex;gap:7px;white-space:nowrap}
+.jump a{font-family:"Cinzel",serif;font-size:.59rem;letter-spacing:.13em;color:var(--cream-dim);
+  text-decoration:none;border:1px solid var(--line);padding:8px 12px}
+.jump a:hover,.jump a:focus-visible{border-color:var(--gold);color:var(--gold)}
+
+section{padding:50px 0;border-bottom:1px solid var(--line)}
+h2{font-size:clamp(1.4rem,3.8vw,1.92rem);margin:0 0 10px;line-height:1.16}
+h2 em{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;color:var(--gold-soft)}
+.sub{font-style:italic;font-weight:300;color:var(--dim);margin:0 0 26px;font-size:1.03rem}
+h3{font-size:1.04rem;margin:24px 0 10px;color:var(--gold-soft)}
+
+table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:1rem}
+th{font-family:"Cinzel",serif;font-size:.63rem;letter-spacing:.12em;text-align:left;font-weight:600;
+   color:var(--gold);border-bottom:1.5px solid var(--rule);padding:0 10px 8px 0}
+td{padding:10px 10px 10px 0;border-bottom:1px solid var(--line);vertical-align:baseline}
+td.n,th.n{text-align:right;padding-right:0;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{border-bottom:none;border-top:1.5px solid var(--gold);font-family:"Cinzel",serif;font-size:.88rem;color:var(--gold-soft)}
+
+/* ACCORDION */
+.acc{border-top:1px solid var(--line)}
+.acc button{width:100%;background:none;border:0;border-bottom:1px solid var(--line);color:var(--cream);
+  font-family:"Cormorant Garamond",serif;font-size:1.03rem;text-align:left;
+  padding:15px 38px 15px 42px;cursor:pointer;position:relative;line-height:1.4}
+.acc button .rn{position:absolute;left:0;top:15px;font-family:"Cinzel",serif;color:var(--gold);font-size:.86rem}
+.acc button::after{content:"+";position:absolute;right:6px;top:13px;color:var(--gold);font-size:1.25rem;line-height:1}
+.acc button[aria-expanded="true"]::after{content:"\2212"}
+.acc button:hover{background:var(--navy-lift)}
+.acc button:focus-visible{outline:2px solid var(--gold-soft);outline-offset:-2px}
+.acc .body{display:none;padding:2px 6px 20px 42px;border-bottom:1px solid var(--line);color:var(--cream-dim)}
+.acc .body.on{display:block}
+.acc .body .does{display:block;border-left:2px solid var(--gold);padding:9px 0 9px 16px;margin-top:12px;
+  color:var(--gold-soft);font-style:italic}
+
+/* CHECKLIST */
+.check label{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.check input{margin-top:6px;width:16px;height:16px;accent-color:var(--gold);flex:0 0 auto}
+.check .t{flex:1}
+.check .t strong{display:block}
+.check .t span{color:var(--dim);font-size:.95rem}
+.check input:checked + .t strong{color:var(--gold-soft)}
+.prog{margin:18px 0 6px;height:5px;background:rgba(245,239,224,.16)}
+.prog i{display:block;height:100%;background:var(--gold);width:0;transition:width .25s}
+.progtext{font-family:"Cinzel",serif;font-size:.67rem;letter-spacing:.12em;color:var(--dim)}
+
+/* TIER SELECTOR */
+.tiersel{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 24px}
+.tiersel button{background:none;border:1px solid var(--line);color:var(--cream-dim);cursor:pointer;
+  padding:16px 14px;text-align:left;font-family:"Cormorant Garamond",serif;font-size:1rem;line-height:1.3}
+.tiersel button .tno{display:block;font-size:.57rem;letter-spacing:.16em;color:var(--gold);margin-bottom:7px}
+.tiersel button .tname{display:block;font-family:"Cinzel",serif;font-size:.83rem;margin-bottom:6px}
+.tiersel button .tprice{display:block;color:var(--dim);font-size:.92rem}
+.tiersel button[aria-selected="true"]{border-color:var(--gold);background:rgba(201,166,70,.13);color:var(--cream)}
+.tiersel button[aria-selected="true"] .tprice{color:var(--gold-soft)}
+.tiersel button:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
+
+.pane{display:none}.pane.on{display:block}
+.pane .pricebar{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:18px}
+.pane .price{font-size:1.72rem;color:var(--gold)}
+.pane .per{color:var(--dim);font-size:.94rem}
+.pane ul{padding-left:19px;margin:12px 0 0}
+.pane li{margin-bottom:8px}
+.pane li strong{color:var(--gold-soft)}
+.forwhom{border-left:2px solid var(--gold);padding:10px 0 10px 18px;margin:16px 0 0;color:var(--cream-dim);font-style:italic}
+
+/* BUILDER */
+.build label{display:flex;gap:13px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.build input{margin-top:6px;width:16px;height:16px;accent-color:var(--gold);flex:0 0 auto}
+.build .t{flex:1}
+.build .t strong{display:block}
+.build .t span{color:var(--dim);font-size:.94rem}
+.build .amt{font-family:"Cinzel",serif;color:var(--gold-soft);font-size:.94rem;white-space:nowrap;padding-top:2px}
+.build input:checked ~ .t strong{color:var(--gold-soft)}
+.tally{display:flex;flex-wrap:wrap;gap:30px;border-top:1.5px solid var(--gold);padding-top:18px;margin-top:6px}
+.tally div .k{display:block;font-size:.85rem;color:var(--dim)}
+.tally div .v{font-family:"Cinzel",serif;font-size:1.46rem;color:var(--gold)}
+
+/* CALC */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+.sliders label{display:block;margin-bottom:19px;font-size:.97rem}
+.lrow{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.lval{font-family:"Cinzel",serif;color:var(--gold);font-size:1rem}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:rgba(245,239,224,.24);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:0}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:0}
+input[type=range]:focus-visible{outline:2px solid var(--gold-soft);outline-offset:6px}
+.readout{border-left:2px solid var(--gold);padding-left:20px}
+.readout .item{margin-bottom:16px}
+.readout .k{display:block;font-size:.85rem;color:var(--dim)}
+.readout .v{font-family:"Cinzel",serif;font-size:1.3rem;color:var(--gold-soft);line-height:1.2}
+.flag{border-left:2px solid var(--gold);background:rgba(201,166,70,.12);padding:12px 16px;margin-top:16px;font-size:.95rem}
+
+.rung{display:grid;grid-template-columns:40px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--line)}
+.rung:last-child{border-bottom:none}
+.rung .tno{color:var(--gold);font-size:.94rem;padding-top:2px}
+.rung strong{display:block;margin-bottom:2px}
+.rung span.d{color:var(--cream-dim);font-size:.97rem}
+
+.note{background:rgba(245,239,224,.06);border-top:2px solid var(--gold);padding:20px 24px;margin:24px 0 0;font-size:.96rem}
+.note h3{font-size:.86rem;margin:0 0 10px;color:var(--gold)}
+.note p{margin:0 0 9px;max-width:none}
+.note p:last-child{margin-bottom:0}
+.note ul{padding-left:19px;margin:0}
+.note li{margin-bottom:7px}
+
+.warn{border-left:2px solid var(--gold);background:rgba(201,166,70,.12);padding:14px 18px;margin:18px 0;font-size:.97rem}
+.warn strong{color:var(--gold-soft)}
+
+ol.steps{padding-left:21px;margin:0}
+ol.steps li{margin-bottom:11px}
+
+footer{padding:38px 0 52px;font-size:.9rem;color:var(--dim)}
+footer strong{color:var(--gold);font-family:"Cinzel",serif;font-size:.8rem;letter-spacing:.06em;display:block;margin-bottom:8px}
+
+@media (max-width:700px){
+  body{font-size:17px}
+  .wrap{padding:0 19px}
+  .orbit{display:none}
+  .calc{grid-template-columns:1fr;gap:24px}
+  .tiersel{grid-template-columns:1fr}
+  .rung{grid-template-columns:1fr;gap:6px}
+  .build label{flex-wrap:wrap}
+  .acc button{padding-left:34px}
+  .acc .body{padding-left:34px}
+  table{font-size:.93rem}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <svg class="orbit" viewBox="0 0 400 400" aria-hidden="true">
+    <ellipse cx="200" cy="200" rx="185" ry="185" fill="none" stroke="#C9A646" stroke-width="1"/>
+    <ellipse cx="200" cy="200" rx="185" ry="62" fill="none" stroke="#C9A646" stroke-width="1"/>
+    <ellipse cx="200" cy="200" rx="62" ry="185" fill="none" stroke="#C9A646" stroke-width=".7" opacity=".55"/>
+    <circle cx="200" cy="200" r="26" fill="none" stroke="#C9A646" stroke-width="1.5"/>
+    <circle cx="385" cy="200" r="7" fill="#C9A646"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">Full Circle Financial Group · Prepared for Derrick Wise &amp; Chumeria Purtty</p>
+    <h1>Phase Three<br><em>Keep it, don't spend it.</em></h1>
+    <p class="lede">Phases 1 and 2 built the structure and filled it. Phase 3 is about what wealthy families actually do differently — protect the principal, live on what it produces, and use other people's money to acquire what compounds. Plus the continuity services that keep it all current, and a partnership opportunity sized to start small.</p>
+    <div class="stats">
+      <div><span class="fig">Paid</span><span class="lab">Phase 1 &amp; 2 complete</span></div>
+      <div><span class="fig">10</span><span class="lab">Wealth principles</span></div>
+      <div><span class="fig">$297+</span><span class="lab">Monthly continuity</span></div>
+      <div><span class="fig">$20,000</span><span class="lab">Partnership entry</span></div>
+    </div>
+  </div>
+</div>
+
+<nav class="jump">
+  <div class="wrap">
+    <a href="#principles">Wealth principles</a>
+    <a href="#checklist">Your checklist</a>
+    <a href="#opm">Principal &amp; OPM</a>
+    <a href="#tiers">Continuity tracks</a>
+    <a href="#build">Build a plan</a>
+    <a href="#alacarte">Pricing</a>
+    <a href="#license">License ROI</a>
+    <a href="#invest">$20K partnership</a>
+    <a href="#next">Get started</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- PRINCIPLES -->
+<section id="principles">
+  <h2>What wealthy families do <em>that others don't</em></h2>
+  <p class="sub">Ten principles. Tap each to see the principle and what Full Circle does about it.</p>
+
+  <p>The difference between earning money and keeping it is almost never income. It is structure, discipline, and a refusal to touch the thing that produces the income. What follows is the pattern, stated plainly.</p>
+
+  <div class="acc" id="acc1">
+    <button aria-expanded="false"><span class="rn">01</span>They never spend the principal</button>
+    <div class="body">
+      Wealth that lasts more than one generation is almost always wealth that lives on its yield. The capital itself is treated as untouchable — a machine that produces income — and the household is built to run on what the machine produces rather than on the machine itself. Spending principal is a one-way door: every dollar withdrawn also removes every dollar it would have earned for the rest of your life.
+      <span class="does">Full Circle builds the income engine — entities that produce, policies that accumulate, and business credit that funds growth without liquidating anything you own.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">02</span>They own almost nothing in their own name</button>
+    <div class="body">
+      Personal ownership exposes an asset to personal liability, personal creditors, public probate, and a lawsuit against you individually. Wealthy families hold assets through entities and trusts, so what is exposed is a membership interest rather than the underlying property, and what passes at death passes privately.
+      <span class="does">Delivered in Phases 1 and 2 — PurttyWise, WiseGuy above it, and the revocable trust. What remains is funding each asset into the structure, which is where most families stop.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">03</span>They separate ownership from control</button>
+    <div class="body">
+      A holding company above the operating company, a trust above the holding company. The operating business takes the risk; the holding entity owns the value; the trust decides where it goes. This is why a lawsuit against the operating business rarely reaches the family's actual wealth.
+      <span class="does">Already structured. WiseGuy Enterprises sits above PurttyWise; the trust sits above both once the membership interests are assigned.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">04</span>They borrow against assets instead of selling them</button>
+    <div class="body">
+      Selling an appreciated asset triggers tax and ends the compounding. Borrowing against it keeps the asset working while releasing cash. This is a genuine advantage — and it carries real risk that gets glossed over: interest accrues whether or not the asset performs, and if the collateral falls in value or the loan outgrows it, the lender can force liquidation at the worst possible moment. Leverage is a tool with an edge on both sides.
+      <span class="does">Full Circle builds the business credit and banking relationships that make borrowing available at reasonable terms — and will tell you when a deal does not support the debt.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">05</span>They buy assets that pay them to own them</button>
+    <div class="body">
+      Income-producing assets — rental fleets, operating businesses, real property, book of business — rather than assets that only appreciate on paper or depreciate in the driveway. The test is simple: does it send money every month, or does it only cost money every month?
+      <span class="does">The vehicle rental and wholesale car lines are exactly this category. Full Circle structures the fleet entity, the financing, and the driver agreements.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">06</span>They treat tax as a year-round design problem</button>
+    <div class="body">
+      The wealthy do not file taxes in April; they design for them in January. Entity election, reasonable compensation, depreciation timing, retirement plan selection, and the order in which income is recognized are decided in advance, with the CPA in the room before the transaction rather than after it.
+      <span class="does">Full Circle coordinates with your CPA — Tony was introduced for this reason — and builds the entity and record structure that makes planning possible. Full Circle does not give tax advice.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">07</span>They insure what they cannot afford to lose</button>
+    <div class="body">
+      Insurance is how wealthy families make sure a single event does not undo twenty years of building. Life coverage creates liquidity exactly when an estate is least liquid — so heirs are not forced to sell the business or the property to pay what comes due. Disability coverage protects the earner, which in most families is the actual asset.
+      <span class="does">A policy is already prepared and awaiting signature. It remains the one open item from Phase 1, and the trust's beneficiary design depends on it.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">08</span>They govern the family like a business</button>
+    <div class="body">
+      Written roles, scheduled meetings, minutes, a stated purpose for the money, and a decision process that survives the death of whoever currently makes the decisions. Families that skip this rarely make it past the second generation — not because the money runs out, but because nobody agreed what it was for.
+      <span class="does">Included in Foundation Care — annual minutes, resolutions, successor trustee review, and a structured quarterly conversation about direction rather than paperwork.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">09</span>They keep a team, not a guy</button>
+    <div class="body">
+      An attorney, a CPA, an insurance professional, and a structuring advisor who talk to each other. Wealth is lost in the gaps between advisors who each did their own piece correctly and never compared notes — the trust that was drafted beautifully and never funded, the entity that was formed and never elected.
+      <span class="does">Full Circle holds the center of that team, coordinates the pieces, and makes sure nothing sits in a gap. Jenkins Law Firm, Tony on tax, and Dan on the investment side are already connected to this file.</span>
+    </div>
+
+    <button aria-expanded="false"><span class="rn">10</span>They teach the next generation before they hand anything over</button>
+    <div class="body">
+      Heirs who have never been taught how the machine works tend to dismantle it. Wealthy families bring children into the conversation early, give them small responsibilities, and explain the reasoning behind the structure rather than only the outcome.
+      <span class="does">Full Circle provides the education materials and will run a family session covering the structure, the trust, and what each role actually requires.</span>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <h2>Your checklist</h2>
+  <p class="sub">Where you stand against the ten principles. Check what's done.</p>
+
+  <div class="check" id="ck">
+    <label><input type="checkbox" checked><span class="t"><strong>Operating entity formed and in good standing</strong><span>PurttyWise Consulting LLC — complete, pending final state confirmation</span></span></label>
+    <label><input type="checkbox" checked><span class="t"><strong>Holding company above the operating company</strong><span>WiseGuy Enterprises — complete</span></span></label>
+    <label><input type="checkbox" checked><span class="t"><strong>Operating agreement reflecting real ownership</strong><span>Updated and executed — complete</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Life insurance policy executed</strong><span>Prepared and delivered — awaiting signature. The one open Phase 1 item.</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Revocable trust drafted and signed</strong><span>Phase 2 — in progress</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Trust actually funded</strong><span>Deeds, accounts, and above all the LLC membership interests assigned in. An unfunded trust does nothing.</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Beneficiary designations aligned to the trust</strong><span>Policy and retirement accounts reviewed so nothing contradicts the trust</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Both personal credit profiles strong</strong><span>Phase 2 — required before business credit tiers open</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Business credit files open on both entities</strong><span>D&amp;B, Experian Business, Equifax Business — separate files for each</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Borrowing capacity established without personal guarantee</strong><span>Cash credit tier — the point at which the entity funds itself</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>At least one income-producing asset acquired</strong><span>The fleet or wholesale vehicle line, funded by business credit rather than savings</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>CPA engaged for year-round planning</strong><span>Not just filing season. Tony has been introduced.</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Successor trustee named and briefed</strong><span>Named in the document, and the person actually knows and has agreed</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Annual family governance meeting scheduled</strong><span>Minutes kept, direction reviewed, roles confirmed</span></span></label>
+    <label><input type="checkbox"><span class="t"><strong>Compliance calendar owned by someone</strong><span>Annual reports, agent renewals, minutes — the things that quietly lapse</span></span></label>
+  </div>
+  <div class="prog"><i id="bar"></i></div>
+  <p class="progtext" id="ptext">3 of 15 complete</p>
+  <p style="margin-top:16px">Twelve items remain. Phase 2 covers four of them. Foundation Care covers five more on an ongoing basis. The rest are decisions only the two of you can make.</p>
+</section>
+
+<!-- OPM -->
+<section id="opm">
+  <h2>Principal, yield, and <em>other people's money</em></h2>
+  <p class="sub">The three-bucket discipline, and an honest account of leverage.</p>
+
+  <h3>The rule</h3>
+  <p>Principal is untouchable. Yield is what you live on. Growth is funded by borrowed money against assets that service the debt themselves. Families that keep wealth across generations follow that order almost without exception, and the families that lose it are usually the ones who funded growth — or lifestyle — out of the principal.</p>
+
+  <table>
+    <thead><tr><th>Bucket</th><th>What it is</th><th>What it's for</th></tr></thead>
+    <tbody>
+      <tr><td>Principal</td><td>The capital base — invested assets, policy cash value, retained business equity</td><td>Never spent. Only reinvested.</td></tr>
+      <tr><td>Yield</td><td>Interest, dividends, rents, distributions, renewals</td><td>Lifestyle, reinvestment, and funding the next acquisition</td></tr>
+      <tr><td>OPM</td><td>Business credit, bank lines, seller financing, investor capital, vendor terms</td><td>Acquiring income-producing assets that cover their own payments</td></tr>
+    </tbody>
+  </table>
+
+  <h3>See the difference</h3>
+  <p>Move the sliders. The point is not the exact figure — it is how sharply the outcome changes at the line where withdrawals cross what the capital earns.</p>
+
+  <div class="calc">
+    <div class="sliders">
+      <label><span class="lrow"><span>Principal</span><span class="lval" id="v-p">$250,000</span></span>
+        <input type="range" id="s-p" min="25000" max="2000000" step="25000" value="250000"></label>
+      <label><span class="lrow"><span>Annual return on capital</span><span class="lval" id="v-r">6%</span></span>
+        <input type="range" id="s-r" min="0" max="15" step="1" value="6"></label>
+      <label><span class="lrow"><span>Annual withdrawal</span><span class="lval" id="v-w">$30,000</span></span>
+        <input type="range" id="s-w" min="0" max="200000" step="5000" value="30000"></label>
+    </div>
+    <div class="readout">
+      <div class="item"><span class="k">Capital earns per year</span><span class="v" id="o-earn">—</span></div>
+      <div class="item"><span class="k">You withdraw per year</span><span class="v" id="o-draw">—</span></div>
+      <div class="item"><span class="k">Principal after 20 years</span><span class="v" id="o-20">—</span></div>
+      <div class="item"><span class="k">How long it lasts</span><span class="v" id="o-life">—</span></div>
+    </div>
+  </div>
+  <div class="flag" id="flag"></div>
+
+  <h3>What OPM actually is</h3>
+  <p>Other people's money means financing acquisitions with capital that is not yours, so your own principal stays invested and compounding. The legitimate sources, roughly in order of cost:</p>
+  <table>
+    <thead><tr><th>Source</th><th>Typical use</th><th>What it costs you</th></tr></thead>
+    <tbody>
+      <tr><td>Vendor net-30 terms</td><td>Inventory, supplies, operating float</td><td>Nothing, if paid on time</td></tr>
+      <tr><td>Business credit cards</td><td>Short-term working capital, ad spend</td><td>Interest if carried; fees</td></tr>
+      <tr><td>Equipment and fleet financing</td><td>Vehicles that generate rental income</td><td>Interest; the asset secures itself</td></tr>
+      <tr><td>Business lines of credit</td><td>Seasonal gaps, opportunity capital</td><td>Interest; often a personal guarantee early on</td></tr>
+      <tr><td>Seller financing</td><td>Acquiring an existing business or property</td><td>Negotiated; often the cheapest capital available</td></tr>
+      <tr><td>Investor capital</td><td>Growth that debt cannot cover</td><td>A share of revenue or equity</td></tr>
+    </tbody>
+  </table>
+
+  <div class="warn">
+    <strong>The rule that keeps leverage from becoming the thing that ruins you:</strong> borrow only for assets that service their own debt. A vehicle that rents for more than its payment is leverage working. A line of credit covering payroll in a slow month is a warning sign, not a strategy. And a personal guarantee means the entity structure above does not protect you on that particular debt — which is exactly why the goal is to build business credit strong enough to borrow without one.
+  </div>
+</section>
+
+<!-- TIERS -->
+<section id="tiers">
+  <h2>Three continuity tracks</h2>
+  <p class="sub">Select a track to see what is inside it.</p>
+
+  <div class="tiersel" role="tablist">
+    <button role="tab" aria-selected="true" data-p="t1">
+      <span class="tno">TRACK ONE</span><span class="tname">Foundation Care</span><span class="tprice">$297 / month</span>
+    </button>
+    <button role="tab" aria-selected="false" data-p="t2">
+      <span class="tno">TRACK TWO</span><span class="tname">Growth Partner</span><span class="tprice">$797 / month</span>
+    </button>
+    <button role="tab" aria-selected="false" data-p="t3">
+      <span class="tno">TRACK THREE</span><span class="tname">Licensed Operator</span><span class="tprice">$1,997 / month</span>
+    </button>
+  </div>
+
+  <div class="pane on" id="t1">
+    <div class="pricebar"><span class="price">$297</span><span class="per">per month · no long-term contract · cancel with 30 days' notice</span></div>
+    <p>Everything built in Phases 1 and 2, kept current. This is the floor beneath the structure — principles 02, 03, 08 and 09 maintained rather than admired.</p>
+    <ul>
+      <li><strong>Entity compliance calendar</strong> — Nevada and Wyoming annual reports tracked and filed, registered agent renewals monitored, good standing verified quarterly on both entities</li>
+      <li><strong>Corporate records upkeep</strong> — annual minutes, member resolutions, and record book maintained so the liability shield holds if it is ever tested</li>
+      <li><strong>Trust funding audit, twice yearly</strong> — new assets identified and routed into the trust before they become probate assets</li>
+      <li><strong>Personal credit monitoring</strong> — both members, tri-bureau, monthly review and dispute filing on anything new and inaccurate</li>
+      <li><strong>Business credit file monitoring</strong> — both entities, all three business bureaus</li>
+      <li><strong>Annual policy and beneficiary review</strong> — coverage checked against the trust so the two never fall out of alignment</li>
+      <li><strong>Quarterly governance call</strong> — 45 minutes on direction and decisions, with minutes kept</li>
+    </ul>
+    <p class="forwhom">For the couple who wants the structure to stay correct without thinking about it. Roughly the cost of one billable hour a month.</p>
+  </div>
+
+  <div class="pane" id="t2">
+    <div class="pricebar"><span class="price">$797</span><span class="per">per month · 12-month term · includes everything in Foundation Care</span></div>
+    <p>Maintenance plus active building. This track moves the entities from structured to funded, and stands up the vehicle rental and wholesale lines still listed as coming soon.</p>
+    <ul>
+      <li><strong>Everything in Foundation Care</strong></li>
+      <li><strong>Business credit concierge</strong> — active tier progression on both entities, applications prepared and timed, vendor and lender selection managed rather than guessed at</li>
+      <li><strong>Funding readiness scoring</strong> — a live view of what each entity qualifies for today and the specific gap to the next tier</li>
+      <li><strong>Lender matching</strong> — applications sent where the underwriting fits, instead of blind applications that pile up inquiries</li>
+      <li><strong>Vehicle venture build support</strong> — fleet entity structuring, commercial insurance requirements, driver agreements, and the fleet credit tier</li>
+      <li><strong>Monthly strategy session</strong> — 60 minutes, a working session rather than a status update</li>
+      <li><strong>Document preparation</strong> — up to two agreements, amendments, or resolutions per quarter at no additional charge</li>
+      <li><strong>Priority turnaround</strong> — 48 hours on requests</li>
+    </ul>
+    <p class="forwhom">For the operator actively deploying capital and opening new revenue lines. This is the track that executes principles 04 and 05.</p>
+  </div>
+
+  <div class="pane" id="t3">
+    <div class="pricebar"><span class="price">$1,997</span><span class="per">per month · plus $4,500 one-time build · 12-month term</span></div>
+    <p>PurttyWise is already a business consulting firm. This track gives it a product line: the same structuring, trust, and credit services Full Circle delivers, licensed to sell under the PurttyWise name with Full Circle performing the back-end work.</p>
+    <ul>
+      <li><strong>Everything in Growth Partner</strong></li>
+      <li><strong>Full license to the service catalog</strong> — entity structuring, trust preparation, personal credit, and business credit, sold under your brand</li>
+      <li><strong>Back-end fulfillment by Full Circle</strong> — you sell and own the client relationship; Full Circle performs the work at wholesale</li>
+      <li><strong>Branded client portal</strong> — intake, onboarding, document collection, and progress tracking in PurttyWise colors</li>
+      <li><strong>Sales enablement</strong> — decks, proposal templates, pricing sheets, objection handling, and the consultation script</li>
+      <li><strong>Wholesale pricing</strong> — you pay wholesale and set your own retail; the spread is your margin on every engagement</li>
+      <li><strong>Operator training</strong> — eight-week onboarding, then monthly operator calls</li>
+      <li><strong>Compliance framework</strong> — contract templates, required disclosures, and the state-by-state requirements checklist</li>
+    </ul>
+    <p class="forwhom">This is the only track where the monthly fee is designed to be paid by client revenue rather than out of pocket.</p>
+    <div class="note">
+      <h3>What this track requires of you</h3>
+      <p>A license is a business, not a subscription. Before launch you will need your own client agreements reviewed by your counsel, the required consumer disclosures in place, and confirmation of registration or bonding requirements in each state where you sell — several states regulate credit services specifically. Full Circle supplies the framework and the checklist; you and your attorney complete it. Nothing sells under the PurttyWise name until that is done.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUILDER -->
+<section id="build">
+  <h2>Build your plan</h2>
+  <p class="sub">Check what you want. The total updates as you go.</p>
+  <div class="build" id="bld">
+    <label><input type="checkbox" data-m="297" checked><span class="t"><strong>Foundation Care</strong><span>Compliance, records, trust audits, monitoring, quarterly governance call</span></span><span class="amt">$297/mo</span></label>
+    <label><input type="checkbox" data-m="500"><span class="t"><strong>Upgrade to Growth Partner</strong><span>Adds credit concierge, lender matching, vehicle venture support, monthly strategy</span></span><span class="amt">+$500/mo</span></label>
+    <label><input type="checkbox" data-m="1200" data-o="4500"><span class="t"><strong>Upgrade to Licensed Operator</strong><span>Adds the full license, branded portal, wholesale pricing, and training</span></span><span class="amt">+$1,200/mo · $4,500 build</span></label>
+    <label><input type="checkbox" data-m="149"><span class="t"><strong>Second-entity credit build</strong><span>Full tier progression on an additional entity beyond the two</span></span><span class="amt">$149/mo</span></label>
+    <label><input type="checkbox" data-m="249"><span class="t"><strong>Bookkeeping &amp; financial statements</strong><span>Monthly reconciliation and the P&amp;L lenders ask for at the cash tier</span></span><span class="amt">$249/mo</span></label>
+    <label><input type="checkbox" data-o="850"><span class="t"><strong>Annual trust review &amp; re-funding</strong><span>Full funding audit, amendments, and beneficiary realignment once a year</span></span><span class="amt">$850/yr</span></label>
+    <label><input type="checkbox" data-o="2500"><span class="t"><strong>Business tradeline package — starter</strong><span>Three seasoned reporting accounts added to a thin file</span></span><span class="amt">$2,500 once</span></label>
+    <label><input type="checkbox" data-o="4500"><span class="t"><strong>Fleet venture launch package</strong><span>Fleet entity, insurance structuring, driver agreements, fleet credit tier</span></span><span class="amt">$4,500 once</span></label>
+    <label><input type="checkbox" data-o="1200"><span class="t"><strong>Family governance session</strong><span>Half-day working session on roles, succession, and educating the next generation</span></span><span class="amt">$1,200 once</span></label>
+  </div>
+  <div class="tally">
+    <div><span class="k">Monthly</span><span class="v" id="o-mo">$297</span></div>
+    <div><span class="k">One-time</span><span class="v" id="o-once">$0</span></div>
+    <div><span class="k">First-year total</span><span class="v" id="o-yr1">$3,564</span></div>
+  </div>
+  <p style="margin-top:18px">Pay twelve months up front on any track and the twelfth month is waived — roughly an 8% discount, and it locks the rate against future increases.</p>
+</section>
+
+<!-- A LA CARTE -->
+<section id="alacarte">
+  <h2>À la carte services</h2>
+  <p class="sub">Available to continuity clients at the rates below. Non-clients pay standard retail.</p>
+
+  <h3>Structure and estate</h3>
+  <table>
+    <thead><tr><th>Service</th><th class="n">Client rate</th><th class="n">Retail</th></tr></thead>
+    <tbody>
+      <tr><td>Additional LLC or corporation formation</td><td class="n">$1,200</td><td class="n">$1,800</td></tr>
+      <tr><td>Operating agreement amendment</td><td class="n">$450</td><td class="n">$750</td></tr>
+      <tr><td>Irrevocable trust preparation</td><td class="n">$2,800</td><td class="n">$3,800</td></tr>
+      <tr><td>Annual trust review and re-funding</td><td class="n">$850</td><td class="n">$1,200</td></tr>
+      <tr><td>Asset transfer and retitling support, per asset</td><td class="n">$275</td><td class="n">$400</td></tr>
+      <tr><td>Estate plan refresh — will, POA, directives</td><td class="n">$1,450</td><td class="n">$2,100</td></tr>
+      <tr><td>Family governance session</td><td class="n">$1,200</td><td class="n">$1,800</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Credit</h3>
+  <table>
+    <thead><tr><th>Service</th><th class="n">Client rate</th><th class="n">Retail</th></tr></thead>
+    <tbody>
+      <tr><td>Additional member personal credit program</td><td class="n">$950</td><td class="n">$1,500</td></tr>
+      <tr><td>Clean Slate expedited</td><td class="n">$1,500</td><td class="n">$1,850</td></tr>
+      <tr><td>Business credit build, additional entity</td><td class="n">$1,800</td><td class="n">$2,500</td></tr>
+      <tr><td>Business tradeline package — starter, three accounts</td><td class="n">$2,500</td><td class="n">$3,200</td></tr>
+      <tr><td>Business tradeline package — accelerator, six accounts</td><td class="n">$4,400</td><td class="n">$5,800</td></tr>
+      <tr><td>Funding readiness audit and lender package</td><td class="n">$650</td><td class="n">$950</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Ventures and operations</h3>
+  <table>
+    <thead><tr><th>Service</th><th class="n">Client rate</th><th class="n">Retail</th></tr></thead>
+    <tbody>
+      <tr><td>Fleet venture launch package</td><td class="n">$4,500</td><td class="n">$6,000</td></tr>
+      <tr><td>Wholesale vehicle operation setup</td><td class="n">$3,200</td><td class="n">$4,500</td></tr>
+      <tr><td>Bookkeeping and financial statements</td><td class="n">$249/mo</td><td class="n">$395/mo</td></tr>
+      <tr><td>Contract or agreement drafting, per document</td><td class="n">$550</td><td class="n">$850</td></tr>
+      <tr><td>Insurance and benefits review for staff or drivers</td><td class="n">No charge</td><td class="n">$500</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- LICENSE ROI -->
+<section id="license">
+  <h2>The license track, <em>in actual numbers</em></h2>
+  <p class="sub">Move the sliders. This is the only track where the fee is designed to pay for itself.</p>
+
+  <p>You set retail. Full Circle charges wholesale for fulfillment. The spread is yours on every engagement, and the license fee is fixed regardless of volume — so margin per client rises as volume rises.</p>
+
+  <table>
+    <thead><tr><th>Engagement</th><th class="n">Your retail</th><th class="n">Wholesale</th><th class="n">Your spread</th></tr></thead>
+    <tbody>
+      <tr><td>Entity structuring package</td><td class="n">$3,500</td><td class="n">$1,400</td><td class="n">$2,100</td></tr>
+      <tr><td>Trust preparation</td><td class="n">$2,800</td><td class="n">$1,100</td><td class="n">$1,700</td></tr>
+      <tr><td>Personal credit program</td><td class="n">$1,500</td><td class="n">$600</td><td class="n">$900</td></tr>
+      <tr><td>Business credit build</td><td class="n">$2,500</td><td class="n">$1,000</td><td class="n">$1,500</td></tr>
+    </tbody>
+  </table>
+
+  <div class="calc">
+    <div class="sliders">
+      <label><span class="lrow"><span>Entity structuring per month</span><span class="lval" id="v-en">2</span></span>
+        <input type="range" id="s-en" min="0" max="12" step="1" value="2"></label>
+      <label><span class="lrow"><span>Trusts per month</span><span class="lval" id="v-tr">1</span></span>
+        <input type="range" id="s-tr" min="0" max="10" step="1" value="1"></label>
+      <label><span class="lrow"><span>Credit programs per month</span><span class="lval" id="v-cr">3</span></span>
+        <input type="range" id="s-cr" min="0" max="20" step="1" value="3"></label>
+      <label><span class="lrow"><span>Business credit builds per month</span><span class="lval" id="v-bc">1</span></span>
+        <input type="range" id="s-bc" min="0" max="10" step="1" value="1"></label>
+    </div>
+    <div class="readout">
+      <div class="item"><span class="k">Gross revenue per month</span><span class="v" id="o-gross">—</span></div>
+      <div class="item"><span class="k">Your margin after wholesale</span><span class="v" id="o-marg">—</span></div>
+      <div class="item"><span class="k">Net after the $1,997 fee</span><span class="v" id="o-net">—</span></div>
+      <div class="item"><span class="k">First-year net profit</span><span class="v" id="o-yr">—</span></div>
+      <div class="item"><span class="k">Return on first-year cost</span><span class="v" id="o-roi">—</span></div>
+    </div>
+  </div>
+  <div class="flag" id="flag2"></div>
+
+  <div class="note">
+    <h3>What these numbers assume</h3>
+    <p>They assume you can sell at these volumes. That is the whole variable, and not one Full Circle controls — fulfillment is guaranteed, sales are not. PurttyWise has an existing network and a consulting brand already in market, which is why this track is offered to you and not to a stranger. But two engagements a month is a real sales target requiring real activity, not a passive outcome.</p>
+    <p>Break-even is roughly one structuring engagement per month. Everything past that is margin.</p>
+  </div>
+
+  <h3>Referral income — available on every track</h3>
+  <p>No license required, no fulfillment obligation, no minimum. Paid within 30 days of collected revenue.</p>
+  <table>
+    <thead><tr><th>Referral type</th><th>What you do</th><th class="n">You earn</th></tr></thead>
+    <tbody>
+      <tr><td>Warm introduction</td><td>Make the introduction; Full Circle sells and fulfills</td><td class="n">15% of collected</td></tr>
+      <tr><td>Qualified appointment</td><td>Introduction plus a booked consultation</td><td class="n">20% of collected</td></tr>
+      <tr><td>Closed engagement</td><td>You sell it; Full Circle fulfills</td><td class="n">30% of collected</td></tr>
+      <tr class="total"><td>Example: 3 warm introductions per month at $3,500 average</td><td></td><td class="n">$1,575/mo</td></tr>
+    </tbody>
+  </table>
+  <p>Three warm introductions a month covers Foundation Care five times over. For a consulting firm already talking to business owners daily, that is conversation rather than prospecting.</p>
+</section>
+
+<!-- INVESTMENT -->
+<section id="invest">
+  <h2>Separate opportunity: <em>$20,000 revenue partnership</em></h2>
+  <p class="sub">Not part of any service track. A distinct transaction, documented separately.</p>
+
+  <div class="note" style="margin-top:0">
+    <h3>Read this first</h3>
+    <p>This section describes an investment in Full Circle Financial Group. It is not a service in your engagement, and nothing here is conditioned on the other. You can take any continuity track and decline this, or decline this and continue exactly as before.</p>
+    <p>Full Circle is currently your advisor on entity structure, trusts, and credit. That is a conflict of interest, disclosed here plainly. Your service balances settle on their own terms and are never netted against or credited toward any investment, and you should have your own attorney — not the firm's — review every document.</p>
+  </div>
+
+  <h3>Why $20,000 and not more</h3>
+  <p>A larger raise would buy more advertising, but it would also commit capital before the acquisition math is proven. Twenty thousand dollars funds the system build and a deliberately small advertising test — enough to establish a real cost per lead and a real conversion rate on live data. If those numbers hold, growth is funded from revenue rather than from a second raise. If they do not, the exposure was twenty thousand rather than a hundred.</p>
+
+  <table>
+    <thead><tr><th>Use of funds</th><th>Purpose</th><th class="n">Amount</th></tr></thead>
+    <tbody>
+      <tr><td>Advertising</td><td>$1,250/month across two channels for six months, to establish true cost per lead before scaling</td><td class="n">$7,500</td></tr>
+      <tr><td>Staff</td><td>Part-time dispute processor and client-services support — capacity before volume, so quality holds</td><td class="n">$6,000</td></tr>
+      <tr><td>Systems</td><td>Dispute production build in GoHighLevel, intake and onboarding automation, software stack</td><td class="n">$4,000</td></tr>
+      <tr><td>Compliance</td><td>Securities and consumer-law counsel, filings, agreements</td><td class="n">$1,500</td></tr>
+      <tr><td>Reserve</td><td>Held back so a slow quarter never causes a missed payment to you</td><td class="n">$1,000</td></tr>
+      <tr class="total"><td>Total</td><td></td><td class="n">$20,000</td></tr>
+    </tbody>
+  </table>
+
+  <h3>How you are paid</h3>
+  <p>You become a <strong>revenue partner</strong>: a fixed share of every sale Full Circle closes, until you have received your capital back plus 50%. Then the arrangement ends permanently. No equity changes hands, no liability, no ongoing claim after the cap.</p>
+
+  <table>
+    <thead><tr><th>Service closed</th><th class="n">Sale price</th><th class="n">Your share</th></tr></thead>
+    <tbody>
+      <tr><td>Credit program</td><td class="n">$950–$1,500</td><td class="n">$40</td></tr>
+      <tr><td>Clean Slate expedited</td><td class="n">$1,850–$2,200</td><td class="n">$60</td></tr>
+      <tr><td>Entity structuring / trust engagement</td><td class="n">$3,500–$5,250</td><td class="n">$100</td></tr>
+      <tr><td>Business credit build</td><td class="n">$2,500–$3,500</td><td class="n">$75</td></tr>
+      <tr><td>Insurance policy placed</td><td class="n">Varies</td><td class="n">$35</td></tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr><td>Capital contribution</td><td class="n">$20,000</td></tr>
+      <tr><td>Return of capital plus</td><td class="n">50%</td></tr>
+      <tr><td>Total you receive</td><td class="n">$30,000</td></tr>
+      <tr><td>Payment cadence</td><td class="n">Quarterly, in arrears</td></tr>
+      <tr><td>Guaranteed annual minimum</td><td class="n">$4,000</td></tr>
+      <tr><td>Equity conveyed</td><td class="n">None</td></tr>
+      <tr class="total"><td>Modeled time to full return</td><td class="n">22 months</td></tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead><tr><th>Stage</th><th>Monthly volume</th><th class="n">Monthly to you</th><th class="n">Cumulative</th></tr></thead>
+    <tbody>
+      <tr><td>Months 1–6 — build and test</td><td>6 credit / 1 slate / 2 structuring / 1 biz / 2 policies</td><td class="n">$675</td><td class="n">$4,050</td></tr>
+      <tr><td>Months 7–12 — ramp</td><td>10 / 2 / 3 / 2 / 3</td><td class="n">$1,075</td><td class="n">$10,500</td></tr>
+      <tr><td>Months 13–22 — scale</td><td>16 / 3 / 4 / 3 / 4</td><td class="n">$1,585</td><td class="n">$30,000</td></tr>
+      <tr class="total"><td>Full return of $30,000</td><td>Approx. month 22</td><td class="n"></td><td class="n">50% total</td></tr>
+    </tbody>
+  </table>
+  <p>$10,000 above capital in roughly twenty-two months is about <strong>27% annualized</strong>. That return exists because you carry volume risk — if sales do not close at these rates the timeline extends and the annualized figure falls. The $4,000 annual minimum is the floor beneath it. Participation runs at roughly 3% of gross revenue, which is deliberately light: an obligation the business can carry in a bad quarter is an obligation that gets paid.</p>
+
+  <h3>Protections and risks</h3>
+  <table>
+    <thead><tr><th>In your favor</th><th>Risks that remain</th></tr></thead>
+    <tbody>
+      <tr><td>First-position UCC-1 on receivables and client contracts</td><td>Execution risk — the volumes above are targets, not history</td></tr>
+      <tr><td>Personal guarantee from Breyon Miller, with financial statement in diligence</td><td>At half these rates, full return takes closer to three and a half years</td></tr>
+      <tr><td>Collateral-assigned term life, placed by an unaffiliated producer</td><td>Founder dependency — death is insured, extended disability is not</td></tr>
+      <tr><td>$4,000 annual floor regardless of volume</td><td>Regulatory change could compress the largest revenue line</td></tr>
+      <tr><td>Escrowed disbursement against invoices, not a lump sum</td><td>Illiquid — no secondary market, capital committed for the term</td></tr>
+      <tr><td>Hard cap — nothing owed past $30,000</td><td>A lien on a service business realizes a fraction of book value in distress</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- NEXT -->
+<section id="next">
+  <h2>Getting started</h2>
+  <p class="sub">Four steps, none of them long.</p>
+  <div class="rung"><span class="tno">01</span><div><strong>Close Phase 1</strong><span class="d">Execute the outstanding life insurance policy. Still the one open item, and the trust beneficiary designation depends on it.</span></div></div>
+  <div class="rung"><span class="tno">02</span><div><strong>Choose a continuity track</strong><span class="d">Foundation Care starts immediately with no term commitment. Growth Partner and Licensed Operator are twelve-month terms beginning on a date you choose.</span></div></div>
+  <div class="rung"><span class="tno">03</span><div><strong>Both members sign</strong><span class="d">Chumeria signs at 51% wherever an agreement binds PurttyWise or WiseGuy rather than either of you personally.</span></div></div>
+  <div class="rung"><span class="tno">04</span><div><strong>Onboarding within five business days</strong><span class="d">Compliance calendar built, monitoring enrolled, and the trust funding checklist started. The partnership, if pursued, runs on its own separate track with independent counsel on your side.</span></div></div>
+
+  <div class="note">
+    <h3>About the figures on this page</h3>
+    <p>Service prices are current and hold for 60 days. Revenue, margin, and return figures are projections built on the stated assumptions — illustrations of a model, not forecasts, guarantees, or representations of what you will earn. Actual results depend on sales activity and will differ, possibly materially. The principal-and-yield calculator is a simplified illustration using a flat annual return; real portfolio returns vary year to year and sequence matters.</p>
+    <p>This document is a proposal for discussion. It is not an offer to sell a security. Any investment would be made solely through executed transaction documents prepared by counsel with all required federal and state filings completed. Full Circle Financial Group is not a law firm or a CPA firm and does not provide legal or tax advice; trust drafting, funding, tax treatment, and licensing compliance require a licensed attorney and accountant in your state.</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <strong>FULL CIRCLE FINANCIAL GROUP</strong>
+    <p>Protection · Structure · Leverage · Scale<br>
+    Breyon Miller · 602-545-0826 · Breyon@fullcircle-credit.com</p>
+    <p>Prepared for Derrick Wise and Chumeria Purtty. Confidential.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var money = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+
+  /* accordion */
+  Array.prototype.forEach.call(document.querySelectorAll('.acc button'), function(btn){
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      btn.nextElementSibling.classList.toggle('on', !open);
+    });
+  });
+
+  /* checklist */
+  var boxes = document.querySelectorAll('#ck input');
+  var bar = document.getElementById('bar');
+  var ptext = document.getElementById('ptext');
+  function upd(){
+    var n = 0;
+    Array.prototype.forEach.call(boxes, function(b){ if(b.checked) n++; });
+    bar.style.width = (n/boxes.length*100) + '%';
+    ptext.textContent = n + ' of ' + boxes.length + ' complete' +
+      (n === boxes.length ? ' — the full structure is in place' : '');
+  }
+  Array.prototype.forEach.call(boxes, function(b){ b.addEventListener('change', upd); });
+  upd();
+
+  /* tier tabs */
+  var tabs = document.querySelectorAll('.tiersel button');
+  Array.prototype.forEach.call(tabs, function(t){
+    t.addEventListener('click', function(){
+      Array.prototype.forEach.call(tabs, function(x){ x.setAttribute('aria-selected','false'); });
+      t.setAttribute('aria-selected','true');
+      ['t1','t2','t3'].forEach(function(id){
+        document.getElementById(id).classList.toggle('on', id === t.dataset.p);
+      });
+    });
+  });
+
+  /* plan builder */
+  var bx = document.querySelectorAll('#bld input');
+  function tally(){
+    var mo = 0, once = 0;
+    Array.prototype.forEach.call(bx, function(b){
+      if(b.checked){ mo += +(b.dataset.m || 0); once += +(b.dataset.o || 0); }
+    });
+    document.getElementById('o-mo').textContent = money(mo);
+    document.getElementById('o-once').textContent = money(once);
+    document.getElementById('o-yr1').textContent = money(mo*12 + once);
+  }
+  Array.prototype.forEach.call(bx, function(b){ b.addEventListener('change', tally); });
+  tally();
+
+  /* principal vs yield */
+  var sp = document.getElementById('s-p'), sr = document.getElementById('s-r'), sw = document.getElementById('s-w');
+  function pcalc(){
+    var P = +sp.value, r = +sr.value/100, W = +sw.value;
+
+    document.getElementById('v-p').textContent = money(P);
+    document.getElementById('v-r').textContent = sr.value + '%';
+    document.getElementById('v-w').textContent = money(W);
+
+    var earn = P*r;
+    document.getElementById('o-earn').textContent = money(earn);
+    document.getElementById('o-draw').textContent = money(W);
+
+    var bal = P, yrs = 0, depleted = false;
+    for(var i=0;i<20;i++){ bal = bal*(1+r) - W; if(bal <= 0){ bal = 0; break; } }
+    document.getElementById('o-20').textContent = money(Math.max(0,bal));
+
+    if(W <= earn){
+      document.getElementById('o-life').textContent = 'Indefinitely';
+    } else {
+      var b = P;
+      while(b > 0 && yrs < 200){ b = b*(1+r) - W; yrs++; }
+      document.getElementById('o-life').textContent = yrs >= 200 ? '200+ years' : yrs + ' years';
+    }
+
+    var flag = document.getElementById('flag');
+    if(W === 0){
+      flag.textContent = 'Nothing withdrawn. The capital compounds untouched — this is the accumulation phase, not the goal.';
+    } else if(W <= earn*0.75){
+      flag.textContent = 'Well inside the yield. The principal keeps growing while you live on part of what it earns — this is the position wealthy families work to reach and then protect.';
+    } else if(W <= earn){
+      flag.textContent = 'Living exactly on the yield. Sustainable in a good year, but there is no margin for a bad one — real returns vary, and a down year forces you into principal.';
+    } else if(W <= earn*1.5){
+      flag.textContent = 'Withdrawals now exceed what the capital earns. The principal is shrinking, slowly at first and then faster, because each withdrawal also removes future earnings.';
+    } else {
+      flag.textContent = 'This is consumption, not income. At this rate the capital is being dismantled — and no return assumption fixes it.';
+    }
+  }
+  [sp,sr,sw].forEach(function(s){ s.addEventListener('input', pcalc); });
+  pcalc();
+
+  /* license calculator */
+  var ids = {en:'s-en', tr:'s-tr', cr:'s-cr', bc:'s-bc'};
+  var el = {};
+  Object.keys(ids).forEach(function(k){ el[k] = document.getElementById(ids[k]); });
+
+  function lcalc(){
+    var en = +el.en.value, tr = +el.tr.value, cr = +el.cr.value, bc = +el.bc.value;
+    document.getElementById('v-en').textContent = en;
+    document.getElementById('v-tr').textContent = tr;
+    document.getElementById('v-cr').textContent = cr;
+    document.getElementById('v-bc').textContent = bc;
+
+    var gross  = en*3500 + tr*2800 + cr*1500 + bc*2500;
+    var margin = en*2100 + tr*1700 + cr*900  + bc*1500;
+    var net    = margin - 1997;
+    var yr     = net*12;
+    var cost   = 1997*12 + 4500;
+    var roi    = yr/cost;
+
+    document.getElementById('o-gross').textContent = money(gross);
+    document.getElementById('o-marg').textContent = money(margin);
+    document.getElementById('o-net').textContent = (net<0?'−':'') + money(Math.abs(net));
+    document.getElementById('o-yr').textContent = (yr<0?'−':'') + money(Math.abs(yr));
+    document.getElementById('o-roi').textContent = yr <= 0 ? 'below break-even' : roi.toFixed(1) + '×';
+
+    var f = document.getElementById('flag2');
+    if(margin === 0){
+      f.textContent = 'At zero sales the license costs $1,997 a month and returns nothing. This track only makes sense with an active sales effort behind it.';
+    } else if(net < 0){
+      f.textContent = 'Below break-even. One structuring engagement a month covers the fee — set the first slider to 1 to see it.';
+    } else if(net < 3000){
+      f.textContent = 'Past break-even but thin. At this volume Growth Partner at $797 may serve you better until sales activity increases.';
+    } else {
+      f.textContent = 'The license fee is now a small fraction of margin. Every additional engagement is nearly pure spread.';
+    }
+  }
+  Object.keys(el).forEach(function(k){ el[k].addEventListener('input', lcalc); });
+  lcalc();
+})();
+</script>
+
+</body>
+</html>
+
+</body></html>

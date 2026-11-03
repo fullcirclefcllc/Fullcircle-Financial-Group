@@ -1,0 +1,196 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Formation Competitor Breakdown</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: navy header, company switcher, detail sheet with sections; compare grid below. */
+:root{--navy:#0A1F44;--gold:#C9A646;--bg:#F6F1E6;--surface:#FFFDF8;--surface-2:#EFE8D8;--ink:#0A1F44;--ink-2:#3E4C68;--muted:#6F7891;--line:#DCD2BC;--accent:#A8862A;
+--good:#2E7D4F;--good-bg:#E3F1E7;--warn:#B26B00;--warn-bg:#FBEFD9;--info:#2B5BA8;--info-bg:#E2EAF6;
+--display:"Cinzel",Georgia,serif;--serif:"Cormorant Garamond",Georgia,serif;--sans:"Figtree",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#071430;--surface:#0E1F45;--surface-2:#132a5a;--ink:#F2ECDD;--ink-2:#C9C3B2;--muted:#8E97AE;--line:#253c6e;--accent:#D8B958;--good:#6FCB94;--good-bg:#123A2A;--warn:#E9AE4E;--warn-bg:#3A2C10;--info:#8DB1F0;--info-bg:#16295A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#071430;--surface:#0E1F45;--surface-2:#132a5a;--ink:#F2ECDD;--ink-2:#C9C3B2;--muted:#8E97AE;--line:#253c6e;--accent:#D8B958;--good:#6FCB94;--good-bg:#123A2A;--warn:#E9AE4E;--warn-bg:#3A2C10;--info:#8DB1F0;--info-bg:#16295A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{background:var(--navy);color:#F5EFE0}
+header .in{max-width:1080px;margin:0 auto;padding-block:26px 22px}
+.eyebrow{font-family:var(--display);letter-spacing:.18em;font-size:12px;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--serif);font-size:clamp(30px,6vw,44px);line-height:1.05;margin:6px 0 8px;text-wrap:balance}
+header p{margin:0;color:#C9C3B2;max-width:62ch}
+main{max-width:1080px;margin:0 auto;padding-block:20px 40px;display:flex;flex-direction:column;gap:18px}
+.switch{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px}
+.co{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.co b{display:block;font-size:15px}.co span{font-size:12px;color:var(--muted)}
+.co[aria-pressed="true"]{border-color:var(--gold);background:var(--surface-2)}
+.co.fc{border-style:dashed}
+.co:focus-visible,.q:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px}
+.sheet h2{font-family:var(--serif);font-size:32px;line-height:1.1;margin:0}
+.tag{font-size:13px;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px}
+.fact{background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.fact .l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.fact .v{font-weight:700;margin-top:2px}
+.secs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.sec{border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.sec h3{font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.sec ul{margin:0;padding-left:18px}.sec li{margin-bottom:4px}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.pill.in{background:var(--good-bg);color:var(--good)}.pill.mix{background:var(--warn-bg);color:var(--warn)}.pill.unk{background:var(--surface-2);color:var(--muted)}.pill.out{background:var(--info-bg);color:var(--info)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.flow span{background:var(--surface-2);border-radius:6px;padding:5px 9px;font-weight:600}
+.flow i{color:var(--muted);font-style:normal}
+.conf{font-size:12px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.panel h2{font-family:var(--serif);font-size:26px;margin:0 0 4px}
+.qs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.q{border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.q[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td:first-child{font-weight:700;white-space:nowrap}
+tr.hl td{background:var(--surface-2)}
+.note{font-size:13px;color:var(--muted);max-width:75ch}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:700}
+.src{font-size:13px;columns:2 260px}
+.src a{color:var(--ink-2)}
+</style>
+
+<header><div class="in wrap">
+  <div class="eyebrow">Full Circle · Market research</div>
+  <h1>How the formation companies run</h1>
+  <p>Tap a company to see its model, platform, CRM, who does the filing work, and how it earns recurring revenue. Compare all of them at the bottom.</p>
+</div></header>
+
+<main class="wrap">
+  <div class="switch" role="group" aria-label="Choose a company" id="switch"></div>
+  <section class="sheet" id="sheet" aria-live="polite"></section>
+
+  <section class="panel">
+    <h2>Side-by-side</h2>
+    <p class="note">Pick a question to compare every company on it.</p>
+    <div class="qs" role="group" aria-label="Comparison question" id="qs"></div>
+    <div class="tbl"><table><thead><tr><th>Company</th><th id="qh">Answer</th></tr></thead><tbody id="cmp"></tbody></table></div>
+  </section>
+
+  <section class="panel">
+    <h2>How sure is this?</h2>
+    <p class="note">All five companies are private. Revenue figures are third-party estimates and can be far off. Tech stacks come from job postings, hosting traces and data vendors. CRM tools are rarely published, so where nothing public exists, this page says so instead of guessing.</p>
+    <details><summary>Sources</summary><div class="src" style="margin-top:8px">
+      <a href="https://www.nerdwallet.com/reviews/small-business/bizee" target="_blank" rel="noopener">NerdWallet – Bizee review</a><br>
+      <a href="https://legalclarity.org/who-owns-bizee-founders-leadership-and-history/" target="_blank" rel="noopener">LegalClarity – Who owns Bizee</a><br>
+      <a href="https://bizee.com/llms.txt" target="_blank" rel="noopener">Bizee – service list</a><br>
+      <a href="https://www.zoominfo.com/c/bizee/351753099" target="_blank" rel="noopener">ZoomInfo – Bizee</a><br>
+      <a href="https://techcrunch.com/2022/11/08/doola-nurses-new-capital-for-its-business-in-a-box-tool-targeting-global-founders" target="_blank" rel="noopener">TechCrunch – doola funding</a><br>
+      <a href="https://www.ycombinator.com/companies/doola" target="_blank" rel="noopener">Y Combinator – doola</a><br>
+      <a href="https://www.doola.com/company-formation-api" target="_blank" rel="noopener">doola Formation API</a><br>
+      <a href="https://builtindublin.ie/job/software-engineer-backend/1814856" target="_blank" rel="noopener">doola backend engineer posting</a><br>
+      <a href="https://dupple.com/reviews/doola" target="_blank" rel="noopener">Dupple – doola pricing</a><br>
+      <a href="https://www.corpnet.com/partners/faq/" target="_blank" rel="noopener">CorpNet Partner FAQ</a><br>
+      <a href="https://www.corpnet.com/corpnet-api/business-formation/" target="_blank" rel="noopener">CorpNet API</a><br>
+      <a href="https://www.datanyze.com/companies/corpnet/347857727" target="_blank" rel="noopener">Datanyze – CorpNet</a><br>
+      <a href="https://fileforms.com/fileforms-pro-api" target="_blank" rel="noopener">FileForms Pro API</a><br>
+      <a href="https://fileforms.com/business-formation-api/" target="_blank" rel="noopener">FileForms Formation API</a><br>
+      <a href="https://nexusfi.com/d/tax-legal/prime-corporate-services" target="_blank" rel="noopener">NexusFi – Prime Corporate Services</a><br>
+      <a href="https://www.jobtarget.com/jobs/jt-wrqcr7ob0t/tax-strategist-1" target="_blank" rel="noopener">PCS Tax Strategist posting</a><br>
+      <a href="https://www.biggerpockets.com/forums/12/topics/1092181-any-experience-with-prime-corporate-services?page=1" target="_blank" rel="noopener">BiggerPockets – PCS thread</a>
+    </div></details>
+  </section>
+</main>
+
+<script>
+const C=[
+{id:"bizee",name:"Bizee",was:"formerly Incfile",tag:"Volume formation: free LLC, paid renewals",
+ facts:[["Founded","2004 · Houston area"],["Funding","Self-funded, no investors"],["Scale","1M+ businesses formed"],["Revenue","Not public (ZoomInfo est. $6.2M, likely low)"]],
+ model:["$0 LLC plus state fee gets the customer in","Packages at $199 and $299 add EIN, bylaws, expedited filing","A-la-carte add-ons: EIN $70, licenses, trademarks, DBAs","Profit comes from volume and renewals, not the first filing"],
+ recurring:["Registered agent: free year 1, then $119/yr","Annual report filing","Virtual address and mailbox","Bookkeeping and tax consultation","Bizee Pro Suite bundle"],
+ platform:"Custom-built. Laravel (PHP) web app, MySQL database, Sentry error tracking, Snowflake and Databricks for data.",
+ crm:"Not public. Their dashboard is the customer-facing portal; the internal sales and support CRM isn't disclosed.",
+ fulfill:"in",fulfillTxt:"Files in-house and provides its own registered agent service in all 50 states.",
+ flow:["Website order","Bizee dashboard","In-house filing team","State","Renewal billing"],
+ structure:"Single LLCs and corporations. No trust or holding-company design service.",
+ lesson:"Get the customer cheap, then keep them paying every year. Registered agent renewal is the engine."},
+{id:"doola",name:"doola",was:"New York · YC 2020",tag:"Business-in-a-Box subscription",
+ facts:[["Founded","2020 · New York"],["Funding","~$12M venture capital"],["Scale","Customers in 130+ countries"],["Revenue","Not public (7x growth in 2022)"]],
+ model:["Annual subscription instead of a one-time fee","Starter about $297/yr: LLC, EIN, operating agreement, registered agent, US address","Upsells to bookkeeping and tax plans up to about $2,999/yr","Second revenue line: wholesale formation API for other platforms"],
+ recurring:["Annual subscription plans","Bookkeeping (Pulse about $300/yr)","Tax filing","Compliance and annual reports","Partner API fees"],
+ platform:"Custom-built. Node.js, TypeScript and Java on Amazon Web Services; Postgres or MySQL; GraphQL; Terraform for infrastructure.",
+ crm:"Not public. Partners track orders in doola's partner portal with status webhooks.",
+ fulfill:"mix",fulfillTxt:"Software files what it can automatically; doola's own operations team handles the rest. Nothing is outsourced to the customer.",
+ flow:["Order (direct or partner API)","doola platform","Auto-filing + ops team","State / IRS","Webhooks back to partner"],
+ structure:"LLCs and C-Corps, strong with non-US founders. No trust or holding-company design service.",
+ lesson:"Charge every year for being the business's back office, and sell the same engine wholesale."},
+{id:"corpnet",name:"CorpNet",was:"Westlake Village, CA",tag:"Formation for owners + silent fulfillment for partners",
+ facts:[["Founded","1997 · Nellie & Phil Akalp"],["Funding","Private"],["Scale","500,000+ companies formed · ~129 staff"],["Revenue","Not public · 7× Inc. 5000"]],
+ model:["Sells formation and compliance directly to owners","Reseller program: partners buy at 20–30% off retail and resell","Referral program: 20–30% of net revenue","No fee to join, no minimums"],
+ recurring:["Registered agent","Annual reports and compliance","Partner and API volume"],
+ platform:"Custom ordering system and API, SOC 2 certified. Public website runs on WordPress. Back-end language not published.",
+ crm:"Not public.",
+ fulfill:"in",fulfillTxt:"Does all filing in-house, and also fulfills for resellers as a silent partner that never contacts your client.",
+ flow:["Owner or partner order","CorpNet system / API","In-house formation team","State","Compliance reminders"],
+ structure:"LLCs, corporations, nonprofits, compliance. No trust design service.",
+ lesson:"Fulfillment can be the product. Many CPAs and advisors sell CorpNet filings under their own name."},
+{id:"fileforms",name:"FileForms",was:"Fort Lauderdale, FL",tag:"API-first compliance engine for professionals",
+ facts:[["Founded","Not published"],["Funding","Not published"],["Scale","100,000+ entities managed"],["Revenue","Not public"]],
+ model:["Sells mainly to CPAs, law firms, fintechs and payroll companies","Partners pay a fixed wholesale rate per filing","Partners set the retail price and keep the margin","White-label or behind-the-scenes options"],
+ recurring:["Annual reports across all 50 states","Registered agent","Entity maintenance and good-standing certificates"],
+ platform:"Custom API-first platform, SOC 2 Type I. Tech stack not published.",
+ crm:"Partner dashboard tracks revenue, costs and order volume. Bulk sync from a partner's own CRM.",
+ fulfill:"mix",fulfillTxt:"Files through its own filing engine. It doesn't say who operates its registered agent service.",
+ flow:["Partner CRM / app","FileForms API","Filing engine","State","Status back to partner"],
+ structure:"Formation and compliance only. No structure design service.",
+ lesson:"The money is in annual compliance for many entities, not one-time formation."},
+{id:"pcs",name:"Prime Corporate Services",was:"PCS · remote / US",tag:"High-ticket consulting with a free LLC hook",
+ facts:[["Founded","Not published"],["Funding","Private"],["Scale","51–200 staff · 80,000+ returns filed"],["Revenue","Not public"]],
+ model:["$0 LLC plus state fees and a free 60-minute consult","Salespeople sell bigger packages: structure, tax, credit","One forum user mentioned a quote around $6,000","Leads come partly from real estate influencers"],
+ recurring:["Quarterly tax strategy check-ins","Tax preparation","Business credit and 'fundability' program","Estate planning"],
+ platform:"Not public.",
+ crm:"Not public.",
+ fulfill:"mix",fulfillTxt:"Tax strategy and credit are delivered by in-house teams. Strategists work in small teams and own client books. How LLCs are filed isn't public.",
+ flow:["Influencer / ad lead","Free consult","Sales package","In-house strategist team","Quarterly reviews"],
+ structure:"Yes. Entity structuring, holding companies and estate planning, sold as consulting.",
+ lesson:"Closest to your model. Strong revenue per client, but reviews are mixed when clients feel oversold."},
+{id:"fc",name:"Full Circle",was:"Your plan",tag:"Business OS: self-serve platform + consulting",fc:true,
+ facts:[["Edge","Trusts + holding companies, self-serve"],["Pillars","Structure · Leverage · Protection · Scale"],["Funding","Raising $250K"],["Hook","Credit and funding"]],
+ model:["Low-cost LLC or holding setup as the front door","Platform subscription for the client portal","High-ticket structure strategy, business credit and funding (5–10%, capped at $10k)","Life insurance as recurring back-end revenue"],
+ recurring:["Platform subscription","Registered agent and annual reports (resold)","Credit monitoring","Insurance renewals and commissions"],
+ platform:"Now: Business OS prototype + GoHighLevel. Later: a real app (Laravel or Node.js) with client logins.",
+ crm:"GoHighLevel for sales and follow-up; Business OS for structure, credit and document tracking.",
+ fulfill:"out",fulfillTxt:"Outsource the filing (CorpNet reseller now, doola or FileForms API later); trusts through an attorney partner; keep strategy, credit and insurance in-house.",
+ flow:["Ad / content lead","GHL","Business OS portal","CorpNet / doola filing","Credit + insurance"],
+ structure:"Yes, the full stack: trust → holding → operating and property companies.",
+ lesson:"Combine Bizee's cheap entry, doola's subscription, and PCS's high-ticket strategy, with clear education to avoid PCS's reputation problem."}
+];
+const FUL={in:["In-house","in"],mix:["In-house + automation","mix"],out:["Outsourced filing","out"],unk:["Unknown","unk"]};
+const QS=[["fulfill","Who does the filing?"],["platform","What platform?"],["crm","What CRM?"],["structure","Trusts / holding cos?"],["recurring","Recurring revenue"],["model","Business model"]];
+let sel="bizee",q="fulfill";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function drawSwitch(){document.getElementById("switch").innerHTML=C.map(c=>`<button class="co ${c.fc?"fc":""}" aria-pressed="${c.id===sel}" data-id="${c.id}"><b>${esc(c.name)}</b><span>${esc(c.was)}</span></button>`).join("")}
+function drawSheet(){const c=C.find(x=>x.id===sel);const f=FUL[c.fulfill];
+ document.getElementById("sheet").innerHTML=`<div><h2>${esc(c.name)}</h2><div class="tag">${esc(c.tag)}</div></div>
+ <div class="facts">${c.facts.map(([l,v])=>`<div class="fact"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join("")}</div>
+ <div class="sec"><h3>How a client moves through</h3><div class="flow">${c.flow.map(s=>`<span>${esc(s)}</span>`).join("<i>→</i>")}</div></div>
+ <div class="secs">
+  <div class="sec"><h3>Business model</h3><ul>${c.model.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+  <div class="sec"><h3>Recurring revenue</h3><ul>${c.recurring.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+  <div class="sec"><h3>Platform & software</h3><p style="margin:0">${esc(c.platform)}</p></div>
+  <div class="sec"><h3>CRM</h3><p style="margin:0">${esc(c.crm)}</p></div>
+  <div class="sec"><h3>Who sets up the structure</h3><p style="margin:0 0 8px"><span class="pill ${f[1]}">${f[0]}</span></p><p style="margin:0">${esc(c.fulfillTxt)}</p></div>
+  <div class="sec"><h3>Trusts & holding companies</h3><p style="margin:0">${esc(c.structure)}</p></div>
+ </div>
+ <div class="sec" style="border-color:var(--gold)"><h3>${c.fc?"The play":"Lesson for Full Circle"}</h3><p style="margin:0">${esc(c.lesson)}</p></div>`}
+function drawCmp(){document.getElementById("qs").innerHTML=QS.map(([k,l])=>`<button class="q" aria-pressed="${k===q}" data-q="${k}">${l}</button>`).join("");
+ document.getElementById("qh").textContent=QS.find(x=>x[0]===q)[1];
+ document.getElementById("cmp").innerHTML=C.map(c=>{let v;
+  if(q==="fulfill"){const f=FUL[c.fulfill];v=`<span class="pill ${f[1]}">${f[0]}</span><div style="margin-top:4px">${esc(c.fulfillTxt)}</div>`}
+  else if(Array.isArray(c[q]))v=c[q].map(esc).join(" · ");else v=esc(c[q]);
+  return `<tr class="${c.fc?"hl":""}"><td>${esc(c.name)}</td><td>${v}</td></tr>`}).join("")}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){sel=b.dataset.id;drawSwitch();drawSheet();return}
+ const qb=e.target.closest("[data-q]");if(qb){q=qb.dataset.q;drawCmp()}});
+drawSwitch();drawSheet();drawCmp();
+</script>
+
+</body></html>

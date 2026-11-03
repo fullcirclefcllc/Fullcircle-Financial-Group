@@ -1,0 +1,430 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle OS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: orbital map (center = Command Center, modules on the ring) + a working CRM board. Navy/gold/cream brand. */
+:root{
+  --bg:#F5EFE0; --surface:#FFFBF2; --sunk:#ECE4D0; --fg:#0A1F44; --muted:#5A6579; --line:#D9CEB4;
+  --gold:#A8862E; --gold-soft:#C9A646; --navy:#0A1F44; --on-navy:#F5EFE0;
+  --ok:#2F7A4F; --warn:#B07A12; --bad:#A3392F;
+  --display:"Cinzel",Georgia,serif; --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#071632; --surface:#0D2148; --sunk:#0A1B3C; --fg:#F2EBDA; --muted:#A8B2C4; --line:#22375F;
+  --gold:#D9B95A; --gold-soft:#C9A646; --navy:#F2EBDA; --on-navy:#0A1F44; --ok:#5FBF86; --warn:#E0B04A; --bad:#E07A6E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#071632; --surface:#0D2148; --sunk:#0A1B3C; --fg:#F2EBDA; --muted:#A8B2C4; --line:#22375F;
+  --gold:#D9B95A; --gold-soft:#C9A646; --navy:#F2EBDA; --on-navy:#0A1F44; --ok:#5FBF86; --warn:#E0B04A; --bad:#E07A6E; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--sans);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:1180px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-block:22px 18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand h1{font:700 22px/1 var(--display);letter-spacing:.08em;margin:0}
+.brand small{display:block;font:500 15px/1.2 var(--serif);font-style:italic;color:var(--muted);margin-top:4px}
+nav.tabs{display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:999px}
+nav.tabs a{font:600 13px var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:8px 16px;border-radius:999px}
+nav.tabs a[aria-current="page"]{background:var(--navy);color:var(--on-navy)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.node:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+h2{font:700 15px var(--display);letter-spacing:.12em;text-transform:uppercase;margin:0 0 4px}
+.lede{font:500 20px/1.35 var(--serif);max-width:62ch;margin:18px 0 6px;text-wrap:balance}
+.eyebrow{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.muted{color:var(--muted)}
+button{font:600 13px var(--sans);cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:8px 12px}
+button.primary{background:var(--navy);color:var(--on-navy);border-color:var(--navy)}
+button.gold{background:var(--gold-soft);color:#0A1F44;border-color:var(--gold-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 12px var(--sans);padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--navy);color:var(--on-navy);border-color:var(--navy)}
+
+/* MAP */
+.map-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;margin-top:20px;align-items:start}
+@media (max-width:860px){.map-grid{grid-template-columns:1fr}}
+.orbit-box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.orbit-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center;margin-bottom:6px}
+svg.orbit{width:100%;height:auto;display:block}
+.node{cursor:pointer}
+.node circle.dot{transition:r .2s}
+.node text{font-family:var(--sans);font-weight:600;font-size:12.5px;fill:var(--fg)}
+.node .num{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+.node.locked{opacity:.32}
+.node.sel circle.dot{stroke:var(--gold);stroke-width:3}
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+.detail h3{font:700 22px/1.2 var(--display);letter-spacing:.04em;margin:4px 0 6px}
+.detail .outcome{font:500 19px/1.35 var(--serif);font-style:italic;margin:0 0 14px}
+.kv{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 14px;font-size:14px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+.kv dt{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.kv dd{margin:0}
+ol.steps{margin:6px 0 0;padding-left:20px}
+ol.steps li{margin:3px 0}
+.icp{margin-top:34px}
+.icp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:14px}
+.icp-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.icp-card .rank{font:500 11px var(--mono);color:var(--gold)}
+.icp-card h4{margin:0;font:600 16px var(--sans)}
+.icp-card p{margin:0;font-size:13.5px}
+.icp-card .lbl{font:600 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tiers{margin-top:34px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:13.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+td.price{font:600 15px var(--mono);white-space:nowrap}
+
+/* CRM */
+.crm-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:20px}
+.example-note{font-size:12.5px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:6px 10px}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);gap:12px;overflow-x:auto;padding:14px 0 6px;margin-top:6px}
+.col{background:var(--sunk);border-radius:12px;padding:10px;min-height:180px;display:flex;flex-direction:column;gap:8px}
+.col h5{margin:0 2px 4px;font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:left;width:100%;display:flex;flex-direction:column;gap:4px;font-weight:400}
+.card b{font:600 14px var(--sans)}
+.card .biz{font-size:12.5px;color:var(--muted)}
+.card .row{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:4px}
+.pill{font:600 10.5px var(--sans);letter-spacing:.05em;padding:2px 8px;border-radius:999px;border:1px solid currentColor}
+.score{font:600 12px var(--mono)}
+.s-ok{color:var(--ok)} .s-warn{color:var(--warn)} .s-bad{color:var(--bad)}
+.empty{font-size:12px;color:var(--muted);padding:6px}
+
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bg);border-left:1px solid var(--line);z-index:20;display:flex;flex-direction:column;
+  padding:calc(16px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) 18px;box-shadow:-20px 0 40px rgba(10,31,68,.18)}
+.scrim{position:fixed;inset:0;background:rgba(7,22,50,.35);z-index:19}
+.drawer-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.drawer-head h3{font:700 19px/1.2 var(--display);margin:2px 0}
+.drawer-body{overflow-y:auto;flex:1;min-height:0;padding-right:4px;margin-top:10px;display:flex;flex-direction:column;gap:16px}
+.section{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.gauge{display:flex;align-items:center;gap:14px}
+.gauge-num{font:700 34px var(--display)}
+.bar{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;flex:1}
+.bar i{display:block;height:100%;background:var(--gold-soft)}
+.checks{display:grid;gap:4px;margin-top:10px}
+.checks label{display:flex;gap:8px;align-items:center;font-size:13.5px}
+.checks .grp{font:600 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.checks .w{margin-left:auto;font:500 11px var(--mono);color:var(--muted)}
+.stagebar{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.stagebar span{font-size:11.5px;padding:3px 8px;border-radius:6px;background:var(--sunk);color:var(--muted)}
+.stagebar span.done{background:color-mix(in srgb,var(--gold-soft) 30%,transparent);color:var(--fg)}
+.stagebar span.now{background:var(--navy);color:var(--on-navy)}
+.chat{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;margin:10px 0}
+.msg{padding:9px 12px;border-radius:12px;font-size:13.5px;max-width:92%;white-space:pre-wrap}
+.msg.user{align-self:flex-end;background:var(--navy);color:var(--on-navy)}
+.msg.bot{align-self:flex-start;background:var(--sunk)}
+.msg.sys{align-self:center;font-size:12px;color:var(--muted);background:none;padding:0}
+.chat-form{display:flex;gap:8px}
+.chat-form input{flex:1;min-width:0}
+input,select,textarea{font:14px var(--sans);padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg)}
+.guide-tag{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.guide-tag b{font:700 14px var(--display);letter-spacing:.06em}
+.disclaimer{font-size:11.5px;color:var(--muted)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.form-grid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+@media (max-width:520px){.form-grid{grid-template-columns:1fr}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.stat{border-left:2px solid var(--gold-soft);padding:2px 12px}
+.stat .v{font:700 22px var(--display)}
+.stat .k{font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="brand">
+    <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="none" stroke="var(--gold-soft)" stroke-width="2"/><circle cx="20" cy="20" r="6" fill="var(--fg)"/><circle cx="34.5" cy="14" r="3" fill="var(--gold-soft)"/></svg>
+    <div><h1>FULL CIRCLE OS</h1><small>The business operating system for credit, structure, protection and legacy</small></div>
+  </div>
+  <nav class="tabs" aria-label="Views">
+    <a href="#map" id="tab-map">System map</a>
+    <a href="#crm" id="tab-crm">Client CRM</a>
+  </nav>
+</header>
+
+<main id="view-map">
+  <p class="lede">One subscription. Seven modules on one client profile. Each step unlocks the next, and an AI guide walks the owner through every stage.</p>
+  <div class="map-grid">
+    <div class="orbit-box">
+      <div class="orbit-head">
+        <span class="eyebrow">Show what each tier unlocks</span>
+        <div class="chips" id="tierChips"></div>
+      </div>
+      <svg class="orbit" id="orbit" viewBox="0 0 520 520" role="group" aria-label="Full Circle OS modules"></svg>
+      <p class="muted" style="font-size:12.5px;margin:4px 4px 0">Click a module. Numbers show the order a client moves through them.</p>
+    </div>
+    <article class="detail" id="detail" aria-live="polite"></article>
+  </div>
+
+  <section class="tiers">
+    <h2>Platform pricing</h2>
+    <p class="muted" style="margin:0 0 8px">Starting prices, anchored to Nav ($39.99–$74.99/mo), ZenBusiness ($199–$299/yr) and Collective ($199–$349/mo).</p>
+    <table><thead><tr><th>Tier</th><th>Price</th><th>Who it's for</th><th>Unlocks</th></tr></thead><tbody id="tierRows"></tbody></table>
+    <p class="muted" style="font-size:12.5px">Plus: holding company setup $497–$997 · funding placement 5–10% (cap $10K) · done-for-you personal credit billed only after each round is performed.</p>
+  </section>
+
+  <section class="icp">
+    <h2>Ideal clients</h2>
+    <div class="chips" style="margin-top:8px" id="icpChips"></div>
+    <div class="icp-grid" id="icpGrid"></div>
+  </section>
+</main>
+
+<main id="view-crm" hidden>
+  <div class="crm-bar">
+    <div class="chips" id="pipeChips" role="group" aria-label="Pipeline"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="primary" id="addBtn">Add client</button>
+      <button id="resetBtn">Reset examples</button>
+    </div>
+  </div>
+  <div class="stats" id="stats"></div>
+  <p class="example-note" style="margin-top:14px">Example clients for demonstration. Changes save in this browser only.</p>
+  <div class="board" id="board"></div>
+</main>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Client detail"></aside>
+
+<script>
+const MODULES=[
+ {id:"structure",name:"Structure",pillar:"Structure",guide:"Architect",tier:1,outcome:"Entity and holding company set up right, from day one.",
+  steps:["Entity quiz: partners, revenue, assets, goals","Recommendation: single LLC or HoldCo owning OpCos","Name search and filing data; state filing submitted","EIN, operating agreement, banking resolution","Fundability setup: address, phone, domain, NAICS, bank","HoldCo add-on: agreements and asset-title checklist","Compliance calendar turns on"],
+  tools:"Entity quiz · filing · document builder · e-sign · compliance calendar",revenue:"Platform fee · statutory agent $99–$149/yr · HoldCo setup $497–$997",handoff:"Holding company, trust or multi-owner deal → partner attorney",
+  stages:["Quiz done","Docs collected","Filed","EIN","Agreements signed","Compliance on"]},
+ {id:"bizcredit",name:"Business Credit",pillar:"Leverage",guide:"Ledger",tier:2,outcome:"A fundable business with tradelines reporting to the bureaus.",
+  steps:["Foundation checklist complete","D&B, Experian and Equifax business files open","Tier 1: net-30 vendor accounts reporting","Tier 2: store cards","Tier 3: fleet and cash cards","Fundability Score 80+ unlocks the funding desk"],
+  tools:"Fundability Score · bureau setup guide · vendor tiers · lender list",revenue:"Platform fee (Growth tier)",handoff:"Score 80+ → funding desk review",
+  stages:["Foundation","Bureaus","Tier 1","Tier 2","Tier 3","Funding-ready"]},
+ {id:"personal",name:"Personal Credit",pillar:"Leverage",guide:"Mirror",tier:1,outcome:"Owner profile strong enough to back early guarantees.",
+  steps:["Client uploads their own credit report","AI explains each item in plain words","Client drafts and sends their own disputes","Utilization planner and score goal","Round 2 review"],
+  tools:"Report reader · self-directed dispute builder · utilization planner",revenue:"Platform fee for DIY tools only. Done-for-you work is billed after each completed round (CROA).",handoff:"Identity theft, lawsuits, or client wants full service",
+  stages:["Report in","Reviewed","Disputes sent","Round 2","Goal hit"]},
+ {id:"funding",name:"Funding Desk",pillar:"Leverage",guide:"Ledger",tier:2,outcome:"Capital placed with the right lender at the right time.",
+  steps:["Funding-readiness review","Lender match by profile","Applications tracked","Approval and funding","Success fee collected"],
+  tools:"Readiness review · lender match · application tracker",revenue:"5–10% of funding, capped at $10K",handoff:"Every file gets a human funding advisor",
+  stages:["Review","Matched","Applied","Approved","Funded","Fee collected"]},
+ {id:"protection",name:"Protection",pillar:"Protection",guide:"Shield",tier:3,outcome:"Owner, family and business insured against the worst day.",
+  steps:["Needs calculator: income, debts, business value","Coverage gap report","Key-person and buy-sell review","Licensed agent call","Digital application and issue","Annual review"],
+  tools:"Needs calculator · gap report · carrier e-apps",revenue:"Carrier commissions and renewals",handoff:"Always, before any recommendation (licensed agent)",
+  stages:["Needs done","Agent call","Applied","Issued","Annual review"]},
+ {id:"legacy",name:"Legacy",pillar:"Structure",guide:"Legacy",tier:3,outcome:"Will, trust and beneficiary map in one vault.",
+  steps:["Estate questionnaire","Will or trust drafted from templates","HoldCo-to-trust ownership link","Attorney review","Signed and vaulted"],
+  tools:"Estate builder · beneficiary map · document vault",revenue:"Wealth tier · trust add-on · attorney fee pass-through",handoff:"Trust drafting → partner attorney",
+  stages:["Questionnaire","Docs drafted","Attorney review","Signed","Vaulted"]},
+ {id:"tax",name:"Tax",pillar:"Scale",guide:"Legacy",tier:3,outcome:"Taxes lowered legally and planned every quarter.",
+  steps:["S-corp savings estimate","Reasonable-salary worksheet","Deduction tracker","Quarterly estimate reminders","CPA handoff and sign-off"],
+  tools:"S-corp estimator · deduction tracker · CPA handoff",revenue:"Strategy session fee or CPA revenue share",handoff:"Elections and tax positions → CPA or EA",
+  stages:["Estimate","CPA review","Election filed","Payroll set","Quarterly"]}
+];
+const TIERS=[
+ {n:1,name:"Foundation",price:"$97/mo",who:"New owners, 0–2 years",unl:"Structure, compliance calendar, personal credit DIY tools, AI guides"},
+ {n:2,name:"Growth",price:"$197/mo",who:"Owners ready to build credit",unl:"Foundation + Business Credit, Fundability Score, vendor tiers, group coaching, funding desk"},
+ {n:3,name:"Wealth",price:"$397/mo",who:"Profitable owners",unl:"Growth + Protection review, Legacy builder and vault, Tax estimator, quarterly strategy call"},
+ {n:4,name:"Partner",price:"$497–$997/mo",who:"Insurance agencies, coaches, consultants",unl:"White-label platform, client sub-accounts, referral routing to Full Circle"}
+];
+const ICP={
+ direct:[
+  ["Young service businesses","0–3 years, $5K–$50K/mo, owner's personal credit carries the business","Want capital without personal guarantees","Business Credit"],
+  ["Solo coaches, consultants, agents","$60K+ net, single-member LLC","Taxes too high, no structure","Tax + Structure"],
+  ["Real estate investors","Several properties held in their own name","Liability and financing","Structure (HoldCo)"],
+  ["Established owners with families","$250K+ revenue, under-insured","Protection and legacy","Protection"],
+  ["Aspiring owners","W-2 earners starting a side business","Want to start right","Structure + Personal Credit"]],
+ partners:[
+  ["Insurance agency owners","A credit and funding front door that gives every agent a reason to call business owners","Platform fees, credit and funding clients; protection stays with them or splits","Best first target"],
+  ["Business coaches and consultants","A finished system to deliver structure and funding results to students","Seat fees and funding success fees","Partner tier"],
+  ["Mortgage loan officers and realtors","Credit-ready buyers and investor clients","Two-way referrals, investor HoldCo setups","Referral"],
+  ["CPAs and tax preparers","Entity and credit tools for clients they already serve","Tax module partner, protection referrals","Partner tier"],
+  ["Chambers, ministries, trade groups","A member benefit","Group pricing and workshops","Group"]]
+};
+const FUND=[
+ ["Foundation",[["Entity in good standing",5],["EIN issued",4],["Business address (not a P.O. box)",4],["Phone listed in 411",4],["Domain email",4],["Business bank account",4]]],
+ ["Bureau files",[["D&B DUNS number",8],["Experian business file",6],["Equifax business file",6]]],
+ ["Tradelines",[["3+ net-30 vendors reporting",12],["Store card",7],["Fleet or cash card",6]]],
+ ["Personal profile",[["Owner score 680+",8],["Utilization under 30%",6],["No new derogatories",6]]],
+ ["Financials",[["6+ months in business",4],["$10K+ monthly deposits",3],["Statements uploaded",3]]]
+];
+const ALLCHECKS=FUND.flatMap(g=>g[1]);
+const GUIDES={
+ Atlas:"onboarding guide who sets the client's roadmap and tier",
+ Architect:"Structure guide who explains entity choice, holding companies and filing steps",
+ Ledger:"Business Credit and Funding guide who coaches the Fundability checklist and vendor tiers",
+ Mirror:"Personal Credit guide who explains report items and helps the client draft their OWN disputes",
+ Shield:"Protection guide who explains life insurance needs in plain terms and books a licensed agent",
+ Legacy:"Estate and Tax guide who runs the estate questionnaire and S-corp estimates"
+};
+
+// ---------- state ----------
+const KEY="fcos-crm-v1";
+function seed(){return {pipe:"bizcredit",clients:[
+ {id:"c1",name:"Marcus Reed",biz:"Reed Mobile Detailing LLC",tier:"Growth",months:14,rev:"$18K/mo",goal:"$50K line of credit for a second van",stage:{structure:5,bizcredit:2,personal:1,funding:-1},checks:[0,1,2,3,4,5,6,7,9,13,15,16],chat:{}},
+ {id:"c2",name:"Tanya Brooks",biz:"Brooks Wellness Coaching",tier:"Foundation",months:4,rev:"$7K/mo",goal:"Set up S-corp and stop mixing personal and business money",stage:{structure:2,personal:0,tax:0},checks:[0,1,4],chat:{}},
+ {id:"c3",name:"Devon & Alicia Carter",biz:"Carter Rentals HoldCo LLC",tier:"Wealth",months:30,rev:"$22K/mo",goal:"Move 4 rentals under a holding company and a trust",stage:{structure:4,legacy:1,protection:0,bizcredit:4},checks:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],chat:{}},
+ {id:"c4",name:"Luis Ortega",biz:"Ortega HVAC Services LLC",tier:"Growth",months:26,rev:"$41K/mo",goal:"Equipment financing and a fleet card",stage:{bizcredit:5,funding:2,protection:0},checks:ALLCHECKS.map((_,i)=>i).filter(i=>i!==10),chat:{}},
+ {id:"c5",name:"Keisha Moore",biz:"Moore Insurance Agency (partner)",tier:"Partner",months:60,rev:"$95K/mo",goal:"Offer Full Circle OS to her 12 agents' business clients",stage:{structure:5,bizcredit:3,protection:4},checks:[0,1,2,3,4,5,6,7,8,9,10,13,14,15,16,17,18],chat:{}}
+]}}
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){S=seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const score=c=>c.checks.reduce((a,i)=>a+(ALLCHECKS[i]?ALLCHECKS[i][1]:0),0);
+const scoreClass=v=>v>=80?"s-ok":v>=50?"s-warn":"s-bad";
+
+// ---------- MAP ----------
+let selMod="structure", selTier=0, icpSet="partners";
+function drawOrbit(){
+  const svg=$("#orbit"),cx=260,cy=260,R=190,n=MODULES.length;
+  let h=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+  <circle cx="${cx}" cy="${cy}" r="${R-38}" fill="none" stroke="var(--line)" stroke-dasharray="2 6"/>`;
+  const pts=MODULES.map((m,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+R*Math.cos(a),cy+R*Math.sin(a),a]});
+  // flow arc between consecutive modules
+  pts.forEach((p,i)=>{if(i<n-1){const q=pts[i+1];h+=`<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}" stroke="var(--line)" stroke-width="1"/>`}else{h+=`<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}" stroke="var(--line)" stroke-width="1"/>`}});
+  h+=`<circle cx="${cx}" cy="${cy}" r="72" fill="var(--navy)"/>
+  <text x="${cx}" y="${cy-8}" text-anchor="middle" style="font:700 15px var(--display);letter-spacing:.08em;fill:var(--on-navy)">COMMAND</text>
+  <text x="${cx}" y="${cy+12}" text-anchor="middle" style="font:700 15px var(--display);letter-spacing:.08em;fill:var(--on-navy)">CENTER</text>
+  <text x="${cx}" y="${cy+32}" text-anchor="middle" style="font:500 10.5px var(--sans);fill:var(--gold-soft)">one client profile · AI guides</text>`;
+  MODULES.forEach((m,i)=>{
+    const [x,y,a]=pts[i]; const locked=selTier&&m.tier>Math.min(selTier,3)&&selTier!==4?" locked":"";
+    const lx=x+Math.cos(a)*34, ly=y+Math.sin(a)*34+4; const anchor=Math.abs(Math.cos(a))<.2?"middle":(Math.cos(a)>0?"start":"end");
+    h+=`<g class="node${locked}${m.id===selMod?" sel":""}" tabindex="0" role="button" data-id="${m.id}" aria-label="${m.name}">
+      <circle class="dot" cx="${x}" cy="${y}" r="20" fill="${m.id===selMod?"var(--gold-soft)":"var(--surface)"}" stroke="var(--fg)" stroke-width="1.5"/>
+      <text x="${x}" y="${y+4}" text-anchor="middle" class="num" style="fill:${m.id===selMod?"#0A1F44":"var(--muted)"}">0${i+1}</text>
+      <text x="${lx}" y="${ly}" text-anchor="${anchor}">${m.name}</text>
+      <text x="${lx}" y="${ly+14}" text-anchor="${anchor}" class="num">${m.pillar}</text></g>`;
+  });
+  svg.innerHTML=h;
+  svg.querySelectorAll(".node").forEach(g=>{const go=()=>{selMod=g.dataset.id;drawOrbit();drawDetail()};g.onclick=go;g.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
+}
+function drawDetail(){
+  const m=MODULES.find(x=>x.id===selMod), t=TIERS[m.tier-1];
+  $("#detail").innerHTML=`<span class="eyebrow">${m.pillar} pillar · from ${t.name} tier</span>
+  <h3>${m.name}</h3><p class="outcome">${m.outcome}</p>
+  <span class="eyebrow">Client steps</span><ol class="steps">${m.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
+  <dl class="kv"><dt>Tools</dt><dd>${m.tools}</dd><dt>Earns</dt><dd>${m.revenue}</dd><dt>AI guide</dt><dd><b>${m.guide}</b>, ${GUIDES[m.guide]}</dd><dt>Human hand-off</dt><dd>${m.handoff}</dd><dt>CRM stages</dt><dd>${m.stages.join(" → ")}</dd></dl>
+  <div style="margin-top:16px"><button class="gold" data-open="${m.id}">Open this pipeline in the CRM</button></div>`;
+  $("#detail [data-open]").onclick=e=>{S.pipe=e.target.dataset.open;save();location.hash="crm"};
+}
+function drawTierChips(){
+  const opts=[["All modules",0],...TIERS.map(t=>[t.name,t.n])];
+  $("#tierChips").innerHTML=opts.map(([l,v])=>`<button class="chip" aria-pressed="${selTier===v}" data-v="${v}">${l}</button>`).join("");
+  $("#tierChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{selTier=+b.dataset.v;drawTierChips();drawOrbit()});
+}
+function drawTiers(){$("#tierRows").innerHTML=TIERS.map(t=>`<tr><td><b>${t.name}</b></td><td class="price">${t.price}</td><td>${t.who}</td><td>${t.unl}</td></tr>`).join("")}
+function drawIcp(){
+  $("#icpChips").innerHTML=[["partners","Channel partners"],["direct","Direct owners"]].map(([k,l])=>`<button class="chip" aria-pressed="${icpSet===k}" data-k="${k}">${l}</button>`).join("");
+  $("#icpChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{icpSet=b.dataset.k;drawIcp()});
+  const lab=icpSet==="direct"?["Profile","Why they buy","First module"]:["What they get","What Full Circle gets","Model"];
+  $("#icpGrid").innerHTML=ICP[icpSet].map((r,i)=>`<div class="icp-card"><span class="rank">RANK ${i+1}</span><h4>${r[0]}</h4>
+   <span class="lbl">${lab[0]}</span><p>${r[1]}</p><span class="lbl">${lab[1]}</span><p>${r[2]}</p><span class="lbl">${lab[2]}</span><p><b>${r[3]}</b></p></div>`).join("");
+}
+
+// ---------- CRM ----------
+function drawPipeChips(){
+  $("#pipeChips").innerHTML=MODULES.map(m=>`<button class="chip" aria-pressed="${S.pipe===m.id}" data-id="${m.id}">${m.name}</button>`).join("");
+  $("#pipeChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.pipe=b.dataset.id;save();drawCrm()});
+}
+function drawStats(){
+  const m=MODULES.find(x=>x.id===S.pipe); const inP=S.clients.filter(c=>c.stage[m.id]!==undefined&&c.stage[m.id]>=0);
+  const ready=S.clients.filter(c=>score(c)>=80).length;
+  const avg=S.clients.length?Math.round(S.clients.reduce((a,c)=>a+score(c),0)/S.clients.length):0;
+  $("#stats").innerHTML=[[S.clients.length,"Clients on platform"],[inP.length,`In ${m.name}`],[avg,"Avg Fundability Score"],[ready,"Funding-ready (80+)"]].map(([v,k])=>`<div class="stat"><div class="v">${v}</div><div class="k">${k}</div></div>`).join("");
+}
+function drawBoard(){
+  const m=MODULES.find(x=>x.id===S.pipe);
+  $("#board").innerHTML=m.stages.map((st,si)=>{
+    const cs=S.clients.filter(c=>c.stage[m.id]===si);
+    return `<div class="col"><h5><span>${st}</span><span>${cs.length}</span></h5>${cs.map(c=>{const v=score(c);return `<button class="card" data-id="${c.id}"><b>${esc(c.name)}</b><span class="biz">${esc(c.biz)}</span><span class="row"><span class="pill">${c.tier}</span><span class="score ${scoreClass(v)}">FS ${v}</span></span></button>`}).join("")||`<div class="empty">No clients here yet</div>`}</div>`}).join("");
+  $("#board").querySelectorAll(".card").forEach(b=>b.onclick=()=>openClient(b.dataset.id));
+}
+function drawCrm(){drawPipeChips();drawStats();drawBoard()}
+
+let openId=null, busy=false;
+function closeDrawer(){$("#drawer").hidden=true;$("#scrim").hidden=true;openId=null}
+$("#scrim").onclick=closeDrawer;
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&openId)closeDrawer()});
+function openClient(id){openId=id;$("#drawer").hidden=false;$("#scrim").hidden=false;drawDrawer()}
+function drawDrawer(){
+  const c=S.clients.find(x=>x.id===openId); if(!c)return closeDrawer();
+  const m=MODULES.find(x=>x.id===S.pipe); const si=c.stage[m.id]; const v=score(c);
+  const chat=(c.chat[m.guide]||[]);
+  let k=0;
+  $("#drawer").innerHTML=`<div class="drawer-head"><div><span class="eyebrow">${c.tier} · example client</span><h3>${esc(c.name)}</h3><div class="muted" style="font-size:13px">${esc(c.biz)} · ${c.months} months · ${esc(c.rev)}</div></div><button id="closeD" aria-label="Close">Close</button></div>
+  <div class="drawer-body">
+   <div class="section"><span class="eyebrow">Goal</span><div style="font:500 17px/1.35 var(--serif);font-style:italic">${esc(c.goal)}</div></div>
+   <div class="section"><span class="eyebrow">${m.name} pipeline</span>
+     <div class="stagebar">${m.stages.map((s,i)=>`<span class="${si===undefined||si<0?"":i<si?"done":i===si?"now":""}">${s}</span>`).join("")}</div>
+     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">${si===undefined||si<0?`<button class="primary" id="enroll">Enroll in ${m.name}</button>`:`<button id="back" ${si===0?"disabled":""}>Move back</button><button class="primary" id="adv" ${si>=m.stages.length-1?"disabled":""}>Advance to ${esc(m.stages[Math.min(si+1,m.stages.length-1)])}</button>`}</div></div>
+   <div class="section"><div class="gauge"><div><span class="eyebrow">Fundability Score</span><div class="gauge-num ${scoreClass(v)}">${v}</div></div><div class="bar" aria-hidden="true"><i style="width:${v}%"></i></div></div>
+     <div class="checks">${FUND.map(g=>`<div class="grp">${g[0]}</div>`+g[1].map(it=>{const i=k++;return `<label><input type="checkbox" id="chk-${c.id}-${i}" data-i="${i}" ${c.checks.includes(i)?"checked":""}>${it[0]}<span class="w">+${it[1]}</span></label>`}).join("")).join("")}</div></div>
+   <div class="section"><div class="guide-tag"><span class="eyebrow">AI guide</span><b>${m.guide.toUpperCase()}</b><span class="muted" style="font-size:12.5px">${GUIDES[m.guide]}</span></div>
+     <div class="chat" id="chat">${chat.length?chat.map(x=>`<div class="msg ${x.role==="user"?"user":"bot"}">${esc(x.content)}</div>`).join(""):`<div class="msg sys">Ask ${m.guide} what ${esc(c.name.split(" ")[0])} should do next.</div>`}</div>
+     <div class="chips" style="margin-bottom:8px" id="quick">${["What's my next step?","Why does this matter for funding?","Explain my score"].map(q=>`<button class="chip" data-q="${q}">${q}</button>`).join("")}</div>
+     <form class="chat-form" id="chatForm"><input id="chatIn" placeholder="Ask ${m.guide} a question" autocomplete="off"><button class="gold" type="submit">Send</button></form>
+     <p class="disclaimer">Education, not legal, tax or insurance advice. No approvals or score changes are guaranteed. Never share full SSNs or account numbers in chat.</p></div>
+  </div>`;
+  $("#closeD").onclick=closeDrawer;
+  const enroll=$("#enroll"); if(enroll)enroll.onclick=()=>{c.stage[m.id]=0;save();drawCrm();drawDrawer()};
+  const adv=$("#adv"); if(adv)adv.onclick=()=>{c.stage[m.id]++;save();drawCrm();drawDrawer()};
+  const back=$("#back"); if(back)back.onclick=()=>{c.stage[m.id]--;save();drawCrm();drawDrawer()};
+  $("#drawer").querySelectorAll(".checks input").forEach(cb=>cb.onchange=()=>{const i=+cb.dataset.i;c.checks=cb.checked?[...new Set([...c.checks,i])]:c.checks.filter(x=>x!==i);save();drawCrm();drawDrawer()});
+  $("#quick").querySelectorAll("button").forEach(b=>b.onclick=()=>ask(b.dataset.q));
+  $("#chatForm").onsubmit=e=>{e.preventDefault();const q=$("#chatIn").value.trim();if(q)ask(q)};
+  const ch=$("#chat"); ch.scrollTop=ch.scrollHeight;
+}
+function nextUnchecked(c){return ALLCHECKS.map((x,i)=>[x,i]).filter(([x,i])=>!c.checks.includes(i)).slice(0,3).map(([x])=>x[0])}
+function playbook(c,m){
+  const si=c.stage[m.id];
+  return `You are ${m.guide}, the ${GUIDES[m.guide]} inside Full Circle OS, a business operating system by Full Circle Financial Group (Phoenix, AZ).
+Module: ${m.name}. Stages: ${m.stages.join(" > ")}. Client's current stage: ${si===undefined||si<0?"not enrolled":m.stages[si]}.
+Module steps: ${m.steps.join("; ")}. Human hand-off rule: ${m.handoff}.
+Client: ${c.name}, ${c.biz}, ${c.months} months in business, revenue ${c.rev}, tier ${c.tier}. Goal: ${c.goal}.
+Fundability Score: ${score(c)}/100. Next unchecked Fundability items: ${nextUnchecked(c).join(", ")||"none"}.
+Rules: You give education and process guidance only, never legal, tax or insurance advice. Never promise approvals, funding amounts, score increases or deletions of accurate items. For personal credit, the client writes and sends their own disputes; you explain and help them draft. Never ask for full SSNs, card or account numbers. When a decision needs a licensed professional, say so and offer to book a Full Circle advisor.
+Style: warm, direct, plain English. Answer in 3-6 short sentences or a short numbered list. End with one concrete next action in the platform.`;
+}
+async function ask(q){
+  if(busy)return; const c=S.clients.find(x=>x.id===openId), m=MODULES.find(x=>x.id===S.pipe);
+  c.chat[m.guide]=c.chat[m.guide]||[]; const hist=c.chat[m.guide]; hist.push({role:"user",content:q}); save(); drawDrawer();
+  const ch=$("#chat"); const bot=document.createElement("div"); bot.className="msg bot"; bot.textContent="Thinking…"; ch.appendChild(bot); ch.scrollTop=ch.scrollHeight;
+  busy=true; let answer="";
+  try{
+    const sample=await claude.use("sample");
+    if(!sample) throw {code:"none"};
+    const msgs=hist.slice(-8).map((x,i,arr)=>({role:x.role,content:i===arr.length-1?`${playbook(c,m)}\n\nClient question: ${x.content}`:x.content}));
+    while(msgs.length&&msgs[0].role!=="user")msgs.shift();
+    const r=await sample(msgs,{cache:false,modelTier:"quick",onText:({text})=>{bot.textContent=text;ch.scrollTop=ch.scrollHeight}});
+    answer=r.text;
+  }catch(e){
+    const si=c.stage[m.id]; const nxt=nextUnchecked(c);
+    answer=(e&&e.code==="rate_limited")?"I'm getting a lot of questions right now. Try again in a minute.":
+      `Live AI is off in this view, so here's the playbook answer.\nYou're at: ${si===undefined||si<0?"not enrolled":m.stages[si]}.\nNext in ${m.name}: ${m.steps[Math.min((si<0||si===undefined?0:si),m.steps.length-1)]}.\n${S.pipe==="bizcredit"||S.pipe==="funding"?"Top Fundability items to finish: "+(nxt.join(", ")||"all done")+".\n":""}Hand-off: ${m.handoff}.`;
+  }
+  busy=false; hist.push({role:"assistant",content:answer}); save(); drawDrawer();
+}
+$("#resetBtn").onclick=()=>{S=seed();save();closeDrawer();drawCrm()};
+$("#addBtn").onclick=()=>{
+  openId="new";$("#drawer").hidden=false;$("#scrim").hidden=false;
+  $("#drawer").innerHTML=`<div class="drawer-head"><div><span class="eyebrow">New client</span><h3>Add to Full Circle OS</h3></div><button id="closeD">Close</button></div>
+  <form class="drawer-body" id="newForm"><div class="section form-grid">
+   <label>Owner name<input id="f-name" required></label><label>Business name<input id="f-biz" required></label>
+   <label>Months in business<input id="f-months" type="number" min="0" value="6"></label><label>Monthly revenue<input id="f-rev" placeholder="$12K/mo"></label>
+   <label>Tier<select id="f-tier">${TIERS.map(t=>`<option>${t.name}</option>`).join("")}</select></label>
+   <label>Start module<select id="f-mod">${MODULES.map(x=>`<option value="${x.id}">${x.name}</option>`).join("")}</select></label>
+   <label style="grid-column:1/-1">Goal<textarea id="f-goal" rows="2" placeholder="What does the owner want in the next 6 months?"></textarea></label>
+   <div style="grid-column:1/-1"><button class="primary" type="submit">Add client</button></div></div></form>`;
+  $("#closeD").onclick=closeDrawer;
+  $("#newForm").onsubmit=e=>{e.preventDefault();const mod=$("#f-mod").value;const c={id:"c"+Date.now(),name:$("#f-name").value.trim(),biz:$("#f-biz").value.trim(),months:+$("#f-months").value||0,rev:$("#f-rev").value.trim()||"—",tier:$("#f-tier").value,goal:$("#f-goal").value.trim()||"Not set yet",stage:{[mod]:0},checks:[],chat:{}};S.clients.push(c);S.pipe=mod;save();drawCrm();openClient(c.id)};
+};
+
+// ---------- routing ----------
+function route(){
+  const v=location.hash==="#crm"?"crm":"map";
+  $("#view-map").hidden=v!=="map"; $("#view-crm").hidden=v!=="crm";
+  $("#tab-map").toggleAttribute("aria-current",v==="map"); $("#tab-crm").toggleAttribute("aria-current",v==="crm");
+  if(v==="map")$("#tab-map").setAttribute("aria-current","page"); else $("#tab-crm").setAttribute("aria-current","page");
+  if(v==="crm")drawCrm(); else closeDrawer();
+}
+window.addEventListener("hashchange",route);
+drawTierChips();drawOrbit();drawDetail();drawTiers();drawIcp();route();
+</script>
+
+</body></html>

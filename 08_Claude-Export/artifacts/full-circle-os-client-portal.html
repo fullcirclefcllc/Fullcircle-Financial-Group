@@ -1,0 +1,588 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle OS Client Portal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one mobile-first column with a fixed bottom nav. Home = readiness + next step + system tiles; each system = framework stepper + tool */
+:root{
+  --bg:#F5EFE0; --surface:#FFFBF2; --ink:#0A1F44; --muted:#5A6680; --line:rgba(10,31,68,.14);
+  --gold:#A8852A; --gold-fill:rgba(201,166,70,.18); --ok:#2E8B62; --lock:#8A93A8; --on-gold:#0A1F44; --nav:rgba(255,251,242,.94);
+  --display:"Cinzel",Georgia,serif; --body:"Manrope",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#06142D; --surface:#0C2148; --ink:#F5EFE0; --muted:#A9B3C7; --line:rgba(201,166,70,.22);
+  --gold:#C9A646; --gold-fill:rgba(201,166,70,.14); --ok:#5FC59A; --lock:#6F7A92; --on-gold:#06142D; --nav:rgba(6,20,45,.94); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#06142D; --surface:#0C2148; --ink:#F5EFE0; --muted:#A9B3C7; --line:rgba(201,166,70,.22);
+  --gold:#C9A646; --gold-fill:rgba(201,166,70,.14); --ok:#5FC59A; --lock:#6F7A92; --on-gold:#06142D; --nav:rgba(6,20,45,.94); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+.app{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 110px;display:grid;gap:16px}
+button{font-family:inherit;font-size:inherit;color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.view{display:grid;gap:16px;animation:in .25s ease}
+@keyframes in{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.view{animation:none}}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-family:var(--display);letter-spacing:.14em;font-size:13px;color:var(--gold);font-weight:700}
+.ghostbtn{background:none;border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(22px,5vw,28px);margin:0;text-wrap:balance;line-height:1.2}
+h2{font-family:var(--display);font-weight:500;font-size:18px;margin:0 0 10px}
+.muted{color:var(--muted)} .small{font-size:12.5px;color:var(--muted)}
+.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.banner{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--gold-fill);border:1px dashed var(--gold);border-radius:12px;padding:12px 14px;font-size:14px}
+.btn{background:var(--gold);color:var(--on-gold);border:0;border-radius:10px;padding:12px 18px;font-weight:700;cursor:pointer}
+.btn.line{background:none;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:8px 14px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:default}
+.back{background:none;border:0;color:var(--gold);font-weight:700;padding:0;cursor:pointer;font-size:14px}
+/* home */
+.hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center}
+@media(max-width:440px){.hero{grid-template-columns:1fr;justify-items:start}}
+.ring{position:relative;flex:none}
+.ring svg{transform:rotate(-90deg);display:block}
+.ring .v{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring .n{font-family:var(--display);font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.ring .l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.next{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border-left:3px solid var(--gold);padding:10px 14px;background:var(--gold-fill);border-radius:0 10px 10px 0;margin-top:10px}
+.next .t{font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:620px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left;cursor:pointer;display:grid;gap:10px;align-content:start;min-width:0}
+.tile:hover{border-color:var(--gold)}
+.tile .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tile .nm{font-weight:700;font-size:15px;line-height:1.25}
+.tile .sub{font-size:12.5px;color:var(--muted)}
+.tile.add{border-style:dashed;place-content:center;text-align:center;color:var(--gold);font-weight:700;min-height:120px}
+.tag{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.tag.ok{background:rgba(95,197,154,.18);color:var(--ok)} .tag.g{background:var(--gold-fill);color:var(--gold)} .tag.l{background:var(--line);color:var(--muted)}
+/* system */
+.shead{display:grid;gap:6px}
+.phases{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:6px}
+.ph{border:0;background:none;text-align:left;padding:10px 4px 6px;border-top:3px solid var(--line);cursor:pointer;min-width:0}
+.ph .pn{font-size:12px;font-weight:700;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph .pc{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ph.done{border-color:var(--ok)} .ph.now{border-color:var(--gold)} .ph.sel{background:var(--gold-fill);border-radius:0 0 8px 8px}
+.tasks{display:grid;gap:8px}
+.task{border:1px solid var(--line);border-radius:10px}
+.trow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px}
+.cb{width:26px;height:26px;border-radius:7px;border:2px solid var(--gold);background:none;cursor:pointer;display:grid;place-content:center;padding:0}
+.cb.y{background:var(--gold)}
+.cb.y::after{content:"";width:7px;height:12px;border:solid var(--on-gold);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.cb:disabled{border-color:var(--lock);cursor:default}
+.tt{font-weight:600;cursor:pointer;background:none;border:0;text-align:left;padding:0}
+.task.d .tt{text-decoration:line-through;color:var(--muted)}
+.pts{font-size:11px;font-weight:700;color:var(--gold);white-space:nowrap;font-variant-numeric:tabular-nums}
+.why{padding:0 12px 12px 50px;font-size:14px;color:var(--muted)}
+.price{font-size:12.5px;font-weight:600;color:var(--gold);margin-top:4px}
+.advtag{font-size:10px;letter-spacing:.06em;text-transform:uppercase;border:1px dashed var(--lock);color:var(--muted);border-radius:8px;padding:2px 6px;white-space:nowrap}
+.parts{display:grid;gap:5px;margin-top:10px}
+.part{display:grid;grid-template-columns:110px minmax(0,1fr) 44px;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+.part .pv{text-align:right;font-variant-numeric:tabular-nums}
+.lock{border:1px dashed var(--lock);border-radius:10px;padding:14px;font-size:14px;display:grid;gap:8px}
+.meter{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--gold);transition:width .4s}
+.feeds{display:grid;gap:8px}
+.feed{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;font-size:14px}
+/* tools */
+.tool{display:grid;gap:12px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.fld{display:grid;gap:5px;font-size:13px;font-weight:600}
+.fld input,.fld select{border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--bg);color:var(--ink);font-family:inherit;font-size:15px;width:100%;min-width:0}
+.out{background:var(--gold-fill);border-radius:10px;padding:14px;display:grid;gap:4px}
+.out .big{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:none;border-radius:18px;padding:7px 14px;font-size:13px;cursor:pointer}
+.seg button.on{background:var(--gold);color:var(--on-gold);border-color:var(--gold);font-weight:700}
+/* catalog */
+.cat{display:grid;gap:10px}
+.citem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+.citem p{margin:4px 0 0;font-size:13.5px;color:var(--muted)}
+.rec{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.06em}
+/* guide */
+.chat{display:grid;gap:10px;max-height:52vh;overflow-y:auto;padding:4px 2px}
+.msg{padding:10px 12px;border-radius:12px;max-width:88%;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.a{background:var(--gold-fill);border:1px solid var(--line)}
+.msg.u{background:var(--ink);color:var(--bg);justify-self:end}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:none;border-radius:16px;padding:6px 12px;font-size:13px;cursor:pointer}
+.ask{display:flex;gap:8px}
+.ask input{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--bg);color:var(--ink);font-family:inherit;font-size:15px}
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.val{font-weight:600;user-select:all;overflow-wrap:anywhere}
+/* intake */
+.prog{display:flex;gap:6px}.prog i{flex:1;height:4px;border-radius:4px;background:var(--line)}.prog i.on{background:var(--gold)}
+.opts{display:grid;gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:14px;text-align:left;background:var(--surface);cursor:pointer;font-weight:600}
+.opt span{display:block;font-weight:400;font-size:13px;color:var(--muted)}
+.opt.on{border-color:var(--gold);background:var(--gold-fill)}
+.pick{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start;padding:12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;background:var(--surface);text-align:left}
+.pick.on{border-color:var(--gold);background:var(--gold-fill)}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+/* nav */
+nav.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--nav);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+nav.bar .in{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+/* studio */
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.perk{border-top:2px solid var(--gold);padding-top:10px;font-size:14px}
+.perk b{display:block;margin-bottom:2px}
+.phrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:10px;align-items:start}
+@media(max-width:520px){.phrow{grid-template-columns:1fr}}
+.fld textarea{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);color:var(--ink);font-family:inherit;font-size:14px;width:100%;min-height:76px;resize:vertical}
+.pchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pchips span{font-size:12px;border:1px solid var(--line);border-radius:12px;padding:3px 10px}
+.prov{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.err{color:#C0563B;font-size:13px}
+nav.bar button{background:none;border:0;padding:10px 4px 12px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;display:grid;justify-items:center;gap:3px}
+nav.bar button.on{color:var(--gold)}
+nav.bar svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:20px;font-size:14px;z-index:30;max-width:calc(100% - 32px)}
+</style>
+
+<div class="app" id="app"></div>
+<nav class="bar" id="nav" hidden><div class="in">
+  <button type="button" data-nav="home"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>Home</button>
+  <button type="button" data-nav="catalog"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M16.5 13v7M13 16.5h7"/></svg>Systems</button>
+  <button type="button" data-nav="studio"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 16l9-9 3 3-9 9H6z"/></svg>Studio</button>
+  <button type="button" data-nav="guide"><svg viewBox="0 0 24 24"><path d="M5 6h14v9H9l-4 4z"/></svg>Guide</button>
+  <button type="button" data-nav="advisor"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-5.5 7-5.5s6 1.5 7 5.5"/></svg>Advisor</button>
+</div></nav>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const CONTACT={phone:"602-545-0826",email:"Breyon@fullcircle-credit.com"};
+const GATE=70;
+
+/* Each service is its own system: a framework of phases, tasks inside each phase, and a tool. */
+const SYSTEMS=[
+ {id:"entity",name:"Entity & Holding",pillar:"Structure",price:"One-time setup fee",pitch:"Set up the company lenders and families can rely on.",feeds:30,tool:"entity",phases:[
+   {n:"Choose",tasks:[{id:"e1",t:"Pick your structure",w:"Use the structure finder below, then confirm it on your strategy call.",p:5}]},
+   {n:"File",tasks:[{id:"e2",t:a=>a.entity==="none"?"File your Articles of Organization":"Confirm your entity is in good standing",w:"Lenders check the state record. A lapsed annual filing can stop an application.",p:10},{id:"e3",t:"Get your EIN",w:"Your business's tax ID. Business credit files are built on it.",p:5}]},
+   {n:"Verify",tasks:[{id:"e4",t:"Open a business bank account",w:"Lenders review business bank statements, usually the last 3 months.",p:5},{id:"e5",t:"Business phone, address and website",w:"Lenders verify that the business looks real and reachable.",p:3},{id:"e6",t:"Get a D-U-N-S number",w:"Dun & Bradstreet uses it to open your business credit file.",p:2}]},
+   {n:"Maintain",tasks:[{id:"e7",t:"Sign your operating agreement",w:"Sets ownership and decision rules. Banks often ask for it.",p:0},{id:"e8",t:"Set annual report reminders",w:"Keeps the entity in good standing every year.",p:0}]}]},
+ {id:"credit",name:"Credit Restore",pillar:"Leverage",price:"Monthly, billed only after each month's work is done",pitch:"Clean up personal credit and keep it strong.",feeds:40,tool:"util",phases:[
+   {n:"Assess",tasks:[{id:"c0",t:"Sign your agreement and finish the intake form",w:"Your agreement includes your rights under federal law and a 3-business-day cancellation window. The intake tells your advisor your goal and timeline.",p:0},{id:"c1",t:"Pull all 3 credit reports",w:"Enroll in monitoring through the Full Circle link so your advisor can see all three reports. Equifax, Experian and TransUnion often show different information.",p:5},{id:"c1a",t:"Review your credit audit with your advisor",w:"Every item on your reports is listed and marked accurate, inaccurate or unverifiable. That list becomes your Round 1 plan.",p:0,adv:true}]},
+   {n:"Correct",tasks:[{id:"c2",t:a=>/low|mid/.test(a.credit)?"Dispute inaccurate items with your advisor":"Review reports for errors",w:"You have the right to dispute information that is inaccurate or can't be verified, including on your own at no cost.",p:10},{id:"c2a",t:"Round 1: bureau disputes sent",w:"Letters go to all three bureaus. They generally have 30 days to investigate. You'll see results here after about 35 days.",p:0,adv:true},{id:"c2b",t:"Rounds 2 to 5: follow-up disputes",w:"Items that come back verified move to the next round: verification requests, creditor disputes, collection validation, then inquiries and cleanup. Your advisor updates this after each round.",p:0,adv:true},{id:"c2c",t:"Watch for returning items",w:"If a deleted item ever comes back, the bureau must tell you within 5 business days. Let your advisor know right away.",p:0}]},
+   {n:"Optimize",tasks:[{id:"c3",t:"Bring card utilization under 10%",w:"Use the calculator below to find your target balances.",p:15}]},
+   {n:"Maintain",tasks:[{id:"c4",t:"Autopay on every account",w:"Payment history matters most. One missed payment can undo months of work.",p:10},{id:"c5",t:"Turn on credit monitoring",w:"Catch new errors or fraud early.",p:0},{id:"c6",t:"Graduate to your next system",w:"With credit in shape, your advisor maps the next step: business credit, funding, protection or a home purchase.",p:0,adv:true}]}]},
+ {id:"biz",name:"Business Credit Builder",pillar:"Leverage",price:"Included in the Full Circle plan",pitch:"Build credit in the business's name, tier by tier.",feeds:30,tool:"tiers",phases:[
+   {n:"Tier 1",tasks:[{id:"b1",t:"Open 3 net-30 vendor accounts",w:"Vendors that report to business bureaus start your history.",p:10},{id:"b2",t:"Pay vendor invoices early for 60 days",w:"Early payment builds a strong business payment score.",p:5}]},
+   {n:"Tier 2",tasks:[{id:"b3",t:"Add a store or fuel card",w:"Shows lenders you manage revolving business accounts.",p:8}]},
+   {n:"Tier 3",tasks:[{id:"b4",t:"Add a business credit card",w:"The step before larger lines of credit.",p:7}]}]},
+ {id:"funding",name:"Funding Engine",pillar:"Leverage",price:"Success fee only when funding closes (5–10%, max $10,000)",pitch:"Match with lenders once your profile is ready.",gate:true,tool:"fee",phases:[
+   {n:"Review",tasks:[{id:"f1",adv:1,t:"Funding readiness review",w:"Your advisor matches your profile to lenders before anything is submitted.",p:0}]},
+   {n:"Docs",tasks:[{id:"f2",t:"Upload 3 months of bank statements",w:"Most lenders ask for these with an application.",p:0},{id:"f3",t:"Upload last 2 years of tax returns",w:"Needed for larger term loans and lines.",p:0}]},
+   {n:"Match",tasks:[{id:"f4",adv:1,t:"Lender match and applications",w:"Applications are grouped to limit hard inquiries. Approval is never guaranteed.",p:0}]},
+   {n:"Close",tasks:[{id:"f5",adv:1,t:"Funding closes",w:"The success fee applies only when funding closes.",p:0}]}]},
+ {id:"protect",name:"Protection",pillar:"Protection",price:"No planning fee; you pay only your policy premium",pitch:"Life insurance and IUL designed as a living asset.",tool:"cover",phases:[
+   {n:"Needs",tasks:[{id:"p1",t:"Estimate your coverage need",w:"Use the estimator below. A licensed agent confirms the number with you.",p:0}]},
+   {n:"Options",tasks:[{id:"p2",t:"Compare term, whole life and IUL",w:"Some policies build cash value you can borrow against.",p:0}]},
+   {n:"Apply",tasks:[{id:"p3",t:"Complete the application",w:"Underwriting may include a short health questionnaire or exam.",p:0},{id:"p4",t:"Key person coverage for the business",w:"Protects the business if an owner can't work.",p:0}]},
+   {n:"Review",tasks:[{id:"p5",t:"Review beneficiaries every year",w:"Life changes. Beneficiaries should keep up.",p:0}]}]},
+ {id:"tax",name:"Tax Strategy",pillar:"Structure",addon:true,price:"Add-on",pitch:"Entity elections and owner pay, coordinated with a CPA.",phases:[
+   {n:"Gather",tasks:[{id:"t1",t:"Upload last 2 years of returns",w:"The CPA starts from what you've already filed.",p:0}]},
+   {n:"Plan",tasks:[{id:"t2",t:"CPA review of your entity tax election",w:"For example, whether an S-corp election fits your income.",p:0},{id:"t3",t:"Set an owner pay plan",w:"Salary and distributions planned together.",p:0}]},
+   {n:"Run",tasks:[{id:"t4",t:"Set quarterly estimated payments",w:"Avoids underpayment penalties.",p:0}]}]},
+ {id:"estate",name:"Estate Plan",pillar:"Structure",addon:true,price:"Add-on",pitch:"Trusts and wills so what you built passes on.",phases:[
+   {n:"Map",tasks:[{id:"x1",t:"List assets and beneficiaries",w:"Accounts, property, policies and the business.",p:0}]},
+   {n:"Draft",tasks:[{id:"x2",t:"Consult with an estate attorney",w:"Full Circle coordinates; the attorney drafts.",p:0},{id:"x3",t:"Sign trust and will",w:"Documents take effect once signed and witnessed.",p:0}]},
+   {n:"Fund",tasks:[{id:"x4",t:"Retitle assets into the trust",w:"A trust only controls assets titled to it.",p:0},{id:"x5",t:"Match policy beneficiaries to the plan",w:"Keeps insurance aligned with the trust.",p:0}]}]},
+ {id:"scale",name:"Business Systems",pillar:"Scale",price:"Monthly subscription",pitch:"CRM, follow-up and automation so the business runs without you in every seat.",phases:[
+   {n:"Capture",tasks:[{id:"m1",t:"Set up your CRM",w:"One place for every lead and client.",p:0},{id:"m2",t:"Add a lead capture form",w:"Every inquiry lands in the CRM automatically.",p:0}]},
+   {n:"Convert",tasks:[{id:"m3",t:"Turn on automated follow-up",w:"Texts and emails go out on schedule, so no lead goes cold.",p:0},{id:"m4",t:"Add an online booking calendar",w:"Clients book themselves.",p:0}]},
+   {n:"Grow",tasks:[{id:"m5",t:"Automate review requests",w:"Happy clients become public proof.",p:0}]}]}
+];
+const SYS=Object.fromEntries(SYSTEMS.map(s=>[s.id,s]));
+const ORDER=["entity","credit","biz","funding","protect","tax","estate","scale"];
+const FC_CORE=["entity","credit","biz","funding"];
+
+/* Partner marketplace: entrepreneurs publish their own service as a system on the platform */
+const EX_LISTINGS=[
+ {id:"ex-books",example:true,provider:"Sample Bookkeeping Co.",service:"Monthly Bookkeeping",category:"Structure",pitch:"Clean books every month so lenders and your CPA see real numbers.",price:"Monthly plan",phone:"",email:"",
+  phases:[{n:"Setup",tasks:["Connect bank and card accounts","Choose your chart of accounts"]},{n:"Catch up",tasks:["Reconcile past months","Fix uncategorized transactions"]},{n:"Monthly close",tasks:["Review your profit and loss","Send statements to your advisor"]}]},
+ {id:"ex-brand",example:true,provider:"Sample Brand Studio",service:"Brand & Website Launch",category:"Scale",pitch:"Logo, website and listings that make the business look established.",price:"Project fee",phone:"",email:"",
+  phases:[{n:"Brand",tasks:["Complete the brand questionnaire","Approve logo and colors"]},{n:"Build",tasks:["Approve website pages","Set up domain email"]},{n:"Launch",tasks:["Google Business Profile live","Website live"]}]}
+];
+function partnerSys(L){const id="pt_"+L.id;return{id,partner:true,example:!!L.example,name:L.service,provider:L.provider,pillar:"Partner",cat:L.category,pitch:L.pitch,price:L.price,phone:L.phone,email:L.email,
+  phases:(L.phases||[]).map((p,i)=>({n:p.n,tasks:(p.tasks||[]).map((t,j)=>({id:`${id}_${i}_${j}`,t,w:`${L.provider} guides you through this step.`,p:0}))}))}}
+let ALL_LISTINGS=[],APPROVALS={},DB=null,UID=null,OWNER=false;
+const liveListings=()=>ALL_LISTINGS.filter(l=>APPROVALS[l.id]==="live");
+const allOrder=()=>[...ORDER,...Object.keys(S.pactive||{})];
+function registerPartners(){Object.values(S.pactive||{}).forEach(L=>{const s=partnerSys(L);SYS[s.id]=s})}
+const BLANK_STUDIO={provider:"",service:"",category:"Structure",pitch:"",price:"",phone:"",email:"",phases:[{n:"",tasks:""},{n:"",tasks:""},{n:"",tasks:""}]};
+let P=JSON.parse(JSON.stringify(BLANK_STUDIO));
+const PH_HINT=[["Start","Kickoff call\nCollect documents"],["Deliver","Complete the work\nReview with client"],["Follow up","Results review\nAsk for a referral"]];
+
+const QUESTIONS=[
+ {id:"goal",q:"What do you want most right now?",o:[["funding","Get funding","Capital for the business"],["credit","Fix my credit","Raise scores, clear errors"],["structure","Set up my business","LLC, EIN, banking"],["protect","Protect my family","Life insurance and legacy"]]},
+ {id:"entity",q:"Do you have an LLC or corporation?",o:[["none","Not yet",""],["llc","Yes, an LLC",""],["corp","Yes, a corporation",""]]},
+ {id:"ein",q:"Do you have an EIN and a business bank account?",o:[["neither","Neither",""],["one","One of them",""],["both","Both",""]]},
+ {id:"presence",q:"Business phone, address and website?",o:[["none","None yet",""],["some","Some of them",""],["all","All three",""]]},
+ {id:"credit",q:"About where is your personal credit score?",o:[["low","Under 600",""],["mid","600 to 679",""],["good","680 to 719",""],["great","720 or higher",""]]},
+ {id:"util",q:"How much of your credit card limits are you using?",o:[["o50","Over 50%",""],["30","30–50%",""],["10","10–30%",""],["u10","Under 10%",""],["nocards","I don't have cards",""]]},
+ {id:"bizacct",q:"Accounts reporting in your business's name?",o:[["none","None yet",""],["few","1–2 accounts",""],["three","3+ vendor accounts",""],["card","3+ plus a card",""]]},
+ {id:"years",q:"How long has the business been operating?",o:[["new","Just starting",""],["lt2","Under 2 years",""],["gt2","2 years or more",""]]},
+ {id:"deps",q:"Does anyone depend on your income?",o:[["yes","Yes","Spouse, kids or family"],["no","No",""]]}
+];
+/* Full Circle Score: what you already have (from your answers) or what you've completed, whichever is higher, per part */
+const BASE={entity:{none:0,llc:10,corp:10},ein:{neither:0,one:5,both:10},presence:{none:0,some:5,all:10},credit:{low:5,mid:15,good:25,great:30},util:{o50:0,"30":4,"10":7,u10:10,nocards:5},bizacct:{none:0,few:10,three:20,card:30}};
+const bv=(k)=>(BASE[k]&&BASE[k][S.answers[k]])||0;
+function prefill(a){const d={};if(a.entity&&a.entity!=="none")d.e2=1;if(a.ein==="both"){d.e3=1;d.e4=1}else if(a.ein==="one")d.e3=1;if(a.presence==="all")d.e5=1;if(a.bizacct==="three"||a.bizacct==="card")d.b1=1;if(a.bizacct==="card")d.b3=1;return d}
+function recommend(a){
+  const r=new Set();
+  if(a.goal==="funding")["entity","credit","biz","funding"].forEach(x=>r.add(x));
+  if(a.goal==="credit")["credit","biz"].forEach(x=>r.add(x));
+  if(a.goal==="structure")["entity","biz","scale"].forEach(x=>r.add(x));
+  if(a.goal==="protect")["protect","estate"].forEach(x=>r.add(x));
+  if(a.entity==="none")r.add("entity");
+  if(/low|mid/.test(a.credit))r.add("credit");
+  if(a.deps==="yes")r.add("protect");
+  return ORDER.filter(x=>r.has(x));
+}
+
+const EXAMPLE={example:true,name:"Jordan",biz:"Sample Co.",answers:{goal:"funding",entity:"llc",ein:"one",presence:"some",credit:"mid",util:"30",bizacct:"few",years:"lt2",deps:"yes"},
+ active:{entity:1,credit:1,biz:1,funding:1,protect:1},pactive:{},done:{e1:1,e2:1,e3:1,e4:1,e6:1,c1:1,c2:1,b1:1},tools:{},chat:[]};
+
+let S=JSON.parse(JSON.stringify(EXAMPLE)), store=null, sample=null;
+let ui={view:"home",sys:null,phase:{},open:{},step:0,draft:{},picks:null,confirm:false,busy:false};
+
+/* ---------- logic ---------- */
+const title=(t)=>typeof t.t==="function"?t.t(S.answers):t.t;
+const tasksOf=s=>s.phases.flatMap(p=>p.tasks);
+const done=id=>!!S.done[id];
+const active=id=>!!S.active[id];
+const earned=id=>tasksOf(SYS[id]).reduce((n,t)=>n+(done(t.id)?t.p:0),0);
+function parts(){return[
+  {id:"entity",n:"Structure",max:30,v:Math.min(30,Math.max(bv("entity")+bv("ein")+bv("presence"),earned("entity")))},
+  {id:"credit",n:"Personal credit",max:40,v:Math.min(40,Math.max(bv("credit")+bv("util"),earned("credit")))},
+  {id:"biz",n:"Business credit",max:30,v:Math.min(30,Math.max(bv("bizacct"),earned("biz")))}]}
+function readiness(){return parts().reduce((n,p)=>n+p.v,0)}
+const locked=s=>s.gate&&readiness()<GATE;
+function prog(s){const ts=tasksOf(s),d=ts.filter(t=>done(t.id)).length;return{d,total:ts.length,pct:ts.length?d/ts.length:0}}
+function phaseNow(s){const i=s.phases.findIndex(p=>p.tasks.some(t=>!done(t.id)));return i<0?s.phases.length-1:i}
+function nextStep(){let wait=null;for(const id of allOrder()){if(!active(id))continue;const s=SYS[id];if(!s||locked(s))continue;for(const p of s.phases)for(const t of p.tasks)if(!done(t.id)){if(t.adv){wait=wait||{s,t,adv:1};continue}return{s,t}}}return wait}
+const activeList=()=>allOrder().filter(active).map(id=>SYS[id]).filter(Boolean);
+
+/* ---------- storage: private per-person doc when signed in, else this browser ---------- */
+async function initStore(){
+  try{const [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+    if(user){try{OWNER=await user.isOwner()}catch(e){}}
+    if(db&&user){const id=await user.id();if(id){DB=db;UID=id;const col=db.collection("data/users/"+id);
+      store={get:async k=>{const s=await col.doc(k).get();return s.exists?s.data():null},set:(k,v)=>col.doc(k).set(v)};return}}}catch(e){}
+  store={get:async k=>{try{return JSON.parse(localStorage.getItem("fcos-"+k)||"null")}catch(e){return null}},set:async(k,v)=>{try{localStorage.setItem("fcos-"+k,JSON.stringify(v))}catch(e){}}};
+}
+function watchMarket(){
+  if(!DB)return;
+  const busy=()=>{const a=document.activeElement;return a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)};
+  const refresh=()=>{if(["catalog","studio"].includes(ui.view)&&!busy())render()};
+  try{DB.collection("listings").onSnapshot(s=>{ALL_LISTINGS=s.docs.map(d=>({...d.data(),id:d.id}));refresh()},()=>{})}catch(e){}
+  try{DB.collection("approvals").onSnapshot(s=>{APPROVALS=Object.fromEntries(s.docs.map(d=>[d.id,(d.data()||{}).status]));refresh()},()=>{})}catch(e){}
+}
+let saveT;function save(){if(S.example)return;clearTimeout(saveT);saveT=setTimeout(()=>{store&&Promise.resolve(store.set("plan",JSON.parse(JSON.stringify(S)))).catch(()=>{})},400)}
+let saveP;function saveStudio(){clearTimeout(saveP);saveP=setTimeout(()=>{store&&Promise.resolve(store.set("studio",JSON.parse(JSON.stringify(P)))).catch(()=>{})},500)}
+let toastT;function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2200)}
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money=n=>"$"+Math.round(n).toLocaleString("en-US");
+function ring(v,max,size,stroke,label){const r=(size-stroke)/2,C=2*Math.PI*r,off=C*(1-Math.min(1,v/max));
+  return `<div class="ring" style="width:${size}px;height:${size}px"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--line)" stroke-width="${stroke}"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--gold)" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/></svg>${label?`<div class="v">${label}</div>`:""}</div>`}
+
+/* ---------- views ---------- */
+function go(view,extra={}){Object.assign(ui,{view,confirm:false},extra);render();scrollTo({top:0})}
+function render(){
+  const nav=$("#nav");nav.hidden=ui.view==="intake";
+  nav.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.nav===(ui.view==="system"?"home":ui.view)));
+  if(ui.view==="system"&&!SYS[ui.sys])ui.view="home";
+  const v={home:vHome,system:vSystem,catalog:vCatalog,studio:vStudio,guide:vGuide,advisor:vAdvisor,intake:vIntake}[ui.view]();
+  $("#app").innerHTML=`<div class="view">${v}</div>`;
+  if(ui.view==="system")updateTool();
+  if(ui.view==="guide"){const c=$("#chat");c&&(c.scrollTop=c.scrollHeight)}
+}
+const exampleBanner=()=>S.example?`<div class="banner"><span><b>Example client.</b> Explore freely, then answer a few one-tap questions (about 2 minutes) to set up your own OS.</span><button class="btn sm" data-act="start" type="button">Set up my OS</button></div>`:"";
+const topbar=(right="")=>`<div class="top"><span class="brand">FULL CIRCLE OS</span>${right}</div>`;
+
+function vHome(){
+  const r=readiness(),nx=nextStep(),list=activeList();
+  return `${topbar(S.example?"":`<button class="ghostbtn" data-act="restart" type="button">Start over</button>`)}
+  ${ui.confirm?`<div class="card confirm"><span>Start a new setup? Your progress will be cleared.</span><button class="btn sm" data-act="yes" type="button">Yes, start over</button><button class="btn sm line" data-act="no" type="button">Keep my OS</button></div>`:""}
+  ${exampleBanner()}
+  <div class="card hero">
+    ${ring(r,100,118,9,`<div class="n" style="font-size:32px">${r}</div><div class="l">FC Score</div>`)}
+    <div style="min-width:0">
+      <h1>${S.name?esc(S.name)+"'s":"Your"} operating system</h1>
+      <div class="small">${list.length} system${list.length===1?"":"s"} running${S.biz?" for "+esc(S.biz):""} · ${r>=GATE?"funding unlocked":`${GATE-r} points to unlock funding`}</div>
+      <div class="parts">${parts().map(p=>`<div class="part"><span>${p.n}</span><div class="meter"><i style="width:${p.v/p.max*100}%"></i></div><span class="pv">${p.v}/${p.max}</span></div>`).join("")}</div>
+      ${nx?`<div class="next"><div style="min-width:0"><div class="lbl">${nx.adv?"Your advisor is on it":"Do this next"}</div><div class="t">${esc(title(nx.t))}</div><div class="small">${esc(nx.s.name)}${nx.adv?" · we'll update you":nx.t.p?` · up to +${nx.t.p} score`:""}</div></div><button class="btn sm" data-sys="${nx.s.id}" data-focus="${nx.t.id}" type="button">Open</button></div>`
+          :`<div class="next"><div class="t">Every running system is complete. Add another to keep building.</div></div>`}
+    </div>
+  </div>
+  <div class="top"><h2 style="margin:0">Your systems</h2><button class="back" data-nav="catalog" type="button">Add a system</button></div>
+  <div class="tiles">${list.map(s=>{const p=prog(s),lk=locked(s);
+    return `<button type="button" class="tile" data-sys="${s.id}"><div class="hd"><span class="nm">${s.name}</span>${ring(p.d,p.total||1,36,4,"")}</div><div class="sub">${lk?`Unlocks at score ${GATE}`:`${s.phases[phaseNow(s)].n} · ${p.d} of ${p.total} done`}</div>${lk?`<span class="tag l">Locked</span>`:p.d===p.total?`<span class="tag ok">Complete</span>`:`<span class="tag g">${s.pillar}</span>`}</button>`}).join("")}
+    <button type="button" class="tile add" data-nav="catalog">+ Add a system</button>
+  </div>
+  ${disclaimer()}`;
+}
+
+function vSystem(){
+  const s=SYS[ui.sys],p=prog(s),lk=locked(s),pi=ui.phase[s.id]??phaseNow(s),ph=s.phases[pi],r=readiness();
+  return `<div class="top"><button class="back" data-nav="home" type="button">← Home</button><span class="tag g">${s.pillar}${s.addon?" add-on":""}</span></div>
+  ${exampleBanner()}
+  <div class="card shead">
+    <div style="display:flex;gap:14px;align-items:center">${ring(p.d,p.total,64,6,`<div class="n" style="font-size:16px">${Math.round(p.pct*100)}%</div>`)}<div style="min-width:0"><h1>${s.name}</h1><div class="small">${esc(s.pitch)}</div>${s.price?`<div class="price">${esc(s.price)}</div>`:""}</div></div>
+  </div>
+  ${lk?`<div class="lock"><b>This system unlocks at a Full Circle Score of ${GATE}. You're at ${r}.</b><div class="meter"><i style="width:${r/GATE*100}%"></i></div><div class="feeds">${parts().map(pt=>{const id=pt.id,x=SYS[id];
+      return `<div class="feed"><span>${x.name} <span class="small">${pt.v} of ${pt.max} pts</span></span>${active(id)?`<button class="btn sm line" data-sys="${id}" type="button">Open</button>`:`<button class="btn sm" data-add="${id}" type="button">Add</button>`}</div>`}).join("")}</div><div class="small">Applying before your profile is ready can mean denials and extra hard inquiries. These systems get you there.</div></div>`:""}
+  <div class="card">
+    <div class="lbl" style="margin-bottom:8px">Framework</div>
+    <div class="phases" style="--n:${s.phases.length}" role="tablist">${s.phases.map((x,i)=>{const d=x.tasks.filter(t=>done(t.id)).length;
+      return `<button type="button" role="tab" aria-selected="${i===pi}" class="ph ${d===x.tasks.length?"done":""} ${i===phaseNow(s)?"now":""} ${i===pi?"sel":""}" data-ph="${i}"><span class="pn">${i+1}. ${x.n}</span><span class="pc">${d}/${x.tasks.length}</span></button>`}).join("")}</div>
+    <div class="tasks" style="margin-top:12px">${ph.tasks.map(t=>{const d=done(t.id);
+      return `<div class="task ${d?"d":""}" id="task-${t.id}"><div class="trow"><button type="button" class="cb ${d?"y":""}" data-t="${t.id}" aria-label="${d?"Mark not done":"Mark done"}: ${esc(title(t))}" ${lk||S.example||t.adv?"disabled":""}></button><button type="button" class="tt" data-w="${t.id}" aria-expanded="${!!ui.open[t.id]}">${esc(title(t))}</button><span class="pts">${t.adv?`<span class="advtag">Advisor step</span>`:t.p?"+"+t.p:""}</span></div>${ui.open[t.id]?`<div class="why">${esc(t.w)}</div>`:""}</div>`}).join("")}</div>
+    <div class="small" style="margin-top:10px">${S.example?"Check-offs are off in the example.":"Tap a task to see why it matters."}</div>
+  </div>
+  ${s.tool?`<div class="card tool">${toolHTML(s.tool)}</div>`:""}
+  ${s.partner?`<div class="card"><div class="lbl">Your provider</div><div class="val" style="margin-top:4px">${esc(s.provider)}</div>${s.price?`<div class="small">${esc(s.price)}</div>`:""}
+    ${s.phone||s.email?`<div class="contact" style="margin-top:10px">${s.phone?`<div><div class="lbl">Phone</div><div class="val">${esc(s.phone)}</div></div>`:""}${s.email?`<div><div class="lbl">Email</div><div class="val">${esc(s.email)}</div></div>`:""}</div>`:""}
+    ${s.example?`<div class="small" style="margin-top:8px">Example provider for illustration.</div>`:""}</div>
+    ${FC_CORE.some(id=>!active(id))?`<div class="card"><h2>Pair it with Full Circle systems</h2><div class="feeds">${FC_CORE.filter(id=>!active(id)).map(id=>`<div class="feed"><span>${SYS[id].name} <span class="small">${esc(SYS[id].pitch)}</span></span><button class="btn sm" data-add="${id}" type="button">Add</button></div>`).join("")}</div></div>`:""}`:""}
+  <div class="card"><div class="row" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="small">Questions about ${s.name}?</span><button class="btn sm line" data-asksys="${s.id}" type="button">Ask the guide</button></div></div>
+  ${!S.example?`<div><button class="back" style="color:var(--muted)" data-remove="${s.id}" type="button">Remove this system</button></div>`:""}`;
+}
+
+function vCatalog(){
+  const rec=new Set(recommend(S.answers));
+  const row=s=>`<div class="card citem"><div style="min-width:0"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>${s.name}</b>${s.addon?`<span class="tag l">Add-on</span>`:""}${rec.has(s.id)&&!active(s.id)?`<span class="rec">RECOMMENDED</span>`:""}</div><p>${esc(s.pitch)}</p><div class="small">${s.phases.map(p=>p.n).join(" → ")}</div>${s.price?`<div class="price">${esc(s.price)}</div>`:""}</div>
+    ${active(s.id)?`<button class="btn sm line" data-sys="${s.id}" type="button">Open</button>`:`<button class="btn sm" data-add="${s.id}" type="button">Add</button>`}</div>`;
+  return `${topbar()}${exampleBanner()}
+  <div><h1>Systems</h1><p class="muted" style="margin:6px 0 0">Full Circle OS runs every service as its own system. Add what you need. Your score check and strategy call are free, and nothing is charged until you approve it.</p></div>
+  <div class="cat">${["Leverage","Structure","Protection","Scale"].map(pl=>{const xs=SYSTEMS.filter(s=>s.pillar===pl);return `<div class="lbl" style="margin-top:6px">${pl}</div>${xs.map(row).join("")}`}).join("")}</div>
+  <div><h2 style="margin:10px 0 4px">Partner marketplace</h2><p class="small" style="margin:0">Services from independent providers, run as systems inside your OS. Each provider is approved by Full Circle.</p></div>
+  <div class="cat">${[...liveListings(),...EX_LISTINGS].map(L=>{const id="pt_"+L.id;return `<div class="card citem"><div style="min-width:0"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>${esc(L.service)}</b>${L.example?`<span class="tag l">Example</span>`:`<span class="tag g">Partner</span>`}</div><div class="prov">by ${esc(L.provider)}${L.price?" · "+esc(L.price):""}</div><p>${esc(L.pitch)}</p><div class="small">${(L.phases||[]).map(p=>esc(p.n)).join(" → ")}</div></div>
+    ${active(id)?`<button class="btn sm line" data-sys="${id}" type="button">Open</button>`:`<button class="btn sm" data-addp="${esc(L.id)}" type="button">Add</button>`}</div>`}).join("")}</div>
+  <div class="card citem"><div><b>Offer your own service here</b><p>Build your service as a system, publish it to the marketplace, and give your clients Full Circle's systems too.</p></div><button class="btn sm line" data-nav="studio" type="button">Open Studio</button></div>
+  ${disclaimer()}`;
+}
+
+/* ---------- provider studio ---------- */
+function cleanStudio(){
+  const phases=P.phases.map((p,i)=>({n:(p.n||"").trim().slice(0,24),tasks:(p.tasks||"").split("\n").map(t=>t.trim().slice(0,80)).filter(Boolean).slice(0,6)})).filter(p=>p.n&&p.tasks.length).slice(0,4);
+  return{provider:P.provider.trim().slice(0,60),service:P.service.trim().slice(0,60),category:P.category,pitch:P.pitch.trim().slice(0,160),price:P.price.trim().slice(0,40),phone:P.phone.trim().slice(0,30),email:P.email.trim().slice(0,80),phases};
+}
+function previewHTML(){
+  const c=cleanStudio(),ph=c.phases.length?c.phases:PH_HINT.map(([n,t])=>({n,tasks:t.split("\n")}));
+  return `<div class="lbl">Live preview${c.service?"":" (example text)"}</div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px"><b>${esc(c.service||"Your service name")}</b><span class="tag g">Partner</span></div>
+  <div class="prov">by ${esc(c.provider||"Your business")}${c.price?" · "+esc(c.price):""}</div>
+  <p class="small" style="margin:6px 0">${esc(c.pitch||"One line on what clients get.")}</p>
+  <div class="pchips">${ph.map((p,i)=>`<span>${i+1}. ${esc(p.n)} · ${p.tasks.length} task${p.tasks.length===1?"":"s"}</span>`).join("")}</div>`;
+}
+function myStatus(){if(!UID)return null;const mine=ALL_LISTINGS.find(l=>l.id===UID);if(!mine)return"Draft";const a=APPROVALS[UID];return a==="live"?"Live":a==="hidden"?"Not approved":"In review"}
+function vStudio(){
+  const st=myStatus();
+  const f=(k,l,ph,type="text",extra="")=>`<label class="fld">${l}<input id="st-${k}" data-st="${k}" type="${type}" value="${esc(P[k])}" placeholder="${esc(ph)}" ${extra}></label>`;
+  return `${topbar(st?`<span class="tag ${st==="Live"?"ok":st==="Draft"?"l":"g"}">${st}</span>`:"")}
+  <div><h1>Provider Studio</h1><p class="muted" style="margin:6px 0 0">Run your service on Full Circle OS. Your service becomes a system clients add to their OS, with the same framework, progress tracking and AI guide.</p></div>
+  <div class="card"><div class="perks">
+    <div class="perk"><b>Your service as a system</b>Phases, tasks and progress your clients follow in their portal.</div>
+    <div class="perk"><b>Full Circle systems for your clients</b>Credit, entity setup, business credit and funding sit beside your service.</div>
+    <div class="perk"><b>A place in the marketplace</b>Every Full Circle OS client can find and add your service.</div>
+    <div class="perk"><b>Your own OS</b>Run your business on the same systems: structure, credit, funding and automation.</div>
+  </div></div>
+  <div class="card tool"><h2>Your service</h2>
+    <div class="fgrid">${f("provider","Your business name","Example: Desert Books LLC","text",'autocomplete="organization"')}${f("service","Service name","Example: Monthly Bookkeeping")}</div>
+    <div class="fgrid"><label class="fld">Category<select id="st-category" data-st="category">${["Structure","Leverage","Protection","Scale","Other"].map(c=>`<option ${P.category===c?"selected":""}>${c}</option>`).join("")}</select></label>${f("price","Pricing (shown to clients)","Example: From $299/month")}</div>
+    ${f("pitch","One-line pitch","What clients get, in one sentence")}
+    <div class="fgrid">${f("phone","Contact phone","602-555-0100","tel")}${f("email","Contact email","you@business.com","email")}</div>
+  </div>
+  <div class="card tool"><h2>Your framework</h2><p class="small" style="margin:0">Up to 4 phases. Put one task per line.</p>
+    ${P.phases.map((p,i)=>`<div class="phrow"><label class="fld">Phase ${i+1} name<input id="st-ph${i}" data-stp="${i}" data-stf="n" value="${esc(p.n)}" placeholder="${esc((PH_HINT[i]||["Phase"])[0])}"></label><label class="fld">Tasks<textarea id="st-tk${i}" data-stp="${i}" data-stf="tasks" placeholder="${esc((PH_HINT[i]||["","One task per line"])[1])}">${esc(p.tasks)}</textarea></label></div>`).join("")}
+    ${P.phases.length<4?`<div><button class="btn sm line" data-act="addphase" type="button">+ Add a phase</button></div>`:""}
+  </div>
+  <div class="card" id="preview">${previewHTML()}</div>
+  <div class="card" style="display:grid;gap:10px">
+    <div id="sterr" class="err" hidden></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="submit" type="button">${st&&st!=="Draft"?"Update my listing":"Submit for review"}</button>${st&&st!=="Draft"?`<button class="btn line" data-act="withdraw" type="button">Withdraw listing</button>`:""}</div>
+    <div class="small">${UID?"Full Circle reviews every listing before it appears in the marketplace. Your draft saves as you type.":"Sign in to claude.ai to publish. Your draft saves in this browser."}</div>
+  </div>
+  ${OWNER?vAdmin():""}`;
+}
+function vAdmin(){
+  return `<div class="card"><h2>Review listings</h2><p class="small" style="margin:0 0 10px">Only you see this. Approve a listing to show it in the marketplace.</p>
+  ${ALL_LISTINGS.length?`<div class="cat">${ALL_LISTINGS.map(L=>{const a=APPROVALS[L.id];return `<div class="citem" style="border-top:1px solid var(--line);padding-top:10px"><div style="min-width:0"><b>${esc(L.service)}</b> <span class="tag ${a==="live"?"ok":a==="hidden"?"l":"g"}">${a==="live"?"Live":a==="hidden"?"Hidden":"In review"}</span><div class="prov">by ${esc(L.provider)}${L.email?" · "+esc(L.email):""}${L.phone?" · "+esc(L.phone):""}</div><div class="small">${(L.phases||[]).map(p=>esc(p.n)).join(" → ")}</div></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">${a!=="live"?`<button class="btn sm" data-approve="${esc(L.id)}" type="button">Approve</button>`:""}${a!=="hidden"?`<button class="btn sm line" data-hide="${esc(L.id)}" type="button">Hide</button>`:""}</div></div>`}).join("")}</div>`:`<div class="small">No listings yet. When a provider submits one, it appears here.</div>`}</div>`;
+}
+
+function vGuide(){
+  const msgs=S.chat.length?S.chat:[{r:"a",t:`Hi${S.name?" "+S.name:""}. I can see every system in your OS. Ask what a step means, which system to add, or what to do next.`}];
+  return `${topbar()}<div><h1>AI guide</h1></div>
+  <div class="card" style="display:grid;gap:12px">
+    <div class="chat" id="chat">${msgs.map(m=>`<div class="msg ${m.r}">${esc(m.t)}</div>`).join("")}${ui.busy?`<div class="msg a" id="live">Thinking…</div>`:""}</div>
+    <div class="chips">${["What should I do next?","Which systems do I need?","How does my score work?","How does the funding fee work?"].map(c=>`<button type="button" class="chip" data-q="${esc(c)}">${c}</button>`).join("")}</div>
+    <form class="ask" id="askf"><input id="askin" placeholder="Ask about your OS" autocomplete="off"><button class="btn" type="submit" ${ui.busy?"disabled":""}>Ask</button></form>
+    <div class="small">The guide explains your plan. Legal, tax and specific policy advice comes from your advisor or a licensed professional.</div>
+  </div>`;
+}
+
+function vAdvisor(){
+  return `${topbar()}<div><h1>Your advisor</h1><p class="muted" style="margin:6px 0 0">Book your strategy call to confirm your systems and pricing.</p></div>
+  <div class="card contact">
+    <div><div class="lbl">Advisor</div><div class="val">Breyon Miller</div><div class="small">Founder &amp; Financial Architect, Full Circle Financial Group</div></div>
+    <div><div class="lbl">Call or text</div><div class="val" id="cph">${CONTACT.phone}</div><button class="ghostbtn" data-copy="cph" type="button" style="margin-top:6px">Copy</button></div>
+    <div><div class="lbl">Email</div><div class="val" id="cem">${CONTACT.email}</div><button class="ghostbtn" data-copy="cem" type="button" style="margin-top:6px">Copy</button></div>
+  </div>
+  <div class="card"><h2>Systems to review on your call</h2>${activeList().length?`<div class="small">${activeList().map(s=>s.name).join(" · ")}</div>`:`<div class="small">No systems added yet.</div>`}</div>
+  ${disclaimer()}`;
+}
+
+function vIntake(){
+  const n=QUESTIONS.length,st=ui.step,d=ui.draft;let body;
+  if(st<n){const q=QUESTIONS[st];body=`<h1>${q.q}</h1><div class="opts">${q.o.map(([v,l,s])=>`<button type="button" class="opt ${d[q.id]===v?"on":""}" data-v="${v}">${l}${s?`<span>${s}</span>`:""}</button>`).join("")}</div>`}
+  else if(st===n){body=`<h1>Who is this OS for?</h1>
+    <label class="fld">Your first name<input id="nm" value="${esc(d.name)}" autocomplete="given-name"></label>
+    <label class="fld">Business name (optional)<input id="bz" value="${esc(d.biz)}" autocomplete="organization"></label>
+    <button class="btn" data-act="names" type="button">Continue</button>`}
+  else{if(!ui.picks)ui.picks=new Set(recommend(d));
+    body=`<h1>Your OS setup</h1><p class="muted" style="margin:0">We picked these systems from your answers. Tap to add or remove any.</p>
+    <div style="display:grid;gap:8px">${ORDER.map(id=>{const s=SYS[id],on=ui.picks.has(id);return `<button type="button" class="pick ${on?"on":""}" data-pick="${id}" aria-pressed="${on}"><span class="cb ${on?"y":""}" aria-hidden="true"></span><span style="min-width:0"><b>${s.name}</b>${s.addon?` <span class="tag l">Add-on</span>`:""}<br><span class="small">${esc(s.pitch)}</span></span></button>`}).join("")}</div>
+    <button class="btn" data-act="launch" type="button" ${ui.picks.size?"":"disabled"}>Launch my OS (${ui.picks.size} system${ui.picks.size===1?"":"s"})</button>
+    <div class="small">Adding a system starts it in your portal. Your advisor confirms pricing before any charge.</div>`}
+  return `${topbar(`<button class="ghostbtn" data-act="cancel" type="button">Cancel</button>`)}
+  <div class="prog">${Array.from({length:n+2},(_,i)=>`<i class="${i<=st?"on":""}"></i>`).join("")}</div>
+  <div class="small">Step ${st+1} of ${n+2}</div>
+  <div class="card" style="display:grid;gap:12px">${body}</div>
+  ${st>0?`<div><button class="btn line sm" data-act="back" type="button">Back</button></div>`:""}`;
+}
+const disclaimer=()=>`<p class="small">Full Circle Financial Group does not guarantee credit score changes or funding approval; results depend on your history and lender criteria. Insurance is offered through licensed agents. Legal and tax work is done by licensed professionals.</p>`;
+
+/* ---------- tools ---------- */
+const TOOL_DEF={bal:3200,lim:8000,amt:75000,rate:8,inc:85000,yrs:10,debt:220000,have:0,v:1,sc:0,bc:0,own:"solo",assets:"no"};
+const TV=(k,d)=>S.tools[k]??(k in TOOL_DEF?TOOL_DEF[k]:d);
+function toolHTML(k){
+  if(k==="util")return `<h2>Utilization calculator</h2><div class="fgrid">
+    <label class="fld">Total card balances ($)<input type="number" inputmode="decimal" min="0" data-tool="bal" value="${TV("bal",3200)}"></label>
+    <label class="fld">Total credit limits ($)<input type="number" inputmode="decimal" min="0" data-tool="lim" value="${TV("lim",8000)}"></label></div><div class="out" id="tout"></div>`;
+  if(k==="fee")return `<h2>Funding fee calculator</h2><div class="fgrid">
+    <label class="fld">Funding amount ($)<input type="number" inputmode="decimal" min="0" data-tool="amt" value="${TV("amt",75000)}"></label>
+    <label class="fld">Fee rate<select data-tool="rate">${[5,6,7,8,9,10].map(x=>`<option value="${x}" ${+TV("rate",8)===x?"selected":""}>${x}%</option>`).join("")}</select></label></div><div class="out" id="tout"></div>`;
+  if(k==="cover")return `<h2>Coverage estimator</h2><div class="fgrid">
+    <label class="fld">Annual income ($)<input type="number" inputmode="decimal" min="0" data-tool="inc" value="${TV("inc",85000)}"></label>
+    <label class="fld">Years to replace<input type="number" inputmode="numeric" min="0" max="40" data-tool="yrs" value="${TV("yrs",10)}"></label>
+    <label class="fld">Debts incl. mortgage ($)<input type="number" inputmode="decimal" min="0" data-tool="debt" value="${TV("debt",220000)}"></label>
+    <label class="fld">Existing coverage ($)<input type="number" inputmode="decimal" min="0" data-tool="have" value="${TV("have",0)}"></label></div><div class="out" id="tout"></div>`;
+  if(k==="tiers")return `<h2>Tier tracker</h2><p class="small" style="margin:0">How many reporting accounts does the business have?</p><div class="fgrid">
+    <label class="fld">Net-30 vendor accounts<input type="number" min="0" inputmode="numeric" data-tool="v" value="${TV("v",1)}"></label>
+    <label class="fld">Store or fuel cards<input type="number" min="0" inputmode="numeric" data-tool="sc" value="${TV("sc",0)}"></label>
+    <label class="fld">Business credit cards<input type="number" min="0" inputmode="numeric" data-tool="bc" value="${TV("bc",0)}"></label></div><div class="out" id="tout"></div>`;
+  if(k==="entity"){const q=[["own","Who owns it?",[["solo","Just me"],["multi","Partners"]]],["assets","Will you hold property or more than one business?",[["no","No"],["yes","Yes"]]]];
+    return `<h2>Structure finder</h2>${q.map(([id,l,o])=>`<div class="fld">${l}<div class="seg">${o.map(([v,t])=>`<button type="button" class="${TV(id,o[0][0])===v?"on":""}" data-seg="${id}" data-val="${v}">${t}</button>`).join("")}</div></div>`).join("")}<div class="out" id="tout"></div>`}
+  return "";
+}
+function updateTool(){
+  const o=$("#tout");if(!o)return;const n=k=>Math.max(0,+TV(k,0)||0);const k=SYS[ui.sys].tool;let h="";
+  if(k==="util"){const b=n("bal"),l=n("lim"),u=l?b/l*100:0;h=`<div class="lbl">Your utilization</div><div class="big">${l?u.toFixed(0)+"%":"–"}</div><div class="small">${l?`Under 10% means total balances of ${money(l*.1)} or less. That's ${b>l*.1?money(b-l*.1)+" to pay down":"already met"}.`:"Enter your total limits."}</div>`}
+  if(k==="fee"){const a=n("amt"),r=+TV("rate",8),f=Math.min(a*r/100,10000);h=`<div class="lbl">Success fee</div><div class="big">${money(f)}</div><div class="small">${r}% of ${money(a)}${a*r/100>10000?", capped at $10,000":""}. Paid only when funding closes.</div>`}
+  if(k==="cover"){const need=Math.max(0,n("inc")*n("yrs")+n("debt")-n("have"));h=`<div class="lbl">Estimated need</div><div class="big">${money(need)}</div><div class="small">Income × years + debts − existing coverage. A rough starting point; your licensed agent refines it.</div>`}
+  if(k==="tiers"){const v=n("v"),sc=n("sc"),bc=n("bc");const tier=bc>=1&&sc>=1&&v>=3?3:sc>=1&&v>=3?2:v>=3?1:0;
+    h=`<div class="lbl">Tier reached</div><div class="big">${tier?"Tier "+tier:"Getting started"}</div><div class="small">${tier===3?"Ready to talk about larger lines at your funding review.":tier===2?"Next: one business credit card.":tier===1?"Next: one store or fuel card.":`Open ${3-v} more net-30 account${3-v===1?"":"s"} to reach Tier 1.`}</div>`}
+  if(k==="entity"){const own=TV("own","solo"),as=TV("assets","no");const s=as==="yes"?"Holding company with an operating LLC":own==="multi"?"Multi-member LLC":"Single-member LLC";
+    h=`<div class="lbl">Likely fit</div><div class="big" style="font-size:20px">${s}</div><div class="small">${as==="yes"?"The holding company owns the operating business and property separately, so one problem doesn't reach everything.":own==="multi"?"An operating agreement sets each partner's share and decision rights.":"Simple to run and separates business debt from you."} Your advisor and attorney confirm before filing.</div>`}
+  o.innerHTML=h;
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("button");if(!b)return;const d=b.dataset;
+  if(d.nav)return go(d.nav);
+  if(d.sys){ui.sys=d.sys;delete ui.phase[d.sys];go("system");if(d.focus){ui.open[d.focus]=true;render();const el=document.getElementById("task-"+d.focus);el&&el.scrollIntoView({block:"center",behavior:"smooth"})}return}
+  if(d.ph){ui.phase[ui.sys]=+d.ph;return render()}
+  if(d.w){ui.open[d.w]=!ui.open[d.w];return render()}
+  if(d.t){S.done[d.t]=S.done[d.t]?0:1;save();const s=SYS[ui.sys],p=prog(s);render();
+    if(S.done[d.t]){const ph=s.phases.find(x=>x.tasks.some(t=>t.id===d.t));if(ph.tasks.every(t=>done(t.id)))toast(p.d===p.total?`${s.name} complete`:`${ph.n} phase complete`)}
+    if(readiness()<GATE&&S.notified){S.notified=0;save()}
+    if(readiness()>=GATE&&S.active.funding&&!S.notified){S.notified=1;save();toast("Funding Engine unlocked")}return}
+  if(d.add){if(S.example){toast("Set up your own OS to add systems");return}S.active[d.add]=1;save();toast(`${SYS[d.add].name} added to your OS`);ui.sys=d.add;return go("system")}
+  if(d.addp){if(S.example){toast("Set up your own OS to add systems");return}
+    const L=[...liveListings(),...EX_LISTINGS].find(x=>x.id===d.addp);if(!L)return;const id="pt_"+L.id;
+    S.pactive[id]=JSON.parse(JSON.stringify(L));S.active[id]=1;registerPartners();save();toast(`${L.service} added to your OS`);ui.sys=id;return go("system")}
+  if(d.approve||d.hide){const id=d.approve||d.hide;try{await DB.collection("approvals").doc(id).set({status:d.approve?"live":"hidden",at:new Date().toISOString()});toast(d.approve?"Listing approved":"Listing hidden")}catch(err){toast("Couldn't update the listing")}return}
+  if(d.remove){if(S.pactive)delete S.pactive[d.remove];delete S.active[d.remove];save();toast(`${SYS[d.remove].name} removed`);return go("home")}
+  if(d.seg){S.tools[d.seg]=d.val;save();b.parentElement.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));return updateTool()}
+  if(d.q)return ask(d.q);
+  if(d.asksys){go("guide");return ask(`Walk me through my ${SYS[d.asksys].name} system. Where am I and what's next?`)}
+  if(d.copy){const el=document.getElementById(d.copy);try{await navigator.clipboard.writeText(el.textContent);b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1400)}catch(err){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}return}
+  if(d.pick){ui.picks.has(d.pick)?ui.picks.delete(d.pick):ui.picks.add(d.pick);return render()}
+  if(d.v){ui.draft[QUESTIONS[ui.step].id]=d.v;ui.step++;ui.picks=null;return render()}
+  switch(d.act){
+    case "start":return go("intake",{step:0,draft:{},picks:null});
+    case "restart":ui.confirm=true;return render();
+    case "no":ui.confirm=false;return render();
+    case "yes":return go("intake",{step:0,draft:{},picks:null});
+    case "cancel":return go("home");
+    case "back":ui.step--;return render();
+    case "addphase":P.phases.push({n:"",tasks:""});saveStudio();return render();
+    case "submit":{const c=cleanStudio(),er=$("#sterr");const miss=!c.provider?"Add your business name.":!c.service?"Add a service name.":!c.pitch?"Add a one-line pitch.":!c.phases.length?"Add at least one phase with a task.":"";
+      if(miss){er.textContent=miss;er.hidden=false;return}
+      if(!DB||!UID){er.textContent="Sign in to claude.ai to publish your listing. Your draft is saved.";er.hidden=false;return}
+      try{await DB.collection("listings").doc(UID).set({...c,updated:new Date().toISOString()});toast("Submitted for review")}
+      catch(err){er.textContent="Couldn't publish. Ask Full Circle for contributor access to this page, then try again.";er.hidden=false}return}
+    case "withdraw":try{await DB.collection("listings").doc(UID).delete();toast("Listing withdrawn")}catch(err){toast("Couldn't withdraw the listing")}return;
+    case "names":ui.draft.name=$("#nm").value.trim().slice(0,40);ui.draft.biz=$("#bz").value.trim().slice(0,60);ui.step++;return render();
+    case "launch":{const a={};QUESTIONS.forEach(q=>a[q.id]=ui.draft[q.id]);
+      S={example:false,name:ui.draft.name,biz:ui.draft.biz,answers:a,active:Object.fromEntries([...ui.picks].map(x=>[x,1])),pactive:{},done:prefill(a),tools:{},chat:[],created:new Date().toISOString()};
+      save();ui.open={};ui.phase={};toast("Your OS is live");return go("home")}
+  }
+});
+document.addEventListener("input",e=>{const d=e.target.dataset||{};
+  if(d.st){P[d.st]=e.target.value;saveStudio();const pv=$("#preview");pv&&(pv.innerHTML=previewHTML());return}
+  if(d.stp){P.phases[+d.stp][d.stf]=e.target.value;saveStudio();const pv=$("#preview");pv&&(pv.innerHTML=previewHTML());return}
+  if(!d.tool)return;S.tools[d.tool]=e.target.value;save();updateTool()});
+document.addEventListener("change",e=>{if(e.target.dataset&&e.target.dataset.st==="category"){P.category=e.target.value;saveStudio()}});
+document.addEventListener("submit",e=>{if(e.target.id==="askf"){e.preventDefault();const v=$("#askin").value.trim();if(v)ask(v)}});
+
+/* ---------- AI guide ---------- */
+function context(){
+  const nx=nextStep();
+  return `Client: ${S.name||"unnamed"}${S.biz?", business "+S.biz:""}. Intake: ${JSON.stringify(S.answers)}.
+Full Circle Score ${readiness()}/100 (funding unlocks at ${GATE}). Parts: ${parts().map(p=>p.n+" "+p.v+"/"+p.max).join(", ")}. Each part counts what the client already had at intake or what they have completed since, whichever is higher. Steps marked advisor-only are done by the advisor.
+Next step: ${nx?title(nx.t)+" in "+nx.s.name:"none"}.
+Running systems:\n${activeList().map(s=>`- ${s.name}${locked(s)?" (locked)":""}: `+s.phases.map(p=>p.n+": "+p.tasks.map(t=>(done(t.id)?"[x] ":"[ ] ")+title(t)).join(", ")).join(" | ")).join("\n")}
+Systems not added: ${SYSTEMS.filter(s=>!active(s.id)).map(s=>s.name+" ("+s.pitch+")").join("; ")||"none"}.`;
+}
+const RULES=`You are the AI guide inside Full Circle OS, the client operating system of Full Circle Financial Group (Phoenix, AZ). Each service runs as its own system inside the OS. Answer in plain, warm language, 2 to 5 short sentences, no headers. Never promise or predict score changes, deletions, approvals or funding amounts; say results vary. No legal, tax or specific insurance policy advice; refer those to the advisor (call or text ${CONTACT.phone}). Funding success fee is 5-10% of the amount funded, capped at $10,000, paid only when funding closes. Clients may dispute inaccurate credit information themselves at no cost. When a system they haven't added would help, name it and say they can add it from the Systems tab. Partner systems are run by independent providers approved by Full Circle; for details of a partner's service, refer the client to that provider.`;
+function offline(q){
+  q=q.toLowerCase();const nx=nextStep();
+  if(q.includes("next")||q.includes("walk me"))return nx?`Your next step is "${title(nx.t)}" in ${nx.s.name}. ${nx.t.w}`:"Every running system is complete. Add another from the Systems tab.";
+  if(q.includes("which system"))return `Based on your answers: ${recommend(S.answers).map(x=>SYS[x].name).join(", ")}. You can add or remove any from the Systems tab.`;
+  if(q.includes("readiness")||q.includes("score"))return `Your Full Circle Score is ${readiness()} of 100: ${parts().map(p=>p.n.toLowerCase()+" "+p.v+" of "+p.max).join(", ")}. Each part counts what you already had or what you've completed, whichever is higher. Funding unlocks at ${GATE}.`;
+  if(q.includes("fee"))return "The success fee is 5–10% of the amount funded, capped at $10,000, and it's paid only when funding closes.";
+  return `The AI guide isn't available in this view. Your advisor can help: call or text ${CONTACT.phone}.`;
+}
+async function ask(q){
+  if(ui.busy)return;S.chat.push({r:"u",t:q});ui.busy=true;if(ui.view!=="guide")ui.view="guide";render();
+  let ans;
+  if(sample&&!S.example){try{
+    const hist=S.chat.slice(-8).map(m=>({role:m.r==="u"?"user":"assistant",content:m.t}));
+    while(hist.length&&hist[0].role!=="user")hist.shift();
+    hist[hist.length-1].content=`${RULES}\n\nClient's OS:\n${context()}\n\nQuestion: ${q}`;
+    const res=await sample(hist,{cache:false,modelTier:"quick",onText:({text})=>{const l=$("#live");if(l&&text)l.textContent=text}});
+    ans=(res.text||"").trim()||offline(q);
+  }catch(err){ans=err&&err.code==="rate_limited"?"Lots of questions right now. Try again in a minute.":offline(q)}}
+  else ans=offline(q);
+  S.chat.push({r:"a",t:ans});S.chat=S.chat.slice(-30);ui.busy=false;save();render();
+}
+
+render();
+(async()=>{
+  await initStore();
+  try{const saved=await store.get("plan");if(saved&&saved.answers&&saved.active){S={tools:{},chat:[],done:{},pactive:{},...saved};S.pactive=S.pactive||{};S.answers=S.answers||{};registerPartners();render()}}catch(e){}
+  try{const sp=await store.get("studio");if(sp&&sp.phases){P={...BLANK_STUDIO,...sp};if(ui.view==="studio")render()}}catch(e){}
+  watchMarket();
+  try{sample=await claude.use("sample")}catch(e){sample=null}
+})();
+</script>
+
+</body></html>

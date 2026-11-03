@@ -1,0 +1,264 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Structure Model</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: navy hero; structure builder with live org chart; package cards; who-does-what timeline; unit economics + revenue calculator. */
+:root{--navy:#0A1F44;--gold:#C9A646;--bg:#F6F1E6;--surface:#FFFDF8;--surface-2:#EFE8D8;--ink:#0A1F44;--ink-2:#3E4C68;--muted:#6F7891;--line:#DCD2BC;--accent:#A8862A;
+--good:#2E7D4F;--good-bg:#E3F1E7;--warn:#B26B00;--warn-bg:#FBEFD9;--info:#2B5BA8;--info-bg:#E2EAF6;--plum:#7A4E9C;--plum-bg:#EFE6F6;
+--display:"Cinzel",Georgia,serif;--serif:"Cormorant Garamond",Georgia,serif;--sans:"Figtree",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#071430;--surface:#0E1F45;--surface-2:#132a5a;--ink:#F2ECDD;--ink-2:#C9C3B2;--muted:#8E97AE;--line:#253c6e;--accent:#D8B958;--good:#6FCB94;--good-bg:#123A2A;--warn:#E9AE4E;--warn-bg:#3A2C10;--info:#8DB1F0;--info-bg:#16295A;--plum:#C9A2E8;--plum-bg:#2E1E44;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#071430;--surface:#0E1F45;--surface-2:#132a5a;--ink:#F2ECDD;--ink-2:#C9C3B2;--muted:#8E97AE;--line:#253c6e;--accent:#D8B958;--good:#6FCB94;--good-bg:#123A2A;--warn:#E9AE4E;--warn-bg:#3A2C10;--info:#8DB1F0;--info-bg:#16295A;--plum:#C9A2E8;--plum-bg:#2E1E44;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{background:var(--navy);color:#F5EFE0}
+header .in{max-width:1080px;margin:0 auto;padding-block:26px 24px}
+.eyebrow{font-family:var(--display);letter-spacing:.18em;font-size:12px;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--serif);font-size:clamp(30px,6vw,46px);line-height:1.05;margin:6px 0 8px;text-wrap:balance}
+header p{margin:0;color:#C9C3B2;max-width:62ch}
+main{max-width:1080px;margin:0 auto;padding-block:20px 40px;display:flex;flex-direction:column;gap:20px}
+section.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+h2{font-family:var(--serif);font-size:30px;line-height:1.1;margin:0 0 4px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 14px;max-width:70ch;font-size:14px}
+.k{font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:8px;margin-bottom:12px}
+.opt{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;text-align:left;background:var(--surface)}
+.opt b{display:block;font-size:14px}.opt span{font-size:12px;color:var(--muted)}
+.opt[aria-pressed="true"]{border-color:var(--gold);background:var(--surface-2)}
+.toggles{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;margin:4px 0 14px}
+.toggles label{display:flex;gap:6px;align-items:center}
+.toggles input{accent-color:var(--gold);width:17px;height:17px}
+.treebox{overflow-x:auto;padding:6px 0}
+.tree{display:inline-block;min-width:100%;text-align:center}
+.tree ul{display:flex;justify-content:center;padding:20px 0 0;margin:0;position:relative}
+.tree>ul{padding-top:0}
+.tree li{list-style:none;position:relative;padding:20px 6px 0;display:flex;flex-direction:column;align-items:center}
+.tree li::before,.tree li::after{content:"";position:absolute;top:0;right:50%;border-top:1.5px solid var(--line);width:50%;height:20px}
+.tree li::after{right:auto;left:50%;border-left:1.5px solid var(--line)}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:only-child{padding-top:0}
+.tree li:first-child::before,.tree li:last-child::after{border:0 none}
+.tree li:last-child::before{border-right:1.5px solid var(--line);border-radius:0 6px 0 0}
+.tree li:first-child::after{border-radius:6px 0 0 0}
+.tree ul ul::before{content:"";position:absolute;top:0;left:50%;border-left:1.5px solid var(--line);width:0;height:20px}
+.tree>ul>li{padding-top:0}.tree>ul>li::before,.tree>ul>li::after{display:none}
+.node{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;min-width:140px;max-width:200px;text-align:left}
+.node .ty{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.node .nn{font-weight:700;font-size:14px;line-height:1.25}
+.node .why{font-size:11px;color:var(--muted);margin-top:2px}
+.node.person{background:var(--navy);border-color:var(--navy);color:#F5EFE0}.node.person .ty{color:var(--gold)}.node.person .why{color:#C9C3B2}
+.node.trust{border-color:var(--gold)}.node.trust .ty{color:var(--accent)}
+.node.holding{border-color:var(--info)}.node.holding .ty{color:var(--info)}
+.node.property{border-color:var(--good)}.node.property .ty{color:var(--good)}
+.node.ins{border-color:var(--plum);border-style:dashed}.node.ins .ty{color:var(--plum)}
+.why-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px;margin-top:14px}
+.why-list div{background:var(--surface-2);border-radius:10px;padding:10px 12px;font-size:14px}
+.why-list b{display:block;font-size:13px}
+.pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px}
+.pkg{border:1.5px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
+.pkg.feat{border-color:var(--gold)}
+.pkg h3{font-family:var(--serif);font-size:26px;margin:0;line-height:1.1}
+.pkg .for{font-size:13px;color:var(--muted)}
+.price{font-family:var(--serif);font-size:34px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.price small{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--muted)}
+.pkg ul{margin:0;padding-left:0;list-style:none;font-size:14px;display:flex;flex-direction:column;gap:6px}
+.pkg li{display:flex;gap:8px;align-items:flex-start}
+.who{flex:none;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-top:2px;min-width:62px;text-align:center}
+.who.fc{background:var(--surface-2);color:var(--accent);border:1px solid var(--gold)}
+.who.cn{background:var(--info-bg);color:var(--info)}
+.who.at{background:var(--plum-bg);color:var(--plum)}
+.who.cl{background:var(--good-bg);color:var(--good)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin-bottom:14px}
+.legend span{display:flex;gap:6px;align-items:center}
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:90px minmax(0,1fr);gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:0}
+.step .d{font-family:var(--display);font-size:12px;letter-spacing:.1em;color:var(--accent);padding-top:2px}
+.step b{display:block}
+.step p{margin:2px 0 6px;font-size:14px;color:var(--ink-2)}
+@media (max-width:520px){.step{grid-template-columns:1fr;gap:2px}}
+.calc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px}
+@media (max-width:820px){.calc{grid-template-columns:minmax(0,1fr)}}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+th:first-child,td:first-child{text-align:left}
+td input{width:90px;text-align:right;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 7px;font:inherit;color:inherit}
+tr.tot td{font-weight:700;border-bottom:0}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px}
+.big div{background:var(--surface-2);border-radius:10px;padding:12px}
+.big .l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.big .v{font-family:var(--serif);font-size:32px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.big .v.g{color:var(--accent)}
+.bars{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.barrow{display:grid;grid-template-columns:120px minmax(0,1fr) 90px;gap:8px;align-items:center;font-size:13px}
+.barrow .t{height:12px;background:var(--surface-2);border-radius:6px;overflow:hidden}
+.barrow .t i{display:block;height:100%;background:var(--gold);border-radius:6px}
+.barrow .t i.r{background:var(--info)}
+.barrow .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.note{font-size:13px;color:var(--muted);max-width:75ch}
+.warn{background:var(--warn-bg);color:var(--ink);border-radius:10px;padding:12px 14px;font-size:14px}
+.warn b{color:var(--warn)}
+</style>
+
+<header><div class="in wrap">
+  <div class="eyebrow">Full Circle · Structure offer</div>
+  <h1>Trust, holding company and operating companies, in one setup</h1>
+  <p>The structure Incfile and Bizee don't sell. Build a client's structure, see the packages, who does each piece of the work, and what the model earns.</p>
+</div></header>
+
+<main class="wrap">
+
+<section class="panel">
+  <div class="k">1 · Structure builder</div>
+  <h2>Design the client's structure</h2>
+  <p class="sub">Pick the client type, then switch pieces on or off. The diagram is what the client sees in their portal.</p>
+  <div class="opts" role="group" aria-label="Client type" id="ctype"></div>
+  <div class="toggles" id="toggles"></div>
+  <div class="treebox"><div class="tree" id="tree"></div></div>
+  <div class="why-list" id="whys"></div>
+</section>
+
+<section class="panel">
+  <div class="k">2 · Packages</div>
+  <h2>Three ways to buy</h2>
+  <p class="sub">Each item shows who delivers it. Prices are starting assumptions; change them in the calculator below and the cards update.</p>
+  <div class="legend"><span><i class="who fc">Full Circle</i> your team</span><span><i class="who cn">Filing partner</i> CorpNet reseller now, doola or FileForms later</span><span><i class="who at">Attorney</i> licensed estate attorney partner</span><span><i class="who cl">Client</i> signs or provides</span></div>
+  <div class="pkgs" id="pkgs"></div>
+</section>
+
+<section class="panel">
+  <div class="k">3 · Fulfillment</div>
+  <h2>Who does what, in order</h2>
+  <p class="sub">Full Legacy package. Full Circle owns the client the whole way; partners work behind the scenes.</p>
+  <div class="steps" id="steps"></div>
+</section>
+
+<section class="panel">
+  <div class="k">4 · Unit economics</div>
+  <h2>What each package earns</h2>
+  <p class="sub">Every number is editable. Defaults are placeholders, not quotes: put in your real CorpNet wholesale rates and your attorney's fee. State filing fees are passed through to the client and left out of margin.</p>
+  <div class="calc">
+    <div class="tbl"><table>
+      <thead><tr><th>Package</th><th>Price</th><th>Partner cost</th><th>Sales / mo</th></tr></thead>
+      <tbody id="ue"></tbody>
+    </table>
+    <table style="margin-top:14px"><thead><tr><th>Recurring</th><th>Price</th><th>Your cost</th><th></th></tr></thead><tbody id="rec"></tbody></table>
+    <p class="note" style="margin-top:8px">Recurring assumes each package's entities keep registered agent and annual report service, and every client keeps the platform subscription. Churn is not modeled.</p></div>
+    <div>
+      <div class="big" id="big"></div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="k">5 · Guardrails</div>
+  <h2>Keep it clean</h2>
+  <div class="warn"><b>Trusts are legal documents.</b> Drafting a trust or giving legal advice about one is the practice of law. Have a licensed estate attorney draft and sign off on every trust. Arizona also certifies Legal Document Preparers; confirm with your attorney what they may prepare before relying on one.</div>
+  <div class="why-list">
+    <div><b>Sell the outcome, not fear</b>Explain what each layer does and doesn't do. Not every client needs a holding company; recommend the smallest structure that fits.</div>
+    <div><b>Fund the trust</b>A trust only protects what it owns. Assign the holding company's membership interest to the trust and document it.</div>
+    <div><b>Separate everything</b>Each entity needs its own EIN, bank account, books and signed agreements, or the protection weakens.</div>
+    <div><b>Tax and asset-protection claims</b>Have a CPA or attorney approve any savings or protection language before it goes into ads or the portal.</div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const TYPES={
+  solo:{l:"Solo business owner",s:"One business, building credit",tr:false,hold:true,ops:1,prop:false},
+  investor:{l:"Real estate investor",s:"Rentals or flips",tr:true,hold:true,ops:1,prop:true},
+  multi:{l:"Multiple businesses",s:"Two or more income streams",tr:true,hold:true,ops:2,prop:false},
+  family:{l:"Family legacy",s:"Business + property + heirs",tr:true,hold:true,ops:2,prop:true}
+};
+let ct="family",cfg=Object.assign({},TYPES.family),ins=true;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $=id=>document.getElementById(id);
+const money=n=>"$"+Math.round(n).toLocaleString("en-US");
+
+function drawTypes(){$("ctype").innerHTML=Object.entries(TYPES).map(([k,t])=>`<button class="opt" aria-pressed="${k===ct}" data-t="${k}"><b>${t.l}</b><span>${t.s}</span></button>`).join("");
+ $("toggles").innerHTML=`<label><input type="checkbox" id="t-tr" ${cfg.tr?"checked":""}> Living trust</label>
+ <label><input type="checkbox" id="t-hold" ${cfg.hold?"checked":""}> Holding company</label>
+ <label><input type="checkbox" id="t-prop" ${cfg.prop?"checked":""}> Property LLC</label>
+ <label>Operating LLCs <select id="t-ops" style="font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:2px 6px">${[1,2,3].map(n=>`<option ${n===cfg.ops?"selected":""}>${n}</option>`).join("")}</select></label>
+ <label><input type="checkbox" id="t-ins" ${ins?"checked":""}> Life insurance owned by trust</label>`}
+function node(cls,ty,nn,why){return `<div class="node ${cls}"><div class="ty">${ty}</div><div class="nn">${nn}</div><div class="why">${why}</div></div>`}
+function drawTree(){
+ const ops=Array.from({length:cfg.ops},(_,i)=>`<li>${node("","Operating LLC","Operating Co "+(i+1),i===0?"Runs the business, builds credit":"Second income stream")}</li>`).join("");
+ const prop=cfg.prop?`<li>${node("property","Property LLC","Property Co","Holds real estate, leases it out")}</li>`:"";
+ const under=ops+prop;
+ let mid=cfg.hold?`<li>${node("holding","Holding LLC","Holdings LLC","Owns the companies below")}<ul>${under}</ul></li>`:under;
+ const insNode=ins&&cfg.tr?`<li>${node("ins","Policy","Life insurance","Owned by or payable to the trust")}</li>`:"";
+ let top=cfg.tr?`<li>${node("trust","Living trust","Family Trust","Holds ownership, skips probate")}<ul>${mid}${insNode}</ul></li>`:mid;
+ $("tree").innerHTML=`<ul><li>${node("person","Owner","Client","Grantor · Trustee · Manager")}<ul>${top}</ul></li></ul>`;
+ const w=[];
+ if(cfg.tr)w.push(["Living trust","Ownership passes to heirs without probate and stays private. A revocable trust doesn't by itself shield assets from creditors."]);
+ if(cfg.hold)w.push(["Holding company","Owns the operating and property companies, so one company's risk is separated from the others and profits can move up to one place."]);
+ w.push(["Operating LLC","Signs contracts, takes customer risk, and builds the business credit profile."]);
+ if(cfg.prop)w.push(["Property LLC","Keeps real estate away from business liability; leases property to the operating company or tenants."]);
+ if(ins&&cfg.tr)w.push(["Insurance in the plan","Coverage paid to the trust protects the family and can fund buyouts. This is where Protection meets Structure."]);
+ $("whys").innerHTML=w.map(([b,t])=>`<div><b>${b}</b>${t}</div>`).join("");
+}
+
+/* Economics */
+const P={
+ starter:{n:"Foundation LLC",for:"Starting out, one business",price:297,cost:150,vol:20,ents:1,
+   items:[["fc","Structure call and name check"],["cn","LLC filing in your state"],["cn","EIN"],["fc","Operating agreement from template"],["cn","Registered agent, year 1"],["fc","Business credit foundation checklist in the portal"],["cl","Opens bank account"]]},
+ holding:{n:"Holding Structure",for:"Owners separating risk or running more than one company",price:1997,cost:450,vol:8,ents:3,feat:false,
+   items:[["fc","Structure design session and diagram"],["cn","Holding LLC + 2 subsidiary LLCs filed"],["cn","EIN for each entity"],["fc","Operating agreements for each entity"],["fc","Assignment of membership interest to the holding company"],["cn","Registered agent for each, year 1"],["fc","Business credit roadmap on the operating company"],["cl","Signs agreements, opens bank accounts"]]},
+ legacy:{n:"Full Circle Legacy",for:"Families, investors and multi-business owners",price:4997,cost:2050,vol:4,ents:4,feat:true,
+   items:[["fc","Full structure design with the client and family"],["at","Living trust drafted and signed with an attorney"],["cn","Holding LLC, operating LLC and property LLC filed"],["cn","EIN for each entity"],["fc","Operating agreements; holding owns the subsidiaries"],["at","Trust funded: holding company assigned to the trust"],["fc","Life insurance needs analysis, policy owned by or paid to the trust"],["fc","Business and personal credit plan, funding readiness"],["cl","Signs trust, agreements and policy application"]]}
+};
+const R={platform:{n:"Platform subscription",price:49,cost:5,per:"client / mo"},ra:{n:"Registered agent",price:149,cost:60,per:"entity / yr"},ar:{n:"Annual report service",price:99,cost:40,per:"entity / yr"}};
+function drawPkgs(){$("pkgs").innerHTML=Object.values(P).map(p=>`<div class="pkg ${p.feat?"feat":""}">${p.feat?`<span class="who fc" style="align-self:flex-start">Signature offer</span>`:""}<h3>${p.n}</h3><div class="for">${p.for}</div><div class="price">${money(p.price)} <small>+ state fees · then ${money(R.platform.price)}/mo platform</small></div><ul>${p.items.map(([w,t])=>`<li><i class="who ${w}">${{fc:"Full Circle",cn:"Filing partner",at:"Attorney",cl:"Client"}[w]}</i><span>${t}</span></li>`).join("")}</ul></div>`).join("")}
+function drawUE(){
+ $("ue").innerHTML=Object.entries(P).map(([k,p])=>`<tr><td>${p.n}</td><td><input type="number" min="0" data-p="${k}" data-f="price" value="${p.price}" aria-label="${p.n} price"></td><td><input type="number" min="0" data-p="${k}" data-f="cost" value="${p.cost}" aria-label="${p.n} partner cost"></td><td><input type="number" min="0" data-p="${k}" data-f="vol" value="${p.vol}" aria-label="${p.n} sales per month" style="width:64px"></td></tr>`).join("");
+ $("rec").innerHTML=Object.entries(R).map(([k,r])=>`<tr><td>${r.n}<div class="note">per ${r.per.split(" / ")[0]}, ${r.per.split(" / ")[1]==="mo"?"monthly":"yearly"}</div></td><td><input type="number" min="0" data-r="${k}" data-f="price" value="${r.price}" aria-label="${r.n} price"></td><td><input type="number" min="0" data-r="${k}" data-f="cost" value="${r.cost}" aria-label="${r.n} cost"></td><td></td></tr>`).join("");
+}
+function calc(){
+ let setupRev=0,setupGross=0,clients=0,ents=0;
+ const rows=Object.values(P).map(p=>{const rev=p.price*p.vol,gross=(p.price-p.cost)*p.vol;setupRev+=rev;setupGross+=gross;clients+=p.vol;ents+=p.vol*p.ents;return{n:p.n,gross,margin:p.price?Math.round((p.price-p.cost)/p.price*100):0}});
+ // recurring after 12 months of steady sales (monthly figure at month 12)
+ const cl12=clients*12,en12=ents*12;
+ const recMo=cl12*(R.platform.price-R.platform.cost)+en12*((R.ra.price-R.ra.cost)+(R.ar.price-R.ar.cost))/12;
+ $("big").innerHTML=`<div><div class="l">Setup revenue / mo</div><div class="v">${money(setupRev)}</div></div>
+ <div><div class="l">Setup gross profit / mo</div><div class="v g">${money(setupGross)}</div></div>
+ <div><div class="l">Recurring profit / mo at month 12</div><div class="v g">${money(recMo)}</div></div>
+ <div><div class="l">Year-1 total gross profit</div><div class="v">${money(setupGross*12+recMo*6.5)}</div></div>`;
+ const max=Math.max(...rows.map(r=>r.gross),recMo,1);
+ $("bars").innerHTML=rows.map(r=>`<div class="barrow"><span>${r.n}<br><span class="note">${r.margin}% margin</span></span><div class="t"><i style="width:${r.gross/max*100}%"></i></div><span class="n">${money(r.gross)}</span></div>`).join("")+
+  `<div class="barrow"><span>Recurring<br><span class="note">month 12</span></span><div class="t"><i class="r" style="width:${recMo/max*100}%"></i></div><span class="n">${money(recMo)}</span></div>
+  <p class="note">At month 12: ${cl12.toLocaleString()} clients and ${en12.toLocaleString()} entities on recurring service. Year-1 total counts recurring as it ramps up through the year.</p>`;
+}
+
+/* Steps */
+const STEPS=[
+ ["Day 1","Discovery and design","Full Circle","Client answers the portal intake; advisor designs the structure and shows the diagram.",["fc"]],
+ ["Day 1","Agreement and payment","Client","Client signs the engagement and pays through GoHighLevel.",["cl"]],
+ ["Days 2–7","Trust drafted","Attorney","Attorney partner drafts the living trust from Full Circle's intake; client signs with the attorney.",["at","cl"]],
+ ["Days 2–10","Entities filed","Filing partner","Holding, operating and property LLCs filed in the chosen states; status flows into the portal.",["cn"]],
+ ["Days 7–14","EINs and agreements","Full Circle + partner","EINs obtained; operating agreements prepared with the holding company as member of each subsidiary.",["cn","fc"]],
+ ["Days 10–21","Fund the trust","Attorney + Full Circle","Holding company's membership interest assigned to the trust; documents saved in the client vault.",["at","fc"]],
+ ["Days 14–30","Banking and credit foundation","Client + Full Circle","Bank accounts opened; D-U-N-S, address, phone and website set; business credit roadmap begins.",["cl","fc"]],
+ ["Days 14–30","Protection","Full Circle","Life insurance needs analysis and application, with the trust as owner or beneficiary.",["fc"]],
+ ["Ongoing","Maintain","Full Circle + partner","Registered agent, annual reports, credit tracking and yearly structure review. Recurring revenue.",["cn","fc"]]
+];
+function drawSteps(){$("steps").innerHTML=STEPS.map(([d,b,w,p,ws])=>`<div class="step"><div class="d">${d}</div><div><b>${b}</b><p>${p}</p><div style="display:flex;gap:6px;flex-wrap:wrap">${ws.map(x=>`<i class="who ${x}">${{fc:"Full Circle",cn:"Filing partner",at:"Attorney",cl:"Client"}[x]}</i>`).join("")}</div></div></div>`).join("")}
+
+document.addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(b){ct=b.dataset.t;cfg=Object.assign({},TYPES[ct]);drawTypes();drawTree()}});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.id==="t-tr")cfg.tr=t.checked;else if(t.id==="t-hold")cfg.hold=t.checked;else if(t.id==="t-prop")cfg.prop=t.checked;else if(t.id==="t-ops")cfg.ops=+t.value;else if(t.id==="t-ins")ins=t.checked;
+ if(t.id&&t.id.startsWith("t-")){drawTree();return}});
+document.addEventListener("input",e=>{const t=e.target;const v=Math.max(0,+t.value||0);
+ if(t.dataset.p){P[t.dataset.p][t.dataset.f]=v;calc();if(t.dataset.f==="price")drawPkgs()}
+ else if(t.dataset.r){R[t.dataset.r][t.dataset.f]=v;calc();drawPkgs()}});
+drawTypes();drawTree();drawPkgs();drawSteps();drawUE();calc();
+</script>
+
+</body></html>

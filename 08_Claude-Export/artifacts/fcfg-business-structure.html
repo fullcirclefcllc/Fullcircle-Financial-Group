@@ -1,0 +1,829 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FCFG Business Structure</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Why, when and how to structure your business the right way, with a live Structure Builder.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout concept: same gold-circle brand as the FCFG site. Compact hero with the pillar's lit quadrant, the page's signature tool right under it, then why / when / how, myths, working strip, FAQ, call. Single deliberate dark navy look. */
+:root{
+  --void:#050E21;
+  --panel:#0A1A38;
+  --panel-2:#10244A;
+  --gold:#C9A646;
+  --gold-hi:#E6C873;
+  --cream:#F5EFE0;
+  --mute:#A3ABBE;
+  --line:rgba(201,166,70,.24);
+  --hair:rgba(245,239,224,.10);
+  --chalk:#E9E3D2;
+  --ok:#7FC8A0;
+  --warn:#E8B460;
+  --bad:#E08A7A;
+  --f-display:"Cinzel","Trajan Pro","Times New Roman",Georgia,serif;
+  --f-body:"Manrope","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  --gut-l:max(16px, env(safe-area-inset-left, 0px));
+  --gut-r:max(16px, env(safe-area-inset-right, 0px));
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--void)}
+body{background:var(--void);color:var(--cream);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--void)}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;line-height:1.14;margin:0;text-wrap:balance;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--gold-hi)}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.eyebrow{font-size:.75rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.lede{color:var(--mute);font-size:1.08rem;max-width:60ch}
+.sec{padding-block:clamp(64px,9vw,120px);position:relative;scroll-margin-top:64px}
+.sec-head{display:grid;gap:14px;margin-bottom:clamp(28px,4.5vw,52px);max-width:760px}
+.sec-head h2{font-size:clamp(1.85rem,4.2vw,3rem)}
+.fine{font-size:.8rem;color:var(--mute);line-height:1.5}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--gold);color:var(--void);padding:8px 14px;border-radius:6px;font-weight:700}
+.skip:focus{left:16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 .95rem/1 var(--f-body);letter-spacing:.02em;padding:16px 24px;border-radius:999px;border:1px solid var(--gold);text-decoration:none;cursor:pointer;transition:background .25s,color .25s,box-shadow .25s,border-color .25s,transform .2s var(--ease)}
+.btn-gold{background:var(--gold);color:var(--void)}
+.btn-gold:hover{background:var(--gold-hi);box-shadow:0 10px 40px -10px rgba(230,200,115,.55)}
+.btn-ghost{background:transparent;color:var(--cream);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-hi)}
+.btn-sm{padding:11px 18px;font-size:.85rem}
+.btn[disabled]{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn svg{width:16px;height:16px;flex:none}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(5,14,33,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--cream);text-decoration:none;font-family:var(--f-display);font-weight:700;letter-spacing:.06em;font-size:1rem;white-space:nowrap}
+.brand svg{width:28px;height:28px;flex:none}
+.brand small{font-family:var(--f-body);font-size:.68rem;font-weight:800;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;padding-left:10px;border-left:1px solid var(--line)}
+.nav-links{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.nav-links a{display:block;padding:8px 12px;border-radius:999px;color:var(--mute);text-decoration:none;font-size:.88rem;font-weight:600;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--cream)}
+.nav-links a.on{color:var(--gold-hi);background:rgba(201,166,70,.1)}
+.nav-menu{display:none;background:none;border:1px solid var(--line);color:var(--cream);border-radius:999px;width:42px;height:42px;cursor:pointer;align-items:center;justify-content:center;flex:none}
+.nav-progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-hi));transform-origin:left;transform:scaleX(0)}
+@media (max-width:960px){
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--void);border-bottom:1px solid var(--hair);padding:8px var(--gut-r) 16px var(--gut-l)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:14px 12px;font-size:1rem}
+  .nav-menu{display:inline-flex}
+  .nav-cta{display:none}
+}
+@media (max-width:420px){.brand small{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-block:clamp(40px,6vw,88px) clamp(40px,5vw,72px);isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:120px;background:linear-gradient(transparent,var(--void));z-index:-1;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(24px,5vw,64px);align-items:center}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.hero h1{font-size:clamp(2.2rem,5.2vw,4.1rem);font-weight:600}
+.hero h1 em{font-style:normal;color:var(--gold-hi)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.founder{display:flex;align-items:center;gap:12px;color:var(--mute);font-size:.9rem}
+.founder b{color:var(--cream);font-weight:700}
+.founder i{display:block;width:36px;height:1px;background:var(--gold);flex:none}
+.emblem{width:100%;max-width:300px;justify-self:center}
+.emblem svg{display:block;width:100%;height:auto;overflow:visible}
+.em-track{fill:none;stroke:rgba(245,239,224,.07);stroke-width:2}
+.em-tick{stroke:rgba(201,166,70,.3);stroke-width:1.2}
+.em-q{fill:none;stroke:rgba(245,239,224,.08);stroke-width:12;stroke-linecap:round}
+.em-q.lit{stroke:var(--gold);filter:url(#emGlow)}
+.em-draw{fill:none;stroke:var(--gold-hi);stroke-width:3;stroke-linecap:round}
+.em-lbl{font:700 12px var(--f-body);letter-spacing:.22em;fill:var(--mute);opacity:.55}
+.em-lbl.lit{fill:var(--gold-hi);opacity:1}
+.em-c1{font:700 14px var(--f-body);letter-spacing:.3em;fill:var(--gold)}
+.em-c2{font:600 34px var(--f-display);fill:var(--cream)}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr}.emblem{display:none}}
+
+/* why */
+.why-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px clamp(20px,3vw,40px)}
+.why-item{display:grid;gap:10px;align-content:start;padding-top:20px;border-top:1px solid var(--line);min-width:0}
+.why-item svg{width:36px;height:36px}
+.why-item h3{font-size:clamp(1.2rem,2vw,1.45rem)}
+.why-item p{color:var(--mute);max-width:40ch}
+
+/* when */
+.when{background:linear-gradient(180deg,var(--void),var(--panel) 40%,var(--void))}
+.when-list{list-style:none;margin:0;padding:0;display:grid}
+.when-row{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.5fr);gap:12px clamp(20px,4vw,56px);padding-block:22px;border-top:1px solid var(--hair);align-items:baseline}
+.when-row:last-child{border-bottom:1px solid var(--hair)}
+.when-row h3{font-size:clamp(1.15rem,2.1vw,1.5rem);display:flex;gap:14px;align-items:baseline}
+.when-row h3 span{font:800 .7rem var(--f-body);letter-spacing:.2em;color:var(--gold);text-transform:uppercase;flex:none;min-width:5.5em}
+.when-row p{color:var(--mute)}
+.when-row p b{color:var(--cream);font-weight:700}
+@media (max-width:700px){.when-row{grid-template-columns:1fr;gap:6px}.when-row h3{flex-direction:column;gap:4px}}
+
+/* how */
+.how-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,72px);align-items:start}
+.how-grid .sec-head{position:sticky;top:96px;margin-bottom:0}
+.steps-tl{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s;position:relative}
+.steps-tl li{counter-increment:s;position:relative;display:grid;gap:6px;padding:0 0 30px 64px;min-width:0}
+.steps-tl li::before{content:counter(s);position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold-hi);display:grid;place-items:center;font:700 1rem var(--f-display);background:var(--void);z-index:1}
+.steps-tl li::after{content:"";position:absolute;left:19.5px;top:40px;bottom:0;width:1px;background:linear-gradient(var(--line),var(--hair))}
+.steps-tl li:last-child{padding-bottom:0}
+.steps-tl li:last-child::after{display:none}
+.steps-tl h3{font-size:1.2rem;padding-top:7px}
+.steps-tl p{color:var(--mute);max-width:58ch}
+.steps-tl .who{font-size:.78rem;font-weight:700;color:var(--cream);opacity:.8}
+.steps-tl .who b{color:var(--gold);letter-spacing:.14em;font-size:.68rem;text-transform:uppercase;margin-right:6px}
+@media (max-width:860px){.how-grid{grid-template-columns:1fr}.how-grid .sec-head{position:static;margin-bottom:8px}}
+
+/* tool shell */
+.tool{background:radial-gradient(900px 420px at 80% 300px,rgba(201,166,70,.07),transparent 60%);padding-top:clamp(28px,4vw,56px)}
+.card{background:var(--panel);border:1px solid var(--hair);border-radius:22px;padding:clamp(18px,3vw,30px);min-width:0}
+.card-gold{border-color:var(--line)}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.example{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px dashed var(--line);color:var(--gold-hi);font-size:.78rem;font-weight:700}
+
+/* switches + fields */
+.field{display:grid;gap:6px}
+.field label,.lbl{font-weight:700;font-size:.9rem}
+.field input[type=text],.field input[type=number],.inp{font:inherit;color:var(--cream);background:var(--void);border:1px solid var(--hair);border-radius:10px;padding:12px 14px;width:100%;min-width:0}
+.field input:focus,.inp:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(201,166,70,.2)}
+.sw{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--hair);border-radius:14px;background:rgba(5,14,33,.45);cursor:pointer;transition:border-color .25s,background .25s}
+.sw:hover{border-color:var(--line)}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw .knob{flex:none;width:44px;height:26px;border-radius:99px;background:rgba(245,239,224,.12);position:relative;transition:background .25s}
+.sw .knob::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--cream);transition:transform .3s var(--ease)}
+.sw input:checked + .knob{background:var(--gold)}
+.sw input:checked + .knob::after{transform:translateX(18px);background:var(--void)}
+.sw input:focus-visible + .knob{outline:2px solid var(--gold-hi);outline-offset:3px}
+.sw .t{display:grid;min-width:0}
+.sw .t b{font-size:.95rem}
+.sw .t small{color:var(--mute);font-size:.82rem;line-height:1.4}
+.sw:has(input:checked){border-color:var(--gold);background:rgba(201,166,70,.07)}
+
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:linear-gradient(90deg,var(--gold) var(--p,50%),rgba(245,239,224,.12) var(--p,50%))}
+input[type=range]::-moz-range-track{height:6px;border-radius:99px;background:rgba(245,239,224,.12)}
+input[type=range]::-moz-range-progress{height:6px;border-radius:99px;background:var(--gold)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--cream);border:4px solid var(--gold);margin-top:-9px;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--cream);border:4px solid var(--gold)}
+input[type=range]:focus-visible{outline:none}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(230,200,115,.45)}
+input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px rgba(230,200,115,.45)}
+.ctl{display:grid;gap:8px}
+.ctl-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ctl-top label{font-weight:700;font-size:.92rem}
+.ctl-top output{font-family:var(--f-display);font-size:1.25rem;color:var(--gold-hi);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ctl .hint{color:var(--mute);font-size:.78rem;line-height:1.4}
+
+/* tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{flex:1 1 0;min-width:84px;display:grid;gap:2px;text-align:left;background:transparent;border:1px solid var(--hair);color:var(--mute);border-radius:12px;padding:10px 12px;cursor:pointer;font:inherit;transition:border-color .25s,background .25s,color .25s}
+.tab small{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.tab span{font-family:var(--f-display);font-weight:600;font-size:1rem;color:var(--cream);line-height:1.2}
+.tab[aria-selected="true"]{border-color:var(--gold);background:rgba(201,166,70,.1);color:var(--gold)}
+.tab:hover{border-color:var(--gold)}
+.fade-in{animation:fadeup .45s var(--ease) both}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+/* myths */
+.myths{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+.flip{appearance:none;border:0;padding:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;perspective:1200px;display:grid;border-radius:20px}
+.flip-in{display:grid;transition:transform .7s var(--ease);transform-style:preserve-3d;min-height:220px}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{grid-area:1/1;display:grid;align-content:space-between;gap:16px;padding:24px;border-radius:20px;border:1px solid var(--hair);background:var(--panel);backface-visibility:hidden;-webkit-backface-visibility:hidden;min-width:0}
+.face.back{transform:rotateY(180deg);background:linear-gradient(150deg,rgba(201,166,70,.14),rgba(201,166,70,.03) 60%),var(--panel);border-color:var(--line)}
+.face .k{font:800 .7rem var(--f-body);letter-spacing:.22em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:8px}
+.face.back .k{color:var(--gold)}
+.face .k i{width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;font-style:normal;font-size:.6rem}
+.face q{font-family:var(--f-display);font-size:1.22rem;line-height:1.3;quotes:"\201C" "\201D";color:var(--cream)}
+.face p{color:var(--cream);opacity:.92;font-size:.98rem}
+.face .turn{font-size:.78rem;font-weight:700;color:var(--gold-hi);display:flex;align-items:center;gap:8px}
+.face .turn svg{width:14px;height:14px}
+.flip:hover .front{border-color:var(--line)}
+.flip:focus-visible{outline:2px solid var(--gold-hi);outline-offset:4px}
+
+/* working strip */
+.work{border-block:1px solid var(--hair);background:var(--panel)}
+.work-grid{display:grid;grid-template-columns:minmax(0,.9fr) repeat(3,minmax(0,1fr));gap:0}
+.work-head{display:grid;gap:10px;align-content:start;padding:clamp(26px,4vw,44px) clamp(16px,3vw,32px) clamp(26px,4vw,44px) 0}
+.work-head h2{font-size:clamp(1.4rem,2.6vw,1.9rem)}
+.work-item{align-content:start;padding:clamp(26px,4vw,44px) clamp(16px,3vw,32px);display:grid;gap:10px;border-left:1px solid var(--hair);min-width:0}
+.work-item svg{width:40px;height:40px}
+.work-item h3{font-size:1.15rem}
+.work-item p{color:var(--mute);font-size:.95rem}
+@media (max-width:900px){.work-grid{grid-template-columns:1fr}.work-head{padding-right:0;padding-bottom:8px}.work-item{border-left:0;border-top:1px solid var(--hair);padding-inline:0}}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:880px}
+.faq details{border:1px solid var(--hair);border-radius:16px;background:var(--panel);transition:border-color .25s}
+.faq details[open]{border-color:var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px;font-weight:700;font-size:1.02rem;border-radius:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:12px;height:12px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg) translate(-3px,-3px);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(225deg) translate(-3px,-3px)}
+.faq summary:hover{color:var(--gold-hi)}
+.faq .ans{padding:0 20px 20px;color:var(--mute);display:grid;gap:10px;max-width:72ch}
+.faq .ans b{color:var(--cream)}
+.faq details[open] .ans{animation:fadeup .35s var(--ease) both}
+
+/* call to action */
+.cta-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(18px,3vw,40px);align-items:center;border:1px solid var(--line);border-radius:24px;padding:clamp(24px,4vw,48px);background:linear-gradient(135deg,rgba(201,166,70,.08),transparent 60%),var(--panel)}
+.cta-card svg{width:clamp(72px,9vw,104px);height:auto}
+.cta-card h2{font-size:clamp(1.6rem,3vw,2.3rem);margin-bottom:10px}
+.cta-card p{color:var(--mute);max-width:56ch}
+.cta-card .price{margin-top:10px;color:var(--cream);font-weight:700;font-size:.95rem}
+@media (max-width:860px){.cta-card{grid-template-columns:1fr}.cta-card .btn{justify-self:start}}
+
+/* footer */
+footer{padding-block:64px 40px;border-top:1px solid var(--hair);background:var(--void)}
+.foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:40px}
+.foot-brand{display:grid;gap:12px;align-content:start}
+.foot-brand p{color:var(--mute);font-size:.92rem}
+.disc{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.disc li{font-size:.86rem;color:var(--mute);padding-left:18px;position:relative}
+.disc li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.copy{margin-top:40px;padding-top:20px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;color:var(--mute);font-size:.8rem}
+@media (max-width:760px){.foot{grid-template-columns:1fr}}
+
+/* reveal: only elements below the fold at load */
+.rv{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.pre{opacity:0;transform:translateY(24px)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rv.pre{opacity:1;transform:none}
+}
+
+/* ---------- page: structure ---------- */
+.sb{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);grid-template-areas:"ctl stage" "info stage";gap:16px;align-items:start}
+.sb-ctl{grid-area:ctl;display:grid;gap:12px}
+.sb-ctl .example{justify-self:start;margin-top:4px}
+.sb-stage{grid-area:stage;display:grid;gap:10px;position:sticky;top:88px;background:linear-gradient(160deg,#0D1F42,#081631);overflow:hidden}
+.sb-stage::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(120,170,230,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,230,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+.sb-top{display:flex;justify-content:space-between;align-items:center;gap:10px;position:relative}
+#sbSvg{display:block;width:100%;height:auto;overflow:visible;position:relative}
+.sb-legend{display:flex;gap:18px;color:var(--mute);font-size:.78rem;position:relative}
+.sb-legend span{display:flex;align-items:center;gap:8px}
+.sb-legend i{display:block;width:26px;height:0;border-top:2px solid var(--gold)}
+.sb-legend .lg-lease{border-top:2px dashed var(--chalk)}
+.sb-info{grid-area:info;display:grid;gap:12px}
+.sb-info h3{font-size:1.4rem}
+.sb-info .row{display:grid;gap:4px}
+.sb-info .row b{font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.sb-info .row p{color:var(--cream);opacity:.9;font-size:.95rem}
+/* svg nodes */
+.sn{cursor:pointer;outline:none;transition:transform .55s var(--ease),opacity .4s}
+.sn rect.box{fill:#0A1A38;stroke:rgba(245,239,224,.22);stroke-width:1.5;transition:stroke .3s,fill .3s}
+.sn:hover rect.box{stroke:var(--gold)}
+.sn.sel rect.box{stroke:var(--gold-hi);stroke-width:2.5;fill:#132a55}
+.sn:focus-visible rect.ring{stroke:var(--gold-hi);stroke-width:2;stroke-dasharray:5 5;fill:none}
+.sn rect.ring{fill:none;stroke:none}
+.sn .kick{font:800 10.5px var(--f-body);letter-spacing:.2em;fill:var(--gold)}
+.sn .nm{font:600 17px var(--f-display);fill:var(--cream)}
+.sn .sub{font:600 11px var(--f-body);fill:var(--mute);letter-spacing:.04em}
+.sn-in.enter{animation:pop .5s var(--ease) both;transform-box:fill-box;transform-origin:center}
+.sn.leaving{opacity:0}
+.sn .dot{fill:var(--gold)}
+.cn{fill:none;stroke:var(--gold);stroke-width:2;transition:opacity .4s}
+.cn.lease{stroke:var(--chalk);stroke-dasharray:6 6;opacity:.8}
+.cl{font:700 10.5px var(--f-body);letter-spacing:.16em;fill:var(--mute)}
+.narrow .sn .nm{font-size:15px}
+.narrow .sn .kick{font-size:9.5px;letter-spacing:.14em}
+.narrow .sn .sub{font-size:10.5px}
+@media (max-width:860px){.sb-stage{position:relative;top:0}.sb{grid-template-columns:1fr;grid-template-areas:"ctl" "stage" "info"}}
+
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav-in">
+    <a class="brand" href="#hero" aria-label="Full Circle Financial Group, back to top"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#C9A646" stroke-width="2.4"/><circle cx="16" cy="16" r="5" fill="none" stroke="#E6C873" stroke-width="1.4" stroke-dasharray="2 2.2"/></svg>Full Circle<small>Structure</small></a>
+    <ul class="nav-links" id="navLinks"><li><a href="#builder">Builder</a></li><li><a href="#why">Why</a></li><li><a href="#when">When</a></li><li><a href="#how">How</a></li><li><a href="#faq">FAQ</a></li></ul>
+    <a class="btn btn-gold btn-sm nav-cta" data-book href="#">Book your strategy call</a>
+    <button class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14" stroke="#F5EFE0" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="nav-progress" id="navProgress"></div>
+</header>
+
+<main id="main">
+<section class="hero" id="hero" aria-labelledby="heroT">
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Build it · Structure · Phoenix, Arizona</p>
+      <h1 id="heroT">Build the business <em>the right way.</em></h1>
+      <p class="lede">Structure is the part nobody sees and lenders often check. A clean entity, the right paperwork and a business that is separate from you can make what comes after it easier: business credit, funding and protecting what you built.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="#builder">Try the Structure Builder <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-ghost" data-book href="#">Book your strategy call</a>
+      </div>
+      <div class="founder"><i></i><span>Founded by <b>Breyon Miller</b>, who built the plan he was never handed</span></div>
+    </div>
+    <div class="emblem" id="emblem" data-lit="1" data-draw="50" aria-hidden="true">
+    <svg viewBox="-24 -24 348 348">
+      <defs><filter id="emGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <g id="emTicks"></g>
+      <circle class="em-track" cx="150" cy="150" r="108"/>
+      <circle class="em-draw" id="emDraw" cx="150" cy="150" r="108" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" transform="rotate(-90 150 150)"/>
+      <g id="emQuads"></g>
+      <text class="em-c1" x="150" y="138" text-anchor="middle">II</text>
+      <text class="em-c2" x="150" y="176" text-anchor="middle">Build</text>
+    </svg></div>
+  </div>
+</section>
+<section class="sec tool" id="builder" aria-labelledby="sbT">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Signature tool</p>
+      <h2 id="sbT">Structure Builder</h2>
+      <p class="lede">Type your business name and watch a common structure take shape around it. Turn layers on and off, then tap any box to see what it does.</p>
+    </div>
+    <div class="sb">
+      <div class="sb-ctl card">
+        <div class="field">
+          <label for="sbName">Your business name</label>
+          <input type="text" id="sbName" maxlength="40" autocomplete="organization" value="Sonoran Supply Co." spellcheck="false">
+          <span class="fine">Filled with an example name. Type yours.</span>
+        </div>
+        <label class="sw" for="sbTrust"><input type="checkbox" id="sbTrust" role="switch"><span class="knob"></span><span class="t"><b>Family trust</b><small>A trust owns the holding company</small></span></label>
+        <label class="sw" for="sbAsset"><input type="checkbox" id="sbAsset" role="switch" checked><span class="knob"></span><span class="t"><b>Asset LLC</b><small>Holds equipment or property and leases it to the operating company</small></span></label>
+        <p class="example">Example only. Each LLC shown is a separate company with its own state filing. Your structure should be set with your CPA and attorney.</p>
+      </div>
+      <div class="sb-stage card card-gold">
+        <div class="sb-top"><span class="tag">Your structure</span><span class="fine" id="sbCount">4 layers</span></div>
+        <svg id="sbSvg" role="group" aria-label="Structure diagram. Each box is a button that explains its purpose."></svg>
+        <div class="sb-legend" aria-hidden="true"><span><i class="lg-own"></i>owns</span><span><i class="lg-lease"></i>leases to</span></div>
+      </div>
+      <div class="sb-info card" id="sbInfo" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec" id="why" aria-labelledby="whyT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Why you need it</p><h2 id="whyT">A business that stands on its own</h2><p class="lede">An entity on paper is a start. A structure that is set up and kept up is what does the work.</p></div>
+    <div class="why-list">
+      <div class="why-item rv"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="12" cy="18" r="8" fill="none" stroke="#C9A646" stroke-width="1.8"/><circle cx="24" cy="18" r="8" fill="none" stroke="#E6C873" stroke-width="1.8"/></svg><h3>Separation</h3><p>Your business has its own name, tax ID, bank account and records. Your money and the company's money stop mixing, which makes your books, your taxes and your applications cleaner.</p></div>
+      <div class="why-item rv"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 4l11 4v9c0 7-5 12-11 15C12 29 7 24 7 17V8z" fill="none" stroke="#C9A646" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 18l4 4 7-8" fill="none" stroke="#E6C873" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Liability protection</h3><p>A properly formed and maintained LLC can help keep business debts and claims apart from your personal assets. That protection has limits, and it depends on keeping formalities and not commingling funds.</p></div>
+      <div class="why-item rv"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M5 31h26M8 31V15M15 31V15M21 31V15M28 31V15M4 13L18 5l14 8z" fill="none" stroke="#C9A646" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg><h3>Credibility with lenders</h3><p>Lenders, vendors and bureaus look for a real company: an entity in good standing, an EIN, a business bank account, and the same name, address and phone everywhere.</p></div>
+      <div class="why-item rv"><svg viewBox="0 0 36 36" aria-hidden="true"><rect x="8" y="5" width="20" height="26" rx="2" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M12 12h12M12 17h12M12 22h7" stroke="#E6C873" stroke-width="1.8" stroke-linecap="round"/></svg><h3>Tax options for your CPA</h3><p>How the business is set up affects how it can be taxed. An LLC can choose how it's taxed, and an S corporation election is one option some owners discuss. That decision belongs with your CPA.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec when" id="when" aria-labelledby="whenT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">When you need it</p><h2 id="whenT">The moments that call for structure</h2><p class="lede">You don't need a holding company on day one. These are the stages when it's worth a structure review.</p></div>
+    <ul class="when-list">
+      <li class="when-row rv"><h3><span>Stage 1</span>Starting out</h3><p><b>Form it right the first time.</b> Pick the entity, file it, get the EIN and open the business bank account before the first invoice goes out.</p></li>
+      <li class="when-row rv"><h3><span>Stage 2</span>Adding a partner</h3><p><b>Put ownership in writing.</b> Who owns what, who decides, and what happens if someone leaves belongs in the operating agreement before money changes hands.</p></li>
+      <li class="when-row rv"><h3><span>Stage 3</span>Buying property or equipment</h3><p><b>Decide where the asset should live.</b> Some owners hold vehicles, equipment or real estate in a separate company and lease it to the operating business.</p></li>
+      <li class="when-row rv"><h3><span>Stage 4</span>Getting ready for funding</h3><p><b>Clean up before you apply.</b> Lenders check that the entity is in good standing and that your name, address and phone match across records.</p></li>
+      <li class="when-row rv"><h3><span>Stage 5</span>Hiring</h3><p><b>Run payroll through the business.</b> Employees mean payroll taxes, insurance and contracts, which should sit with the operating company, not with you personally.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="how" aria-labelledby="howT">
+  <div class="wrap how-grid">
+    <div class="sec-head rv"><p class="eyebrow">How FCFG does it</p><h2 id="howT">Seven steps, in order</h2><p class="lede">Each step sets up the next one. We track every step in your client portal so you can see where things stand.</p></div>
+    <ol class="steps-tl">
+      <li class="rv"><h3>Entity review</h3><p>We look at what you have today: entity type, state filings, ownership, EIN, bank accounts and how money moves. You get a written list of what's solid and what needs work.</p><span class="who"><b>You bring</b>Formation documents, if you have them</span></li>
+      <li class="rv"><h3>Formation or clean-up in Arizona</h3><p>New business: Articles of Organization filed with the Arizona Corporation Commission, with a statutory agent on record. Existing business: we fix lapsed filings, name mismatches and missing pieces.</p><span class="who"><b>You bring</b>Business name ideas and owner details</span></li>
+      <li class="rv"><h3>EIN</h3><p>Your Employer Identification Number from the IRS is the business's own tax ID. The IRS issues EINs free of charge. It goes on your bank account, vendor applications and tax filings.</p></li>
+      <li class="rv"><h3>Operating agreement</h3><p>A written agreement covering ownership, management, money in and money out, and what happens if an owner leaves. Banks and lenders often ask for it. Your attorney should review it.</p><span class="who"><b>You bring</b>Answers on ownership and roles</span></li>
+      <li class="rv"><h3>Business bank account</h3><p>A dedicated account in the business name, using the EIN. Business money in, business money out. This is the line that keeps the separation real.</p><span class="who"><b>You bring</b>Your EIN letter and formation documents</span></li>
+      <li class="rv"><h3>Address, phone and website consistency</h3><p>One legal name, one address, one business phone, a working website and business email. They should match everywhere: the state filing, the IRS, the bank and every business listing.</p></li>
+      <li class="rv"><h3>Business credit foundation</h3><p>With the structure set, we request your D-U-N-S number and start the business credit build: vendor accounts that report under your EIN.</p></li>
+    </ol>
+  </div>
+</section>
+
+
+<section class="sec" id="myths" aria-labelledby="mythT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">Myth vs fact</p><h2 id="mythT">What people get wrong</h2><p class="lede">Tap a card to turn it over.</p></div>
+    <div class="myths">
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>Once I have an LLC, nothing I own can ever be touched.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>An LLC can help separate business liabilities from personal assets, but the protection has limits. Personal guarantees, mixing personal and business money, and skipped formalities can weaken it.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>I'll use my personal bank account until the business gets bigger.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>Running business money through a personal account blurs the line the LLC is supposed to draw. It also makes your records harder to read for a CPA or a lender.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>Holding companies are only for big corporations.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>Small owners use holding structures too, often to keep assets apart from day-to-day operations. Whether one fits you depends on your goals, and that's a call for your CPA and attorney.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>Forming an LLC automatically gives me business credit.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>The LLC is the starting point. A business credit profile forms when accounts report payment history under your EIN, which takes deliberate steps after formation.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>Any address and phone number will do for the business.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>Bureaus and lenders compare your name, address and phone across records. Mismatches between the state filing, the IRS, the bank and listings can slow things down.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+      <button type="button" class="flip rv" aria-pressed="false">
+        <span class="flip-in">
+          <span class="face front"><span class="k"><i>?</i>Myth</span><q>Once the LLC is filed, I never have to think about it again.</q><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>See the fact</span></span>
+          <span class="face back"><span class="k"><i>&#10003;</i>Fact</span><p>Formation is the start. Arizona LLCs don't file an annual report with the Arizona Corporation Commission, but they still need to stay in good standing, keep a statutory agent on record and keep their information current with the ACC. We track that with you.</p><span class="turn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2M14 8a6 6 0 0 1-10.2 4.2M12 1v3h-3M4 15v-3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to the myth</span></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="work" id="working" aria-labelledby="workT">
+  <div class="wrap work-grid">
+    <div class="work-head rv"><p class="eyebrow">What working with us looks like</p><h2 id="workT">The same process for every client.</h2></div>
+    <div class="work-item rv">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M12 20.5l5.2 5L28 14.5" fill="none" stroke="#E6C873" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h3>Same onboarding for everyone</h3><p>Every client starts the same way: a strategy call, a written agreement, then a checklist of what we need from you. No shortcuts, no special tracks.</p></div>
+    <div class="work-item rv">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="9" width="28" height="20" rx="3" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M14 33h12M20 29v4" stroke="#C9A646" stroke-width="1.8" stroke-linecap="round"/><path d="M16 22v-4a4 4 0 0 1 8 0v4" fill="none" stroke="#E6C873" stroke-width="1.8"/><rect x="14.5" y="20" width="11" height="6" rx="1.5" fill="#E6C873"/></svg>
+      <h3>A secure client portal</h3><p>Upload documents in one place and see where each step stands, instead of digging through email threads.</p></div>
+    <div class="work-item rv">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#C9A646" stroke-width="1.8"/><path d="M20 10v10l7 4" fill="none" stroke="#E6C873" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <h3>Updates on a schedule</h3><p>You hear from us on a regular schedule, including the weeks we're waiting on a bureau or a lender. Waiting still gets a status update.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="faq" aria-labelledby="faqT">
+  <div class="wrap">
+    <div class="sec-head rv"><p class="eyebrow">FAQ</p><h2 id="faqT">Questions clients ask</h2></div>
+    <div class="faq">
+      <details class="rv"><summary>Do I need a holding company?</summary><div class="ans"><p>Not always. Many businesses start with a single LLC and add layers later, when there are assets to protect, partners, or more than one line of business. The Structure Builder above shows how the layers fit. Your CPA and attorney should decide what fits your situation.</p></div></details>
+      <details class="rv"><summary>Can you help with my Arizona LLC?</summary><div class="ans"><p>Yes. We guide the formation or clean-up of your entity in Arizona and track each filing step in your portal. We work alongside your CPA and attorney and don't give legal or tax advice ourselves.</p></div></details>
+      <details class="rv"><summary>My LLC is a mess. Do I have to start over?</summary><div class="ans"><p>Usually not. Many issues, like a lapsed filing, an outdated address or a missing operating agreement, can be corrected. The entity review tells us what needs fixing and in what order.</p></div></details>
+      <details class="rv"><summary>Does a single-member LLC need an operating agreement?</summary><div class="ans"><p>It's a good idea. Arizona doesn't have you file it with the state, but banks and lenders often ask for one, and it documents that the business is run as its own entity.</p></div></details>
+      <details class="rv"><summary>Does an EIN cost anything?</summary><div class="ans"><p>No. The IRS issues EINs free of charge. Be careful with websites that charge for something the IRS provides for free.</p></div></details>
+      <details class="rv"><summary>Is an S corporation a different entity from an LLC?</summary><div class="ans"><p>An S corporation is a tax election, not a separate kind of company you form. An LLC can elect how it is taxed. Whether an election makes sense is a question for your CPA.</p></div></details>
+      <details class="rv"><summary>How long does it take?</summary><div class="ans"><p>It depends on state processing, the IRS, your bank and how quickly documents come in. We don't promise timelines. You get status updates on a regular schedule, including while we wait on a filing.</p></div></details>
+      <details class="rv"><summary>What does it cost?</summary><div class="ans"><p>Pricing is quoted in writing on your strategy call, before you sign anything.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="call" aria-labelledby="ctaT" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-card rv">
+      <svg viewBox="0 0 110 110" aria-hidden="true"><circle cx="55" cy="55" r="46" fill="none" stroke="#C9A646" stroke-width="2"/><circle cx="55" cy="55" r="36" fill="none" stroke="rgba(230,200,115,.4)" stroke-width="1" stroke-dasharray="3 4"/><rect x="34" y="38" width="42" height="38" rx="4" fill="none" stroke="#E6C873" stroke-width="2.2"/><path d="M34 48h42M44 32v10M66 32v10" stroke="#E6C873" stroke-width="2.2" stroke-linecap="round"/><circle cx="55" cy="62" r="4" fill="#E6C873"/></svg>
+      <div>
+        <p class="eyebrow" style="margin-bottom:10px">Next step</p>
+        <h2 id="ctaT">Book your strategy call</h2>
+        <p>We'll look at your current setup, show you what a clean structure could look like for your business, and lay out the next steps in writing.</p>
+        <p class="price">Pricing is quoted in writing on your strategy call.</p>
+      </div>
+      <a class="btn btn-gold" data-book href="#">Book your strategy call <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3L3 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-brand">
+        <a class="brand" href="#hero"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#C9A646" stroke-width="2.4"/><circle cx="16" cy="16" r="5" fill="none" stroke="#E6C873" stroke-width="1.4" stroke-dasharray="2 2.2"/></svg>Full Circle Financial Group</a>
+        <p>Fix it. Build it. Fund it. Protect it.<br>Phoenix, Arizona</p>
+        <a class="btn btn-ghost btn-sm" data-link="allServices" href="#" style="justify-self:start;margin-top:8px">See every service, in order</a>
+      </div>
+      <ul class="disc"><li>Results vary. Not a guarantee.</li><li>FCFG does not guarantee any score change, deletion, approval, funding amount or timeline.</li><li>You can dispute inaccurate information on your credit report yourself, for free.</li><li>Personal credit repair is never billed upfront. You pay only as the law allows, after the work is done, as spelled out in your written agreement.</li><li>Life insurance is offered through [Producer name], a licensed Arizona insurance producer, License # [number]. Insurance is optional and never a condition of any credit or funding service.</li><li>Educational only; not legal, tax or financial advice.</li><li>PAYDEX is a trademark of Dun &amp; Bradstreet.</li><li>Full Circle Financial Group · Phoenix, Arizona</li><li>Structure content is educational only. FCFG is not a law firm or CPA firm. Talk with your CPA and attorney before forming, changing or taxing any entity. No tax savings are promised.</li></ul>
+    </div>
+    <div class="copy"><span>&copy; <span id="yr">2026</span> Full Circle Financial Group</span><span>Phoenix, Arizona</span></div>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================
+   BOOKING LINK: REPLACE THIS PLACEHOLDER BEFORE GOING LIVE.
+   Paste the real scheduling URL (Calendly, GHL, etc.).
+   ========================================================== */
+const BOOKING_URL = "https://YOUR-BOOKING-LINK"; // <-- PLACEHOLDER
+
+/* ==========================================================
+   PAGE LINKS: replace each "#" with the published URL of that page.
+   ========================================================== */
+const LINKS = {
+  structure: "https://claude.ai/artifact/VSSdNMJtg2xVFYtV33vavL",
+  businessCredit: "https://claude.ai/artifact/PhfbCSQBsNhRc1yoJ9EUSg",
+  personalCredit: "https://claude.ai/artifact/VzWXR7cpfUDvBWttJPpJ3i",
+  lifeInsurance: "https://claude.ai/artifact/FsxZwfNya2fjfBMoH9qKge",
+  allServices: "https://claude.ai/artifact/5WPY4yXLWMvJMu6y8X11r2"
+};
+/* page links leave the frame so they open as full pages */
+document.addEventListener("click", e => { const a = e.target.closest && e.target.closest("a[href^='https://claude.ai/artifact/']"); if (a) { a.target = "_top"; } }, true);
+
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const NS = "http://www.w3.org/2000/svg";
+const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+const FC = window.FC = {
+  $, $$, NS,
+  reduce: mq.matches,
+  clamp: (v,a,b) => Math.min(b, Math.max(a, v)),
+  el(tag, attrs={}, parent){ const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; },
+  esc: s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])),
+  usd: n => "$" + Math.round(n).toLocaleString("en-US"),
+  fillTrack(r){ r.style.setProperty("--p", ((r.value-r.min)/(r.max-r.min)*100) + "%"); }
+};
+mq.addEventListener && mq.addEventListener("change", e => { FC.reduce = e.matches; });
+try { $("#yr").textContent = new Date().getFullYear(); } catch(e) {}
+
+/* booking links */
+$$("[data-book]").forEach(a => { a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; });
+/* cross-page links */
+$$("[data-link]").forEach(a => { const u = LINKS[a.dataset.link]; if (u) a.href = u; });
+
+/* nav */
+const menuBtn = $("#navMenu"), links = $("#navLinks");
+menuBtn.addEventListener("click", () => {
+  const open = links.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+});
+$$("a", links).forEach(a => a.addEventListener("click", () => { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded","false"); menuBtn.setAttribute("aria-label","Open menu"); }));
+const navMap = {};
+$$("a", links).forEach(a => { const h = a.getAttribute("href"); if (h && h[0]==="#") navMap[h.slice(1)] = a; });
+if ("IntersectionObserver" in window){
+  const secObs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting){ Object.values(navMap).forEach(a => a.classList.remove("on")); const a = navMap[e.target.id]; if (a) a.classList.add("on"); }
+  }), { rootMargin:"-45% 0px -50% 0px" });
+  Object.keys(navMap).forEach(id => { const s = document.getElementById(id); if (s) secObs.observe(s); });
+}
+const navProg = $("#navProgress");
+let ticking = false;
+function onScroll(){
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  navProg.style.transform = `scaleX(${max>0 ? FC.clamp(window.scrollY/max,0,1) : 0})`;
+}
+window.addEventListener("scroll", () => { if (!ticking){ ticking = true; requestAnimationFrame(() => { ticking = false; onScroll(); }); } }, {passive:true});
+onScroll();
+
+/* hero emblem */
+const em = $("#emblem");
+if (em){
+  const lit = (em.dataset.lit || "").split(",").map(Number);
+  const ticks = $("#emTicks", em), qs = $("#emQuads", em);
+  const polar = (r, deg) => { const a = (deg-90)*Math.PI/180; return [150+r*Math.cos(a), 150+r*Math.sin(a)]; };
+  for (let i=0;i<60;i++){ const [x1,y1] = polar(98,i*6), [x2,y2] = polar(i%15===0?88:93,i*6); FC.el("line",{class:"em-tick",x1,y1,x2,y2},ticks); }
+  ["FIX","BUILD","FUND","PROTECT"].forEach((t,i) => {
+    const a0 = i*90+5, a1 = (i+1)*90-5, R = 124, [x0,y0] = polar(R,a0), [x1,y1] = polar(R,a1);
+    FC.el("path",{class:"em-q"+(lit.includes(i)?" lit":""),d:`M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1}`},qs);
+    const [lx,ly] = polar(162, i*90+45);
+    const tx = FC.el("text",{class:"em-lbl"+(lit.includes(i)?" lit":""),x:lx,y:ly+4,"text-anchor":"middle"},qs); tx.textContent = t;
+  });
+  const draw = $("#emDraw", em);
+  if (!FC.reduce){
+    draw.style.transition = "stroke-dashoffset 1.8s cubic-bezier(.2,.7,.2,1)";
+    requestAnimationFrame(() => requestAnimationFrame(() => draw.setAttribute("stroke-dashoffset", em.dataset.draw || "0")));
+  } else draw.setAttribute("stroke-dashoffset", em.dataset.draw || "0");
+}
+
+/* gold dust */
+const hero = $(".hero"), cv = $("#dust");
+if (hero && cv){
+  const cx = cv.getContext("2d");
+  let W=0,H=0,parts=[],on=true,raf=0;
+  const size = () => {
+    const r = hero.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio||1,2);
+    W = r.width; H = r.height; cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); cx.setTransform(dpr,0,0,dpr,0,0);
+    const n = Math.round(FC.clamp(W*H/12000, 30, 110));
+    parts = Array.from({length:n}, () => ({x:Math.random()*W,y:Math.random()*H,vy:-(.05+Math.random()*.2),vx:(Math.random()-.5)*.12,r:.5+Math.random()*1.6,a:.12+Math.random()*.5,tw:Math.random()*6.28}));
+    paint(true);
+  };
+  const paint = still => {
+    cx.clearRect(0,0,W,H);
+    for (const p of parts){
+      if (!still){ p.x += p.vx; p.y += p.vy; p.tw += .02; if (p.y < -8){ p.y = H+8; p.x = Math.random()*W; } if (p.x<-8) p.x=W+8; if (p.x>W+8) p.x=-8; }
+      cx.globalAlpha = p.a*(.65+.35*Math.sin(p.tw)); cx.fillStyle = p.r>1.5 ? "#E6C873" : "#C9A646";
+      cx.beginPath(); cx.arc(p.x,p.y,p.r,0,6.283); cx.fill();
+    }
+    cx.globalAlpha = 1;
+  };
+  const loop = () => { paint(false); raf = (on && !FC.reduce) ? requestAnimationFrame(loop) : 0; };
+  size();
+  if (!FC.reduce && "IntersectionObserver" in window){
+    new IntersectionObserver(es => { on = es[0].isIntersecting && !document.hidden; if (on && !raf) raf = requestAnimationFrame(loop); }).observe(hero);
+    document.addEventListener("visibilitychange", () => { on = !document.hidden; if (on && !raf) raf = requestAnimationFrame(loop); });
+  }
+  let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(size, 150); });
+}
+
+/* myth vs fact flip cards */
+$$(".flip").forEach(b => {
+  const front = $(".front", b), back = $(".back", b);
+  const set = on => {
+    b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
+    front.setAttribute("aria-hidden", on); back.setAttribute("aria-hidden", !on);
+  };
+  set(false);
+  b.addEventListener("click", () => set(!b.classList.contains("on")));
+});
+
+/* reveals: only for what starts below the fold */
+FC.reveal = () => {
+  if (FC.reduce || !("IntersectionObserver" in window)) return;
+  const vh = window.innerHeight;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.remove("pre"); io.unobserve(e.target); } }), { rootMargin:"0px 0px -6% 0px" });
+  $$(".rv").forEach(n => { if (n.getBoundingClientRect().top > vh) { n.classList.add("pre"); io.observe(n); } });
+};
+})();
+
+(function(){
+"use strict";
+const {$, $$, el, esc, usd, clamp, fillTrack, NS} = window.FC;
+/* ---------- STRUCTURE BUILDER ---------- */
+const svg = $("#sbSvg"), nameIn = $("#sbName"), trustIn = $("#sbTrust"), assetIn = $("#sbAsset"), info = $("#sbInfo"), stage = $(".sb-stage");
+const INFO = {
+  you: { t: n => "You", job: "You own the business. With no trust layer, you hold the membership interest in the holding company directly.",
+    why: "Clear ownership on paper makes everything else easier to document: bank accounts, applications and agreements.",
+    ask: "How should ownership be split if there are partners or a spouse involved?" },
+  trust: { t: () => "Family trust", job: "Some families hold business ownership through a trust instead of in their own names. The trust owns the holding company, and you are typically involved as the person who set it up and a beneficiary.",
+    why: "Owners often look at a trust for estate planning and continuity, so ownership can pass the way they intend.",
+    ask: "Does a trust fit my family's plans, and which type? This is attorney territory." },
+  hold: { t: n => `${n} Holdings LLC`, job: "Owns the companies below it. It typically doesn't sell to customers, sign customer contracts or hire staff.",
+    why: "Keeping ownership in a company that doesn't run day-to-day operations can help keep it apart from operating risk. Profits can move up from the operating company as your CPA advises.",
+    ask: "Do I need a holding company yet, and how should money move between the companies?" },
+  op: { t: n => `${n} LLC`, job: "The company that does the business: sells, signs contracts, hires and gets paid.",
+    why: "This is the company lenders and vendors see. It carries your EIN, business bank account and the business credit profile we build.",
+    ask: "How should the operating company be taxed, and what licenses does it need?" },
+  asset: { t: n => `${n} Assets LLC`, job: "Holds equipment, vehicles or property and leases them to the operating company under a written lease.",
+    why: "Separating valuable assets from the company that faces customers can help keep them away from operating claims, when it's set up properly and the lease is real and followed.",
+    ask: "Which assets belong here, and what should the lease terms be?" }
+};
+let sel = "op";
+const nodes = {};
+const cleanBase = s => {
+  const b = s.replace(/[,.]?\s*\b(l\.?l\.?c\.?|inc\.?|corp\.?|co\.?|company|ltd\.?)\s*$/i, "").trim();
+  return b || "Your Business";
+};
+function wrapText(str, max){
+  const words = str.split(/\s+/); const lines = []; let cur = "";
+  for (const w of words){
+    if (!cur) cur = w;
+    else if ((cur + " " + w).length <= max) cur += " " + w;
+    else { lines.push(cur); cur = w; }
+  }
+  if (cur) lines.push(cur);
+  if (lines.length > 3){ lines[2] = lines.slice(2).join(" "); lines.length = 3; }
+  return lines;
+}
+function spec(base, narrow){
+  const trust = trustIn.checked, asset = assetIn.checked;
+  const D = narrow
+    ? { VW:360, you:150, trust:210, hold:256, op: asset?164:220, asset:150, gap:22, row:44, fs:15 }
+    : { VW:640, you:200, trust:250, hold:300, op: asset?262:300, asset:244, gap:66, row:52, fs:17 };
+  const list = [];
+  list.push({ id:"you", w:D.you, kick:"OWNER", name:"You", subs:[trust ? "Sets up the trust" : "Member · owner"] });
+  if (trust) list.push({ id:"trust", w:D.trust, kick:"FAMILY TRUST", name:"Family Trust", subs:["Owns the holding company"] });
+  list.push({ id:"hold", w:D.hold, kick:"HOLDING COMPANY", name:`${base} Holdings LLC`, subs:["Owns the companies below"] });
+  list.push({ id:"op", w:D.op, kick:"OPERATING COMPANY", name:`${base} LLC`, subs:["EIN · bank account", "Business credit profile"] });
+  if (asset) list.push({ id:"asset", w:D.asset, kick:"ASSET COMPANY", name:`${base} Assets LLC`, subs:["Equipment · property"] });
+  list.forEach(n => {
+    const max = Math.max(8, Math.floor((n.w - 28) / (D.fs * 0.76)));
+    n.lines = wrapText(n.name, max);
+    n.h = 24 + 22 + (n.lines.length - 1) * 20 + n.subs.length * 17 + 14;
+  });
+  // positions
+  let y = 8;
+  const rowOf = id => list.find(n => n.id === id);
+  ["you","trust","hold"].forEach(id => { const n = rowOf(id); if (!n) return; n.x = (D.VW - n.w)/2; n.y = y; y += n.h + D.row; });
+  const op = rowOf("op"), as = rowOf("asset");
+  if (as){
+    const h = Math.max(op.h, as.h); op.h = as.h = h;
+    const total = op.w + D.gap + as.w, x0 = (D.VW - total)/2;
+    op.x = x0; as.x = x0 + op.w + D.gap; op.y = as.y = y;
+    y += h + 64;
+  } else { op.x = (D.VW - op.w)/2; op.y = y; y += op.h + 16; }
+  return { D, list, H: y };
+}
+function render(){
+  const narrow = stage.clientWidth < 560;
+  svg.classList.toggle("narrow", narrow);
+  const base = cleanBase(nameIn.value.trim());
+  const { D, list, H } = spec(base, narrow);
+  svg.setAttribute("viewBox", `0 0 ${D.VW} ${H}`);
+  // connectors
+  let cg = svg.querySelector("#sbCn");
+  if (!cg){ cg = el("g", {id:"sbCn"}, svg); }
+  cg.innerHTML = "";
+  const by = id => list.find(n => n.id === id);
+  const chain = list.filter(n => ["you","trust","hold"].includes(n.id));
+  for (let i = 0; i < chain.length - 1; i++){
+    const a = chain[i], b = chain[i+1], x = D.VW/2;
+    el("path", {class:"cn", d:`M${x} ${a.y+a.h} L${x} ${b.y}`}, cg);
+    const t = el("text", {class:"cl", x:x+10, y:(a.y+a.h+b.y)/2+4}, cg); t.textContent = "OWNS";
+  }
+  const hold = by("hold"), op = by("op"), as = by("asset");
+  const hx = D.VW/2, hb = hold.y + hold.h, my = hb + (op.y - hb)/2;
+  [op, as].filter(Boolean).forEach(c => {
+    const cx = c.x + c.w/2;
+    el("path", {class:"cn", d: Math.abs(cx-hx) < 1 ? `M${hx} ${hb} L${hx} ${c.y}` : `M${hx} ${hb} L${hx} ${my} L${cx} ${my} L${cx} ${c.y}`}, cg);
+  });
+  const ol = el("text", {class:"cl", x:hx+10, y: as ? my-8 : my+4}, cg); ol.textContent = as ? "OWNS 100% OF EACH" : "OWNS";
+  if (as){
+    const ax = as.x + as.w/2, ox = op.x + op.w/2, b = op.y + op.h, dy = b + 30;
+    el("path", {class:"cn lease", d:`M${ax} ${b} L${ax} ${dy} L${ox} ${dy} L${ox} ${b+8}`, "marker-end":"url(#sbAh)"}, cg);
+    const lt = el("text", {class:"cl", x:(ax+ox)/2, y:dy+18, "text-anchor":"middle"}, cg); lt.textContent = "LEASES EQUIPMENT / PROPERTY TO";
+  }
+  if (!svg.querySelector("defs")){
+    const defs = el("defs", {}, svg); svg.insertBefore(defs, svg.firstChild);
+    const m = el("marker", {id:"sbAh", viewBox:"0 0 10 10", refX:"5", refY:"5", markerWidth:"6", markerHeight:"6", orient:"auto-start-reverse"}, defs);
+    el("path", {d:"M0 0 L10 5 L0 10 z", fill:"#E9E3D2"}, m);
+  }
+  // nodes
+  const live = new Set(list.map(n => n.id));
+  Object.keys(nodes).forEach(id => {
+    if (!live.has(id)){
+      const g = nodes[id]; delete nodes[id];
+      g.classList.add("leaving"); g.setAttribute("tabindex","-1");
+      setTimeout(() => g.remove(), window.FC.reduce ? 0 : 380);
+    }
+  });
+  if (!live.has(sel)) sel = "op";
+  list.forEach(n => {
+    let g = nodes[n.id], fresh = false;
+    if (!g){
+      fresh = true;
+      g = nodes[n.id] = el("g", {class:"sn", tabindex:"0", role:"button", "data-id":n.id}, svg);
+      g.style.transition = "none";
+      el("g", {class:"sn-in"}, g);
+      const pick = () => { sel = n.id; paintSel(); };
+      g.addEventListener("click", pick);
+      g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); pick(); } });
+    }
+    const inner = g.firstChild; inner.innerHTML = "";
+    el("rect", {class:"ring", x:-5, y:-5, width:n.w+10, height:n.h+10, rx:16}, inner);
+    el("rect", {class:"box", x:0, y:0, width:n.w, height:n.h, rx:12}, inner);
+    el("circle", {class:"dot", cx:16, cy:20, r:3}, inner);
+    const k = el("text", {class:"kick", x:26, y:24}, inner); k.textContent = n.kick;
+    let y = 24 + 22;
+    n.lines.forEach((ln, i) => {
+      const t = el("text", {class:"nm", x:16, y}, inner); t.textContent = ln;
+      try { if (t.getComputedTextLength() > n.w - 28){ t.setAttribute("textLength", n.w - 28); t.setAttribute("lengthAdjust", "spacingAndGlyphs"); } } catch(e) {}
+      y += 20;
+    });
+    y -= 20;
+    n.subs.forEach(s => { y += 17; const t = el("text", {class:"sub", x:16, y}, inner); t.textContent = s; });
+    g.setAttribute("aria-label", `${INFO[n.id].t(base)}. ${n.kick.toLowerCase()}. Show what it does.`);
+    g.style.transform = `translate(${n.x}px, ${n.y}px)`;
+    if (fresh){
+      void g.getBoundingClientRect();
+      g.style.transition = "";
+      if (!window.FC.reduce && rendered) { inner.classList.add("enter"); inner.addEventListener("animationend", () => inner.classList.remove("enter"), {once:true}); }
+    }
+  });
+  svg.appendChild(cg); // keep connectors under? move nodes on top
+  list.forEach(n => svg.appendChild(nodes[n.id]));
+  svg.insertBefore(cg, svg.querySelector(".sn"));
+  $("#sbCount").textContent = `${list.length} boxes · ${list.length - 1} links`;
+  rendered = true;
+  paintSel(base);
+}
+let rendered = false;
+function paintSel(base){
+  base = base || cleanBase(nameIn.value.trim());
+  Object.entries(nodes).forEach(([id, g]) => { g.classList.toggle("sel", id === sel); g.setAttribute("aria-pressed", id === sel); });
+  const I = INFO[sel];
+  info.innerHTML = `<div class="fade-in" style="display:grid;gap:12px">
+    <span class="tag">You tapped</span>
+    <h3>${esc(I.t(base))}</h3>
+    <div class="row"><b>What it does</b><p>${I.job}</p></div>
+    <div class="row"><b>Why it can help</b><p>${I.why}</p></div>
+    <div class="row"><b>Ask your CPA or attorney</b><p>${I.ask}</p></div>
+  </div>`;
+}
+nameIn.addEventListener("input", () => render());
+trustIn.addEventListener("change", () => { if (trustIn.checked) sel = "trust"; render(); });
+assetIn.addEventListener("change", () => { if (assetIn.checked) sel = "asset"; render(); });
+let rzT; window.addEventListener("resize", () => { clearTimeout(rzT); rzT = setTimeout(render, 120); });
+render();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => render());
+
+window.FC.reveal();
+})();
+</script>
+
+</body></html>

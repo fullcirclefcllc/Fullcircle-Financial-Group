@@ -1,0 +1,372 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle OS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 3D module network in the hero, then a module grid, a product console mockup, the client journey, and access */
+:root{
+  --ink:#040D1F; --navy:#0A1F44; --gold:#C9A646; --gold-soft:#E2C77A; --cream:#F5EFE0;
+  --muted:#9AA6BE; --line:rgba(201,166,70,.24); --panel:rgba(10,31,68,.66); --ok:#5FC59A; --warn:#E8B04B;
+  --display:"Cinzel",Georgia,serif; --serif:"Cormorant Garamond",Georgia,serif; --body:"Manrope",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.wrap{position:relative;max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(4,13,31,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.mark{font-family:var(--display);letter-spacing:.16em;font-size:14px;color:var(--gold);text-decoration:none}
+.mark b{font-family:var(--mono);font-weight:500;color:var(--cream);letter-spacing:.05em;margin-left:6px}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+nav a{color:var(--cream);text-decoration:none}nav a:hover{color:var(--gold)}
+@media(max-width:640px){nav ul{display:none}}
+
+.hero{position:relative;border-bottom:1px solid var(--line)}
+.orbit{position:relative;width:100%;max-width:560px;aspect-ratio:1/.74;justify-self:end;margin:0 0 2.6em}
+.orbit.sm,.orbit.static{margin-bottom:0}
+.orbit canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.orbit::before{content:"";position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,rgba(201,166,70,.12),rgba(201,166,70,0) 66%);pointer-events:none}
+.olabels{position:absolute;inset:0}
+.ol{position:absolute;left:0;top:0;display:block;white-space:nowrap;font-family:var(--body);font-size:12.5px;font-weight:600;line-height:1.25;color:var(--cream);text-decoration:none;padding:6px 11px;border:1px solid rgba(201,166,70,.3);border-radius:10px;background:rgba(6,20,45,.78);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);transition:border-color .2s,background-color .2s;will-change:transform}
+.ol.pt{border-style:dashed}
+.ol .op,.ol .od{display:none}
+.ol.on{border-color:var(--gold);background:rgba(10,31,68,.96)}
+.odetail{position:absolute;left:50%;top:100%;margin:6px 0 0;transform:translateX(-50%);width:min(100%,420px);text-align:center;font-family:var(--body);font-size:13px;line-height:1.45;color:var(--muted);min-height:2.9em;pointer-events:none}
+.odetail b{color:var(--cream);font-weight:600}.odetail i{font-style:normal;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-right:8px}
+.orbit.sm .odetail,.orbit.static .odetail{display:none}
+.ol:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.oc{position:absolute;left:0;top:0;z-index:120;text-align:center;pointer-events:none;white-space:nowrap}
+.oc b{display:block;font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:11.5px;color:var(--gold)}
+.oc span{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.orbit.sm .ol{font-size:11px;padding:4px 8px;white-space:normal;max-width:98px;text-align:center}
+.orbit.sm .ol .op,.orbit.sm .ol .od{display:none!important}
+.orbit.sm .oc b{font-size:9.5px;letter-spacing:.1em}.orbit.sm .oc span{display:none}
+.orbit.static{aspect-ratio:auto}
+.orbit.static::before{display:none}
+.orbit.static .olabels{position:static;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.orbit.static .ol,.orbit.static .oc{position:static;transform:none!important;opacity:1!important}
+.orbit.static .oc{width:100%;margin-bottom:6px}
+.hero .wrap{position:relative;z-index:1;padding-block:72px 64px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:24px 40px;align-items:center}
+.hero-copy{min-width:0}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.hero .orbit{justify-self:center;max-width:460px}}
+.tag{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.08em;border:1px solid var(--line);display:inline-block;padding:4px 10px;background:rgba(4,13,31,.6)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(36px,5.2vw,64px);line-height:1.05;margin:22px 0 18px;max-width:14ch;text-wrap:balance}
+h1 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold-soft)}
+.lede{font-size:18px;color:var(--cream);opacity:.88;max-width:52ch}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-block;padding:13px 24px;font-weight:600;font-size:14px;letter-spacing:.05em;text-decoration:none;border:1px solid var(--gold);border-radius:2px}
+.btn.solid{background:var(--gold);color:var(--ink)}.btn.ghost{color:var(--gold);background:rgba(4,13,31,.5)}
+@media(max-width:640px){.hero .wrap{padding-block:48px}}
+
+section{padding-block:84px}
+.eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600}
+h2{font-family:var(--display);font-weight:500;font-size:clamp(28px,4vw,42px);margin:10px 0 14px;text-wrap:balance}
+.intro{font-family:var(--serif);font-size:21px;color:var(--muted);max-width:60ch;margin:0 0 40px}
+
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media(max-width:760px){.compare{grid-template-columns:1fr}}
+.col{border:1px solid var(--line);padding:28px;min-width:0}
+.col.old{opacity:.75}
+.col h3{font-family:var(--display);font-weight:500;font-size:19px;margin:0 0 14px;letter-spacing:.05em}
+.col ul{margin:0;padding-left:18px;display:grid;gap:8px;color:var(--muted)}
+.col.new{background:var(--panel);border-color:var(--gold)}
+.col.new ul{color:var(--cream)}
+
+.mods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media(max-width:900px){.mods{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.mods{grid-template-columns:1fr}}
+.mod{border:1px solid var(--line);padding:24px;background:linear-gradient(180deg,rgba(10,31,68,.5),rgba(4,13,31,.2));min-width:0}
+.mod .code{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.1em}
+.mod h3{font-family:var(--display);font-weight:500;font-size:20px;margin:8px 0 8px}
+.mod p{margin:0 0 12px;color:var(--muted);font-size:15px}
+.mod .kind{font-size:11px;text-transform:uppercase;letter-spacing:.14em;padding:3px 8px;border:1px solid var(--line);display:inline-block}
+.mod .kind.core{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+.mod .kind.add{color:var(--gold-soft)}
+
+.how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:36px}
+@media(max-width:860px){.how{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.how{grid-template-columns:1fr}}
+.how>div{min-width:0}.hn{font-family:var(--mono);color:var(--gold);font-size:12px;border:1px solid var(--line);padding:2px 8px}
+.how h4{font-family:var(--display);font-weight:500;font-size:17px;margin:10px 0 4px}.how p{margin:0;color:var(--muted);font-size:14.5px}
+.ptn{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}@media(max-width:760px){.ptn{grid-template-columns:1fr}}
+.ptn ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}.ptn li{border-left:2px solid var(--gold);padding-left:14px}.ptn li b{display:block;font-family:var(--display);font-weight:500;font-size:17px}.ptn li span{color:var(--muted);font-size:15px}
+.steps{counter-reset:s;display:grid;gap:10px;margin:0;padding:0;list-style:none}.steps li{counter-increment:s;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;border:1px solid var(--line);padding:14px;background:var(--panel)}.steps li::before{content:counter(s);font-family:var(--mono);color:var(--ink);background:var(--gold);width:26px;height:26px;display:grid;place-content:center;font-size:12px}
+.fit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:28px}@media(max-width:760px){.fit{grid-template-columns:1fr}}.fit>div{border:1px solid var(--line);padding:20px;background:var(--panel)}.fit b{display:block;font-family:var(--display);font-weight:500;font-size:17px;color:var(--gold);margin-bottom:6px}.fit span{color:var(--muted);font-size:15px}
+.console{border:1px solid var(--line);background:#071733;font-family:var(--body);overflow:hidden}
+.cbar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.cbody{display:grid;grid-template-columns:200px minmax(0,1fr);min-height:380px}
+@media(max-width:760px){.cbody{grid-template-columns:1fr}.side{display:none}}
+.side{border-right:1px solid var(--line);padding:16px;display:grid;align-content:start;gap:4px;font-size:14px}
+.side div{padding:8px 10px;color:var(--muted)}.side .on{background:rgba(201,166,70,.12);color:var(--cream);border-left:2px solid var(--gold)}
+.main{padding:22px;min-width:0;display:grid;gap:18px}
+.chead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:baseline}
+.chead h4{margin:0;font-family:var(--display);font-weight:500;font-size:20px}
+.chead span{font-size:12px;color:var(--muted)}
+.track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.stage{font-size:11px;text-transform:uppercase;letter-spacing:.1em;padding:10px 8px;border-top:3px solid var(--line);color:var(--muted)}
+.stage.done{border-color:var(--ok);color:var(--cream)}.stage.now{border-color:var(--gold);color:var(--gold-soft)}
+@media(max-width:560px){.stage{font-size:9px;padding:8px 2px;letter-spacing:.04em}}
+.tasks{display:grid;gap:8px}
+.task{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);font-size:14px}
+.pill{font-size:11px;padding:2px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
+.pill.ok{background:rgba(95,197,154,.15);color:var(--ok)}.pill.w{background:rgba(232,176,75,.15);color:var(--warn)}.pill.q{background:rgba(154,166,190,.14);color:var(--muted)}
+.chk{width:16px;height:16px;border:1.5px solid var(--gold);border-radius:3px}
+.chk.y{background:var(--gold)}
+.bot{border:1px dashed var(--gold);padding:14px 16px;background:rgba(201,166,70,.06);font-size:14px}
+.bot b{font-family:var(--mono);font-weight:500;color:var(--gold);font-size:12px;display:block;margin-bottom:4px}
+.sample{font-size:12px;color:var(--muted);margin-top:10px}
+
+.journey{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+@media(max-width:860px){.journey{grid-template-columns:1fr}}
+.j{padding:24px 18px 0 0;min-width:0;position:relative}
+.j::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+.j .n{font-family:var(--mono);font-size:12px;color:var(--gold)}
+.j h4{font-family:var(--display);font-weight:500;font-size:18px;margin:6px 0}
+.j p{margin:0;color:var(--muted);font-size:14.5px}
+@media(max-width:860px){.j{padding:22px 0 18px 22px;border-left:1px solid var(--line)}.j::before{left:-5px;top:28px}.journey{border-top:0}}
+
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media(max-width:760px){.who{grid-template-columns:1fr}}
+.who div{border-top:2px solid var(--gold);padding-top:16px}
+.who h4{font-family:var(--display);font-weight:500;font-size:19px;margin:0 0 6px}
+.who p{margin:0;color:var(--muted);font-size:15px}
+
+.access{border:1px solid var(--gold);padding:44px;background:var(--panel);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:30px;align-items:center}
+@media(max-width:760px){.access{grid-template-columns:1fr;padding:28px}}
+.access .val{font-size:18px;user-select:all;word-break:break-word}
+.access .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:14px}
+.copy{background:none;border:1px solid var(--line);color:var(--cream);padding:5px 11px;font-size:12px;cursor:pointer;margin-top:6px;font-family:var(--body)}
+footer{padding-block:40px 60px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line)}
+footer p{max-width:90ch;margin:0 0 10px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<nav><div class="wrap">
+  <a class="mark" href="#top">FULL CIRCLE<b>OS</b></a>
+  <ul><li><a href="#modules">Systems</a></li><li><a href="#console">Platform</a></li><li><a href="#partners">Partners</a></li><li><a href="#access">Access</a></li></ul>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+    <span class="tag">BUSINESS OPERATING SYSTEM · v1</span>
+    <h1>Run your whole financial foundation <em>from one system.</em></h1>
+    <p class="lede">One operating system for your business. Every service runs inside it as its own system: entity setup, credit, funding, protection and more, with an AI guide walking you to the next step.</p>
+    <div class="ctas"><a class="btn solid" href="#access">Request access</a><a class="btn ghost" href="#partners">Offer your service</a></div>
+    </div>
+    <figure class="orbit" id="orbit" aria-label="Full Circle OS systems"><canvas aria-hidden="true"></canvas><div class="olabels"></div></figure>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <div class="eyebrow">Why one system</div>
+    <h2>Stop buying the pieces separately</h2>
+    <p class="intro">A business owner usually needs five vendors to get structured, funded and protected. None of them talk to each other.</p>
+    <div class="compare">
+      <div class="col old"><h3>The usual way</h3><ul><li>An LLC from an online filing site</li><li>Credit repair from a separate company</li><li>A lender found through a broker</li><li>Insurance sold on its own</li><li>No single view of progress</li></ul></div>
+      <div class="col new"><h3>Full Circle OS</h3><ul><li>One onboarding and one plan</li><li>Each module unlocks the next in order</li><li>Funding readiness tracked live</li><li>Protection built into the plan, not upsold later</li><li>One dashboard for client and advisor</li></ul></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="modules">
+    <div class="eyebrow">Systems</div>
+    <h2>One OS. A system for every service.</h2>
+    <p class="intro">Each service runs as its own system with the same layout: a framework of phases, tasks that explain why they matter, and a built-in tool. Add the systems you need and your advisor confirms pricing.</p>
+    <div class="mods"><div class="mod"><div class="code">SYS-01</div><h3>Entity &amp; Holding</h3><p>Choose → File → Verify → Maintain</p><p style="font-size:13px;margin:0 0 12px">Built-in: Structure finder</p><span class="kind core">Core</span></div><div class="mod"><div class="code">SYS-02</div><h3>Credit Restore</h3><p>Assess → Correct → Optimize → Maintain</p><p style="font-size:13px;margin:0 0 12px">Built-in: Utilization calculator</p><span class="kind core">Core</span></div><div class="mod"><div class="code">SYS-03</div><h3>Business Credit Builder</h3><p>Tier 1 → Tier 2 → Tier 3</p><p style="font-size:13px;margin:0 0 12px">Built-in: Tier tracker</p><span class="kind core">Core</span></div><div class="mod"><div class="code">SYS-04</div><h3>Funding Engine</h3><p>Review → Docs → Match → Close</p><p style="font-size:13px;margin:0 0 12px">Built-in: Success fee calculator</p><span class="kind core">Core</span></div><div class="mod"><div class="code">SYS-05</div><h3>Protection</h3><p>Needs → Options → Apply → Review</p><p style="font-size:13px;margin:0 0 12px">Built-in: Coverage estimator</p><span class="kind core">Core</span></div><div class="mod"><div class="code">SYS-06</div><h3>Tax Strategy</h3><p>Gather → Plan → Run</p><p style="font-size:13px;margin:0 0 12px">Built-in: With a licensed CPA</p><span class="kind add">Add-on</span></div><div class="mod"><div class="code">SYS-07</div><h3>Estate Plan</h3><p>Map → Draft → Fund</p><p style="font-size:13px;margin:0 0 12px">Built-in: With an estate attorney</p><span class="kind add">Add-on</span></div><div class="mod"><div class="code">SYS-08</div><h3>Business Systems</h3><p>Capture → Convert → Grow</p><p style="font-size:13px;margin:0 0 12px">Built-in: CRM and automation</p><span class="kind add">Add-on</span></div><div class="mod" style="border-style:dashed"><div class="code">SYS-0X</div><h3>Partner systems</h3><p>Services from approved independent providers, run inside the same OS.</p><p style="font-size:13px;margin:0 0 12px">Bookkeeping, web, legal and more</p><span class="kind add">Marketplace</span></div></div>
+    <div class="how">
+      <div><span class="hn">1</span><h4>Answer 5 questions</h4><p>The OS recommends the systems that fit your goal.</p></div>
+      <div><span class="hn">2</span><h4>Launch your OS</h4><p>Keep, add or remove systems before you start.</p></div>
+      <div><span class="hn">3</span><h4>Follow one next step</h4><p>Your home screen always shows the one thing to do now.</p></div>
+      <div><span class="hn">4</span><h4>Unlock funding</h4><p>Readiness from structure and credit opens the Funding Engine at 70.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="console">
+    <div class="eyebrow">Inside the platform</div>
+    <h2>Every client sees every system in one place</h2>
+    <p class="intro">The client dashboard shows the stage, the next task and an AI guide that explains what to do and why.</p>
+    <div class="console" role="img" aria-label="Example client dashboard">
+      <div class="cbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:8px">app.fullcircleos / clients / sample-co</span></div>
+      <div class="cbody">
+        <div class="side"><div class="on">Home</div><div>Entity &amp; Holding</div><div>Credit Restore</div><div>Business Credit</div><div>Funding Engine</div><div>Protection</div><div>+ Add a system</div></div>
+        <div class="main">
+          <div class="chead"><h4>Sample Co. LLC</h4><span>Example client · 5 systems running</span></div>
+          <div class="track">
+            <div class="stage done">Onboard</div><div class="stage done">Entity</div><div class="stage now">Credit</div><div class="stage">Funding</div><div class="stage">Protect</div>
+          </div>
+          <div class="tasks">
+            <div class="task"><span class="chk y"></span><span>EIN, business bank account and D-U-N-S number on file</span><span class="pill ok">Done</span></div>
+            <div class="task"><span class="chk"></span><span>Open 3 net-30 vendor accounts</span><span class="pill w">2 of 3</span></div>
+            <div class="task"><span class="chk"></span><span>Bring personal card utilization under 10%</span><span class="pill w">In progress</span></div>
+            <div class="task"><span class="chk"></span><span>Funding readiness review</span><span class="pill q">Queued</span></div>
+          </div>
+          <div class="bot"><b>AI GUIDE</b>Your third vendor account is the last item before your funding review. Want me to show you which vendors report to the business bureaus?</div>
+        </div>
+      </div>
+    </div>
+    <p class="sample">Sample data for illustration.</p>
+  </section>
+
+  <section class="wrap" id="journey">
+    <div class="eyebrow">Client journey</div>
+    <h2>The order the system enforces</h2>
+    <p class="intro">Each stage unlocks the next, so no client applies for funding before the foundation is ready.</p>
+    <div class="journey">
+      <div class="j"><div class="n">01</div><h4>Onboard</h4><p>Intake, document upload and a plan built from the client's goals.</p></div>
+      <div class="j"><div class="n">02</div><h4>Structure</h4><p>Entity or holding company formed and set up to stand on its own.</p></div>
+      <div class="j"><div class="n">03</div><h4>Build credit</h4><p>Personal credit cleaned up, business tradelines layered.</p></div>
+      <div class="j"><div class="n">04</div><h4>Fund</h4><p>Matched with lenders once the readiness score clears the bar.</p></div>
+      <div class="j"><div class="n">05</div><h4>Protect</h4><p>Coverage and estate documents put the plan in writing.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="eyebrow">Who it's for</div>
+    <h2>Built for owners who are earning, but not fundable yet</h2>
+    <p class="intro">You have revenue and a goal. Your credit, structure or protection has gaps, and you don't know what order to fix them in.</p>
+    <div class="who" style="margin-top:28px">
+      <div><h4>Business owners</h4><p>6 months to 3 years in business, roughly $50K–$500K a year, often first-generation owners in trucking, contracting, beauty, cleaning, transport and real estate.</p></div>
+      <div><h4>Service providers</h4><p>Bookkeepers, CPAs, attorneys, agencies and agents whose clients keep asking about credit and funding.</p></div>
+      <div><h4>Advisors</h4><p>Credit, funding and insurance professionals who want one system to run their whole book of clients.</p></div>
+    </div>
+    <div class="fit">
+      <div><b>A strong fit</b><span>Making money today · loose or missing LLC, EIN or business bank · denied or afraid to apply for funding · a specific goal and a deadline</span></div>
+      <div><b>Not a fit yet</b><span>No revenue yet · looking for a quick fix or a guaranteed approval</span></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="partners">
+    <div class="eyebrow">For entrepreneurs</div>
+    <h2>Offer your service on Full Circle OS</h2>
+    <p class="intro">Bookkeepers, CPAs, attorneys, marketers and other providers can run their service as a system inside the platform, and give their clients Full Circle's systems at the same time.</p>
+    <div class="ptn">
+      <ul>
+        <li><b>Your service as a system</b><span>Your phases and tasks, with progress tracking and the AI guide.</span></li>
+        <li><b>A place in the marketplace</b><span>Every Full Circle OS client can find and add your service.</span></li>
+        <li><b>Full Circle systems for your clients</b><span>Credit, entity setup, business credit and funding next to your work.</span></li>
+        <li><b>Your own OS</b><span>Run your own business on the same systems.</span></li>
+      </ul>
+      <ol class="steps">
+        <li><span><b>Build it in Studio.</b> Name your service, set pricing and lay out up to 4 phases of tasks.</span></li>
+        <li><span><b>Submit for review.</b> Full Circle approves every provider before they go live.</span></li>
+        <li><span><b>Go live.</b> Clients add your system from the marketplace and follow your framework.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap" id="access">
+    <div class="access">
+      <div><div class="eyebrow">Founding access</div><h2 style="margin-bottom:8px">One OS. The whole circle.</h2><p style="color:var(--muted);margin:0;max-width:50ch">We are onboarding a first group of business owners and service providers. Reach out for a walkthrough, pricing or partner access.</p></div>
+      <div>
+        <div class="lbl">Call or text</div><div class="val" id="ph">602-545-0826</div><button class="copy" type="button" data-copy="ph">Copy number</button>
+        <div class="lbl">Email</div><div class="val" id="em">Breyon@fullcircle-credit.com</div><button class="copy" type="button" data-copy="em">Copy email</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>Full Circle OS is a platform from Full Circle Financial Group. It does not guarantee credit score changes or funding approval; results depend on individual history and lender criteria. Legal and tax work is completed by licensed professionals. Insurance is offered through licensed agents.</p>
+  <p>© 2026 Full Circle Financial Group</p>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.copy),t=el.textContent.trim();
+  const done=()=>{const o=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=o,1400)};
+  try{navigator.clipboard.writeText(t).then(done,()=>sel(el))}catch(e){sel(el)}
+}));
+function sel(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+
+function orbitDiagram(host,cfg){
+  if(!host)return;
+  const layer=host.querySelector('.olabels'),items=cfg.items;
+  const els=items.map(it=>{const a=document.createElement('a');a.className='ol'+(it.partner?' pt':'');a.href=cfg.href;
+    const p=document.createElement('span');p.className='op';p.textContent=it.p;
+    const nm=document.createElement('span');nm.className='on';nm.textContent=it.n;
+    const d=document.createElement('span');d.className='od';d.textContent=it.d;
+    a.append(p,nm,d);a.setAttribute('aria-label',it.n+': '+it.d);layer.appendChild(a);return a});
+  const center=document.createElement('div');center.className='oc';
+  const cb=document.createElement('b');cb.textContent=cfg.center[0];const cs=document.createElement('span');cs.textContent=cfg.center[1];
+  center.append(cb,cs);layer.appendChild(center);
+  const detail=document.createElement('p');detail.className='odetail';const hint=cfg.hint||'Hover a service to see what it covers.';detail.textContent=hint;host.appendChild(detail);
+  let r;
+  if(!window.THREE){host.classList.add('static');return}
+  try{r=new THREE.WebGLRenderer({canvas:host.querySelector('canvas'),antialias:true,alpha:true})}catch(e){host.classList.add('static');return}
+  r.setClearColor(0x000000,0);
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.1,200);
+  const R=2.6,EL=.64,GOLD=0xC9A646,CREAM=0xF5EFE0;
+  const world=new THREE.Group();scene.add(world);
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.05,64,48),new THREE.MeshStandardMaterial({color:0x0C2350,metalness:.25,roughness:.55,emissive:0x081A3A,emissiveIntensity:.7})));
+  const flat=(m)=>{m.rotation.x=Math.PI/2;world.add(m);return m};
+  flat(new THREE.Mesh(new THREE.TorusGeometry(1.24,.01,10,180),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:.5})));
+  flat(new THREE.Mesh(new THREE.TorusGeometry(R,.012,10,256),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:.8})));
+  const n=items.length,nodes=[];
+  items.forEach((it,i)=>{
+    const a=i/n*Math.PI*2+Math.PI/2,pos=new THREE.Vector3(Math.cos(a)*R,0,Math.sin(a)*R),dir=pos.clone().normalize();
+    const g=new THREE.Group();g.position.copy(pos);world.add(g);
+    g.add(new THREE.Mesh(new THREE.SphereGeometry(.12,32,24),new THREE.MeshStandardMaterial({color:it.partner?0x0A1F44:CREAM,emissive:GOLD,emissiveIntensity:it.partner?.12:.32,metalness:.3,roughness:.4})));
+    const halo=new THREE.Mesh(new THREE.RingGeometry(.19,.205,56),new THREE.MeshBasicMaterial({color:GOLD,transparent:true,opacity:.6,side:THREE.DoubleSide}));g.add(halo);
+    const sp=new THREE.Line(new THREE.BufferGeometry().setFromPoints([dir.clone().multiplyScalar(1.26),dir.clone().multiplyScalar(R-.24)]),new THREE.LineBasicMaterial({color:GOLD,transparent:true,opacity:.18}));world.add(sp);
+    const pulse=new THREE.Mesh(new THREE.SphereGeometry(.032,12,8),new THREE.MeshBasicMaterial({color:CREAM,transparent:true,opacity:0}));world.add(pulse);
+    nodes.push({g,halo,sp,pulse,dir,el:els[i]});
+  });
+  scene.add(new THREE.AmbientLight(0x9FB0D0,.75));
+  const key=new THREE.DirectionalLight(0xFFE9BF,.9);key.position.set(3,5,6);scene.add(key);
+  scene.add(new THREE.HemisphereLight(0x3A5590,0x06142D,.25));
+  const v=new THREE.Vector3();
+  let W=0,H=0,Rx=1,Ry=1,cx=0,cy=0;
+  const proj=(x,y,z)=>{v.set(x,y,z).project(cam);return[(v.x*.5+.5)*W,(-v.y*.5+.5)*H]};
+  function size(){W=host.clientWidth;H=host.clientHeight;if(!W||!H)return;
+    r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(W,H,false);cam.aspect=W/H;
+    const ratio=W<480?.42:.5,D=R/(ratio*Math.tan(cam.fov*Math.PI/360)*cam.aspect);
+    cam.position.set(0,D*Math.sin(EL),D*Math.cos(EL));cam.lookAt(0,0,0);cam.updateProjectionMatrix();cam.updateMatrixWorld();
+    [cx,cy]=proj(0,0,0);Rx=Math.max(1,proj(R,0,0)[0]-cx);Ry=Math.max(1,proj(0,0,R)[1]-cy);
+    host.classList.toggle('sm',W<480)}
+  let rot=-.3,last=0,t=0,hover=false,active=-1,running=false;
+  function setActive(i){active=i;els.forEach((e,j)=>e.classList.toggle('on',j===i));
+    if(i<0){detail.textContent=hint;return}const it=items[i];detail.textContent='';const tg=document.createElement('i');tg.textContent=it.p;const nm=document.createElement('b');nm.textContent=it.n;detail.append(tg,nm,document.createTextNode(' · '+it.d))}
+  els.forEach((e,i)=>{e.addEventListener('pointerenter',()=>setActive(i));e.addEventListener('pointerleave',()=>setActive(-1));
+    e.addEventListener('focus',()=>setActive(i));e.addEventListener('blur',()=>setActive(-1))});
+  host.addEventListener('pointerenter',()=>hover=true);host.addEventListener('pointerleave',()=>hover=false);
+  function frame(now){
+    const dt=last?Math.min(.05,(now-last)/1000):0;last=now;
+    if(!reduce){t+=dt;if(!hover&&active<0)rot+=dt*.07}
+    world.rotation.y=rot;world.updateMatrixWorld();
+    nodes.forEach((o,i)=>{
+      o.g.getWorldPosition(v);const depth=Math.max(0,Math.min(1,(v.z/R+1)/2)),on=i===active;
+      o.g.scale.setScalar((on?1.45:1)*(.82+.3*depth));
+      o.halo.lookAt(cam.position);
+      o.halo.material.opacity=on?1:.3+.4*depth;
+      o.sp.material.opacity=on?.7:.08+.14*depth;
+      const f=(t*.22+i*.137)%1;
+      o.pulse.position.copy(o.dir).multiplyScalar((R-.24)-(R-1.5)*f);
+      o.pulse.material.opacity=reduce?0:Math.sin(Math.PI*f)*.85*(.4+.6*depth);
+      v.project(cam);
+      const sx=(v.x*.5+.5)*W,sy=(-v.y*.5+.5)*H;
+      const fx=Math.max(-1,Math.min(1,(sx-cx)/Rx)),fy=Math.max(-1,Math.min(1,(sy-cy)/Ry)),gap=16;
+      o.el.style.transform=`translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) translate(${(-50+50*fx).toFixed(1)}%,${(-50+50*fy).toFixed(1)}%) translate(${(gap*fx).toFixed(1)}px,${(gap*fy).toFixed(1)}px)`;
+      o.el.style.opacity=on?'1':(.55+.45*depth).toFixed(2);
+      o.el.style.zIndex=on?'200':String(Math.round(depth*100));
+    });
+    center.style.transform=`translate(${cx.toFixed(1)}px,${cy.toFixed(1)}px) translate(-50%,-50%)`;
+    r.render(scene,cam);
+    if(running)requestAnimationFrame(frame);
+  }
+  function start(){if(running)return;running=true;last=0;requestAnimationFrame(frame)}
+  size();
+  if(window.ResizeObserver)new ResizeObserver(()=>{size();if(!running)requestAnimationFrame(frame)}).observe(host);else addEventListener('resize',size);
+  if(window.IntersectionObserver)new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)start();else running=false})}).observe(host);else start();
+  requestAnimationFrame(frame);
+}
+orbitDiagram(document.getElementById('orbit'),{"href": "#modules", "center": ["FULL CIRCLE OS", "CRM \u00b7 AI guide"], "items": [{"n": "Entity & Holding", "p": "Structure", "d": "Choose, file, verify and maintain your company."}, {"n": "Credit Restore", "p": "Leverage", "d": "Assess, correct, optimize and maintain personal credit."}, {"n": "Business Credit", "p": "Leverage", "d": "Build tier 1, 2 and 3 credit in the business's name."}, {"n": "Funding Engine", "p": "Leverage", "d": "Unlocks at readiness 70, then lender matching."}, {"n": "Protection", "p": "Protection", "d": "Needs, options, application and annual review."}, {"n": "Tax Strategy", "p": "Structure \u00b7 Add-on", "d": "Gather, plan and run, with a licensed CPA."}, {"n": "Estate Plan", "p": "Structure \u00b7 Add-on", "d": "Map, draft and fund your trust and will."}, {"n": "Business Systems", "p": "Scale", "d": "Capture, convert and grow with CRM and automation."}, {"n": "Partner Systems", "p": "Marketplace", "d": "Approved providers' services, run inside the same OS.", "partner": true}]});
+</script>
+
+</body></html>

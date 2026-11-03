@@ -1,0 +1,217 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Barrett Benefits Quick Start</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#FBF8F0; --surface:#FFFFFF; --surface-2:#F3EDDD; --ink:#15213A; --muted:#4A5568; --line:#DDD4BE;
+  --gold:#C9A646; --gold-ink:#7A6015; --navy:#0A1F44; --on-navy:#F5EFE0; --on-navy-muted:#C4CEDF; --focus:#1F5FBF;
+  --sel-bg:#0A1F44; --sel-ink:#F5EFE0;
+  --display:'Cinzel', Georgia, serif; --serif:'Cormorant Garamond', Georgia, serif; --sans:'Public Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#07142B; --surface:#0E1F3D; --surface-2:#132A50; --ink:#EEE8D9; --muted:#AEB9CC; --line:#26406B;
+    --gold-ink:#D9BC68; --navy:#0B2250; --focus:#8DB4FF; --sel-bg:#C9A646; --sel-ink:#0A1F44;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#07142B; --surface:#0E1F3D; --surface-2:#132A50; --ink:#EEE8D9; --muted:#AEB9CC; --line:#26406B;
+  --gold-ink:#D9BC68; --navy:#0B2250; --focus:#8DB4FF; --sel-bg:#C9A646; --sel-ink:#0A1F44;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.55}
+.wrap{max-width:1040px; margin:0 auto; padding-inline:18px}
+h1,h2,h3,p{margin:0}
+h1,h2{text-wrap:balance}
+:focus-visible{outline:3px solid var(--focus); outline-offset:2px; border-radius:6px}
+
+.top{background:var(--navy); color:var(--on-navy); position:relative; overflow:hidden}
+.top::after{content:""; position:absolute; width:440px; height:440px; border-radius:50%; border:1.5px solid rgba(201,166,70,.35); right:-150px; top:-190px; pointer-events:none}
+.top .wrap{padding-block:30px 34px; position:relative}
+.brand{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.brand b{font-family:var(--display); font-size:20px; font-weight:700}
+.brand i{font-family:var(--serif); font-size:18px; color:var(--gold)}
+.top h1{font-family:var(--display); font-size:clamp(28px,5vw,44px); line-height:1.1; margin-top:18px; max-width:760px}
+.top p{margin-top:12px; color:var(--on-navy-muted); font-size:17px; max-width:620px}
+
+.main{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; padding-block:30px 40px; align-items:start}
+.q{display:grid; gap:12px}
+.q + .q{margin-top:30px}
+.qnum{font-size:12.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-ink)}
+.q h2{font-size:21px; font-weight:700; line-height:1.3}
+.opts{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.opt{display:flex; align-items:center; gap:12px; text-align:left; font:600 15px/1.35 var(--sans); color:var(--ink);
+  background:var(--surface); border:1.5px solid var(--line); border-radius:12px; padding:14px 14px; min-height:56px; cursor:pointer; transition:border-color .15s, background .15s}
+.opt:hover{border-color:var(--gold)}
+.opt[aria-pressed="true"], .opt[aria-checked="true"]{background:var(--sel-bg); color:var(--sel-ink); border-color:var(--sel-bg)}
+.opt svg{width:24px; height:24px; flex-shrink:0; stroke:var(--gold-ink)}
+.opt[aria-pressed="true"] svg, .opt[aria-checked="true"] svg{stroke:var(--gold)}
+:root[data-theme="dark"] .opt[aria-pressed="true"] svg, :root[data-theme="dark"] .opt[aria-checked="true"] svg{stroke:#0A1F44}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .opt[aria-pressed="true"] svg, :root:not([data-theme="light"]) .opt[aria-checked="true"] svg{stroke:#0A1F44} }
+.hint{font-size:14px; color:var(--muted)}
+
+.plan{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 16px); background:var(--surface); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 18px 40px -24px rgba(10,31,68,.45)}
+.plan-head{background:var(--navy); color:var(--on-navy); padding:18px 20px}
+.plan-head .qnum{color:var(--gold)}
+.plan-head h3{font-family:var(--display); font-size:22px; margin-top:4px}
+.plan-head p{font-size:14.5px; color:var(--on-navy-muted); margin-top:6px}
+.plan-body{padding:16px 20px 20px; display:grid; gap:14px}
+.items{display:grid; gap:0}
+.item{display:flex; justify-content:space-between; gap:12px; align-items:flex-start; padding:11px 0; border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item b{display:block; font-size:15.5px}
+.item span{font-size:13.5px; color:var(--muted)}
+.tag{flex-shrink:0; font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:4px 8px; border-radius:6px; white-space:nowrap}
+.t-s{background:var(--navy); color:var(--gold)}
+.t-i{background:var(--surface-2); color:var(--gold-ink); border:1px solid var(--line)}
+.t-m{border:1px dashed var(--line); color:var(--muted)}
+.empty{font-size:14.5px; color:var(--muted); padding:8px 0}
+.approve{background:var(--surface-2); border-radius:10px; padding:12px 14px; font-size:14px; color:var(--ink)}
+.approve b{color:var(--gold-ink)}
+.btn{display:flex; align-items:center; justify-content:center; min-height:52px; border-radius:10px; font:700 16px/1 var(--sans); text-decoration:none; background:var(--gold); color:#0A1F44}
+.btn:hover{background:#D6B658}
+.links{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:14.5px}
+.links a{color:var(--gold-ink); font-weight:600; text-decoration:none; min-height:32px; display:inline-flex; align-items:center}
+.links a:hover{text-decoration:underline}
+
+footer{padding-block:0 32px; font-size:12px; color:var(--muted); line-height:1.55}
+
+@media (max-width:820px){
+  .main{grid-template-columns:1fr}
+  .plan{position:static}
+}
+@media (max-width:460px){ .opts{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><b>Barrett Benefits</b><i>powered by Full Circle Financial</i></div>
+    <h1>Not offered benefits? You can still get covered.</h1>
+    <p>Answer two quick questions to see the coverage that fits you. There are no exams, blood draws or doctor visits, and as part of the Barrett group, you're guaranteed to qualify.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="main">
+    <div>
+      <section class="q" aria-labelledby="q1">
+        <div class="qnum">Question 1</div>
+        <h2 id="q1">Does your job give you benefits today?</h2>
+        <div class="opts" id="q1-opts" role="group" aria-labelledby="q1"></div>
+      </section>
+      <section class="q" aria-labelledby="q2">
+        <div class="qnum">Question 2</div>
+        <h2 id="q2">What do you want protected?</h2>
+        <p class="hint">Pick as many as you like.</p>
+        <div class="opts" id="q2-opts" role="group" aria-labelledby="q2"></div>
+      </section>
+    </div>
+
+    <aside class="plan" aria-live="polite">
+      <div class="plan-head">
+        <div class="qnum">Your coverage plan</div>
+        <h3 id="plan-title">Built for you</h3>
+        <p id="plan-sub"></p>
+      </div>
+      <div class="plan-body">
+        <div class="items" id="items"></div>
+        <div class="approve"><b>How you qualify:</b> answer a few yes-or-no health questions, and if your answers are no, you're approved. When you enroll with the Barrett group, you're guaranteed to qualify.</div>
+        <a class="btn" id="go" href="mailto:Breyon@fullcircle-credit.com" target="_blank" rel="noopener">Get covered: email Breyon</a>
+        <div class="links">
+          <a href="tel:+16025450826">Or call 602-545-0826</a>
+          <a href="https://claude.ai/artifact/VYEhwtAdkXvTqPBr88f1qd" target="_blank" rel="noopener">See every plan</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">Barrett Benefits is a voluntary program offered by Full Circle Financial Group; Barrett does not sponsor, fund or endorse any plan, and all coverage is chosen and paid for by the individual. Supplemental benefits are underwritten by Combined Insurance Company of America, a Chubb company. Simplified issue approval depends on your answers to the health questions. Guaranteed issue applies to eligible group enrollments during the enrollment window, subject to plan limits and age bands. Individual life insurance is underwritten. Dental, vision and telehealth memberships are discount programs, not insurance. Availability and rates vary by state.</div>
+</footer>
+
+<script>
+(function(){
+  var I = {
+    none:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>',
+    brief:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>',
+    half:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg>',
+    door:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6v18h8"/><path d="M11 12h10M18 9l3 3-3 3"/></svg>',
+    heart:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg>',
+    wallet:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h2"/></svg>',
+    bandage:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M11 11l2 2"/></svg>',
+    bed:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 00-3-3h-7v5"/><circle cx="7" cy="11" r="1.8"/></svg>',
+    ribbon:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M9 11.5L6 21l6-3 6 3-3-9.5"/></svg>',
+    family:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="7" r="2.5"/><circle cx="16.5" cy="8.5" r="2"/><path d="M3.5 20v-3a4.5 4.5 0 019 0v3M13 20v-2.5a3.5 3.5 0 017 0V20"/></svg>',
+    tooth:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3c-2.5 0-4 2-4 4.5 0 3 1.5 4.5 2 7 .5 3 1 6.5 2.5 6.5s1.7-4 2.5-6c.4-1 1.6-1 2 0 .8 2 1 6 2.5 6s2-3.5 2.5-6.5c.5-2.5 2-4 2-7C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/></svg>'
+  };
+  var Q1 = [
+    {id:'1099', label:'No. I’m a 1099 agent', icon:'none', sub:'As a 1099 agent you’ve never had a benefits package. Here’s one you own.', role:'1099 independent agent'},
+    {id:'noemp', label:'No. My employer doesn’t offer any', icon:'brief', sub:'No employer plan? You can still get covered on your own, through the Barrett group.', role:'Employee, no benefits offered'},
+    {id:'thin', label:'Yes, but not enough', icon:'half', sub:'These fill the gaps your current plan leaves.', role:'Has benefits that aren’t enough'},
+    {id:'leave', label:'Yes, but I’d lose them if I left', icon:'door', sub:'These are policies you own, so they stay with you when you change jobs.', role:'Has benefits tied to a job'}
+  ];
+  var Q2 = [
+    {id:'health', label:'My health', icon:'heart', gives:['health']},
+    {id:'income', label:'My income if I can’t work', icon:'wallet', gives:['disability']},
+    {id:'injury', label:'An accident or injury', icon:'bandage', gives:['accident']},
+    {id:'hosp', label:'A hospital stay', icon:'bed', gives:['hospital']},
+    {id:'serious', label:'Cancer or a serious illness', icon:'ribbon', gives:['ci','cancer']},
+    {id:'family', label:'My family if I pass away', icon:'family', gives:['wtl','iul']},
+    {id:'dental', label:'Dental & vision', icon:'tooth', gives:['dvt']}
+  ];
+  var P = {
+    health:{t:'Health plan', s:'Individual and marketplace plans, reviewed with you', k:'i'},
+    disability:{t:'Disability income', s:'Replaces part of your pay when you can’t work', k:'s'},
+    accident:{t:'Accident', s:'Cash for ER visits, fractures and follow-up care', k:'s'},
+    hospital:{t:'Hospital indemnity', s:'Cash when you’re admitted, plus a benefit for each day you stay', k:'s'},
+    ci:{t:'Critical illness', s:'A lump sum at diagnosis', k:'s'},
+    cancer:{t:'Cancer', s:'A benefit that pays through treatment', k:'s'},
+    wtl:{t:'Worksite term life', s:'Life coverage you can keep until age 95', k:'s'},
+    iul:{t:'Individual life & IUL', s:'Lock in your rate and build cash value', k:'i'},
+    dvt:{t:'Dental, vision & telehealth', s:'Member discounts on everyday care, not insurance', k:'m'}
+  };
+  var TAG = {s:['Simplified · group','t-s'], i:['Individual','t-i'], m:['Membership','t-m']};
+  var state = {q1:'1099', q2:{health:true, income:true, hosp:true}};
+  try{ var saved = JSON.parse(localStorage.getItem('bb-quick')||'null'); if(saved && saved.q1) state = saved; }catch(e){}
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  var q1Box = document.getElementById('q1-opts'), q2Box = document.getElementById('q2-opts');
+  Q1.forEach(function(o){
+    var b = document.createElement('button'); b.type='button'; b.className='opt'; b.id='q1-'+o.id;
+    b.innerHTML = I[o.icon] + '<span>'+esc(o.label)+'</span>';
+    b.addEventListener('click', function(){ state.q1 = o.id; render(); });
+    q1Box.appendChild(b);
+  });
+  Q2.forEach(function(o){
+    var b = document.createElement('button'); b.type='button'; b.className='opt'; b.id='q2-'+o.id;
+    b.setAttribute('role','checkbox');
+    b.innerHTML = I[o.icon] + '<span>'+esc(o.label)+'</span>';
+    b.addEventListener('click', function(){ state.q2[o.id] = !state.q2[o.id]; render(); });
+    q2Box.appendChild(b);
+  });
+
+  function render(){
+    Q1.forEach(function(o){ document.getElementById('q1-'+o.id).setAttribute('aria-pressed', state.q1===o.id ? 'true':'false'); });
+    Q2.forEach(function(o){ document.getElementById('q2-'+o.id).setAttribute('aria-checked', state.q2[o.id] ? 'true':'false'); });
+    var q1 = Q1.filter(function(o){ return o.id===state.q1; })[0] || Q1[0];
+    document.getElementById('plan-sub').textContent = q1.sub;
+    var ids = [];
+    Q2.forEach(function(o){ if(state.q2[o.id]) o.gives.forEach(function(g){ if(ids.indexOf(g)===-1) ids.push(g); }); });
+    if((state.q1==='leave' || state.q1==='thin') && state.q2.family && ids.indexOf('iul')===-1) ids.push('iul');
+    var box = document.getElementById('items');
+    box.innerHTML = ids.length ? ids.map(function(id){ var p=P[id]; return '<div class="item"><div><b>'+esc(p.t)+'</b><span>'+esc(p.s)+'</span></div><span class="tag '+TAG[p.k][1]+'">'+TAG[p.k][0]+'</span></div>'; }).join('')
+      : '<div class="empty">Pick what you want protected, and your plan will show up here.</div>';
+    document.getElementById('plan-title').textContent = ids.length ? (ids.length + (ids.length===1 ? ' plan' : ' plans') + ' that fit you') : 'Built for you';
+    var body = 'Hi Breyon,\n\nI’d like to get covered through Barrett Benefits.\n\nMy situation: ' + q1.role + '\n\nI want coverage for:\n' +
+      (ids.length ? ids.map(function(id){ return '  • ' + P[id].t; }).join('\n') : '  • A general review') +
+      '\n\nName:\nPhone:\nBarrett office:\n\nThank you.';
+    document.getElementById('go').setAttribute('href','mailto:Breyon@fullcircle-credit.com?subject='+encodeURIComponent('Barrett Benefits — I want to get covered')+'&body='+encodeURIComponent(body));
+    try{ localStorage.setItem('bb-quick', JSON.stringify(state)); }catch(e){}
+  }
+  render();
+})();
+</script>
+
+</body></html>

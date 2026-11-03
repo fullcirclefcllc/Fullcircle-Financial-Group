@@ -1,0 +1,466 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Margin Model</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#FBF8F0; --surface:#FFFFFF; --surface2:#F3EDDD; --ink:#15213A; --muted:#4A5568; --line:#DDD4BE;
+  --navy:#0A1F44; --gold:#C9A646; --goldink:#7A6015; --oncard:#F5EFE0;
+  --good:#2F6B4F; --goodbg:#E6F0E9; --warn:#9A4B1F; --warnbg:#F8E9DE; --focus:#1F5FBF;
+  --bar:#C9A646; --bartrack:#EDE5CE;
+  --display:'Cinzel',Georgia,serif; --sans:'Public Sans','Helvetica Neue',Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#07142B; --surface:#0E1F3D; --surface2:#132A50; --ink:#EEE8D9; --muted:#AEB9CC; --line:#26406B;
+  --navy:#0B2250; --goldink:#D9BC68; --good:#7CCFA4; --goodbg:#12362A; --warn:#EDA67A; --warnbg:#3A2418;
+  --focus:#8DB4FF; --bartrack:#1C3055;
+}}
+:root[data-theme="dark"]{
+  --ground:#07142B; --surface:#0E1F3D; --surface2:#132A50; --ink:#EEE8D9; --muted:#AEB9CC; --line:#26406B;
+  --navy:#0B2250; --goldink:#D9BC68; --good:#7CCFA4; --goodbg:#12362A; --warn:#EDA67A; --warnbg:#3A2418;
+  --focus:#8DB4FF; --bartrack:#1C3055;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--goldink)}
+
+header.top{background:var(--navy);color:var(--oncard)}
+header.top .wrap{padding-block:30px 34px}
+header.top h1{font-family:var(--display);font-size:clamp(26px,4.4vw,40px);line-height:1.08;margin-top:10px}
+header.top p{color:#C4CEDF;margin-top:12px;max-width:760px}
+header.top .eyebrow{color:var(--gold)}
+
+section{padding-block:34px}
+section+section{border-top:1px solid var(--line)}
+.shead{display:grid;gap:6px;margin-bottom:18px}
+.shead h2{font-family:var(--display);font-size:clamp(20px,3vw,27px);line-height:1.15}
+.shead p{color:var(--muted);max-width:820px}
+
+.globals{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+label.f{display:grid;gap:5px;font-size:12.5px;font-weight:600;color:var(--muted)}
+input[type=number],input[type=text]{font:600 15px var(--sans);color:var(--ink);background:var(--ground);border:1.5px solid var(--line);border-radius:8px;padding:9px 10px;width:100%;min-height:42px;font-variant-numeric:tabular-nums}
+input:focus{border-color:var(--focus);outline:none}
+.hint{font-size:12px;color:var(--muted)}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:900px;font-size:14px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal;min-width:190px}
+thead th{background:var(--navy);color:var(--gold);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;position:sticky;top:0}
+tbody tr.group td{background:var(--surface2);font-weight:700;color:var(--goldink);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;text-align:left}
+td.num{font-variant-numeric:tabular-nums}
+td input{width:96px;padding:6px 8px;min-height:36px;font-size:14px;text-align:right}
+td.out{font-weight:700}
+.pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:5px;background:var(--surface2);color:var(--goldink);border:1px solid var(--line);margin-left:6px}
+.pill.ph{background:var(--warnbg);color:var(--warn);border-color:transparent}
+.pill.real{background:var(--goodbg);color:var(--good);border-color:transparent}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.tile .k{font-size:12px;font-weight:600;color:var(--muted)}
+.tile .v{font-family:var(--display);font-size:27px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.tile .s{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.rank{display:grid;gap:9px}
+.rank .row{display:grid;grid-template-columns:230px 1fr 104px;gap:12px;align-items:center}
+.rank .nm{font-size:13.5px;font-weight:600}
+.track{background:var(--bartrack);border-radius:0 4px 4px 0;height:16px;overflow:hidden}
+.track i{display:block;height:100%;background:var(--bar);border-radius:0 4px 4px 0}
+.rank .vl{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;font-size:13.5px}
+@media (max-width:640px){.rank .row{grid-template-columns:1fr 78px;grid-template-areas:"nm vl" "bar bar"}.rank .nm{grid-area:nm}.rank .vl{grid-area:vl}.track{grid-area:bar}}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:9px;align-content:start}
+.card.best{border-color:var(--gold);border-width:2px}
+.card h3{font-family:var(--display);font-size:18px}
+.card .price{font-family:var(--display);font-size:30px;font-weight:700}
+.card ul{margin:0;padding-left:17px;color:var(--muted);font-size:13.5px;display:grid;gap:5px}
+.tagline{font-size:12.5px;font-weight:700;color:var(--goldink);letter-spacing:.06em;text-transform:uppercase}
+
+.note{background:var(--surface2);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--ink)}
+.flag{background:var(--warnbg);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--ink);border:1.5px solid var(--warn)}
+.flag b{color:var(--warn)}
+ol.steps{margin:0;padding-left:20px;display:grid;gap:9px;color:var(--muted);font-size:14.5px}
+ol.steps b{color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+footer{padding-block:24px 40px;font-size:12.5px;color:var(--muted)}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button.act{font:700 14px var(--sans);min-height:44px;padding:0 18px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+button.act:hover{border-color:var(--gold)}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Full Circle Financial Group · Internal</div>
+    <h1>Margin Model &amp; Offer Architecture</h1>
+    <p>Every number on this page is editable and saves in your browser. Figures tagged <span class="pill real">yours</span> are prices you've set. Figures tagged <span class="pill ph">placeholder</span> are my estimates — replace them with your real costs before you make decisions on them.</p>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Step 1</div>
+      <h2>Your cost basis</h2>
+      <p>These drive every calculation below. Labor rate is what an hour of delivery actually costs you — your VA's rate, or what your own hour is worth if you're doing it.</p>
+    </div>
+    <div class="globals">
+      <label class="f" for="g_rate">Delivery labor rate ($/hour)<input type="number" id="g_rate" value="35" min="0" step="1"></label>
+      <label class="f" for="g_proc">Payment processing (%)<input type="number" id="g_proc" value="3" min="0" step="0.1"></label>
+      <label class="f" for="g_over">Monthly fixed overhead ($)<input type="number" id="g_over" value="1800" min="0" step="50"></label>
+      <label class="f" for="g_acq">Cost to acquire a client ($)<input type="number" id="g_acq" value="150" min="0" step="10"></label>
+      <label class="f" for="g_hours">Delivery hours you have / month<input type="number" id="g_hours" value="120" min="1" step="5"></label>
+      <label class="f" for="g_target">Minimum margin you accept (%)<input type="number" id="g_target" value="40" min="0" max="95" step="1"></label>
+    </div>
+    <div class="btnrow">
+      <button class="act" id="reset" type="button">Reset to defaults</button>
+      <span class="hint" id="saved" role="status"></span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Step 2</div>
+      <h2>Service-by-service breakdown</h2>
+      <p>Edit price, hard cost and delivery hours in each row. Hard cost is money that leaves the business per client: filing fees, postage, attorney, vendor data, software seats. Everything to the right is calculated.</p>
+    </div>
+    <div class="tablewrap">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th scope="col">Service &amp; tier</th>
+            <th scope="col">Price</th>
+            <th scope="col">Hard cost</th>
+            <th scope="col">Hours</th>
+            <th scope="col">Labor</th>
+            <th scope="col">Fees</th>
+            <th scope="col">Fulfillment</th>
+            <th scope="col">Profit</th>
+            <th scope="col">Margin</th>
+            <th scope="col">$ / hour</th>
+            <th scope="col">Floor price</th>
+            <th scope="col">Recommended</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <p class="hint" style="margin-top:10px">Insurance rows: "price" is your expected first-year commission, not what the client pays. Continuity rows are per month.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Step 3</div>
+      <h2>What actually makes you money</h2>
+      <p>Ranked by profit per delivery hour — the only ranking that matters when your own time is the constraint. A service can have a huge ticket and still be a poor use of a Tuesday.</p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="rank" id="rank"></div>
+    <div class="note" style="margin-top:18px" id="verdict"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Step 4</div>
+      <h2>The three-tier offer</h2>
+      <p>Same architecture that makes the middle tier feel obvious: a low tier that removes the excuse to say no, a middle tier built to be chosen, and a high tier that makes the middle look reasonable.</p>
+    </div>
+    <div class="cards" id="offers"></div>
+    <div class="note" style="margin-top:16px" id="offernote"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Step 5</div>
+      <h2>The continuity offer</h2>
+      <p>One-time services make you start from zero every month. This is the piece that compounds. Set the membership price, what it costs you to serve one member each month, and how long members stay.</p>
+    </div>
+    <div class="two">
+      <div>
+        <div class="globals" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+          <label class="f" for="c_price">Membership price ($/mo)<input type="number" id="c_price" value="97" min="0" step="1"></label>
+          <label class="f" for="c_cost">Cost to serve ($/mo)<input type="number" id="c_cost" value="22" min="0" step="1"></label>
+          <label class="f" for="c_churn">Monthly churn (%)<input type="number" id="c_churn" value="7" min="0.5" step="0.5"></label>
+          <label class="f" for="c_members">Members<input type="number" id="c_members" value="100" min="0" step="5"></label>
+          <label class="f" for="c_add">New members / month<input type="number" id="c_add" value="15" min="0" step="1"></label>
+        </div>
+        <div class="tiles" style="margin-top:14px" id="ctiles"></div>
+      </div>
+      <div>
+        <div class="tagline">How to set it up</div>
+        <ol class="steps" style="margin-top:10px">
+          <li><b>Make it the exit of every service.</b> Every one-time engagement ends with enrollment into the membership at completion. That is the single highest-converting moment you have, and it costs nothing to ask.</li>
+          <li><b>Give it a job the client feels monthly.</b> Monitoring and a monthly report, a quarterly strategy call, dispute rounds or vendor pushes while active, and first access to funding. If a member can't say what they got this month, they cancel.</li>
+          <li><b>Bill it on the card that's already on file.</b> Same processor, same day each month, in GoHighLevel. Dunning on failed cards recovers more revenue than any new campaign.</li>
+          <li><b>Build it once, deliver it to everyone.</b> The monthly report and the group call are one-to-many. Cost to serve should barely move as members grow — that's what makes this the most profitable line you'll own.</li>
+          <li><b>Track one number weekly:</b> net member change. Adds minus cancels. Everything else is noise.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Step 6</div>
+      <h2>What to pay Adam</h2>
+      <p>Model the consultant's comp against the lift he actually produces. Pay for the increase, not for the business you already built.</p>
+    </div>
+    <div class="two">
+      <div>
+        <div class="globals" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+          <label class="f" for="a_base">Your gross profit now ($/mo)<input type="number" id="a_base" value="18000" min="0" step="500"></label>
+          <label class="f" for="a_lift">Expected lift (%)<input type="number" id="a_lift" value="40" min="0" step="5"></label>
+          <label class="f" for="a_ret">Monthly retainer ($)<input type="number" id="a_ret" value="3000" min="0" step="250"></label>
+          <label class="f" for="a_share">Share of the lift (%)<input type="number" id="a_share" value="10" min="0" step="1"></label>
+          <label class="f" for="a_term">Term (months)<input type="number" id="a_term" value="12" min="1" step="1"></label>
+        </div>
+        <div class="tiles" style="margin-top:14px" id="atiles"></div>
+        <div class="note" style="margin-top:12px" id="anote"></div>
+      </div>
+      <div>
+        <div class="tagline">Structure it this way</div>
+        <ol class="steps" style="margin-top:10px">
+          <li><b>Pay on the increase, never on total revenue.</b> Set a baseline from your trailing three months and write it into the agreement. He earns a share of what's above it. A percentage of everything hands him money your existing book already produces.</li>
+          <li><b>Use gross profit, not revenue.</b> A share of revenue can pay him on a sale you lost money delivering.</li>
+          <li><b>Put a term and a cap on it.</b> Twelve to twenty-four months, with a stated ceiling. Consulting engagements end; a share without an end date becomes a permanent partner you never chose.</li>
+          <li><b>Keep it a contract, not ownership.</b> Revenue share is a payment term. Equity gives up control and a vote forever, and it's a much harder thing to undo when the fit isn't right.</li>
+          <li><b>Start smaller than feels generous.</b> A modest retainer plus a share of the lift, with a review at ninety days. If he's as good as advertised, the review is when you raise it — and you'll both have evidence.</li>
+        </ol>
+        <div class="flag" style="margin-top:14px">
+          <b>Before you sign anything:</b> insurance commission cannot be shared with an unlicensed person in most states — if Adam isn't appointed and licensed, your comp has to be calculated so it isn't a cut of commission. Have the agreement reviewed, and confirm the commission point with your carrier's compliance desk.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Working model for planning only. Placeholder figures are estimates, not quotes, and should be replaced with your actual costs before pricing or compensation decisions. Nothing here is legal, tax or accounting advice.</div>
+</footer>
+
+<script>
+(function(){
+  var DEFAULTS = {
+    g:{rate:35,proc:3,over:1800,acq:150,hours:120,target:40},
+    c:{price:97,cost:22,churn:7,members:100,add:15},
+    a:{base:18000,lift:40,ret:3000,share:10,term:12},
+    rows:[
+      {g:'Credit repair — the front door'},
+      {id:'cr_agent',n:'Agent-client rate (when you also represent them)',src:'yours',price:300,hard:45,hrs:3},
+      {id:'cr_ess',n:'Essential',src:'yours',price:950,hard:45,hrs:3},
+      {id:'cr_comp',n:'Complete (tradelines + monitoring)',src:'yours',price:1150,hard:180,hrs:3.5},
+      {id:'cr_elite',n:'Elite (tradelines + monitoring)',src:'yours',price:1500,hard:260,hrs:4},
+      {id:'cr_couple',n:'Both spouses, worked to completion',src:'yours',price:2400,hard:140,hrs:7},
+      {id:'cs_std',n:'Clean Slate expedited',src:'yours',price:1850,hard:95,hrs:5},
+      {id:'cs_pri',n:'Clean Slate Priority',src:'yours',price:2200,hard:110,hrs:6},
+      {g:'Structure — the anchor'},
+      {id:'ent_pkg',n:'Asset protection & entity structure',src:'yours',price:3500,hard:450,hrs:6},
+      {id:'est_pkg',n:'Estate planning suite (trust, wills, POA, directives)',src:'yours',price:4500,hard:1500,hrs:5},
+      {g:'Leverage — the ascension'},
+      {id:'bc_pkg',n:'Business credit build-out, 12-month roadmap',src:'yours',price:2500,hard:250,hrs:12},
+      {g:'Protection — recurring back end'},
+      {id:'ins_arch',n:'Life insurance architecture (design fee)',src:'yours',price:2000,hard:0,hrs:5},
+      {id:'ins_te',n:'Term life (first-year commission)',src:'ph',price:900,hard:0,hrs:2.5},
+      {id:'ins_iul',n:'IUL, mid case (first-year commission)',src:'ph',price:3500,hard:0,hrs:4},
+      {id:'ins_lg',n:'IUL, large case (first-year commission)',src:'ph',price:9000,hard:0,hrs:6},
+      {id:'ins_sup',n:'Worksite supplemental, per enrolled life',src:'ph',price:180,hard:0,hrs:0.5},
+      {g:'Advisory'},
+      {id:'tax_str',n:'Tax strategy consulting',src:'yours',price:1800,hard:500,hrs:3},
+      {id:'inv_net',n:'Investor network access & deal review',src:'yours',price:1500,hard:0,hrs:2},
+      {g:'Packages — what you actually sell'},
+      {id:'pkg_full',n:'Full Circle Legacy Package — pay in full',src:'yours',price:9500,hard:2700,hrs:37},
+      {id:'pkg_phase',n:'Full Circle Legacy Package — phased',src:'yours',price:10500,hard:2700,hrs:37},
+      {g:'Scale — leverage and continuity'},
+      {id:'tech_1',n:'Agent tech stack (per month)',src:'ph',price:97,hard:22,hrs:0.4,mo:true},
+      {id:'tech_2',n:'Tech stack + done-for-you campaigns (per month)',src:'ph',price:297,hard:40,hrs:1.2,mo:true},
+      {id:'mc',n:'Full Circle Blueprint masterclass, per attendee',src:'yours',price:97,hard:4,hrs:0.15},
+      {id:'dfy',n:'Done-for-you agency install',src:'ph',price:7500,hard:400,hrs:22},
+      {id:'lic',n:'System licence (per month)',src:'ph',price:497,hard:60,hrs:1,mo:true}
+    ]
+  };
+  var S = JSON.parse(JSON.stringify(DEFAULTS));
+  try{ var raw = localStorage.getItem('fcfg-margin'); if(raw){ var L=JSON.parse(raw);
+    if(L && L.rows){ S.g=Object.assign(S.g,L.g||{}); S.c=Object.assign(S.c,L.c||{}); S.a=Object.assign(S.a,L.a||{});
+      S.rows.forEach(function(r){ if(r.id && L.rows[r.id]){ r.price=L.rows[r.id].price; r.hard=L.rows[r.id].hard; r.hrs=L.rows[r.id].hrs; } }); } }
+  }catch(e){}
+
+  var money = function(n){ return (n<0?'-$':'$') + Math.round(Math.abs(n)).toLocaleString('en-US'); };
+  var money2 = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+  var pct = function(n){ return (Math.round(n*1000)/10).toFixed(1) + '%'; };
+  var $ = function(id){ return document.getElementById(id); };
+
+  function calc(r){
+    var labor = r.hrs * S.g.rate;
+    var fees = r.price * (S.g.proc/100);
+    var ff = r.hard + labor + fees;
+    var profit = r.price - ff;
+    var t = Math.min(Math.max(S.g.target,0),95)/100, pr = S.g.proc/100;
+    // price where (price - hard - labor - price*proc) / price = target
+    var floor = (r.hard + labor) / Math.max(1 - t - pr, 0.01);
+    floor = Math.ceil(floor/25)*25;
+    var rec = Math.max(floor, r.price);
+    return {labor:labor, fees:fees, ff:ff, profit:profit, margin:r.price>0?profit/r.price:0,
+            ph:r.hrs>0?profit/r.hrs:profit, floor:floor, rec:rec};
+  }
+
+  function save(){
+    try{
+      var rows={}; S.rows.forEach(function(r){ if(r.id) rows[r.id]={price:r.price,hard:r.hard,hrs:r.hrs}; });
+      localStorage.setItem('fcfg-margin', JSON.stringify({g:S.g,c:S.c,a:S.a,rows:rows}));
+      var s=$('saved'); s.textContent='Saved in this browser.'; clearTimeout(window._t); window._t=setTimeout(function(){s.textContent='';},1600);
+    }catch(e){}
+  }
+
+  function buildTable(){
+    var tb = $('tbody'); tb.innerHTML='';
+    S.rows.forEach(function(r, i){
+      var tr = document.createElement('tr');
+      if(r.g){ tr.className='group'; tr.innerHTML = '<td colspan="12">'+r.g+'</td>'; tb.appendChild(tr); return; }
+      tr.innerHTML =
+        '<td>'+r.n+(r.mo?' <span class="pill">monthly</span>':'')+' <span class="pill '+(r.src==='yours'?'real':'ph')+'">'+(r.src==='yours'?'yours':'placeholder')+'</span></td>'+
+        '<td><input type="number" data-i="'+i+'" data-k="price" value="'+r.price+'" min="0" step="10" aria-label="Price for '+r.n+'"></td>'+
+        '<td><input type="number" data-i="'+i+'" data-k="hard" value="'+r.hard+'" min="0" step="5" aria-label="Hard cost for '+r.n+'"></td>'+
+        '<td><input type="number" data-i="'+i+'" data-k="hrs" value="'+r.hrs+'" min="0" step="0.25" aria-label="Hours for '+r.n+'"></td>'+
+        '<td class="num" data-o="labor"></td><td class="num" data-o="fees"></td><td class="num" data-o="ff"></td>'+
+        '<td class="num out" data-o="profit"></td><td class="num" data-o="margin"></td><td class="num out" data-o="ph"></td>'+
+        '<td class="num" data-o="floor"></td><td class="num out" data-o="rec"></td>';
+      tb.appendChild(tr);
+    });
+    tb.addEventListener('input', function(e){
+      var t=e.target; if(!t.dataset.k) return;
+      var v = parseFloat(t.value); if(isNaN(v)||v<0) v=0;
+      S.rows[+t.dataset.i][t.dataset.k] = v; render(); save();
+    });
+  }
+
+  function render(){
+    var rows = S.rows.filter(function(r){ return !r.g; });
+    var trs = Array.prototype.filter.call($('tbody').children, function(tr){ return tr.className!=='group'; });
+    rows.forEach(function(r, i){
+      var c = calc(r), tr = trs[i];
+      tr.querySelector('[data-o=labor]').textContent = money(c.labor);
+      tr.querySelector('[data-o=fees]').textContent = money(c.fees);
+      tr.querySelector('[data-o=ff]').textContent = money(c.ff);
+      var p = tr.querySelector('[data-o=profit]'); p.textContent = money(c.profit); p.style.color = c.profit<0?'var(--warn)':'var(--ink)';
+      tr.querySelector('[data-o=margin]').textContent = pct(c.margin);
+      var h = tr.querySelector('[data-o=ph]'); h.textContent = money(c.ph) + '/hr'; h.style.color = c.profit<0?'var(--warn)':'var(--goldink)';
+      var m = tr.querySelector('[data-o=margin]'); m.style.color = c.margin < S.g.target/100 ? 'var(--warn)' : 'var(--good)';
+      tr.querySelector('[data-o=floor]').textContent = money(c.floor);
+      var rc = tr.querySelector('[data-o=rec]'); rc.textContent = money(c.rec);
+      rc.style.color = c.rec > r.price ? 'var(--warn)' : 'var(--goldink)';
+    });
+
+    var scored = rows.map(function(r){ var c=calc(r); return {n:r.n, mo:r.mo, price:r.price, profit:c.profit, margin:c.margin, ph:c.ph, hrs:r.hrs, hard:r.hard, floor:c.floor}; });
+    var byPH = scored.slice().sort(function(a,b){ return b.ph-a.ph; });
+    var byMargin = scored.slice().sort(function(a,b){ return b.margin-a.margin; });
+    var byTicket = scored.slice().sort(function(a,b){ return b.profit-a.profit; });
+    var lowOver = scored.slice().sort(function(a,b){ return (a.hard/(a.price||1))-(b.hard/(b.price||1)); });
+    var under = scored.filter(function(r){ return r.margin < S.g.target/100; }).sort(function(a,b){ return a.margin-b.margin; });
+
+    $('tiles').innerHTML = [
+      ['Best use of an hour', byPH[0].n, money(byPH[0].ph)+' per delivery hour'],
+      ['Highest margin', byMargin[0].n, pct(byMargin[0].margin)+' of the price is profit'],
+      ['Biggest single ticket', byTicket[0].n, money(byTicket[0].profit)+' profit per client'],
+      ['Lowest money out the door', lowOver[0].n, money(lowOver[0].hard)+' hard cost per client'],
+      [under.length ? 'Below your '+S.g.target+'% floor' : 'Every service clears '+S.g.target+'%',
+       under.length ? under.length + (under.length===1?' service':' services') : 'All clear',
+       under.length ? 'Raise price or cut cost: '+under.slice(0,2).map(function(u){return u.n;}).join('; ') : 'Nothing to fix right now']
+    ].map(function(t){ return '<div class="tile"><div class="k">'+t[0]+'</div><div class="v" style="font-size:18px;line-height:1.25">'+t[1]+'</div><div class="s">'+t[2]+'</div></div>'; }).join('');
+
+    var top = byPH.slice(0,10), max = Math.max.apply(null, top.map(function(r){ return Math.max(r.ph,0); })) || 1;
+    $('rank').innerHTML = top.map(function(r){
+      var w = Math.max(2, (Math.max(r.ph,0)/max)*100);
+      return '<div class="row"><div class="nm">'+r.n+'</div><div class="track"><i style="width:'+w.toFixed(1)+'%"></i></div><div class="vl">'+money(r.ph)+'/hr</div></div>';
+    }).join('');
+
+    var cap = S.g.hours, best = byPH[0];
+    var ceiling = best.hrs>0 ? (cap/best.hrs)*best.profit : 0;
+    $('verdict').innerHTML = '<b>Read it this way.</b> With ' + cap + ' delivery hours a month, filling all of them with <b>' + best.n +
+      '</b> would produce about <b>' + money(ceiling) + '</b> in gross profit — ' + money(ceiling - S.g.over) + ' after your ' + money(S.g.over) +
+      ' of fixed overhead. That is the ceiling of a one-time-service business: it stops the moment you stop. The continuity line below is the only one that pays you for work you already did.';
+
+    // three-tier offer
+    var off = [
+      {t:'Entry', tag:'Removes the reason to say no', id:'cr_comp', extra:['Full dispute rounds, worked to completion','Aged tradelines and credit monitoring','Monthly progress report','Membership included for 90 days']},
+      {t:'Core', tag:'Built to be chosen', id:'ent_pkg', extra:['Everything in Entry','Entity formed, operating agreement, EIN, banking','Business credit roadmap started','Insurance architecture session','Membership included for 6 months']},
+      {t:'Legacy', tag:'Makes the middle look reasonable', id:'est_pkg', extra:['Everything in Core','Trust, wills, POAs and directives','Tax strategy consulting','Investor network introductions','Membership included for a year']}
+    ];
+    var find = function(id){ return S.rows.filter(function(r){ return r.id===id; })[0]; };
+    $('offers').innerHTML = off.map(function(o, i){
+      var r = find(o.id), c = calc(r);
+      var bundle = i===0 ? r.price : (i===1 ? r.price + find('cr_comp').price*0.6 : find('pkg_full').price);
+      var bcost = i===0 ? c.ff : (i===1 ? c.ff + calc(find('cr_comp')).ff*0.6 : calc(find('pkg_full')).ff);
+      return '<div class="card'+(i===1?' best':'')+'"><div class="tagline">'+o.tag+'</div><h3>'+o.t+'</h3>'+
+        '<div class="price">'+money2(Math.round(bundle/50)*50)+'</div>'+
+        '<ul><li>'+o.extra.join('</li><li>')+'</li></ul>'+
+        '<div class="s" style="font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:9px">Costs you '+money(bcost)+' &middot; keeps <b style="color:var(--goldink)">'+money(bundle-bcost)+'</b> ('+pct((bundle-bcost)/bundle)+')</div></div>';
+    }).join('');
+    $('offernote').innerHTML = '<b>Why the middle one sells.</b> Alone, a price is just a number. Beside a cheaper option it looks expensive, and beside a much larger one it looks sensible. The top tier does not need to sell often to earn its place — it exists so the middle tier reads as the reasonable choice. Build the bundles out of services you already fulfil, and include the membership in the top two so continuity starts on day one.';
+
+    // continuity
+    var cm = S.c, unit = cm.price - cm.cost, churn = Math.max(cm.churn,0.5)/100;
+    var life = 1/churn, ltv = unit*life, mrr = cm.members*cm.price, gp = cm.members*unit;
+    var steady = cm.add/churn;
+    $('ctiles').innerHTML = [
+      ['Profit per member / month', money(unit), pct(cm.price>0?unit/cm.price:0)+' margin'],
+      ['Average member lifetime', life.toFixed(1)+' mo', 'at '+cm.churn+'% monthly churn'],
+      ['Lifetime value', money(ltv), 'profit per member joined'],
+      ['At '+cm.members+' members', money(mrr)+'/mo', money(gp)+' of that is profit'],
+      ['Steady state', Math.round(steady)+' members', 'where '+cm.add+' joining a month levels off'],
+      ['Covers overhead at', Math.ceil(unit>0?S.g.over/unit:0)+' members', 'fixed costs paid before you sell anything']
+    ].map(function(t){ return '<div class="tile"><div class="k">'+t[0]+'</div><div class="v">'+t[1]+'</div><div class="s">'+t[2]+'</div></div>'; }).join('');
+
+    // consultant
+    var a = S.a, lift = a.base*(a.lift/100), shareCost = lift*(a.share/100), total = a.ret+shareCost;
+    var net = lift-total, annual = total*12, roi = total>0?lift/total:0;
+    $('atiles').innerHTML = [
+      ['Lift he needs to produce', money(lift)+'/mo', 'on '+money(a.base)+' of gross profit'],
+      ['What he costs you', money(total)+'/mo', money(a.ret)+' retainer + '+money(shareCost)+' share'],
+      ['You keep', money(net)+'/mo', net>0?'after paying him':'he costs more than the lift'],
+      ['Over the '+a.term+'-month term', money(total*a.term), 'total consultant cost'],
+      ['Return on his fee', roi.toFixed(2)+'x', 'lift divided by cost'],
+      ['Break-even lift', pct(a.base>0?(a.ret/(1-a.share/100))/a.base:0), 'below this you are paying to stand still']
+    ].map(function(t){ return '<div class="tile"><div class="k">'+t[0]+'</div><div class="v">'+t[1]+'</div><div class="s">'+t[2]+'</div></div>'; }).join('');
+    var verdictTxt = roi>=3 ? 'This is a deal worth doing. He earns well and you keep the larger share, which is what a healthy consulting arrangement looks like.'
+      : (roi>=1.5 ? 'This works, but the margin for error is thin. Either the retainer comes down or the lift target goes up before you sign.'
+      : 'Do not sign this. At this lift he takes more than he creates — lower the retainer, cut the share, or agree on a bigger target.');
+    $('anote').innerHTML = '<b>Verdict at these numbers:</b> ' + verdictTxt + ' A common shape for this is a modest retainer plus 5–15% of the increase in gross profit, capped, for 12–24 months.';
+  }
+
+  ['rate','proc','over','acq','hours','target'].forEach(function(k){ var el=$('g_'+k); el.addEventListener('input',function(){ var v=parseFloat(el.value); S.g[k]=isNaN(v)?0:v; render(); save(); }); });
+  ['price','cost','churn','members','add'].forEach(function(k){ var el=$('c_'+k); el.addEventListener('input',function(){ var v=parseFloat(el.value); S.c[k]=isNaN(v)?0:v; render(); save(); }); });
+  ['base','lift','ret','share','term'].forEach(function(k){ var el=$('a_'+k); el.addEventListener('input',function(){ var v=parseFloat(el.value); S.a[k]=isNaN(v)?0:v; render(); save(); }); });
+  $('reset').addEventListener('click', function(){
+    try{ localStorage.removeItem('fcfg-margin'); }catch(e){}
+    S = JSON.parse(JSON.stringify(DEFAULTS));
+    ['rate','proc','over','acq','hours','target'].forEach(function(k){ $('g_'+k).value=S.g[k]; });
+    ['price','cost','churn','members','add'].forEach(function(k){ $('c_'+k).value=S.c[k]; });
+    ['base','lift','ret','share','term'].forEach(function(k){ $('a_'+k).value=S.a[k]; });
+    buildTable(); render();
+  });
+
+  ['rate','proc','over','acq','hours','target'].forEach(function(k){ $('g_'+k).value=S.g[k]; });
+  ['price','cost','churn','members','add'].forEach(function(k){ $('c_'+k).value=S.c[k]; });
+  ['base','lift','ret','share','term'].forEach(function(k){ $('a_'+k).value=S.a[k]; });
+  buildTable(); render();
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,621 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Services &amp; Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: brand header with orbit ring, sticky section tabs, content column + sticky plan summary rail (stacks on phones) */
+:root{
+  --bg:#0A1F44; --surface:#10284F; --surface2:#163260; --line:rgba(245,239,224,.14); --rule:rgba(201,166,70,.38);
+  --ink:#F5EFE0; --muted:#B9C2D3; --gold:#C9A646; --goldtext:#E0C77E; --onGold:#0A1F44;
+  --good:#8FD1AE; --goodbg:rgba(143,209,174,.14); --warn:#F0B48A; --warnbg:rgba(240,180,138,.14);
+  --focus:#9DBBFF;
+  --display:"Cinzel",Georgia,serif; --serif:"Cormorant Garamond",Georgia,serif; --sans:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#F5EFE0; --surface:#FFFDF7; --surface2:#EFE6D0; --line:rgba(10,31,68,.13); --rule:rgba(138,109,30,.4);
+  --ink:#0A1F44; --muted:#4B566B; --gold:#B08F32; --goldtext:#7A5F14; --onGold:#FFFDF7;
+  --good:#2F6B4F; --goodbg:#E3EFE7; --warn:#9A4B1F; --warnbg:#F6E6DA; --focus:#1F5FBF; color-scheme:light;
+}}
+:root[data-theme="light"]{
+  --bg:#F5EFE0; --surface:#FFFDF7; --surface2:#EFE6D0; --line:rgba(10,31,68,.13); --rule:rgba(138,109,30,.4);
+  --ink:#0A1F44; --muted:#4B566B; --gold:#B08F32; --goldtext:#7A5F14; --onGold:#FFFDF7;
+  --good:#2F6B4F; --goodbg:#E3EFE7; --warn:#9A4B1F; --warnbg:#F6E6DA; --focus:#1F5FBF; color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:20px}
+.eyebrow{font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--goldtext)}
+.num{font-variant-numeric:tabular-nums}
+
+/* HEADER */
+header.top{position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+header.top .wrap{position:relative;z-index:1;padding-block:44px 34px;display:grid;gap:14px}
+header.top h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,48px);line-height:1.05}
+header.top h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--goldtext)}
+header.top .lede{font-family:var(--serif);font-size:1.28rem;line-height:1.45;color:var(--muted);max-width:60ch}
+.orbit{position:absolute;right:-160px;top:50%;transform:translateY(-50%);width:460px;height:460px;opacity:.35;pointer-events:none}
+.pillars{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:6px;padding-top:16px;border-top:1px solid var(--rule)}
+.pillars div{display:grid;gap:1px}
+.pillars b{font-family:var(--display);font-size:13px;letter-spacing:.06em;color:var(--goldtext);font-weight:600}
+.pillars span{font-size:13px;color:var(--muted)}
+.modebar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px}
+.internal-badge{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:5px;background:var(--warnbg);color:var(--warn)}
+
+/* TABS */
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav.tabs a{flex:0 0 auto;font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:9px 14px;border:1px solid var(--line);border-radius:6px}
+nav.tabs a:hover{color:var(--goldtext);border-color:var(--gold)}
+nav.tabs a.plan-link{margin-left:auto;background:var(--gold);color:var(--onGold);border-color:var(--gold)}
+
+/* GRID */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:32px;align-items:start;padding-block:10px 60px}
+@media (max-width:980px){.layout{grid-template-columns:minmax(0,1fr)}}
+section{padding-block:34px 10px;scroll-margin-top:70px}
+.shead{display:grid;gap:6px;margin-bottom:20px}
+.shead h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,3vw,28px);line-height:1.15}
+.shead h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--goldtext)}
+.shead p{color:var(--muted);max-width:68ch}
+
+/* PACKAGES */
+.paytoggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;padding:3px;margin-bottom:16px;background:var(--surface)}
+.paytoggle button{font:600 13px var(--sans);color:var(--muted);background:none;border:0;border-radius:6px;padding:8px 14px;cursor:pointer;min-height:36px}
+.paytoggle button[aria-pressed="true"]{background:var(--gold);color:var(--onGold)}
+.pkgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.pkgs{grid-template-columns:minmax(0,1fr)}}
+.pkg{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:12px;align-content:start;position:relative}
+.pkg.featured{border:2px solid var(--gold)}
+.pkg .flag{position:absolute;top:-11px;left:18px;background:var(--gold);color:var(--onGold);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:4px}
+.pkg h3{font-family:var(--display);font-weight:600;font-size:19px}
+.pkg .for{font-family:var(--serif);font-style:italic;font-size:1.08rem;color:var(--muted);line-height:1.35}
+.pkg .price{font-family:var(--display);font-weight:600;font-size:34px;line-height:1;color:var(--goldtext)}
+.pkg .price small{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--muted);margin-left:4px}
+.pkg .value{font-size:13px;color:var(--muted)}
+.pkg .value b{color:var(--good);font-weight:600}
+.pkg ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:14px}
+.pkg li{display:grid;grid-template-columns:16px 1fr;gap:8px}
+.pkg li::before{content:"";width:7px;height:7px;border:1.5px solid var(--gold);border-radius:50%;margin-top:7px}
+.pkg li.inherit{color:var(--goldtext);font-weight:600}
+.pkg li.inherit::before{background:var(--gold)}
+
+/* FILTERS + SERVICE LIST */
+.filters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.filters button{font:600 13px var(--sans);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;min-height:36px}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.search{width:100%;font:500 15px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:14px;min-height:44px}
+.group-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--goldtext);padding:18px 0 8px;border-bottom:1.5px solid var(--rule)}
+.group-h span{font-family:var(--sans);font-size:12px;letter-spacing:.02em;text-transform:none;color:var(--muted);font-weight:500}
+.svc{border-bottom:1px solid var(--line)}
+.svc-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:14px;align-items:center;padding:12px 0}
+.svc-name{display:flex;align-items:flex-start;gap:10px;background:none;border:0;color:var(--ink);text-align:left;cursor:pointer;padding:4px 0;font:600 15px var(--sans);min-width:0}
+.svc-name .chev{flex:0 0 auto;width:18px;height:18px;margin-top:2px;color:var(--gold);transition:transform .18s}
+.svc-name[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.svc-name small{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:1px}
+.svc-price{text-align:right;font-family:var(--display);font-weight:600;font-size:17px;white-space:nowrap}
+.svc-price small{display:block;font-family:var(--sans);font-size:11.5px;font-weight:500;color:var(--muted);letter-spacing:0}
+.svc-detail{padding:0 0 16px 28px;display:grid;gap:10px}
+.svc-detail ul{margin:0;padding-left:18px;display:grid;gap:4px;color:var(--muted);font-size:14px}
+.svc-detail .client-rate{font-size:13px;color:var(--good);background:var(--goodbg);border-radius:6px;padding:6px 10px;justify-self:start}
+.add{font:700 13px var(--sans);min-height:38px;min-width:78px;padding:0 12px;border-radius:7px;border:1.5px solid var(--gold);background:transparent;color:var(--goldtext);cursor:pointer;white-space:nowrap}
+.add:hover{background:var(--gold);color:var(--onGold)}
+.add.on{background:var(--gold);color:var(--onGold)}
+.pkg .add{justify-self:start;min-width:140px}
+@media (max-width:560px){
+  .svc-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n n" "p a"}
+  .svc-name{grid-area:n}.svc-price{grid-area:p;text-align:left}.svc-row .add{grid-area:a}
+  .svc-detail{padding-left:0}
+}
+
+/* INTERNAL COST STRIP */
+.cost{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:13px;background:var(--warnbg);border-radius:8px;padding:8px 12px}
+.cost label{display:flex;align-items:center;gap:6px;color:var(--ink);font-weight:600}
+.cost input{width:92px;font:600 14px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px;min-height:34px;font-variant-numeric:tabular-nums}
+.cost .m{font-weight:700}
+.cost .m.good{color:var(--good)}.cost .m.low{color:var(--warn)}
+body:not(.internal) .int{display:none!important}
+
+/* CONTINUITY */
+.tracks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.tracks{grid-template-columns:minmax(0,1fr)}}
+.track{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:10px;align-content:start}
+.track .tn{font-family:var(--display);font-weight:600;font-size:17px}
+.track .tp{font-family:var(--display);font-weight:600;font-size:26px;color:var(--goldtext);line-height:1.1}
+.track .tp small{font-family:var(--sans);font-size:13px;color:var(--muted);font-weight:500}
+.track .terms{font-size:12.5px;color:var(--muted)}
+.track ul{margin:0;padding-left:18px;font-size:14px;color:var(--muted);display:grid;gap:4px}
+.track .add{justify-self:start}
+.note{background:var(--surface2);border-radius:10px;padding:14px 16px;font-size:14px;margin-top:14px}
+.note b{color:var(--goldtext)}
+
+/* PLAN RAIL */
+aside.plan{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:18px;display:grid;gap:14px;scroll-margin-top:70px;max-height:calc(100vh - 90px);overflow:auto}
+@media (max-width:980px){aside.plan{position:static;max-height:none}}
+aside.plan h2{font-family:var(--display);font-weight:600;font-size:19px}
+.plan-empty{font-size:14px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:14px}
+.plan-list{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.plan-list li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.plan-list .pn{min-width:0}
+.plan-list .pv{font-weight:700;white-space:nowrap}
+.plan-list button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;width:30px;height:30px;border-radius:6px}
+.plan-list button:hover{color:var(--warn);background:var(--warnbg)}
+.totals{display:grid;gap:8px;border-top:1.5px solid var(--gold);padding-top:12px}
+.totals div{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px}
+.totals .big{font-family:var(--display);font-weight:600;font-size:24px;color:var(--goldtext)}
+.totals .k{color:var(--muted)}
+.plan .int{border-top:1px dashed var(--line);padding-top:10px}
+.plan-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font:700 13px var(--sans);min-height:40px;padding:0 14px;border-radius:7px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--onGold)}
+.status{font-size:12.5px;color:var(--good);min-height:1em}
+textarea.summary{width:100%;min-height:120px;font:13px/1.5 var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+
+/* A LA CARTE TABLE */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+th{font-family:var(--display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--goldtext);font-weight:600;background:var(--surface2)}
+td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+td.save{color:var(--good);font-weight:600}
+tr.sub td{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+
+footer{border-top:1px solid var(--line);padding-block:26px 44px;font-size:13px;color:var(--muted)}
+footer .wrap{display:grid;gap:8px}
+footer b{font-family:var(--display);color:var(--goldtext);letter-spacing:.06em}
+
+.mobile-total{display:none}
+@media (max-width:980px){
+  .mobile-total{display:flex;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:30;justify-content:space-between;align-items:center;gap:10px;background:var(--gold);color:var(--onGold);border-radius:10px;padding:12px 16px;text-decoration:none;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+  .mobile-total[hidden]{display:none!important}
+  body{padding-bottom:70px}
+}
+</style>
+
+<header class="top">
+  <svg class="orbit" viewBox="0 0 400 400" aria-hidden="true">
+    <ellipse cx="200" cy="200" rx="185" ry="185" fill="none" stroke="#C9A646" stroke-width="1"/>
+    <ellipse cx="200" cy="200" rx="185" ry="62" fill="none" stroke="#C9A646" stroke-width="1"/>
+    <ellipse cx="200" cy="200" rx="62" ry="185" fill="none" stroke="#C9A646" stroke-width=".7" opacity=".55"/>
+    <circle cx="200" cy="200" r="26" fill="none" stroke="#C9A646" stroke-width="1.5"/>
+    <circle cx="385" cy="200" r="7" fill="#C9A646"/>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow">Full Circle Financial Group</div>
+    <h1>Services &amp; Pricing <em>at a glance</em></h1>
+    <p class="lede">Every package, every service, and what each one includes. Tap any service to see what's inside, then add it to your plan to see the total.</p>
+    <div class="pillars">
+      <div><b>Protection</b><span>Life insurance &amp; IUL</span></div>
+      <div><b>Structure</b><span>Entities, trusts, estate</span></div>
+      <div><b>Leverage</b><span>Personal &amp; business credit</span></div>
+      <div><b>Scale</b><span>Ventures, systems, continuity</span></div>
+    </div>
+    <div class="modebar int">
+      <span class="internal-badge">Internal view · costs &amp; margins visible</span>
+      <span style="font-size:13px;color:var(--muted)">Cost = hard cost + delivery hours × labor rate + 3% processing. Edit any cost; it saves in this browser.</span>
+      <label style="font-size:13px;display:flex;gap:6px;align-items:center">Labor $/hr <input id="laborRate" type="number" min="0" step="1" value="35" style="width:70px;font:600 14px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px"></label>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap">
+    <a href="#packages">Packages</a>
+    <a href="#services">All services</a>
+    <a href="#continuity">Monthly care</a>
+    <a href="#alacarte">Client rates</a>
+    <a href="#plan" class="plan-link">Your plan</a>
+  </div>
+</nav>
+
+<main class="wrap layout">
+  <div style="min-width:0">
+
+    <section id="packages">
+      <div class="shead">
+        <div class="eyebrow">Signature packages</div>
+        <h2>Three ways to start <em>the full circle</em></h2>
+        <p>Each package bundles services you'd otherwise buy one at a time, plus months of Full Circle Membership so progress is tracked after the work is delivered.</p>
+      </div>
+      <div class="paytoggle" role="group" aria-label="Legacy payment option">
+        <button type="button" id="payFull" aria-pressed="true">Pay in full</button>
+        <button type="button" id="payPhased" aria-pressed="false">Phased payments</button>
+      </div>
+      <div class="pkgs" id="pkgs"></div>
+    </section>
+
+    <section id="services">
+      <div class="shead">
+        <div class="eyebrow">Full service menu</div>
+        <h2>Every service, <em>priced and explained</em></h2>
+        <p>Grouped by pillar. Tap a service name to see exactly what's included.</p>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filter by pillar"></div>
+      <label for="q" class="eyebrow" style="display:block;margin-bottom:6px">Search services</label>
+      <input id="q" class="search" type="search" placeholder="Try &quot;trust&quot;, &quot;tradeline&quot;, or &quot;LLC&quot;" autocomplete="off">
+      <div id="svcList"></div>
+    </section>
+
+    <section id="continuity">
+      <div class="shead">
+        <div class="eyebrow">Monthly care</div>
+        <h2>Keep it current <em>after it's built</em></h2>
+        <p>Structures fall out of compliance, credit files drift, and trusts go unfunded. These plans keep the work you paid for doing its job.</p>
+      </div>
+      <div class="tracks" id="tracks"></div>
+      <div class="note"><b>Pay twelve months up front</b> on any monthly plan and the twelfth month is waived. That's about an 8% discount, and it locks your rate.</div>
+    </section>
+
+    <section id="alacarte">
+      <div class="shead">
+        <div class="eyebrow">Client rates</div>
+        <h2>What monthly-care clients <em>pay instead</em></h2>
+        <p>Clients on any monthly plan get à la carte services at the client rate. Everyone else pays retail.</p>
+      </div>
+      <div class="tbl"><table id="rateTable">
+        <thead><tr><th>Service</th><th class="n">Client rate</th><th class="n">Retail</th><th class="n">You save</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </section>
+
+  </div>
+
+  <aside class="plan" id="plan" aria-labelledby="planH">
+    <div class="eyebrow">Build your plan</div>
+    <h2 id="planH">Your plan</h2>
+    <div id="planEmpty" class="plan-empty">Nothing added yet. Press <b>Add</b> on any package or service and your totals show up here.</div>
+    <ul class="plan-list" id="planList"></ul>
+    <div class="totals">
+      <div><span class="k">One-time</span><span class="num" id="tOne">$0</span></div>
+      <div><span class="k">Monthly</span><span class="num" id="tMo">$0/mo</span></div>
+      <div><span class="k">First-year total</span><span class="big num" id="tYr">$0</span></div>
+    </div>
+    <div class="int totals" style="border-top-style:dashed">
+      <div><span class="k">Your first-year cost</span><span class="num" id="iCost">$0</span></div>
+      <div><span class="k">Your first-year profit</span><span class="num" id="iProfit" style="font-weight:700">$0</span></div>
+      <div><span class="k">Margin</span><span class="num" id="iMargin">—</span></div>
+      <div style="font-size:12px;color:var(--muted)" id="iMissing"></div>
+    </div>
+    <div class="plan-actions">
+      <button class="btn primary" type="button" id="copyPlan">Copy plan summary</button>
+      <button class="btn" type="button" id="clearPlan">Clear</button>
+    </div>
+    <div class="status" id="status" role="status"></div>
+    <textarea class="summary" id="summaryBox" hidden readonly aria-label="Plan summary text"></textarea>
+    <p style="font-size:12.5px;color:var(--muted)">Ready to start? Call or text <b style="color:var(--ink)">602-545-0826</b> or email <b style="color:var(--ink)">Breyon@fullcircle-credit.com</b>.</p>
+  </aside>
+</main>
+
+<a href="#plan" class="mobile-total" id="mobileTotal" hidden><span id="mtCount">Your plan</span><span class="num" id="mtVal">$0</span></a>
+
+<footer>
+  <div class="wrap">
+    <b>Full Circle Financial Group</b>
+    <p>Prices are per engagement unless marked monthly. One revision per document is included; additional amendments, extra structures, and work determined by your tax professional are billed separately. Insurance premiums are paid to the carrier and are set by your policy design. Full Circle prepares documents and files disputes on your behalf; results on credit reports are not guaranteed. Estate and tax documents should be reviewed by your own attorney or CPA.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var RATE_DEFAULT = 35, PROC = 0.03;
+  var internal = /internal/i.test(location.hash);
+  if(internal) document.body.classList.add('internal');
+
+  /* ---------- DATA ---------- */
+  // price: client price; mo: monthly; hard/hrs: internal delivery cost basis (null = not yet set)
+  var PACKAGES = [
+    {id:'pkg_entry', name:'Credit Restore', for:'For clients who need their personal credit fixed first.', price:1150,
+     value:1150+97*3, hard:180, hrs:3.5,
+     items:['Full dispute rounds, worked to completion','Aged tradelines added to your file','Tri-bureau credit monitoring','Monthly progress report','Full Circle Membership for 90 days']},
+    {id:'pkg_core', name:'Structure & Credit', for:'For business owners ready to separate and protect what they own.', price:4200, featured:true,
+     value:1150+3500+2000+97*6, hard:450+180*0.6, hrs:6+3.5*0.6,
+     items:['Everything in Credit Restore','LLC formed with operating agreement, EIN, and business banking','Asset protection structure (holding company where it fits)','Business credit roadmap started','Life insurance architecture session','Full Circle Membership for 6 months']},
+    {id:'pkg_legacy', name:'Full Circle Legacy', for:'For families building something meant to outlast them.', price:9500, phased:10500,
+     value:1150+3500+4500+2500+2000+1800+1500+97*12, hard:2700, hrs:37,
+     items:['Everything in Structure & Credit','Revocable living trust, wills, powers of attorney, and health directives','Full 12-month business credit build-out','Tax strategy consulting','Investor network access and deal review','Full Circle Membership for 12 months']}
+  ];
+
+  var PILLARS = [
+    {key:'credit', label:'Personal credit', pillar:'Leverage'},
+    {key:'biz', label:'Business credit', pillar:'Leverage'},
+    {key:'structure', label:'Structure & estate', pillar:'Structure'},
+    {key:'protection', label:'Protection', pillar:'Protection'},
+    {key:'advisory', label:'Advisory', pillar:'Scale'},
+    {key:'ventures', label:'Ventures & education', pillar:'Scale'}
+  ];
+
+  var SERVICES = [
+    // Personal credit
+    {id:'cr_ess', g:'credit', name:'Credit Repair — Essential', sub:'Dispute program for a single file', price:950, hard:45, hrs:3,
+     inc:['Tri-bureau credit review and dispute strategy','Dispute letters prepared and filed on your behalf','Dispute rounds worked through completion','Progress updates each round']},
+    {id:'cr_comp', g:'credit', name:'Credit Repair — Complete', sub:'Adds aged tradelines and monitoring', price:1150, hard:180, hrs:3.5,
+     inc:['Everything in Essential','Aged tradelines added to strengthen the file','Credit monitoring through SmartCredit','Monthly progress report']},
+    {id:'cr_elite', g:'credit', name:'Credit Repair — Elite', sub:'Deeper tradeline support for bigger goals', price:1500, hard:260, hrs:4,
+     inc:['Everything in Complete','Additional aged tradelines','Priority dispute handling','Mortgage or funding readiness check at completion']},
+    {id:'cr_couple', g:'credit', name:'Couples Credit Program', sub:'Both spouses, worked to completion', price:2400, hard:140, hrs:7,
+     inc:['Two full dispute programs, run in parallel','Joint strategy so accounts and goals line up','Monitoring for both files','Monthly progress report for each spouse']},
+    {id:'cs_std', g:'credit', name:'Clean Slate Expedited', sub:'Targets results in 45–60 days instead of 3–6 months', price:1850, hard:95, hrs:5,
+     inc:['Aggressive disputes built on consumer protection law','Compliance-based challenges to reporting accuracy','Accelerated round schedule','Standalone program, not bundled']},
+    {id:'cs_pri', g:'credit', name:'Clean Slate Priority', sub:'Expedited, at the front of the queue', price:2200, hard:110, hrs:6,
+     inc:['Everything in Clean Slate Expedited','Priority production and turnaround','Direct check-ins through each round']},
+    {id:'cr_agent', g:'credit', name:'Real Estate Client Rate', sub:'Only when Full Circle is also your real estate agent', price:300, hard:45, hrs:3,
+     inc:['Credit review and dispute program for buyers we represent','Coordinated with your mortgage timeline']},
+    {id:'cr_ppd', g:'credit', name:'Pay Per Delete', sub:'You pay only for items that come off', price:0, quote:'Per item', hard:null, hrs:null, noadd:true,
+     inc:['No upfront program fee','Priced per deleted item, quoted at consultation']},
+    // Business credit
+    {id:'bc_pkg', g:'biz', name:'Business Credit Build-Out', sub:'12-month roadmap to fundable', price:2500, hard:250, hrs:12,
+     inc:['Business fundability setup (listings, address, phone, banking)','Tier-by-tier vendor and credit progression','Business bureau monitoring (D&B, Experian, Equifax)','Application timing and lender selection','12-month roadmap with milestones']},
+    {id:'bc_ent', g:'biz', name:'Business Credit — Additional Entity', sub:'Full tier progression on another entity', price:2500, client:1800, hard:null, hrs:null,
+     inc:['Same build-out for a second or third entity','Keeps each entity\'s file separate and clean']},
+    {id:'bc_audit', g:'biz', name:'Funding Readiness Audit', sub:'Plus a lender package', price:950, client:650, hard:null, hrs:null,
+     inc:['What each entity qualifies for today','The specific gap to the next funding tier','Lender-ready document package']},
+    {id:'bc_tl1', g:'biz', name:'Business Tradelines — Starter', sub:'Three seasoned reporting accounts', price:3200, client:2500, hard:null, hrs:null,
+     inc:['Three reporting accounts added to a thin business file','Speeds up tier progression']},
+    {id:'bc_tl2', g:'biz', name:'Business Tradelines — Accelerator', sub:'Six seasoned reporting accounts', price:5800, client:4400, hard:null, hrs:null,
+     inc:['Six reporting accounts for a faster build','Best paired with the Business Credit Build-Out']},
+    // Structure
+    {id:'ent_pkg', g:'structure', name:'Asset Protection & Entity Structure', sub:'Operating company plus holding company', price:3500, hard:450, hrs:6,
+     inc:['Entity selection and state strategy','LLC formation with operating agreement','Holding company structure where it fits','EIN, registered agent, and business banking setup','Business email and virtual address']},
+    {id:'est_pkg', g:'structure', name:'Estate Planning Suite', sub:'Trust, wills, POA, directives', price:4500, hard:1500, hrs:5,
+     inc:['Revocable living trust','Pour-over wills','Financial and healthcare powers of attorney','Healthcare directives','Trust funding instructions for your assets']},
+    {id:'st_llc', g:'structure', name:'Additional LLC or Corporation', sub:'Formation of one more entity', price:1800, client:1200, hard:null, hrs:null,
+     inc:['Formation filing','Operating agreement or bylaws','EIN']},
+    {id:'st_amend', g:'structure', name:'Operating Agreement Amendment', sub:'Ownership, roles, or terms updated', price:750, client:450, hard:null, hrs:null,
+     inc:['Amendment drafted to your change','Member resolutions prepared']},
+    {id:'st_irr', g:'structure', name:'Irrevocable Trust Preparation', sub:'For protection and planning beyond a living trust', price:3800, client:2800, hard:null, hrs:null,
+     inc:['Irrevocable trust document','Trustee and beneficiary structure','Funding instructions']},
+    {id:'st_review', g:'structure', name:'Annual Trust Review & Re-Funding', sub:'Once a year', price:1200, client:850, hard:null, hrs:null,
+     inc:['Funding audit of new assets','Amendments where needed','Beneficiary realignment']},
+    {id:'st_retitle', g:'structure', name:'Asset Transfer & Retitling', sub:'Per asset', price:400, client:275, hard:null, hrs:null,
+     inc:['Deed, title, or account retitled into the trust or entity']},
+    {id:'st_refresh', g:'structure', name:'Estate Plan Refresh', sub:'Will, POA, and directives updated', price:2100, client:1450, hard:null, hrs:null,
+     inc:['Updated will, powers of attorney, and directives']},
+    {id:'st_gov', g:'structure', name:'Family Governance Session', sub:'Half-day working session', price:1800, client:1200, hard:null, hrs:null,
+     inc:['Roles and decision rights','Succession planning','Educating the next generation']},
+    // Protection
+    {id:'ins_arch', g:'protection', name:'Life Insurance Architecture', sub:'Policy design fee', price:2000, hard:0, hrs:5,
+     inc:['Needs analysis tied to your estate and business','Carrier comparison (North American, F&G, National Life Group)','IUL or term design built to your goals','Beneficiary alignment with your trust']},
+    {id:'ins_pol', g:'protection', name:'Term Life or IUL Policy', sub:'Premium paid to the carrier', price:0, quote:'Per policy', hard:null, hrs:null, noadd:true,
+     inc:['No separate fee from Full Circle for placement','Premium depends on age, health, and design']},
+    {id:'ins_rev', g:'protection', name:'Insurance & Benefits Review', sub:'For your staff or drivers', price:500, client:0, hard:null, hrs:null,
+     inc:['Review of current coverage and gaps','Group and supplemental options']},
+    // Advisory
+    {id:'tax_str', g:'advisory', name:'Tax Strategy Consulting', sub:'Structure-aware tax planning', price:1800, hard:500, hrs:3,
+     inc:['Entity and compensation strategy','Coordination with your tax professional','Written action items']},
+    {id:'inv_net', g:'advisory', name:'Investor Network Access', sub:'Introductions and deal review', price:1500, hard:0, hrs:2,
+     inc:['Introductions to investors and capital partners','Review of deals before you commit']},
+    {id:'adv_doc', g:'advisory', name:'Contract or Agreement Drafting', sub:'Per document', price:850, client:550, hard:null, hrs:null,
+     inc:['One agreement drafted to your terms','One revision included']},
+    {id:'adv_books', g:'advisory', name:'Bookkeeping & Financial Statements', sub:'Monthly', price:395, client:249, mo:true, hard:null, hrs:null,
+     inc:['Monthly reconciliation','The P&L lenders ask for at the cash tier']},
+    // Ventures
+    {id:'v_fleet', g:'ventures', name:'Fleet Venture Launch', sub:'Vehicle rental for rideshare and delivery drivers', price:6000, client:4500, hard:null, hrs:null,
+     inc:['Fleet entity structure','Commercial insurance requirements','Driver agreements','Fleet credit tier setup']},
+    {id:'v_whole', g:'ventures', name:'Wholesale Vehicle Operation Setup', sub:'Buy, sell, and finance vehicles wholesale', price:4500, client:3200, hard:null, hrs:null,
+     inc:['Entity and licensing roadmap','Operating process and agreements']},
+    {id:'mc', g:'ventures', name:'The Full Circle Blueprint Masterclass', sub:'Per attendee', price:97, hard:4, hrs:0.15,
+     inc:['Live masterclass on the four pillars','Protection, structure, leverage, and scale in one session']}
+  ];
+
+  var TRACKS = [
+    {id:'m_member', name:'Full Circle Membership', price:97, terms:'Month to month', hard:22, hrs:0,
+     inc:['Credit monitoring and a monthly report','Quarterly group strategy call','Dispute follow-up on anything new and inaccurate','First access to funding opportunities']},
+    {id:'m_found', name:'Foundation Care', price:297, terms:'No long-term contract · 30 days\' notice', hard:null, hrs:null,
+     inc:['Entity compliance calendar, annual reports, registered agent renewals','Corporate minutes, resolutions, and record book upkeep','Trust funding audit twice a year','Personal and business credit monitoring','Annual policy and beneficiary review','Quarterly 45-minute governance call']},
+    {id:'m_growth', name:'Growth Partner', price:797, terms:'12-month term · includes Foundation Care', hard:null, hrs:null,
+     inc:['Everything in Foundation Care','Business credit concierge and lender matching','Funding readiness scoring','New venture build support','Monthly 60-minute strategy session','Up to two documents per quarter included','48-hour priority turnaround']},
+    {id:'m_lic', name:'Licensed Operator', price:1997, setup:4500, terms:'12-month term · plus $4,500 one-time build', hard:null, hrs:null,
+     inc:['Everything in Growth Partner','Full Circle services sold under your own brand','Back-end fulfillment by Full Circle at wholesale','Branded client portal','Sales decks, proposals, and pricing sheets','Eight-week operator training','Compliance framework and contract templates']}
+  ];
+
+  /* ---------- STATE ---------- */
+  var ALL = {};
+  PACKAGES.forEach(function(p){ ALL[p.id]=p; p.kind='pkg'; });
+  SERVICES.forEach(function(s){ ALL[s.id]=s; s.kind='svc'; });
+  TRACKS.forEach(function(t){ ALL[t.id]=t; t.kind='track'; t.mo=true; });
+
+  var store = {plan:[], costs:{}, rate:RATE_DEFAULT, phased:false};
+  try{ var raw = localStorage.getItem('fcfg-pricing'); if(raw){ var L = JSON.parse(raw); if(L){ store.plan = (L.plan||[]).filter(function(id){return ALL[id];}); store.costs = L.costs||{}; store.rate = typeof L.rate==='number'?L.rate:RATE_DEFAULT; store.phased=!!L.phased; } } }catch(e){}
+  function save(){ try{ localStorage.setItem('fcfg-pricing', JSON.stringify(store)); }catch(e){} }
+
+  var $ = function(id){ return document.getElementById(id); };
+  function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  function priceOf(x){ return (x.id==='pkg_legacy' && store.phased) ? x.phased : x.price; }
+  // Internal cost per unit (one-time) or per month (monthly). Returns null if unknown.
+  function costOf(x){
+    if(Object.prototype.hasOwnProperty.call(store.costs, x.id)) return store.costs[x.id];
+    if(x.hard==null) return null;
+    return x.hard + (x.hrs||0)*store.rate + priceOf(x)*PROC;
+  }
+
+  /* ---------- RENDER: PACKAGES ---------- */
+  function renderPkgs(){
+    $('pkgs').innerHTML = PACKAGES.map(function(p){
+      var pr = priceOf(p), save = p.value - pr;
+      return '<article class="pkg'+(p.featured?' featured':'')+'">'+
+        (p.featured?'<span class="flag">Most chosen</span>':'')+
+        '<h3>'+esc(p.name)+'</h3>'+
+        '<p class="for">'+esc(p.for)+'</p>'+
+        '<div class="price num">'+money(pr)+(p.phased?'<small>'+(store.phased?'phased':'paid in full')+'</small>':'<small>one time</small>')+'</div>'+
+        '<div class="value">Bought separately: '+money(p.value)+' · <b>you save '+money(save)+'</b></div>'+
+        '<ul>'+p.items.map(function(it,i){ return '<li'+(i===0&&/^Everything/.test(it)?' class="inherit"':'')+'>'+esc(it)+'</li>'; }).join('')+'</ul>'+
+        costStrip(p)+
+        addBtn(p.id)+
+      '</article>';
+    }).join('');
+  }
+
+  /* ---------- RENDER: SERVICES ---------- */
+  var filter = 'all', query = '';
+  function renderFilters(){
+    var btns = [{key:'all',label:'All'}].concat(PILLARS);
+    $('filters').innerHTML = btns.map(function(b){ return '<button type="button" data-f="'+b.key+'" aria-pressed="'+(filter===b.key)+'">'+esc(b.label)+'</button>'; }).join('');
+  }
+  function renderServices(){
+    var q = query.trim().toLowerCase(), html = '', shown = 0;
+    PILLARS.forEach(function(g){
+      if(filter!=='all' && filter!==g.key) return;
+      var rows = SERVICES.filter(function(s){ return s.g===g.key && (!q || (s.name+' '+s.sub+' '+s.inc.join(' ')).toLowerCase().indexOf(q)>-1); });
+      if(!rows.length) return;
+      shown += rows.length;
+      html += '<div class="group-h"><span style="font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit">'+esc(g.label)+'</span><span>'+esc(g.pillar)+' pillar · '+rows.length+' service'+(rows.length>1?'s':'')+'</span></div>';
+      rows.forEach(function(s){
+        var open = openSet[s.id];
+        var priceHtml = s.quote ? '<span>'+esc(s.quote)+'</span><small>'+(s.id==='ins_pol'?'set by carrier':'quoted')+'</small>'
+          : money(s.price)+(s.mo?'<small>per month</small>':'<small>one time</small>');
+        html += '<div class="svc">'+
+          '<div class="svc-row">'+
+            '<button type="button" class="svc-name" aria-expanded="'+(!!open)+'" aria-controls="d_'+s.id+'" data-toggle="'+s.id+'">'+
+              '<svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
+              '<span>'+esc(s.name)+'<small>'+esc(s.sub)+'</small></span>'+
+            '</button>'+
+            '<div class="svc-price num">'+priceHtml+'</div>'+
+            (s.noadd?'<span></span>':addBtn(s.id))+
+          '</div>'+
+          '<div class="svc-detail" id="d_'+s.id+'"'+(open?'':' hidden')+'>'+
+            '<ul>'+s.inc.map(function(i){return '<li>'+esc(i)+'</li>';}).join('')+'</ul>'+
+            (s.client!=null?'<span class="client-rate">Monthly-care client rate: '+(s.client===0?'no charge':money(s.client)+(s.mo?'/mo':''))+'</span>':'')+
+            (s.noadd?'':costStrip(s))+
+          '</div>'+
+        '</div>';
+      });
+    });
+    if(!shown) html = '<p class="plan-empty" style="margin-top:10px">No services match "'+esc(query)+'". Try a shorter word, or choose <b>All</b>.</p>';
+    $('svcList').innerHTML = html;
+  }
+  var openSet = {};
+
+  /* ---------- RENDER: TRACKS ---------- */
+  function renderTracks(){
+    $('tracks').innerHTML = TRACKS.map(function(t){
+      return '<article class="track">'+
+        '<div class="tn">'+esc(t.name)+'</div>'+
+        '<div class="tp num">'+money(t.price)+'<small> / month</small></div>'+
+        '<div class="terms">'+esc(t.terms)+'</div>'+
+        '<ul>'+t.inc.map(function(i){return '<li>'+esc(i)+'</li>';}).join('')+'</ul>'+
+        costStrip(t)+
+        addBtn(t.id)+
+      '</article>';
+    }).join('');
+  }
+
+  /* ---------- RENDER: RATE TABLE ---------- */
+  function renderRates(){
+    var rows = '';
+    PILLARS.forEach(function(g){
+      var list = SERVICES.filter(function(s){ return s.g===g.key && s.client!=null; });
+      if(!list.length) return;
+      rows += '<tr class="sub"><td colspan="4">'+esc(g.label)+'</td></tr>';
+      list.forEach(function(s){
+        var suf = s.mo?'/mo':'';
+        rows += '<tr><td>'+esc(s.name)+'</td><td class="n">'+(s.client===0?'No charge':money(s.client)+suf)+'</td><td class="n">'+money(s.price)+suf+'</td><td class="n save">'+money(s.price-s.client)+suf+'</td></tr>';
+      });
+    });
+    document.querySelector('#rateTable tbody').innerHTML = rows;
+  }
+
+  /* ---------- SHARED BITS ---------- */
+  function addBtn(id){
+    var on = store.plan.indexOf(id)>-1;
+    return '<button type="button" class="add'+(on?' on':'')+'" data-add="'+id+'" aria-pressed="'+on+'">'+(on?'✓ Added':'Add')+'</button>';
+  }
+  function costStrip(x){
+    var c = costOf(x), pr = priceOf(x), val = c==null?'':Math.round(c);
+    var m = (c==null||!pr) ? null : (pr-c)/pr;
+    return '<div class="cost int"><label>Your cost'+(x.mo?' /mo':'')+' <input type="number" min="0" step="10" data-cost="'+x.id+'" value="'+val+'" placeholder="add" aria-label="Your cost for '+esc(x.name)+'"></label>'+
+      (m==null?'<span style="color:var(--muted)">Enter a cost to see margin</span>':
+      '<span>Profit <b class="num">'+money(pr-c)+'</b></span><span class="m '+(m>=0.4?'good':'low')+' num">'+Math.round(m*100)+'% margin</span>')+
+    '</div>';
+  }
+
+  /* ---------- PLAN ---------- */
+  function renderPlan(){
+    var one=0, mo=0, costYr=0, missing=0;
+    var items = store.plan.map(function(id){ return ALL[id]; });
+    $('planEmpty').hidden = items.length>0;
+    $('planList').innerHTML = items.map(function(x){
+      var pr = priceOf(x), label;
+      if(x.mo){ mo += pr; label = money(pr)+'/mo'; } else { one += pr; label = money(pr); }
+      if(x.setup){ one += x.setup; label += ' + '+money(x.setup); }
+      var c = costOf(x);
+      if(c==null) missing++; else costYr += x.mo ? c*12 : c;
+      return '<li><span class="pn">'+esc(x.name)+(x.id==='pkg_legacy'?' <span style="color:var(--muted)">('+(store.phased?'phased':'in full')+')</span>':'')+'</span><span class="pv num">'+label+'</span><button type="button" data-remove="'+x.id+'" aria-label="Remove '+esc(x.name)+'">×</button></li>';
+    }).join('');
+    var yr = one + mo*12;
+    $('tOne').textContent = money(one);
+    $('tMo').textContent = money(mo)+'/mo';
+    $('tYr').textContent = money(yr);
+    $('iCost').textContent = money(costYr);
+    var prof = yr - costYr;
+    $('iProfit').textContent = money(prof);
+    $('iMargin').textContent = yr ? Math.round(prof/yr*100)+'%' : '—';
+    $('iMissing').textContent = missing ? missing+' item'+(missing>1?'s have':' has')+' no cost entered yet, so profit is overstated.' : '';
+    var mt = $('mobileTotal');
+    mt.hidden = items.length===0;
+    $('mtCount').textContent = 'Your plan · '+items.length+' item'+(items.length===1?'':'s');
+    $('mtVal').textContent = money(yr)+' first year';
+  }
+
+  function summaryText(){
+    var lines = ['Full Circle Financial Group — Proposed plan',''];
+    store.plan.forEach(function(id){ var x = ALL[id], pr = priceOf(x);
+      lines.push('• '+x.name+' — '+money(pr)+(x.mo?'/mo':'')+(x.setup?' + '+money(x.setup)+' one-time build':''));
+    });
+    lines.push('', 'One-time: '+$('tOne').textContent, 'Monthly: '+$('tMo').textContent, 'First-year total: '+$('tYr').textContent,
+      '', 'Questions or to get started: 602-545-0826 · Breyon@fullcircle-credit.com');
+    return lines.join('\n');
+  }
+
+  function renderAll(){ renderPkgs(); renderServices(); renderTracks(); renderPlan(); }
+
+  /* ---------- EVENTS ---------- */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('[data-add]');
+    if(a){ var id=a.getAttribute('data-add'), i=store.plan.indexOf(id);
+      if(i>-1) store.plan.splice(i,1); else store.plan.push(id);
+      save(); renderAll(); var again=document.querySelector('[data-add="'+id+'"]'); if(again) again.focus(); return; }
+    var r = e.target.closest('[data-remove]');
+    if(r){ var rid=r.getAttribute('data-remove'); store.plan = store.plan.filter(function(x){return x!==rid;}); save(); renderAll(); return; }
+    var t = e.target.closest('[data-toggle]');
+    if(t){ var tid=t.getAttribute('data-toggle'); openSet[tid]=!openSet[tid];
+      t.setAttribute('aria-expanded', !!openSet[tid]); $('d_'+tid).hidden = !openSet[tid]; return; }
+    var f = e.target.closest('[data-f]');
+    if(f){ filter=f.getAttribute('data-f'); renderFilters(); renderServices(); return; }
+  });
+  document.addEventListener('change', function(e){
+    var c = e.target.closest('[data-cost]');
+    if(c){ var id=c.getAttribute('data-cost'), v=parseFloat(c.value);
+      if(isNaN(v)) delete store.costs[id]; else store.costs[id]=v;
+      save(); renderAll(); }
+  });
+  $('q').addEventListener('input', function(){ query=this.value; renderServices(); });
+  $('payFull').addEventListener('click', function(){ store.phased=false; syncPay(); });
+  $('payPhased').addEventListener('click', function(){ store.phased=true; syncPay(); });
+  function syncPay(){ $('payFull').setAttribute('aria-pressed', !store.phased); $('payPhased').setAttribute('aria-pressed', store.phased); save(); renderAll(); }
+  $('clearPlan').addEventListener('click', function(){ store.plan=[]; save(); renderAll(); $('status').textContent='Plan cleared.'; });
+  $('copyPlan').addEventListener('click', function(){
+    if(!store.plan.length){ $('status').textContent='Add at least one item first.'; return; }
+    var txt = summaryText(), box = $('summaryBox');
+    var fallback = function(){ box.value = txt; box.hidden=false; box.focus(); box.select(); $('status').textContent='Select all and copy the summary below.'; };
+    try{ navigator.clipboard.writeText(txt).then(function(){ $('status').textContent='Plan summary copied.'; box.hidden=true; }, fallback); }catch(err){ fallback(); }
+  });
+  var rateEl = $('laborRate'); rateEl.value = store.rate;
+  rateEl.addEventListener('change', function(){ var v=parseFloat(rateEl.value); store.rate=isNaN(v)?RATE_DEFAULT:v; save(); renderAll(); });
+
+  // Default example plan on first open so totals are visible
+  if(!store.plan.length){ try{ if(!localStorage.getItem('fcfg-pricing')) store.plan=['pkg_core','m_found']; }catch(e){ store.plan=['pkg_core','m_found']; } }
+  syncPayInit();
+  function syncPayInit(){ $('payFull').setAttribute('aria-pressed', !store.phased); $('payPhased').setAttribute('aria-pressed', store.phased); }
+  renderFilters(); renderRates(); renderAll();
+})();
+</script>
+
+</body></html>

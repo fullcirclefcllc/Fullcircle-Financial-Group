@@ -1,0 +1,705 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Barrett Benefits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#FBF8F0; --surface:#FFFFFF; --surface-2:#F3EDDD; --ink:#15213A; --muted:#4A5568;
+  --line:#DDD4BE; --gold:#C9A646; --gold-ink:#7A6015; --navy:#0A1F44; --navy-2:#12305F;
+  --on-navy:#F5EFE0; --on-navy-muted:#C4CEDF; --good:#2F6B4F; --good-bg:#E6F0E9; --warn:#9A4B1F; --warn-bg:#F8E9DE;
+  --focus:#1F5FBF;
+  --display:'Cinzel', 'Trajan Pro', Georgia, serif;
+  --serif:'Cormorant Garamond', Garamond, Georgia, serif;
+  --sans:'Public Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#07142B; --surface:#0E1F3D; --surface-2:#132A50; --ink:#EEE8D9; --muted:#AEB9CC;
+    --line:#26406B; --gold-ink:#D9BC68; --navy:#0B2250; --navy-2:#153466;
+    --good:#7CCFA4; --good-bg:#12362A; --warn:#EDA67A; --warn-bg:#3A2418; --focus:#8DB4FF;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#07142B; --surface:#0E1F3D; --surface-2:#132A50; --ink:#EEE8D9; --muted:#AEB9CC;
+  --line:#26406B; --gold-ink:#D9BC68; --navy:#0B2250; --navy-2:#153466;
+  --good:#7CCFA4; --good-bg:#12362A; --warn:#EDA67A; --warn-bg:#3A2418; --focus:#8DB4FF;
+}
+*{box-sizing:border-box}
+body{background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; margin:0}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:20px}
+h1,h2,h3{text-wrap:balance; margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus); outline-offset:2px; border-radius:4px}
+.eyebrow{font-size:12.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-ink)}
+.section{padding-block:72px}
+.section + .section{border-top:1px solid var(--line)}
+.section-head{display:grid; gap:12px; max-width:680px; margin-bottom:36px}
+.section-head h2{font-family:var(--display); font-size:clamp(26px,4vw,36px); font-weight:700; line-height:1.15; color:var(--ink)}
+.lede{font-family:var(--serif); font-size:clamp(19px,2.2vw,22px); font-weight:500; line-height:1.45; color:var(--muted)}
+
+/* Hero */
+.hero{background:var(--navy); color:var(--on-navy); position:relative; overflow:hidden}
+.hero::before,.hero::after{content:""; position:absolute; border-radius:50%; border:1.5px solid rgba(201,166,70,.28); pointer-events:none}
+.hero::before{width:620px; height:620px; right:-180px; top:-160px}
+.hero::after{width:380px; height:380px; right:-60px; top:-40px; border-color:rgba(201,166,70,.45)}
+.hero .wrap{position:relative; display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center; padding-block:56px 64px}
+.brandline{display:flex; align-items:center; gap:10px; font-size:12.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold)}
+.brandline span{width:28px; height:1.5px; background:var(--gold)}
+.hero h1{font-family:var(--display); font-weight:700; font-size:clamp(42px,7vw,72px); line-height:1.02; margin-top:18px; letter-spacing:.01em}
+.powered{font-family:var(--serif); font-style:italic; font-size:22px; color:var(--gold); margin-top:6px}
+.hero-copy{font-size:18px; line-height:1.6; color:var(--on-navy-muted); margin-top:22px; max-width:540px}
+.role{margin-top:28px; display:grid; gap:10px}
+.role-label{font-size:13px; font-weight:600; color:var(--on-navy-muted)}
+.seg{display:inline-flex; background:rgba(255,255,255,.07); border:1px solid rgba(201,166,70,.4); border-radius:999px; padding:4px; gap:4px; width:max-content; max-width:100%; flex-wrap:wrap}
+.seg button{font:600 14px/1 var(--sans); color:var(--on-navy); background:transparent; border:0; border-radius:999px; padding:11px 18px; cursor:pointer; min-height:44px}
+.seg button[aria-pressed="true"]{background:var(--gold); color:#0A1F44}
+.hero-ctas{display:flex; gap:12px; flex-wrap:wrap; margin-top:28px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:48px; padding:0 22px; border-radius:8px; font:700 15px/1 var(--sans); text-decoration:none; cursor:pointer; border:1.5px solid transparent}
+.btn-gold{background:var(--gold); color:#0A1F44}
+.btn-gold:hover{background:#D6B658}
+.btn-ghost{border-color:rgba(245,239,224,.45); color:var(--on-navy)}
+.btn-ghost:hover{border-color:var(--gold); color:var(--gold)}
+
+/* Member card */
+.card-stage{display:flex; justify-content:center}
+.member{width:100%; max-width:380px; aspect-ratio:1.586; border-radius:18px; padding:22px 24px; position:relative; overflow:hidden;
+  background:linear-gradient(135deg,#F5EFE0 0%,#E9DDB8 55%,#D9C58A 100%); color:#0A1F44;
+  box-shadow:0 24px 50px -18px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.5); display:flex; flex-direction:column; justify-content:space-between; transform:rotate(-3deg)}
+.member::after{content:""; position:absolute; width:260px; height:260px; border-radius:50%; border:1.5px solid rgba(10,31,68,.14); right:-90px; bottom:-120px}
+.member-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px}
+.member-name{font-family:var(--display); font-weight:700; font-size:20px; line-height:1.1}
+.member-sub{font-size:10.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#5C4A12; margin-top:4px}
+.chip-gold{width:40px; height:30px; border-radius:6px; background:linear-gradient(135deg,#C9A646,#8C7224); flex-shrink:0}
+.member-fields{display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; position:relative; z-index:1}
+.mf dt{font-size:9.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#5C4A12}
+.mf dd{margin:2px 0 0; font-size:13.5px; font-weight:700}
+.member-foot{font-size:10.5px; color:#3E3108; position:relative; z-index:1}
+
+/* Credentials strip */
+.creds{background:var(--surface-2); border-bottom:1px solid var(--line)}
+.creds .wrap{display:flex; flex-wrap:wrap; gap:14px 36px; justify-content:space-between; padding-block:18px}
+.cred{display:flex; align-items:baseline; gap:8px; font-size:14px; color:var(--muted)}
+.cred b{font-family:var(--display); font-size:19px; color:var(--ink)}
+
+/* Promise row */
+.promise{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px}
+.promise-item{display:grid; gap:8px; align-content:start}
+.promise-item h3{font-family:var(--display); font-size:19px; font-weight:700; color:var(--ink)}
+.promise-item p{color:var(--muted)}
+.promise-item .mark{width:40px; height:40px; border-radius:50%; background:var(--navy); display:grid; place-items:center}
+.promise-item .mark svg{width:20px; height:20px}
+
+/* Coverage */
+.filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px}
+.filters button{font:600 14px/1 var(--sans); padding:11px 16px; min-height:44px; border-radius:999px; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--navy); border-color:var(--navy); color:var(--on-navy)}
+.cov-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+.cov{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px 22px; display:flex; flex-direction:column; gap:10px}
+.cov-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px}
+.cov h3{font-family:var(--sans); font-size:18px; font-weight:700; line-height:1.3; color:var(--ink)}
+.cov .one{color:var(--muted); font-size:15px}
+.badge{flex-shrink:0; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:5px 9px; border-radius:6px; white-space:nowrap}
+.b-gi{background:var(--navy); color:var(--gold)}
+.b-ind{background:var(--surface-2); color:var(--gold-ink); border:1px solid var(--line)}
+.b-mem{background:transparent; color:var(--muted); border:1px dashed var(--line)}
+.cov details{border-top:1px solid var(--line); padding-top:10px; margin-top:auto}
+.cov summary{cursor:pointer; font-size:14px; font-weight:700; color:var(--gold-ink); list-style:none; display:flex; align-items:center; gap:6px; min-height:32px}
+.cov summary::-webkit-details-marker{display:none}
+.cov summary::before{content:"+"; font-size:18px; width:14px}
+.cov details[open] summary::before{content:"−"}
+.cov dl{margin:8px 0 0; display:grid; gap:10px}
+.cov dt{font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.cov dd{margin:2px 0 0; font-size:15px}
+.approve{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px}
+.approve>div{background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:14px 16px; display:grid; gap:4px}
+.approve b{font-size:15px; color:var(--ink)}
+.approve span{font-size:14.5px; color:var(--muted)}
+@media (max-width:620px){.approve{grid-template-columns:1fr}}
+.fine{font-size:13px; color:var(--muted); margin-top:18px}
+
+/* Coverage check */
+.check-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px}
+.panel h3{font-size:17px; font-weight:700; margin-bottom:4px}
+.panel .sub{font-size:14px; color:var(--muted); margin-bottom:16px}
+.checks{display:grid; gap:4px}
+.checks label{display:flex; gap:12px; align-items:center; padding:10px 8px; border-radius:8px; cursor:pointer; font-size:15.5px; min-height:44px}
+.checks label:hover{background:var(--surface-2)}
+.checks input{width:20px; height:20px; accent-color:#0A1F44; flex-shrink:0}
+.meter{display:grid; gap:10px; margin-bottom:18px}
+.meter-num{font-family:var(--display); font-size:44px; font-weight:700; line-height:1; color:var(--ink)}
+.meter-num small{font-family:var(--sans); font-size:16px; font-weight:600; color:var(--muted)}
+.bar{height:10px; border-radius:999px; background:var(--surface-2); overflow:hidden; border:1px solid var(--line)}
+.bar i{display:block; height:100%; background:var(--gold); border-radius:999px; transition:width .35s ease}
+.gaps{display:grid; gap:10px}
+.gap{display:flex; justify-content:space-between; gap:12px; align-items:center; padding:12px 14px; border-radius:10px; background:var(--surface-2); border:1px solid var(--line)}
+.gap b{display:block; font-size:15px}
+.gap span{font-size:13.5px; color:var(--muted)}
+.alert{padding:12px 14px; border-radius:10px; background:var(--warn-bg); color:var(--warn); font-size:14.5px; font-weight:600}
+.allgood{padding:12px 14px; border-radius:10px; background:var(--good-bg); color:var(--good); font-size:14.5px; font-weight:600}
+.example-note{font-size:13px; color:var(--muted); font-style:italic; margin-top:12px}
+
+/* Calculator */
+.calc{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start}
+.field{display:grid; gap:6px; margin-bottom:16px}
+.field label{font-size:14px; font-weight:600}
+.money{display:flex; align-items:center; border:1.5px solid var(--line); border-radius:8px; background:var(--surface); overflow:hidden}
+.money span{padding:0 10px 0 12px; color:var(--muted); font-weight:600}
+.money input{border:0; background:transparent; color:var(--ink); font:600 17px var(--sans); padding:11px 12px 11px 0; width:100%; min-width:0; font-variant-numeric:tabular-nums}
+.money:focus-within{border-color:var(--focus)}
+.range-row{display:flex; gap:14px; align-items:center}
+.range-row input{flex:1; accent-color:#C9A646; min-height:32px}
+.range-row output{font-weight:700; font-variant-numeric:tabular-nums; min-width:86px; text-align:right}
+.result{background:var(--navy); color:var(--on-navy); border-radius:14px; padding:26px}
+.result .eyebrow{color:var(--gold)}
+.total{font-family:var(--display); font-size:clamp(38px,6vw,52px); font-weight:700; line-height:1.05; margin-top:8px; font-variant-numeric:tabular-nums}
+.rows{display:grid; gap:0; margin-top:18px; border-top:1px solid rgba(245,239,224,.2)}
+.rrow{display:flex; justify-content:space-between; gap:12px; padding:12px 0; border-bottom:1px solid rgba(245,239,224,.2); font-size:15px}
+.rrow b{font-variant-numeric:tabular-nums; white-space:nowrap}
+.rrow small{display:block; color:var(--on-navy-muted); font-size:13px; margin-top:2px}
+.result p.after{margin-top:16px; color:var(--on-navy-muted); font-size:15px}
+.result p.after b{color:var(--gold)}
+
+/* Portability table */
+.table-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface)}
+table{width:100%; border-collapse:collapse; min-width:640px; font-size:15px}
+th,td{padding:14px 16px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+thead th{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); background:var(--surface-2)}
+thead th.us{background:var(--navy); color:var(--gold)}
+td.us{background:color-mix(in srgb, var(--gold) 10%, var(--surface)); font-weight:600}
+tbody tr:last-child td{border-bottom:0}
+.yes{color:var(--good); font-weight:700}
+.no{color:var(--warn); font-weight:700}
+
+/* Pillars */
+.pillars{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--surface)}
+.pillar{padding:24px 22px; display:grid; gap:8px; align-content:start}
+.pillar + .pillar{border-left:1px solid var(--line)}
+.pillar h3{font-family:var(--display); font-size:18px; font-weight:700; color:var(--gold-ink)}
+.pillar p{font-size:15px; color:var(--muted)}
+
+/* Steps */
+.steps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; counter-reset:s}
+.step{display:grid; gap:10px; align-content:start}
+.step .n{font-family:var(--display); font-size:15px; font-weight:700; color:var(--gold-ink); letter-spacing:.1em}
+.step h3{font-size:19px; font-weight:700}
+.step p{color:var(--muted)}
+
+/* FAQ */
+.faq{display:grid; gap:10px; max-width:820px}
+.faq details{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:4px 18px}
+.faq summary{cursor:pointer; font-weight:700; font-size:16.5px; padding:14px 0; list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+"; font-size:22px; color:var(--gold-ink); flex-shrink:0}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding-bottom:16px; color:var(--muted)}
+
+/* Request */
+.request{background:var(--navy); color:var(--on-navy)}
+.request .section-head h2{color:var(--on-navy)}
+.request .lede{color:var(--on-navy-muted)}
+.request .eyebrow{color:var(--gold)}
+.req-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:start}
+.form{display:grid; gap:14px}
+.form .row{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.form label{display:grid; gap:6px; font-size:14px; font-weight:600; color:var(--on-navy-muted)}
+.form input,.form select{font:500 16px var(--sans); padding:12px 14px; border-radius:8px; border:1.5px solid rgba(245,239,224,.3); background:rgba(255,255,255,.06); color:var(--on-navy); min-height:48px; width:100%}
+.form select option{color:#15213A}
+.form input:focus,.form select:focus{border-color:var(--gold); outline:none}
+.interests{display:flex; flex-wrap:wrap; gap:8px}
+.interests label{display:inline-flex; flex-direction:row; align-items:center; gap:8px; padding:9px 13px; border-radius:999px; border:1.5px solid rgba(245,239,224,.3); cursor:pointer; font-size:14px; color:var(--on-navy); min-height:44px}
+.interests input{width:16px; height:16px; min-height:0; accent-color:#C9A646}
+.interests label:has(input:checked){border-color:var(--gold); background:rgba(201,166,70,.14)}
+.contact-card{border:1px solid rgba(201,166,70,.45); border-radius:14px; padding:26px; display:grid; gap:14px}
+.contact-card .who{font-family:var(--display); font-size:22px; font-weight:700}
+.contact-card .role-t{color:var(--gold); font-size:14px; font-weight:600}
+.contact-card a{color:var(--on-navy); text-decoration:none; font-size:17px; font-weight:600; display:flex; gap:10px; align-items:center; min-height:44px}
+.contact-card a:hover{color:var(--gold)}
+.hint{font-size:13px; color:var(--on-navy-muted)}
+
+footer{padding-block:32px 48px; font-size:12.5px; color:var(--muted); line-height:1.6}
+footer .wrap{display:grid; gap:10px}
+
+[data-for]{display:none}
+body[data-role="c1099"] [data-for="c1099"], body[data-role="w2"] [data-for="w2"]{display:revert}
+
+@media (max-width:860px){
+  .hero .wrap,.check-grid,.calc,.req-grid{grid-template-columns:1fr}
+  .card-stage{order:-1}
+  .member{transform:none; max-width:340px}
+  .promise,.steps,.cov-grid{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr 1fr}
+  .pillar:nth-child(3){border-left:0}
+  .pillar:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:520px){
+  .section{padding-block:52px}
+  .pillars{grid-template-columns:1fr}
+  .pillar + .pillar{border-left:0; border-top:1px solid var(--line)}
+  .form .row{grid-template-columns:1fr}
+  .cov-grid{grid-template-columns:1fr}
+  .hero::before{width:420px; height:420px; right:-220px}
+  .hero::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<div id="app">
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="brandline"><span></span>Barrett Real Estate &amp; Barrett Financial</div>
+      <h1>Barrett Benefits</h1>
+      <div class="powered">powered by Full Circle Financial</div>
+      <p class="hero-copy" data-for="c1099">You've built a business with no benefits package behind it. Now there's one: health, life, and cash-paying supplemental coverage you own. Approval is simple: no exams, blood draws or doctor visits, and as part of the Barrett group, you're guaranteed to qualify. It goes with you wherever your career goes.</p>
+      <p class="hero-copy" data-for="w2">Your employer plan is a starting point, and it stops at the door when you leave. Barrett Benefits fills the gaps it leaves and gives you coverage you own and keep. There are no exams, blood draws or doctor visits, and as part of the Barrett group, you're guaranteed to qualify.</p>
+      <div class="role">
+        <div class="role-label" id="role-label">I'm joining Barrett as</div>
+        <div class="seg" role="group" aria-labelledby="role-label">
+          <button type="button" id="role-1099" data-role="c1099" aria-pressed="true">A 1099 independent agent</button>
+          <button type="button" id="role-w2" data-role="w2" aria-pressed="false">A W-2 employee</button>
+        </div>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="#request">Request my 15-minute review</a>
+        <a class="btn btn-ghost" href="#check">Check my coverage</a>
+      </div>
+    </div>
+    <div class="card-stage" aria-hidden="true">
+      <div class="member">
+        <div class="member-top">
+          <div>
+            <div class="member-name">Barrett Benefits</div>
+            <div class="member-sub">Powered by Full Circle Financial</div>
+          </div>
+          <div class="chip-gold"></div>
+        </div>
+        <dl class="member-fields">
+          <div class="mf"><dt>Member type</dt><dd id="card-type">1099 Independent Agent</dd></div>
+          <div class="mf"><dt>Approval</dt><dd>Guaranteed in the group</dd></div>
+          <div class="mf"><dt>Ownership</dt><dd>Yours</dd></div>
+          <div class="mf"><dt>Portable</dt><dd>Yes, it goes with you</dd></div>
+        </dl>
+        <div class="member-foot">Underwritten by Combined Insurance, a Chubb company</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="creds">
+  <div class="wrap">
+    <div class="cred"><b>A+</b> AM Best financial strength</div>
+    <div class="cred"><b>A+</b> Better Business Bureau</div>
+    <div class="cred"><b>100+</b> years in supplemental benefits</div>
+    <div class="cred"><b>Chubb</b> operating in 54 countries</div>
+  </div>
+</div>
+
+<main>
+
+<section class="section">
+  <div class="wrap">
+    <div class="promise">
+      <div class="promise-item">
+        <div class="mark"><svg viewBox="0 0 20 20" fill="none" stroke="#C9A646" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></div>
+        <h3>You qualify</h3>
+        <p><b>Simplified issue:</b> answer a few health questions, and if your answers are no, you're approved. There are no exams, blood draws or doctor visits. <b>Enrolled with the Barrett group:</b> it's guaranteed issue, and everyone qualifies.</p>
+      </div>
+      <div class="promise-item">
+        <div class="mark"><svg viewBox="0 0 20 20" fill="none" stroke="#C9A646" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v14M3 10h14"/></svg></div>
+        <h3>It pays you cash</h3>
+        <p>Supplemental benefits pay you directly, not the hospital. Use the money for the deductible, the mortgage, or the weeks you can't write deals.</p>
+      </div>
+      <div class="promise-item">
+        <div class="mark"><svg viewBox="0 0 20 20" fill="none" stroke="#C9A646" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h10M10 5l5 5-5 5"/></svg></div>
+        <h3>It stays with you</h3>
+        <p>You own the policy. Change brokerages, go independent, or retire, and your coverage and your rate stay with you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="coverage">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The coverage</div>
+      <h2>Everything a real estate career leaves uncovered</h2>
+      <p class="lede">Group plans you can't be turned down for, individual policies you lock in and own, and member discounts for everyday care.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter coverage">
+      <button type="button" id="f-all" data-filter="all" aria-pressed="true">All coverage</button>
+      <button type="button" id="f-gi" data-filter="gi" aria-pressed="false">Simplified &amp; group issue</button>
+      <button type="button" id="f-ind" data-filter="ind" aria-pressed="false">Individual</button>
+      <button type="button" id="f-mem" data-filter="mem" aria-pressed="false">Memberships</button>
+    </div>
+    <div class="approve"><div><b>Simplified issue</b><span>Answer a few yes-or-no health questions. If your answers are no, you&#8217;re approved. There are no exams, blood draws or doctor visits.</span></div><div><b>Guaranteed issue</b><span>When you enroll as part of the Barrett group, everyone qualifies, whatever their health answers.</span></div></div>
+    <div class="cov-grid" id="cov-grid"></div>
+    <p class="fine">Simplified issue approval depends on your answers to the health questions. Guaranteed issue applies when you enroll as part of the Barrett group during the enrollment window, within the plan's benefit limits and age bands. Individual policies are underwritten. Memberships are discount programs, not insurance.</p>
+  </div>
+</section>
+
+<section class="section" id="check">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Your coverage check</div>
+      <h2>How complete is your coverage today?</h2>
+      <p class="lede">Check what you already have. The gaps, and what would close them, show on the right.</p>
+    </div>
+    <div class="check-grid">
+      <div class="panel">
+        <h3>I have this today</h3>
+        <p class="sub">Check everything that's true for you right now.</p>
+        <div class="checks" id="checks"></div>
+        <p class="example-note">These boxes start with example answers. Change them to match your own coverage.</p>
+      </div>
+      <div class="panel" aria-live="polite">
+        <div class="meter">
+          <div class="meter-num"><span id="score">0</span> <small>of 8 protections in place</small></div>
+          <div class="bar"><i id="bar" style="width:0%"></i></div>
+        </div>
+        <div id="portable-alert"></div>
+        <h3 style="margin-top:18px">Your gaps and how to close them</h3>
+        <p class="sub">Every item below is available through Barrett Benefits.</p>
+        <div class="gaps" id="gaps"></div>
+        <a class="btn btn-gold" href="#request" style="margin-top:18px; width:100%">Add these to my review request</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="calc">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The real cost of a bad month</div>
+      <h2>What would a hospital stay cost you right now?</h2>
+      <p class="lede">Enter your own numbers. A health plan covers part of the bill, but not your deductible, your share of the costs, or the months you can't close deals.</p>
+    </div>
+    <div class="calc">
+      <div class="panel">
+        <div class="field">
+          <label for="ded">Your health plan's deductible</label>
+          <div class="money"><span>$</span><input id="ded" inputmode="numeric" value="5,000" aria-describedby="calc-note"></div>
+        </div>
+        <div class="field">
+          <label for="oop">Your plan's out-of-pocket maximum</label>
+          <div class="money"><span>$</span><input id="oop" inputmode="numeric" value="9,200"></div>
+        </div>
+        <div class="field">
+          <label for="bills">Your monthly household bills</label>
+          <div class="money"><span>$</span><input id="bills" inputmode="numeric" value="6,500"></div>
+        </div>
+        <div class="field">
+          <label for="weeks">Weeks you couldn't work</label>
+          <div class="range-row"><input type="range" id="weeks" min="0" max="26" step="1" value="8"><output id="weeks-out" for="weeks">8 weeks</output></div>
+        </div>
+        <p class="example-note" id="calc-note">These are example figures. Replace them with your own; the numbers are only calculated on this page and are never sent anywhere.</p>
+      </div>
+      <div class="result" aria-live="polite">
+        <div class="eyebrow">Your exposure, worst case</div>
+        <div class="total" id="total">$0</div>
+        <div class="rows">
+          <div class="rrow"><div>Medical bills you'd owe<small>Up to your out-of-pocket maximum</small></div><b id="r-med">$0</b></div>
+          <div class="rrow"><div>Bills while you can't work<small>Household costs with no closings</small></div><b id="r-inc">$0</b></div>
+        </div>
+        <p class="after"><b>Hospital, accident and critical illness coverage</b> pays you cash toward the first line. <b>Disability coverage</b> replaces part of the second. That's the gap Barrett Benefits is built to close.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="portable">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Better than what you have</div>
+      <h2>Coverage that goes where you go</h2>
+      <p class="lede">Most people's protection is tied to a job. In real estate, careers move, so your coverage needs to move with you.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" style="width:26%"></th>
+            <th scope="col">Coverage through a job</th>
+            <th scope="col" class="us">Barrett Benefits group plans</th>
+            <th scope="col">Barrett Benefits individual policies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Available to 1099 agents</th><td><span class="no">No.</span> Usually W-2 only</td><td class="us"><span class="yes">Yes.</span> 7 or more enrolled make a group</td><td><span class="yes">Yes</span></td></tr>
+          <tr><th scope="row">Health questions</th><td>Varies by employer</td><td class="us"><span class="yes">Simplified issue</span>: a few yes-or-no questions, with no exams or blood work. <span class="yes">Guaranteed issue</span> when you enroll with the group</td><td>Underwritten, and your rate is locked in while you're healthy</td></tr>
+          <tr><th scope="row">If you leave</th><td><span class="no">Ends</span>, or COBRA at full cost</td><td class="us"><span class="yes">You keep it</span></td><td><span class="yes">You keep it</span></td></tr>
+          <tr><th scope="row">Who it pays</th><td>The provider</td><td class="us">You, in cash</td><td>You or your beneficiaries</td></tr>
+          <tr><th scope="row">Builds value</th><td>No</td><td class="us">Coverage, with no cash value</td><td><span class="yes">IUL builds cash value</span></td></tr>
+          <tr><th scope="row">Who owns it</th><td>Your employer</td><td class="us">You</td><td>You</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fine">The strongest plan uses both: group plans for guaranteed protection today, and individual policies you lock in and build value in over time.</p>
+  </div>
+</section>
+
+<section class="section" id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">More than insurance</div>
+      <h2>A financial advisor in your building</h2>
+      <p class="lede">Every Barrett agent gets free access to Full Circle's education program: quarterly workshops in the office, and one-on-one sessions whenever you need them.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar"><h3>Protection</h3><p>Life insurance and indexed universal life, including coverage that builds cash value you can use later.</p></div>
+      <div class="pillar"><h3>Structure</h3><p>Setting up your business entity, trusts, and estate plan, which most 1099 earners never get to.</p></div>
+      <div class="pillar"><h3>Leverage</h3><p>Personal credit repair and business credit, so your buying power builds under your company instead of your own name.</p></div>
+      <div class="pillar"><h3>Scale</h3><p>Systems, marketing and automation, so you run your book like a business.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Enrolled in three steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">STEP ONE</div><h3>Book your review</h3><p>Fifteen minutes, in the office or by phone. We look at what you have now and where the gaps are.</p></div>
+      <div class="step"><div class="n">STEP TWO</div><h3>Choose what fits</h3><p>Pick the plans you want, and nothing you don't. Every plan is optional, and you pay for your own directly.</p></div>
+      <div class="step"><div class="n">STEP THREE</div><h3>Enroll and you're covered</h3><p>Simplified issue means no exams, blood draws or doctor visits, and enrolling with the Barrett group makes it guaranteed issue. Your coverage is yours from day one, and it stays with you.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Questions</div>
+      <h2>What agents ask first</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Does signing up change my 1099 status?</summary><p>No. Every plan is voluntary and in your own name, and you pay for it yourself. Barrett doesn't sponsor, choose, or pay for your coverage, so your status as an independent contractor stays the same.</p></details>
+      <details><summary>Will I get approved? Do I need a medical exam?</summary><p>You won't need an exam, a blood draw or a doctor visit. The supplemental and worksite life plans are simplified issue: you answer a few health questions, and if your answers are no, you're approved. When you enroll as part of the Barrett group, those plans are guaranteed issue during the enrollment window, so everyone qualifies, within each plan's benefit limits and age bands. Individual life and IUL policies are underwritten, which is how you lock in a rate while you're healthy.</p></details>
+      <details><summary>What happens if I leave Barrett?</summary><p>You keep your coverage. You own your policies, so they stay with you and so does your rate.</p></details>
+      <details><summary>I already have a health plan. Do I need this?</summary><p>Your health plan pays the doctor and the hospital. It doesn't pay your deductible, your mortgage, or your bills during the weeks you can't work. Supplemental plans pay you cash for exactly that. Use the calculator above to see your own numbers.</p></details>
+      <details><summary>What does this cost Barrett, and what does it cost me?</summary><p>Barrett pays nothing. You pay only for the plans you choose, at group rates, by your own draft. The education program and your reviews are free, and you're never required to buy anything.</p></details>
+      <details><summary>Is the dental, vision and telehealth membership insurance?</summary><p>No. It's a discount membership that lowers what you pay for care. It is not insurance, and we'll always describe it that way.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="section request" id="request">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Get started</div>
+      <h2>Request your 15-minute benefits review</h2>
+      <p class="lede">Fill this in and tap the button. It opens an email to Breyon that already lists what you're interested in.</p>
+    </div>
+    <div class="req-grid">
+      <form class="form" id="req-form" onsubmit="return false">
+        <div class="row">
+          <label for="r-name">Your name<input id="r-name" autocomplete="name" placeholder="First and last name"></label>
+          <label for="r-phone">Phone<input id="r-phone" type="tel" autocomplete="tel" placeholder="(602) 555-0100"></label>
+        </div>
+        <div class="row">
+          <label for="r-office">Barrett office<input id="r-office" placeholder="Office or team"></label>
+          <label for="r-role">I'm a<select id="r-role"><option value="1099 independent agent">1099 independent agent</option><option value="W-2 employee">W-2 employee</option></select></label>
+        </div>
+        <div>
+          <div style="font-size:14px; font-weight:600; color:var(--on-navy-muted); margin-bottom:8px" id="int-label">I'm interested in</div>
+          <div class="interests" id="interests" role="group" aria-labelledby="int-label"></div>
+        </div>
+        <a class="btn btn-gold" id="send" href="mailto:Breyon@fullcircle-credit.com" target="_blank" rel="noopener" style="margin-top:6px">Email my request to Breyon</a>
+        <p class="hint">If your email doesn't open, call or email Breyon directly using the contact details on the right.</p>
+      </form>
+      <div class="contact-card">
+        <div>
+          <div class="who">Breyon Miller</div>
+          <div class="role-t">Founder &amp; Financial Architect, Full Circle Financial Group</div>
+        </div>
+        <a href="tel:+16025450826"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#C9A646" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5h3l1.5 4-2 1.3a9 9 0 004.7 4.7l1.3-2 4 1.5v3a1.5 1.5 0 01-1.5 1.5A14.5 14.5 0 013.5 4 1.5 1.5 0 015 2.5z"/></svg>602-545-0826</a>
+        <a href="mailto:Breyon@fullcircle-credit.com" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#C9A646" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="1.5"/><path d="M3 5.5l7 5.5 7-5.5"/></svg>Breyon@fullcircle-credit.com</a>
+        <p class="hint">Reviews are free and you're never obligated to buy. You can meet in the office, by phone, or on video.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Barrett Benefits is a voluntary benefits program offered by Full Circle Financial Group to agents and employees of Barrett Real Estate and Barrett Financial. Barrett does not sponsor, fund, or endorse any specific plan. All coverage is chosen and paid for by the individual.</p>
+    <p>Supplemental benefits are underwritten by Combined Insurance Company of America, a Chubb company. Simplified issue approval is based on your answers to the health questions on the application. Guaranteed issue applies to eligible group enrollments during a defined enrollment window, subject to plan design, benefit limits, age bands and minimum participation. Individual life insurance is underwritten. Dental, vision and telehealth memberships are discount programs, not insurance. Products, availability and rates vary by state. This page is a summary and not a contract of insurance. Please review each plan's terms before you enroll.</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var COVERAGE = [
+    {id:'health', t:'Health plans', type:'ind', one:'Doctor visits, hospital care and prescriptions. Individual and marketplace plans, reviewed with you.', pays:'Major medical care from the providers in your plan.', why:'Most 1099 agents buy health coverage on their own and never get it reviewed. We compare your options and help you pair a plan with supplemental coverage.'},
+    {id:'accident', t:'Accident', type:'gi', one:'Cash when an injury sends you to the ER, urgent care or physical therapy.', pays:'ER visits, fractures, dislocations, ambulance rides and follow-up care.', why:'Showings, stairs, driving all day. Agents are always on the move, and an injury means bills and lost time together.'},
+    {id:'hospital', t:'Hospital indemnity', type:'gi', one:'A cash payment when you are admitted, plus a daily benefit for each day in the hospital.', pays:'Admissions and each day you stay, paid to you on top of your health plan.', why:'A single hospital stay can use up most of your deductible. This money arrives while you are still recovering.'},
+    {id:'ci', t:'Critical illness', type:'gi', one:'A lump sum at diagnosis of a covered condition such as heart attack or stroke.', pays:'A one-time cash payment you can use however you need to.', why:'A serious diagnosis stops your pipeline and raises your costs at the same moment.'},
+    {id:'cancer', t:'Cancer', type:'gi', one:'A benefit that keeps paying through the course of treatment.', pays:'Treatment, travel for care and related costs, paid in cash to you.', why:'Cancer treatment often lasts months, and your costs keep coming while your income slows.'},
+    {id:'disability', t:'Disability income', type:'gi', one:'Replaces part of your income when illness or injury keeps you from working.', pays:'A monthly benefit while you are unable to work.', why:'Your income is your commission. If you are not closing deals, there is no paycheck. This covers that gap.'},
+    {id:'wtl', t:'Worksite term life', type:'gi', one:'Life coverage you can keep until age 95, set up through the Barrett group.', pays:'A death benefit to the people you name.', why:'Group enrollment makes it easy to qualify, and the coverage stays with you if you leave Barrett.'},
+    {id:'gltc', t:'Guaranteed life with long-term care', type:'gi', one:'A life insurance benefit that can also be used early to pay for long-term care.', pays:'A death benefit, part of which you can use for long-term care if you need it.', why:'Long-term care is one of the largest costs families face. This covers life insurance and care in one policy.'},
+    {id:'iul', t:'Individual life & IUL', type:'ind', one:'Life insurance you own that can build tax-advantaged cash value over time.', pays:'A death benefit, plus cash value you can borrow against during your lifetime.', why:'You lock in your rate while you are young and healthy, and the policy grows into an asset over time.'},
+    {id:'dvt', t:'Dental, vision & telehealth', type:'mem', one:'Member pricing on cleanings, eye exams, glasses and virtual doctor visits.', pays:'Discounted rates at participating providers. This is a membership, not insurance.', why:'It lowers the cost of everyday care for you and your family.'}
+  ];
+  var TYPE = {gi:['Simplified issue','b-gi'], ind:['Individual','b-ind'], mem:['Membership','b-mem']};
+
+  var CHECKS = [
+    {id:'c-health', label:'A health plan', fix:'health', ex:true},
+    {id:'c-lifework', label:'Life insurance through a job', fix:'wtl', ex:false, portable:false},
+    {id:'c-lifeown', label:'Life insurance I own myself', fix:'iul', ex:false},
+    {id:'c-dis', label:'Income protection if I can’t work', fix:'disability', ex:false},
+    {id:'c-acc', label:'Accident coverage', fix:'accident', ex:false},
+    {id:'c-hosp', label:'Hospital coverage that pays me cash', fix:'hospital', ex:false},
+    {id:'c-ci', label:'Critical illness or cancer coverage', fix:'ci', ex:false},
+    {id:'c-dvt', label:'Dental & vision', fix:'dvt', ex:true}
+  ];
+  var byId = {}; COVERAGE.forEach(function(c){ byId[c.id]=c; });
+
+  function el(tag, attrs, html){ var e=document.createElement(tag); if(attrs) for(var k in attrs){ e.setAttribute(k, attrs[k]); } if(html!=null) e.innerHTML=html; return e; }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]; }); }
+
+  // Role toggle
+  var roleBtns = document.querySelectorAll('.seg button');
+  function setRole(r){
+    document.body.setAttribute('data-role', r);
+    roleBtns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-role')===r ? 'true':'false'); });
+    document.getElementById('card-type').textContent = r==='w2' ? 'W-2 Employee' : '1099 Independent Agent';
+    document.getElementById('r-role').value = r==='w2' ? 'W-2 employee' : '1099 independent agent';
+    try{ localStorage.setItem('bb-role', r); }catch(e){}
+  }
+  roleBtns.forEach(function(b){ b.addEventListener('click', function(){ setRole(b.getAttribute('data-role')); }); });
+  var savedRole = null; try{ savedRole = localStorage.getItem('bb-role'); }catch(e){}
+  setRole(savedRole==='w2' ? 'w2' : 'c1099');
+
+  // Coverage cards
+  var grid = document.getElementById('cov-grid');
+  COVERAGE.forEach(function(c){
+    var card = el('article', {'class':'cov', 'data-type':c.type, 'id':'cov-'+c.id});
+    card.innerHTML =
+      '<div class="cov-top"><h3>'+esc(c.t)+'</h3><span class="badge '+TYPE[c.type][1]+'">'+TYPE[c.type][0]+'</span></div>'+
+      '<p class="one">'+esc(c.one)+'</p>'+
+      '<details><summary>What it pays and why it matters</summary><dl><div><dt>Pays for</dt><dd>'+esc(c.pays)+'</dd></div><div><dt>Why agents need it</dt><dd>'+esc(c.why)+'</dd></div></dl></details>';
+    grid.appendChild(card);
+  });
+  var fBtns = document.querySelectorAll('.filters button');
+  fBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.getAttribute('data-filter');
+      fBtns.forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true':'false'); });
+      grid.querySelectorAll('.cov').forEach(function(card){ card.hidden = !(f==='all' || card.getAttribute('data-type')===f); });
+    });
+  });
+
+  // Coverage check
+  var checksBox = document.getElementById('checks');
+  CHECKS.forEach(function(c){
+    var lab = el('label', {'for':c.id});
+    lab.innerHTML = '<input type="checkbox" id="'+c.id+'"'+(c.ex?' checked':'')+'> <span>'+esc(c.label)+'</span>';
+    checksBox.appendChild(lab);
+  });
+  var gapsBox = document.getElementById('gaps');
+  var currentGaps = [];
+  function recalc(){
+    var have = {}; CHECKS.forEach(function(c){ have[c.id] = document.getElementById(c.id).checked; });
+    var needs = [
+      {ok: have['c-health'], fix:'health'},
+      {ok: have['c-lifework'] || have['c-lifeown'], fix: 'iul'},
+      {ok: have['c-dis'], fix:'disability'},
+      {ok: have['c-acc'], fix:'accident'},
+      {ok: have['c-hosp'], fix:'hospital'},
+      {ok: have['c-ci'], fix:'ci'},
+      {ok: have['c-dvt'], fix:'dvt'},
+      {ok: !(have['c-lifework'] && !have['c-lifeown']), fix:'wtl', portability:true}
+    ];
+    var score = needs.filter(function(n){ return n.ok; }).length;
+    document.getElementById('score').textContent = score;
+    document.getElementById('bar').style.width = (score/8*100)+'%';
+    var alertBox = document.getElementById('portable-alert');
+    if(have['c-lifework'] && !have['c-lifeown']){
+      alertBox.innerHTML = '<div class="alert">Your only life insurance is through a job. It ends when that job ends.</div>';
+    } else { alertBox.innerHTML = ''; }
+    gapsBox.innerHTML = '';
+    currentGaps = [];
+    needs.forEach(function(n){
+      if(n.ok) return;
+      var c = byId[n.fix];
+      if(currentGaps.indexOf(c.id) !== -1) return;
+      currentGaps.push(c.id);
+      if(n.fix==='ci') currentGaps.push('cancer');
+      var row = el('div', {'class':'gap'});
+      var label = n.portability ? 'Life insurance that stays with you' : c.t + (n.fix==='ci' ? ' & cancer' : '');
+      row.innerHTML = '<div><b>'+esc(label)+'</b><span>'+esc(c.one)+'</span></div><span class="badge '+TYPE[c.type][1]+'">'+TYPE[c.type][0]+'</span>';
+      gapsBox.appendChild(row);
+    });
+    if(!currentGaps.length){ gapsBox.innerHTML = '<div class="allgood">You have all eight protections. A review can still check whether you own them and whether they go with you if you leave.</div>'; }
+    syncInterests();
+  }
+  checksBox.addEventListener('change', recalc);
+
+  // Calculator
+  var fmt = new Intl.NumberFormat('en-US', {style:'currency', currency:'USD', maximumFractionDigits:0});
+  function num(id){ var v = String(document.getElementById(id).value).replace(/[^0-9.]/g,''); var n = parseFloat(v); return isFinite(n) && n>0 ? n : 0; }
+  function calc(){
+    var ded = num('ded'), oop = num('oop'), bills = num('bills');
+    var weeks = parseInt(document.getElementById('weeks').value, 10) || 0;
+    var med = Math.max(ded, oop);
+    var inc = bills * (weeks / 4.33);
+    document.getElementById('weeks-out').textContent = weeks + (weeks===1 ? ' week' : ' weeks');
+    document.getElementById('r-med').textContent = fmt.format(med);
+    document.getElementById('r-inc').textContent = fmt.format(Math.round(inc));
+    document.getElementById('total').textContent = fmt.format(Math.round(med + inc));
+  }
+  ['ded','oop','bills','weeks'].forEach(function(id){ document.getElementById(id).addEventListener('input', calc); });
+  ['ded','oop','bills'].forEach(function(id){
+    var inp = document.getElementById(id);
+    inp.addEventListener('blur', function(){ var n = num(id); inp.value = n ? n.toLocaleString('en-US') : ''; });
+  });
+
+  // Request form
+  var INTEREST_LIST = ['health','accident','hospital','ci','cancer','disability','wtl','iul','gltc','dvt'];
+  var intBox = document.getElementById('interests');
+  INTEREST_LIST.forEach(function(id){
+    var lab = el('label', {'for':'i-'+id});
+    lab.innerHTML = '<input type="checkbox" id="i-'+id+'" value="'+id+'"> '+esc(byId[id].t);
+    intBox.appendChild(lab);
+  });
+  var eduLab = el('label', {'for':'i-edu'}); eduLab.innerHTML = '<input type="checkbox" id="i-edu" value="edu"> Credit, entity &amp; estate planning'; intBox.appendChild(eduLab);
+  var userTouched = false;
+  intBox.addEventListener('change', function(){ userTouched = true; buildMail(); });
+  function syncInterests(){
+    if(userTouched) return;
+    INTEREST_LIST.forEach(function(id){ document.getElementById('i-'+id).checked = currentGaps.indexOf(id) !== -1; });
+    buildMail();
+  }
+  function buildMail(){
+    var name = document.getElementById('r-name').value.trim();
+    var phone = document.getElementById('r-phone').value.trim();
+    var office = document.getElementById('r-office').value.trim();
+    var role = document.getElementById('r-role').value;
+    var picks = [];
+    INTEREST_LIST.forEach(function(id){ if(document.getElementById('i-'+id).checked) picks.push(byId[id].t); });
+    if(document.getElementById('i-edu').checked) picks.push('Credit, entity & estate planning');
+    var subject = 'Barrett Benefits review request' + (name ? ' — ' + name : '');
+    var body = 'Hi Breyon,\n\nI’d like to book my 15-minute Barrett Benefits review.\n\n' +
+      'Name: ' + (name || '') + '\n' + 'Phone: ' + (phone || '') + '\n' + 'Barrett office: ' + (office || '') + '\n' + 'I am a: ' + role + '\n\n' +
+      'I’m interested in:\n' + (picks.length ? picks.map(function(p){ return '  • ' + p; }).join('\n') : '  • A general review') + '\n\nThank you.';
+    document.getElementById('send').setAttribute('href', 'mailto:Breyon@fullcircle-credit.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));
+  }
+  ['r-name','r-phone','r-office','r-role'].forEach(function(id){ document.getElementById(id).addEventListener('input', buildMail); document.getElementById(id).addEventListener('change', buildMail); });
+
+  recalc();
+  calc();
+  buildMail();
+})();
+</script>
+
+</body></html>

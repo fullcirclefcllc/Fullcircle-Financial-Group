@@ -1,0 +1,770 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Full Circle Dispute Desk</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: brand masthead with orbital ring, tab bar, then one working surface per tab (flow / SOP / playbook / CRM). */
+:root{
+  --navy:#0A1F44; --gold:#C9A646; --cream:#F5EFE0;
+  --bg:#F7F3EA; --surface:#FFFDF8; --surface2:#EFE8D8; --ink:#14223D; --muted:#5B6578; --line:#DCD3BF;
+  --accent:#0A1F44; --accent-ink:#F5EFE0; --gold-ink:#7A5F14;
+  --ok:#2E7D32; --ok-bg:#E6F2E6; --warn:#B26A00; --warn-bg:#FFF2DC; --bad:#B3261E; --bad-bg:#FBE7E5; --info-bg:#E8EEF8;
+  --f-display:"Cinzel",Georgia,serif; --f-serif:"Cormorant Garamond",Georgia,serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#081631; --surface:#0E2148; --surface2:#132B57; --ink:#F1EAD9; --muted:#A8B0C2; --line:#24396A;
+  --accent:#C9A646; --accent-ink:#0A1F44; --gold-ink:#E2C66E;
+  --ok:#7CC57F; --ok-bg:#163A26; --warn:#F0B44C; --warn-bg:#3A2C10; --bad:#F08A80; --bad-bg:#3E1B1F; --info-bg:#16305E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#081631; --surface:#0E2148; --surface2:#132B57; --ink:#F1EAD9; --muted:#A8B0C2; --line:#24396A;
+  --accent:#C9A646; --accent-ink:#0A1F44; --gold-ink:#E2C66E;
+  --ok:#7CC57F; --ok-bg:#163A26; --warn:#F0B44C; --warn-bg:#3A2C10; --bad:#F08A80; --bad-bg:#3E1B1F; --info-bg:#16305E; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.mast{background:var(--navy);color:var(--cream);position:relative;overflow:hidden}
+header.mast .wrap{padding-block:26px 18px;position:relative}
+.ring{position:absolute;right:-60px;top:-90px;width:300px;height:300px;border:1.5px solid rgba(201,166,70,.55);border-radius:50%;pointer-events:none}
+.ring::after{content:"";position:absolute;inset:34px;border:1px solid rgba(201,166,70,.25);border-radius:50%}
+.eyebrow{font-family:var(--f-display);letter-spacing:.18em;font-size:11px;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(24px,4vw,36px);margin:4px 0 2px;text-wrap:balance;letter-spacing:.02em}
+.mast p{margin:0;font-family:var(--f-serif);font-size:19px;color:#E6DCC4;max-width:62ch}
+nav.tabs{display:flex;gap:4px;margin-top:18px;flex-wrap:wrap}
+nav.tabs button{font:600 13px var(--f-body);letter-spacing:.06em;text-transform:uppercase;background:transparent;color:#D9CFB7;border:1px solid rgba(201,166,70,.35);padding:9px 14px;border-radius:999px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--gold);color:#0A1F44;border-color:var(--gold)}
+nav.tabs button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+main .wrap{padding-block:24px 60px}
+h2{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0 0 6px;letter-spacing:.02em}
+h3{font-family:var(--f-display);font-weight:600;font-size:15px;margin:0 0 8px;letter-spacing:.04em}
+.lede{font-family:var(--f-serif);font-size:19px;color:var(--muted);margin:0 0 18px;max-width:70ch}
+.btn{font:600 13px var(--f-body);border-radius:8px;padding:8px 13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.gold{background:var(--gold);color:#0A1F44;border-color:var(--gold)}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn.sm{padding:5px 9px;font-size:12px}
+.pill{display:inline-block;font:600 11px var(--f-body);letter-spacing:.04em;padding:2px 8px;border-radius:999px;background:var(--surface2);color:var(--ink);white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.info{background:var(--info-bg);color:var(--ink)}
+.note{border-left:3px solid var(--gold);background:var(--surface);padding:10px 14px;border-radius:0 8px 8px 0;font-size:14px;color:var(--ink)}
+.mono{font-family:var(--f-mono);font-size:12.5px}
+.tabular{font-variant-numeric:tabular-nums}
+
+/* FLOW */
+.flowgrid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.flowcanvas{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+.flowcanvas svg{display:block;width:100%;min-width:680px;height:auto}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:0 0 10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px;border:1.5px solid}
+.node{cursor:pointer}
+.node:focus{outline:none}
+.node:focus-visible .shape,.node.sel .shape{stroke:var(--gold);stroke-width:3.5}
+.node.dim{opacity:.45}
+.n-process .shape{fill:var(--info-bg);stroke:#3B5B8F;stroke-width:1.4}
+.n-action .shape{fill:var(--ok-bg);stroke:var(--ok);stroke-width:1.8}
+.n-decision .shape{fill:var(--warn-bg);stroke:var(--warn);stroke-width:1.6}
+.n-warn .shape{fill:var(--bad-bg);stroke:var(--bad);stroke-width:1.4}
+.n-start .shape{fill:#0A1F44;stroke:#C9A646;stroke-width:1.4}
+.n-done .shape{fill:#2E7D32;stroke:#2E7D32}
+.node text{font:500 12.5px var(--f-body);fill:var(--ink)}
+.n-warn text{fill:var(--bad)}
+.n-start text,.n-done text{fill:#F5EFE0}
+.edge{fill:none;stroke:var(--muted);stroke-width:1.5}
+.edge.hot{stroke:var(--gold);stroke-width:3}
+.elabel{font:600 11px var(--f-body);fill:var(--muted)}
+.detail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.detail .kind{font:600 11px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink)}
+.detail h3{font-size:18px;margin:4px 0 10px}
+.detail ul{margin:6px 0 12px;padding-left:18px}
+.detail li{margin:3px 0}
+.detail .law{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;margin-top:8px}
+.detail .crm{font-size:13px;background:var(--surface2);border-radius:8px;padding:8px 10px;margin-top:10px}
+.choice{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sublabel{font:600 12px var(--f-body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-top:10px}
+
+/* SOP */
+.phases{display:grid;gap:14px}
+.phase{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.phase .when{font-family:var(--f-display);font-size:13px;color:var(--gold-ink);letter-spacing:.06em}
+.phase .num{font-family:var(--f-display);font-size:30px;line-height:1;color:var(--ink)}
+.phase h3{font-size:16px}
+.check{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-bottom:1px solid var(--line)}
+.check:last-child{border-bottom:0}
+.check input{margin-top:4px;accent-color:var(--gold);width:16px;height:16px;flex:none}
+.check label{cursor:pointer}
+.check .who{font-size:12px;color:var(--muted);margin-left:auto;white-space:nowrap;padding-left:10px}
+.progress{height:6px;background:var(--surface2);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.progress span{display:block;height:100%;background:var(--gold)}
+
+/* PLAYBOOK */
+.pb-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+.card ul{margin:6px 0 0;padding-left:18px} .card li{margin:4px 0}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 11.5px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+tr:last-child td{border-bottom:0}
+.letters{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px}
+.letterlist{display:flex;flex-direction:column;gap:6px}
+.letterlist button{text-align:left;font:500 14px var(--f-body);padding:10px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;cursor:pointer}
+.letterlist button[aria-pressed="true"]{border-color:var(--gold);background:var(--surface2);font-weight:600}
+.letterbody{white-space:pre-wrap;font-family:var(--f-mono);font-size:12.5px;line-height:1.6;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;max-height:560px;overflow:auto}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+select,input[type=text],input[type=date],input[type=email],input[type=tel],input[type=number],input[type=search],textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:6px 9px;min-width:0}
+textarea{width:100%;min-height:70px;resize:vertical}
+
+/* CRM */
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.kpi b{display:block;font-family:var(--f-display);font-size:24px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.crmgrid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:16px;align-items:start}
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.stagebar{display:flex;gap:6px;flex-wrap:wrap}
+.stagebar button{font:600 12px var(--f-body);padding:5px 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.stagebar button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.clist{display:flex;flex-direction:column;gap:6px}
+.citem{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;color:var(--ink);font:inherit}
+.citem[aria-current="true"]{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.citem .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.citem b{font-weight:600}
+.citem small{color:var(--muted);font-size:12.5px}
+.alerts{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.alert{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.alert:last-child{border-bottom:0}
+.alert .d{font-variant-numeric:tabular-nums;font-weight:600}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.panelhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 14px}
+.fields label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;min-width:0}
+.fields label.wide{grid-column:span 3}
+.fields input,.fields select{width:100%}
+.section{margin-top:22px}
+.section .head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.grid-table input,.grid-table select{width:100%;font-size:13px;padding:4px 6px}
+.grid-table td{padding:6px 6px}
+.bcb{display:flex;gap:6px;font-size:12px}
+.bcb label{display:flex;gap:3px;align-items:center}
+.timeline{display:flex;flex-direction:column;gap:6px}
+.tl{display:flex;gap:10px;align-items:center;font-size:14px;flex-wrap:wrap}
+.empty{border:1.5px dashed var(--line);border-radius:12px;padding:30px;text-align:center;color:var(--muted)}
+.empty h3{color:var(--ink)}
+.banner{display:none;margin-bottom:12px}
+.dirty{font-size:12px;color:var(--warn)}
+.statusmsg{font-size:13px;color:var(--muted)}
+
+@media (max-width:980px){
+  .flowgrid,.crmgrid,.letters{grid-template-columns:minmax(0,1fr)}
+  .detail{position:static}
+  .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pb-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:620px){
+  .phase{grid-template-columns:minmax(0,1fr);gap:8px}
+  .fields{grid-template-columns:minmax(0,1fr)}
+  .fields label.wide{grid-column:auto}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .check .who{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="mast">
+  <div class="ring" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow">Full Circle Financial Group · Structure</div>
+    <h1>Dispute Desk</h1>
+    <p>The dispute flow, the SOP behind it, the playbook for best results, and the client CRM that tracks every round and deadline.</p>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" id="tab-flow" aria-selected="true" data-tab="flow">Dispute Flow</button>
+      <button role="tab" id="tab-sop" aria-selected="false" data-tab="sop">SOP</button>
+      <button role="tab" id="tab-play" aria-selected="false" data-tab="play">Playbook &amp; Letters</button>
+      <button role="tab" id="tab-crm" aria-selected="false" data-tab="crm">Client CRM</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<!-- FLOW -->
+<section id="flow" role="tabpanel" aria-labelledby="tab-flow">
+  <h2>Dispute Flow</h2>
+  <p class="lede">Click any step for what to do, how to get the best result, the law behind it, and what to log in the CRM. On decision diamonds, pick the outcome to walk the path.</p>
+  <div class="legend">
+    <span><i style="background:var(--info-bg);border-color:#3B5B8F"></i>Process</span>
+    <span><i style="background:var(--ok-bg);border-color:var(--ok)"></i>Key action</span>
+    <span><i style="background:var(--warn-bg);border-color:var(--warn)"></i>Decision</span>
+    <span><i style="background:var(--bad-bg);border-color:var(--bad)"></i>Problem / risk</span>
+    <span><i style="background:#2E7D32;border-color:#2E7D32"></i>Done</span>
+  </div>
+  <div class="flowgrid">
+    <div class="flowcanvas"><svg id="flowsvg" viewBox="0 0 1000 1470" role="img" aria-label="Credit dispute and CFPB escalation flowchart"></svg></div>
+    <aside class="detail" id="detail" aria-live="polite"></aside>
+  </div>
+</section>
+
+<!-- SOP -->
+<section id="sop" role="tabpanel" aria-labelledby="tab-sop" hidden>
+  <h2>Standard Operating Procedure</h2>
+  <p class="lede">Eight phases from lead to graduation. Tick steps as a working checklist (saved in this browser only). Client-specific progress lives in the CRM.</p>
+  <div class="toolbar"><button class="btn sm" id="sopReset">Clear checklist ticks</button><span class="statusmsg" id="sopCount"></span></div>
+  <div class="phases" id="phases"></div>
+</section>
+
+<!-- PLAYBOOK -->
+<section id="play" role="tabpanel" aria-labelledby="tab-play" hidden>
+  <h2>Playbook for Best Results</h2>
+  <p class="lede">What separates deletions from "verified" responses: specific facts, client-authored letters, proof of delivery, and pressure on the furnisher as well as the bureau.</p>
+  <div class="pb-grid" id="pbcards"></div>
+  <h3 style="margin-top:26px">Dispute reason matrix</h3>
+  <div class="tablewrap"><table id="matrix"></table></div>
+  <h3 style="margin-top:26px">Letter templates</h3>
+  <p class="statusmsg" style="margin:-2px 0 10px">Have the client review, personalize, and sign each letter. Fill-ins in [BRACKETS].</p>
+  <div class="letters">
+    <div class="letterlist" id="letterlist"></div>
+    <div style="min-width:0">
+      <div class="toolbar">
+        <label for="fillClient" class="statusmsg">Fill with client</label>
+        <select id="fillClient"><option value="">— none —</option></select>
+        <button class="btn sm primary" id="copyLetter">Copy letter</button>
+        <span class="statusmsg" id="copyMsg"></span>
+      </div>
+      <div class="letterbody" id="letterbody" tabindex="0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CRM -->
+<section id="crm" role="tabpanel" aria-labelledby="tab-crm" hidden>
+  <div class="panelhead" style="margin-bottom:6px">
+    <div><h2>Client CRM</h2></div>
+    <button class="btn gold" id="newClient">+ New client</button>
+  </div>
+  <div class="note banner" id="offline">Saving isn't available in this view, so changes last only until you leave the page.</div>
+  <p class="note" style="margin:0 0 16px">Store last-4 digits only. Never enter full SSNs, full account numbers, or card numbers here.</p>
+  <div class="kpis" id="kpis"></div>
+  <div class="crmgrid">
+    <div class="side">
+      <input type="search" id="search" placeholder="Search clients…" aria-label="Search clients">
+      <div class="stagebar" id="stagebar"></div>
+      <div class="clist" id="clist"></div>
+      <div class="alerts"><h3>Deadlines &amp; next actions</h3><div id="alerts"></div></div>
+    </div>
+    <div class="panel" id="cpanel"></div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<script>
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const todayISO=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+const addDays=(iso,n)=>{if(!iso)return null;const d=new Date(iso+"T12:00:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+const diffDays=(iso)=>{if(!iso)return null;return Math.round((new Date(iso+"T12:00:00")-new Date(todayISO()+"T12:00:00"))/864e5)};
+const fmt=iso=>iso?new Date(iso+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}):"—";
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- tabs ---------- */
+function showTab(id){
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===id));
+  ["flow","sop","play","crm"].forEach(t=>$("#"+t).hidden=t!==id);
+  store.set("dd.tab",id);
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+
+/* ---------- FLOW data ---------- */
+const N={
+ start:{x:230,y:40,w:250,t:"start",l:["START","Pull all 3 credit reports","AnnualCreditReport.com + SmartCredit"],k:"Start",
+  title:"Pull all three reports",do:["Pull Equifax, Experian and TransUnion from AnnualCreditReport.com (free) and the client's SmartCredit monitoring.","Save each as a dated PDF in the client folder. Note each bureau's report or file number — you'll cite it in letters.","Snapshot starting scores so progress reports have a baseline."],best:["Pull all three the same day so dates and balances line up when you compare.","Re-pull before every round. Bureaus sometimes fix one item and quietly change another."],law:"Free reports: FCRA § 1681j. Permissible purpose: written client authorization on file.",crm:"Create the client, set stage to Audit, enter starting scores."},
+ identify:{x:230,y:130,w:310,t:"process",l:["Identify genuinely disputable items","(inaccurate / incomplete / unverifiable /","outdated / mixed-file / not yours)"],k:"Process",
+  title:"Identify genuinely disputable items",do:["Audit line by line across all three bureaus: balance, status, payment history, date opened, date of first delinquency (DOFD), date reported, creditor name.","Flag cross-bureau mismatches. If two bureaus show different late dates for the same account, at least one is wrong.","Clean up personal information first: misspelled names, old addresses, wrong employers. These are how mixed files happen."],best:["Every item needs a specific, factual reason you could explain in one sentence. No reason, no dispute.","Look for duplicates: an original creditor and a collector both reporting a balance on the same debt.","Check age: most negatives must drop 7 years from DOFD plus 180 days."],law:"Obsolete info: § 1681c(a). Bureaus can refuse disputes they find frivolous or irrelevant: § 1681i(a)(3).",crm:"Add each item with creditor, type, bureaus, and reason. Mark items with no factual error as Not disputable."},
+ evidence:{x:230,y:220,w:250,t:"process",l:["Gather supporting evidence","(copies, never originals)"],k:"Process",
+  title:"Gather supporting evidence",do:["ID copy and proof of address (utility bill or bank statement) for every bureau letter.","Statements, payoff or settlement letters, payment confirmations, bankruptcy discharge, court dismissal.","Identity theft: FTC report from IdentityTheft.gov plus police report if available."],best:["Highlight the exact line that proves the error. Make the bureau's job easy.","Evidence is what turns a 'verified' result into a correction. A dispute with documents gets forwarded to the furnisher with those documents attached."],law:"Bureau must forward all relevant info you provide to the furnisher: § 1681i(a)(2)(B).",crm:"Note which evidence exists for each item in the item's reason field."},
+ bureau:{x:230,y:310,w:340,t:"action",l:["Dispute IN WRITING with each bureau","Certified mail + return receipt","Specific reason per item, never blanket 'not mine'"],k:"Key action · Step 4",
+  title:"Written dispute to each bureau",do:["One letter per bureau. List each item separately with partial account number, what's wrong, and what you want (delete or correct).","Client signs. Attach ID and proof of address.","Send USPS Certified Mail with Return Receipt. Log the tracking number and delivered date."],best:["Write in the client's own voice. Form-letter templates get flagged as frivolous or as credit-repair submissions.","Keep each round to a manageable set of items so every reason is specific.","Paper beats the online portal for proof: you get a delivery date, the clock starts from receipt, and you avoid portal arbitration terms."],law:"Reinvestigation duty: FCRA § 1681i(a)(1). The 30 days run from the date the bureau receives the dispute.",crm:"Add a Round with sent date, then enter the delivered date from the green card. Deadlines calculate automatically."},
+ furnisher:{x:230,y:400,w:350,t:"action",l:["STEP 5 — IN PARALLEL: direct dispute","with the furnisher (creditor / collector)","FCRA § 1681s-2 · highest-yield step"],k:"Key action · Step 5",
+  title:"Direct dispute to the furnisher",do:["Send to the dispute address the furnisher lists on the credit report or its statements.","Include enough to identify the account, the specific error, and copies of supporting documents.","Collector within 30 days of first contact? Also send a debt validation request (FDCPA § 1692g)."],best:["The furnisher is who actually confirms or deletes. Pressure from both sides gets more corrections than bureau-only disputes.","Furnishers may ignore disputes that look like they came from a credit repair company. The letter must come from the client, in their words, from their address."],law:"Direct dispute rule: Reg V, 12 CFR § 1022.43. Furnisher must investigate and report results within 30 days. Credit-repair-submitted disputes can be skipped: § 1022.43(b)(2).",crm:"Enter the furnisher delivered date on the round. A 30-day furnisher deadline appears."},
+ d1:{x:230,y:515,w:270,h:120,t:"decision",l:["Bureau completes","reinvestigation in 30 days?","(45 if client added info)"],k:"Decision",
+  title:"Did the bureau finish within 30 days?",do:["Count from the delivered date on the return receipt.","The window extends to 45 days only if the consumer sends more relevant info during the first 30."],best:["Calendar the deadline the day you get the green card. The CRM does this for you.","Mail takes time. Give a few days' grace for the response letter to arrive before calling it missed."],law:"§ 1681i(a)(1)(A)–(B).",crm:"The deadline shows on the round and in Deadlines & next actions.",choices:[["Yes — results came back","results"],["No — deadline missed","missed"]]},
+ missed:{x:650,y:515,w:230,t:"warn",l:["MISSED DEADLINE","→ Item must be deleted","or modified (§ 1681i)"],k:"Problem",
+  title:"Bureau missed the deadline",do:["Send a follow-up letter with the original dispute, the return receipt, and the date the deadline passed.","Request deletion of the items that were not reinvestigated in time."],best:["Stick to dates and proof. The return receipt carries the whole argument.","If it still isn't removed, this becomes strong evidence for a CFPB complaint or an attorney referral."],law:"If info can't be verified in time it must be deleted or modified: § 1681i(a)(5)(A).",crm:"Mark affected items Escalated and add a note with the missed date.",choices:[["Item removed","done"]]},
+ results:{x:230,y:630,w:250,t:"process",l:["Bureau sends written results","+ fresh report if changed"],k:"Process",
+  title:"Bureau sends results",do:["Results must arrive in writing within 5 business days of the bureau finishing.","Pull a fresh report and compare every disputed item line by line."],best:["Watch for partial fixes: balance changed but late payments still there.","Check that deleted items didn't move to a different section or come back under a new collector name."],law:"Notice of results: § 1681i(a)(6).",crm:"Enter the response date. Update each item: Deleted, Corrected, or Verified."},
+ mov:{x:230,y:720,w:280,t:"process",l:["Request METHOD OF VERIFICATION","in writing · bureau answers in 15 days","(who did they contact?)"],k:"Process",
+  title:"Request method of verification",do:["For any item marked verified, ask in writing how it was verified and who the bureau contacted.","Ask for the business name, address and phone number of the furnisher contacted."],best:["Send within a week of the results so the file stays active.","A vague answer ('the furnisher confirmed it') is useful evidence for the CFPB complaint."],law:"Procedure description within 15 days of request: § 1681i(a)(7). Furnisher contact info: § 1681i(a)(6)(B)(iii).",crm:"Enter the MOV requested date. A 15-day deadline appears."},
+ d2:{x:230,y:830,w:230,h:100,t:"decision",l:["Item deleted","OR corrected?"],k:"Decision",
+  title:"Was the item deleted or corrected?",do:["Deleted or corrected on the fresh report: done for that item.","Verified, but your evidence shows it's wrong: escalate."],best:["Don't re-send the same letter. A repeat dispute without new information can be deemed frivolous."],law:"§ 1681i(a)(3)–(5).",crm:"Set each item's status. Deletion rate updates on the dashboard.",choices:[["Yes — deleted or corrected","done"],["No — verified","verified"]]},
+ done:{x:230,y:950,w:190,t:"done",l:["DONE — confirm on","a fresh report"],k:"Done",
+  title:"Done for this item",do:["Confirm on a fresh report from all three bureaus.","Send the client a progress report showing before and after."],best:["Watch for reinsertion for 90 days. A deleted item can only come back if the furnisher certifies it, and the bureau must notify the client in writing within 5 business days."],law:"Reinsertion: § 1681i(a)(5)(B).",crm:"Item status Deleted or Corrected. When every item is resolved, move the client to Complete."},
+ verified:{x:650,y:830,w:220,t:"warn",l:["Item VERIFIED","(but evidence shows","it's wrong)"],k:"Problem",
+  title:"Verified, but you have evidence it's wrong",do:["Compare the method-of-verification answer to your documents.","Make sure the furnisher has its own direct dispute with documents (Step 5)."],best:["Next round must add something new: a new document, a new specific inaccuracy, or the MOV answer itself.","Optional: client adds a consumer statement of up to 100 words to the report."],law:"Consumer statement: § 1681i(b)–(c).",crm:"Mark item Verified. A Request MOV or CFPB action appears in the alerts."},
+ d3:{x:650,y:950,w:310,h:110,t:"decision",l:["2026 RULE: wait until dispute is","no longer pending OR 45 days","have passed since bureau dispute"],k:"Decision · per your process",
+  title:"CFPB filing gate",do:["Wait until the bureau dispute is resolved, or 45 days have passed since the bureau received it.","Confirm the direct dispute with the company was made first."],best:["This gate comes from your process chart. Confirm the CFPB's current intake requirements on consumerfinance.gov before filing, since intake rules change.","The CRM shows a CFPB-eligible date 45 days after the bureau's delivered date."],law:"CFPB complaint process: consumerfinance.gov/complaint.",crm:"Watch for the CFPB-eligible alert on verified items.",choices:[["45 days passed / no longer pending","cfpb"],["Filed too early / skipped direct dispute","skip"]]},
+ skip:{x:890,y:1080,w:170,t:"warn",l:["Skip the direct","dispute and CFPB may","DISCONTINUE complaint"],k:"Risk",
+  title:"Filing too early",do:["Go back and complete the bureau and furnisher disputes, then re-file once the gate is met."],best:["A discontinued complaint wastes a strong escalation. Build the paper trail first."],law:"",crm:"Note the date the gate opens and set a reminder."},
+ cfpb:{x:650,y:1080,w:290,t:"action",l:["STEP 8 — File CFPB complaint","consumerfinance.gov/complaint → Credit reporting","Attach letters, receipts, results, MOV"],k:"Key action · Step 8",
+  title:"File the CFPB complaint",do:["Client files under Credit reporting (or authorizes you to file for them).","Write a short, dated timeline: when you disputed, what you sent, what they answered, why it's still wrong.","Attach the dispute letter, certified receipt, bureau results, and MOV response."],best:["Name the exact resolution you want: delete account X, correct the late payment in month Y.","One complaint per company. File against the bureau and the furnisher separately if both are at fault."],law:"Companies generally respond within 15 days; some cases take up to 60. The client gets 60 days to give feedback.",crm:"Set stage to Escalated and note the complaint number."},
+ forwards:{x:650,y:1180,w:250,t:"process",l:["CFPB forwards to company","Response ~15 days (60 max)","You get 60 days to review"],k:"Process",
+  title:"CFPB forwards to the company",do:["Track the company's response in the CFPB portal.","Pull a fresh report once the response says the item was updated."],best:["If the response is a form answer that ignores your evidence, say so in the feedback, specifically."],law:"",crm:"Add a note with the response date and summary."},
+ d4:{x:650,y:1290,w:250,h:100,t:"decision",l:["Company directs","deletion / correction?"],k:"Decision",
+  title:"Did the company fix it?",do:["Confirm on a fresh report from every bureau that shows the item."],best:["A fix at the furnisher level should flow to all three bureaus. Check each one."],law:"",crm:"Update item status.",choices:[["Yes","confirm"],["No","escalate"]]},
+ confirm:{x:470,y:1410,w:270,t:"done",l:["Confirm corrected on fresh report.","Reinsertion only if furnisher","re-certifies and notifies you"],k:"Done",
+  title:"Confirmed and protected",do:["Confirm on fresh reports. Save the CFPB response in the client file."],best:["Keep watching for reinsertion for 90 days."],law:"§ 1681i(a)(5)(B).",crm:"Mark Deleted or Corrected. Move client toward Complete."},
+ escalate:{x:800,y:1410,w:290,t:"warn",l:["Escalate: AZ Attorney General,","FTC (ReportFraud.ftc.gov), or","consumer attorney (FCRA § 1681n / 1681o)"],k:"Escalation",
+  title:"Escalate beyond the CFPB",do:["Arizona Attorney General consumer complaint.","FTC report at ReportFraud.ftc.gov.","Refer to an FCRA consumer attorney with the full file."],best:["FCRA lets consumers recover attorney fees, so many FCRA attorneys review cases at no upfront cost. Hand them a clean, dated file.","Never promise a client a lawsuit outcome."],law:"Willful violations: actual or statutory damages ($100–$1,000), punitive damages, fees (§ 1681n). Negligent: actual damages and fees (§ 1681o).",crm:"Set stage Escalated. Note the attorney or agency and date referred."}
+};
+const E=[
+ ["start","identify"],["identify","evidence"],["evidence","bureau"],["bureau","furnisher"],["furnisher","d1"],
+ ["d1","missed","No","r"],["d1","results","Yes"],["results","mov"],["mov","d2"],["d2","done","Yes"],["d2","verified","No (verified)","r"],
+ ["missed","done","","custom1"],["verified","d3"],["d3","skip","if skipped","custom2"],["d3","cfpb","45 days passed"],
+ ["cfpb","forwards"],["forwards","d4"],["d4","confirm","Yes","custom3"],["d4","escalate","No","custom4"]
+];
+function H(n){return n.h||(n.l.length*16+22)}
+const box=n=>({top:n.y-H(n)/2,bot:n.y+H(n)/2,left:n.x-n.w/2,right:n.x+n.w/2});
+function edgePath(e){
+  const a=N[e[0]],b=N[e[1]],A=box(a),B=box(b);
+  if(e[3]==="r") return [[A.right,a.y],[B.left,b.y]];
+  if(e[3]==="custom1") return [[a.x,A.bot],[a.x,575],[440,575],[440,b.y],[B.right,b.y]];
+  if(e[3]==="custom2") return [[A.right,a.y],[b.x,a.y],[b.x,B.top]];
+  if(e[3]==="custom3") return [[A.left,a.y],[b.x,a.y],[b.x,B.top]];
+  if(e[3]==="custom4") return [[A.right,a.y],[b.x,a.y],[b.x,B.top]];
+  return [[a.x,A.bot],[b.x,B.top]];
+}
+const SVGNS="http://www.w3.org/2000/svg";
+let selNode="start", visited=new Set(["start"]);
+function drawFlow(){
+  const svg=$("#flowsvg"); svg.innerHTML="";
+  const defs=document.createElementNS(SVGNS,"defs");
+  defs.innerHTML='<marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="currentColor"/></marker>';
+  svg.appendChild(defs);
+  E.forEach(e=>{
+    const pts=edgePath(e), p=document.createElementNS(SVGNS,"polyline");
+    p.setAttribute("points",pts.map(q=>q.join(",")).join(" "));
+    const hot=visited.has(e[0])&&visited.has(e[1]);
+    p.setAttribute("class","edge"+(hot?" hot":""));
+    p.style.color=hot?"var(--gold)":"var(--muted)";
+    p.setAttribute("marker-end","url(#ah)");
+    svg.appendChild(p);
+    if(e[2]){
+      const t=document.createElementNS(SVGNS,"text"); t.setAttribute("class","elabel");
+      let lx,ly;
+      if(e[3]==="r"){lx=(pts[0][0]+pts[1][0])/2;ly=pts[0][1]-7;t.setAttribute("text-anchor","middle")}
+      else if(e[3]==="custom2"){lx=pts[1][0]+6;ly=pts[1][1]+40}
+      else if(e[3]==="custom3"){lx=pts[1][0]-8;ly=pts[1][1]+40;t.setAttribute("text-anchor","end")}
+      else if(e[3]==="custom4"){lx=pts[1][0]+8;ly=pts[1][1]+40}
+      else {lx=pts[0][0]+8;ly=(pts[0][1]+pts[1][1])/2+4}
+      t.setAttribute("x",lx);t.setAttribute("y",ly);t.textContent=e[2];svg.appendChild(t);
+    }
+  });
+  Object.entries(N).forEach(([id,n])=>{
+    const g=document.createElementNS(SVGNS,"g");
+    g.setAttribute("class","node n-"+n.t+(id===selNode?" sel":""));
+    g.setAttribute("tabindex","0");g.setAttribute("role","button");g.setAttribute("aria-label",n.title);
+    const h=H(n),b=box(n);let s;
+    if(n.t==="decision"){s=document.createElementNS(SVGNS,"polygon");s.setAttribute("points",`${n.x},${b.top} ${b.right},${n.y} ${n.x},${b.bot} ${b.left},${n.y}`)}
+    else{s=document.createElementNS(SVGNS,"rect");s.setAttribute("x",b.left);s.setAttribute("y",b.top);s.setAttribute("width",n.w);s.setAttribute("height",h);
+      const r=(n.t==="start"||n.t==="done")?12:(n.t==="warn"?10:3);s.setAttribute("rx",r)}
+    s.setAttribute("class","shape");g.appendChild(s);
+    n.l.forEach((line,i)=>{const t=document.createElementNS(SVGNS,"text");t.setAttribute("x",n.x);t.setAttribute("y",n.y-(n.l.length-1)*8+i*16+4);t.setAttribute("text-anchor","middle");if(i===0&&(n.t!=="process"))t.setAttribute("font-weight","700");t.textContent=line;g.appendChild(t)});
+    const go=()=>selectNode(id);
+    g.addEventListener("click",go);g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go()}});
+    svg.appendChild(g);
+  });
+}
+function selectNode(id){
+  selNode=id; visited.add(id);
+  const n=N[id], d=$("#detail");
+  d.innerHTML=`<div class="kind">${esc(n.k)}</div><h3>${esc(n.title)}</h3>
+   <div class="sublabel">Do this</div><ul>${n.do.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+   <div class="sublabel">For best results</div><ul>${n.best.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+   ${n.law?`<div class="law"><b>Law:</b> ${esc(n.law)}</div>`:""}
+   <div class="crm"><b>In the CRM:</b> ${esc(n.crm)}</div>
+   <div class="choice">${(n.choices||[]).map(c=>`<button class="btn sm primary" data-go="${c[1]}">${esc(c[0])} →</button>`).join("")}
+   ${!n.choices?nextBtn(id):""}<button class="btn sm" id="resetWalk">Reset path</button></div>`;
+  d.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>selectNode(b.dataset.go));
+  $("#resetWalk").onclick=()=>{visited=new Set(["start"]);selectNode("start")};
+  drawFlow();
+}
+function nextBtn(id){const outs=E.filter(e=>e[0]===id);return outs.length===1?`<button class="btn sm primary" data-go="${outs[0][1]}">Next step →</button>`:""}
+
+/* ---------- SOP ---------- */
+const PHASES=[
+ {when:"Day 0",title:"Lead & consultation",steps:[["Lead submits intake form (Typeform with package / source / agent fields)","Ops"],["Review a soft-pull or monitoring report before the call","Specialist"],["Consult: explain the process and realistic timelines. No guarantees of deletions or score increases","Specialist"],["Match package: $950 / $1,150 / $1,500, pay-per-delete, or Clean Slate","Specialist"],["Create client in CRM, stage Lead","Ops"]]},
+ {when:"Day 0–3",title:"Enrollment & compliance",steps:[["Give the written CROA disclosure ('Consumer Credit File Rights Under State and Federal Law') before the contract is signed","Ops"],["Signed written contract: total cost, services, time to complete, and 3-business-day cancellation notice with the cancellation form","Ops"],["Collect no payment until services are actually performed (CROA § 1679b(b)); bill per completed round or deletion","Ops"],["Confirm Arizona credit services organization requirements (A.R.S. Title 44, Ch. 9) with counsel","Owner"],["Client enrolls in SmartCredit via smartcredit.com/fccc","Client"],["Collect ID, proof of address, and signed authorization","Ops"],["Move client to Enrolled","Ops"]]},
+ {when:"Day 1–5",title:"Audit",steps:[["Pull all 3 reports, save dated PDFs","Specialist"],["Line-by-line audit; log every negative item in the CRM with a specific reason","Specialist"],["Mark items with no factual error as Not disputable and explain options to the client (goodwill, pay-for-delete negotiation, aging off)","Specialist"],["Fix personal info first (names, addresses, employers)","Specialist"],["Choose Round 1 items; move client to Audit → Round active","Specialist"]]},
+ {when:"Day 5–7",title:"Round 1 — bureaus + furnishers",steps:[["Draft bureau letters in the client's voice, one per bureau","Specialist"],["Draft direct furnisher disputes for the same items","Specialist"],["Client reviews, edits, signs; letters mailed from the client's address","Client"],["Certified Mail with Return Receipt; log tracking numbers","Ops"],["Add the Round in the CRM with sent date","Ops"]]},
+ {when:"Day 7–45",title:"Monitor deadlines",steps:[["Enter delivered dates from return receipts as soon as they arrive","Ops"],["Check Deadlines & next actions every Monday","Specialist"],["Client update every 2 weeks (text or email)","Specialist"],["Missed 30-day deadline → send missed-deadline letter same week","Specialist"]]},
+ {when:"As results arrive",title:"Results & verification",steps:[["Log response date; pull fresh reports","Specialist"],["Update each item: Deleted / Corrected / Verified","Specialist"],["Send method-of-verification requests for verified items within a week","Specialist"],["Send the client a progress report with before/after","Specialist"],["Invoice for completed work only","Ops"]]},
+ {when:"Day 35–90+",title:"Round 2+ and escalation",steps:[["Re-dispute only with new information or a new specific inaccuracy","Specialist"],["File CFPB complaint once the gate is met (45 days / no longer pending)","Client"],["Unresolved after CFPB → AZ AG, FTC, or FCRA attorney referral","Owner"],["Rounds roughly every 35–45 days until items are resolved","Specialist"]]},
+ {when:"Completion",title:"Graduate & ascend",steps:[["Final 3-bureau report and score comparison","Specialist"],["Reinsertion watch for 90 days","Specialist"],["Ascension offer: business credit build, protection review (life / IUL), mortgage readiness or real estate referral","Owner"],["Ask for a testimonial and referrals","Specialist"],["Move client to Complete","Ops"]]}
+];
+let sopTicks=store.get("dd.sop",{});
+function renderSOP(){
+  let total=0,done=0;
+  $("#phases").innerHTML=PHASES.map((p,i)=>{
+    const ticks=p.steps.map((s,j)=>{const k=i+"-"+j;total++;if(sopTicks[k])done++;return `<div class="check"><input type="checkbox" id="sop-${k}" data-k="${k}" ${sopTicks[k]?"checked":""}><label for="sop-${k}">${esc(s[0])}</label><span class="who">${esc(s[1])}</span></div>`}).join("");
+    const pd=p.steps.filter((s,j)=>sopTicks[i+"-"+j]).length;
+    return `<article class="phase"><div><div class="num">${i+1}</div><div class="when">${esc(p.when)}</div></div><div style="min-width:0"><h3>${esc(p.title)}</h3><div class="progress"><span style="width:${pd/p.steps.length*100}%"></span></div>${ticks}</div></article>`}).join("");
+  $("#sopCount").textContent=`${done} of ${total} steps ticked`;
+  document.querySelectorAll("#phases input").forEach(cb=>cb.onchange=()=>{sopTicks[cb.dataset.k]=cb.checked;store.set("dd.sop",sopTicks);renderSOP();document.getElementById("sop-"+cb.dataset.k)?.focus()});
+}
+$("#sopReset").onclick=()=>{sopTicks={};store.set("dd.sop",sopTicks);renderSOP()};
+
+/* ---------- PLAYBOOK ---------- */
+const CARDS=[
+ ["The five rules that win deletions",["Be specific: name the field that's wrong and what it should say.","Attach proof, with the key line highlighted.","Hit the bureau and the furnisher in the same week.","Send certified mail and log the delivered date. Deadlines are your leverage.","Never re-send the same letter. Every new round adds new information."]],
+ ["Client-authored, always",["Bureaus and furnishers can treat template letters and credit-repair submissions as frivolous.","Draft for the client, then have them reword it, sign it, and mail it from their address.","Your role is preparation, organization and deadline tracking."]],
+ ["Order of operations",["1. Personal info cleanup (names, addresses).","2. Not-mine and identity theft items, with FTC report.","3. Clear factual errors: wrong balances, dates, duplicates, obsolete items.","4. Lates and collections with documented inaccuracies.","5. Unauthorized hard inquiries."]],
+ ["Identity theft fast lane",["File at IdentityTheft.gov to get the FTC Identity Theft Report.","Send it to each bureau with ID and a block request.","Bureaus must block identity-theft info within 4 business days of receiving it (FCRA § 1681c-2)."]],
+ ["Collections",["Within 30 days of the collector's first notice, request validation (FDCPA § 1692g). Collection activity must pause until they validate.","Check DOFD: re-aged collections show a later date than the original delinquency.","Medical: check for paid medical collections and balances under the bureaus' reporting thresholds."]],
+ ["Compliance guardrails",["No fees before services are performed (CROA).","No promises of specific deletions or score points.","Never advise creating a new identity or disputing accurate info as inaccurate.","Store last-4 only; keep client files in a secure, access-controlled drive."]]
+];
+const MATRIX=[["Item","What to check","Strongest dispute basis"],
+ ["Collection","DOFD vs original account, balance vs original, duplicate with original creditor, licensed collector","Inaccurate DOFD / balance, duplicate reporting, validation not provided"],
+ ["Charge-off","Balance after charge-off and sale (should be $0 if sold), status consistency","Sold debt still showing a balance; inconsistent status across bureaus"],
+ ["Late payment","Exact months across all 3 bureaus, payment confirmations, autopay records","Bureaus disagree on months; proof of on-time payment"],
+ ["Inquiry","Did the client apply? Date and creditor match?","Unauthorized inquiry; request furnisher's proof of permissible purpose"],
+ ["Bankruptcy-included debts","Each discharged account should show $0 balance and included in bankruptcy","Balance or past-due still reported after discharge"],
+ ["Obsolete item","DOFD + 7 years + 180 days (bankruptcy Ch. 7: 10 years)","Item past the reporting period (§ 1681c)"],
+ ["Mixed file / personal info","Unknown names, addresses, SSN variations, accounts that aren't the client's","Not mine; information belongs to another consumer"],
+ ["Repossession","Deficiency balance, sale notice received, auction proceeds applied","Deficiency balance inaccurate; required notices missing"]];
+const LETTERS={
+"Bureau dispute":`[DATE]
+
+[CLIENT NAME]
+[ADDRESS]
+DOB: [DOB]   SSN (last 4): XXX-XX-[LAST 4]
+
+[Equifax Information Services LLC, P.O. Box 740256, Atlanta, GA 30374]
+[Experian, P.O. Box 4500, Allen, TX 75013]
+[TransUnion LLC, Consumer Dispute Center, P.O. Box 2000, Chester, PA 19016]
+(Verify the current dispute address on the bureau's website before mailing.)
+
+Re: Dispute of inaccurate information — Report # [REPORT NUMBER]
+
+I am writing to dispute the following information in my credit file. I have reviewed my report and these items are inaccurate or incomplete:
+
+1. [CREDITOR NAME], account ending [LAST 4]
+   What is wrong: [e.g., The report shows 30-day late payments in March and April 2025. I paid on time both months; bank confirmations attached.]
+   What I am asking: [Correct the payment history to show on time / Delete the account.]
+
+2. [CREDITOR NAME], account ending [LAST 4]
+   What is wrong: [specific fact]
+   What I am asking: [correction or deletion]
+
+Please reinvestigate these items under section 611 of the Fair Credit Reporting Act (15 U.S.C. § 1681i), forward my supporting documents to the furnishers, and send me written results and an updated copy of my report.
+
+Enclosed: copy of my ID, proof of address, [list supporting documents].
+
+Sincerely,
+
+[SIGNATURE]
+[CLIENT NAME]`,
+"Furnisher direct dispute":`[DATE]
+
+[CLIENT NAME]
+[ADDRESS]
+
+[FURNISHER NAME]
+[DISPUTE ADDRESS listed on the credit report or account statements]
+
+Re: Direct dispute — account ending [LAST 4]
+
+I am disputing the accuracy of information you report to the credit bureaus about this account, under 12 CFR § 1022.43.
+
+What you are reporting: [e.g., balance of $2,140 and status "charged off"]
+Why it is inaccurate: [e.g., The account was sold to XYZ Collections on 6/1/2025. Your reporting should show a $0 balance.]
+What I am asking: [Update the balance to $0 / correct the status / delete the tradeline] with every credit bureau you report to.
+
+Supporting documents enclosed: [list].
+
+Please complete your investigation and notify me of the results within 30 days.
+
+Sincerely,
+
+[SIGNATURE]
+[CLIENT NAME]`,
+"Method of verification":`[DATE]
+
+[CLIENT NAME]
+[ADDRESS]
+
+[BUREAU NAME AND ADDRESS]
+
+Re: Request for description of reinvestigation procedure — Report # [REPORT NUMBER]
+
+On [DATE OF RESULTS] you informed me that the following items were verified:
+- [CREDITOR], account ending [LAST 4]
+
+Under 15 U.S.C. § 1681i(a)(7), please describe the procedure used to determine the accuracy of this information, including the business name, address, and telephone number of any furnisher you contacted (§ 1681i(a)(6)(B)(iii)).
+
+Please respond within 15 days of receiving this request.
+
+Sincerely,
+
+[SIGNATURE]
+[CLIENT NAME]`,
+"Missed deadline follow-up":`[DATE]
+
+[CLIENT NAME]
+[ADDRESS]
+
+[BUREAU NAME AND ADDRESS]
+
+Re: Reinvestigation not completed within the required time — Report # [REPORT NUMBER]
+
+You received my dispute on [DELIVERED DATE] (certified mail # [TRACKING], receipt enclosed). As of today, [NUMBER] days later, I have not received the results of your reinvestigation of:
+- [CREDITOR], account ending [LAST 4]
+
+Under 15 U.S.C. § 1681i(a)(1) and (a)(5)(A), information that is not verified within the required period must be deleted or modified. Please delete these items and send me an updated report.
+
+Enclosed: copy of original dispute, certified mail receipt.
+
+Sincerely,
+
+[SIGNATURE]
+[CLIENT NAME]`,
+"Debt validation (collector)":`[DATE]
+
+[CLIENT NAME]
+[ADDRESS]
+
+[COLLECTION AGENCY NAME AND ADDRESS]
+
+Re: Account / reference # [REFERENCE]
+
+I received your notice dated [DATE OF FIRST NOTICE]. Under 15 U.S.C. § 1692g(b), I dispute this debt and request validation, including:
+- the name of the original creditor,
+- the amount owed and how it was calculated,
+- documentation showing you are authorized to collect it.
+
+Please do not report or continue collection on this debt until you have provided validation.
+
+Sincerely,
+
+[SIGNATURE]
+[CLIENT NAME]`,
+"Identity theft block":`[DATE]
+
+[CLIENT NAME]
+[ADDRESS]
+
+[BUREAU NAME AND ADDRESS]
+
+Re: Request to block information resulting from identity theft
+
+I am a victim of identity theft. The following information on my report is the result of that theft and was not opened or used by me:
+- [CREDITOR], account ending [LAST 4], opened [DATE]
+- Inquiry by [CREDITOR] on [DATE]
+
+Under 15 U.S.C. § 1681c-2, please block this information from my file. Enclosed are my FTC Identity Theft Report, proof of identity, and proof of address.
+
+Sincerely,
+
+[SIGNATURE]
+[CLIENT NAME]`,
+"Goodwill request":`[DATE]
+
+[CLIENT NAME]
+[ADDRESS]
+
+[CREDITOR NAME AND ADDRESS]
+
+Re: Goodwill adjustment — account ending [LAST 4]
+
+I've been a customer since [YEAR]. In [MONTH/YEAR] I paid late because [brief, honest reason]. Since then I have paid on time every month.
+
+I'm working toward [goal, e.g., buying a home] and would be grateful if you would consider removing the late payment from my credit reports as a goodwill gesture.
+
+Thank you for considering my request.
+
+Sincerely,
+
+[SIGNATURE]
+[CLIENT NAME]`
+};
+let curLetter="Bureau dispute";
+function renderPlay(){
+  $("#pbcards").innerHTML=CARDS.map(c=>`<div class="card"><h3>${esc(c[0])}</h3><ul>${c[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+  $("#matrix").innerHTML=`<thead><tr>${MATRIX[0].map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${MATRIX.slice(1).map(r=>`<tr>${r.map((c,i)=>`<td>${i===0?"<b>"+esc(c)+"</b>":esc(c)}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  $("#letterlist").innerHTML=Object.keys(LETTERS).map(k=>`<button aria-pressed="${k===curLetter}" data-l="${esc(k)}">${esc(k)}</button>`).join("");
+  document.querySelectorAll("#letterlist button").forEach(b=>b.onclick=()=>{curLetter=b.dataset.l;renderPlay()});
+  renderLetter();
+}
+function letterText(){
+  let t=LETTERS[curLetter];const c=clients.find(x=>x.id===$("#fillClient").value);
+  t=t.replace("[DATE]",new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"}));
+  if(c){t=t.split("[CLIENT NAME]").join(c.name||"[CLIENT NAME]");if(c.address)t=t.split("[ADDRESS]").join(c.address)}
+  return t;
+}
+function renderLetter(){$("#letterbody").textContent=letterText()}
+$("#fillClient").onchange=renderLetter;
+$("#copyLetter").onclick=()=>{const t=letterText();const m=$("#copyMsg");
+  navigator.clipboard.writeText(t).then(()=>{m.textContent="Copied"},()=>{const r=document.createRange();r.selectNodeContents($("#letterbody"));const s=getSelection();s.removeAllRanges();s.addRange(r);m.textContent="Selected. Press Ctrl/Cmd+C to copy."});
+  setTimeout(()=>m.textContent="",3500)};
+
+/* ---------- CRM ---------- */
+const STAGES=["Lead","Enrolled","Audit","Round active","Escalated","On hold","Complete"];
+const PACKAGES=["$300 (agent client)","$950","$1,150","$1,500","Pay-per-delete","Clean Slate $1,850","Clean Slate Priority $2,200"];
+const TYPES=["Collection","Charge-off","Late payment","Inquiry","Public record","Repossession","Student loan","Medical","Personal info","Other"];
+const REASONS=["Not mine / identity theft","Inaccurate balance","Inaccurate dates (DOFD / opened)","Wrong payment status / lates","Duplicate reporting","Obsolete (past 7 yrs)","Paid / settled not reflected","Discharged in bankruptcy, balance showing","Unauthorized inquiry","Mixed file","Incomplete / missing info","Other"];
+const ISTAT=["To dispute","Disputed","Deleted","Corrected","Verified","Escalated","Not disputable"];
+const statusCls=s=>({Deleted:"ok",Corrected:"ok",Verified:"bad",Escalated:"warn",Disputed:"info","Not disputable":""}[s]||"");
+let db=null, clients=[], selId=null, draft=null, dirty=false, stageFilter="All", delArm=false, saving=false;
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
+
+function clientEvents(c){
+  const ev=[];const verified=(c.items||[]).some(i=>i.status==="Verified");
+  (c.rounds||[]).forEach(r=>{
+    const base=r.delivered||(r.sent?addDays(r.sent,5):null), est=!r.delivered;
+    if(base&&!r.responded) ev.push({date:addDays(base,r.extended?45:30),label:`Round ${r.n}: bureau results due`+(est?" (est.)":""),kind:"due"});
+    if(r.furnisherDelivered&&!r.furnisherResponded) ev.push({date:addDays(r.furnisherDelivered,30),label:`Round ${r.n}: furnisher results due`,kind:"due"});
+    if(r.movRequested&&!r.movReceived) ev.push({date:addDays(r.movRequested,15),label:`Round ${r.n}: MOV answer due`,kind:"due"});
+    if(r.responded&&!r.movRequested&&verified) ev.push({date:r.responded,label:`Round ${r.n}: request method of verification`,kind:"act"});
+    if(base&&verified) ev.push({date:addDays(base,45),label:`Round ${r.n}: CFPB-eligible for verified items`,kind:"gate"});
+  });
+  return ev;
+}
+function stagePill(s){const m={"Lead":"","Enrolled":"info","Audit":"info","Round active":"warn","Escalated":"bad","On hold":"","Complete":"ok"};return `<span class="pill ${m[s]||""}">${esc(s)}</span>`}
+
+function renderKPIs(){
+  const active=clients.filter(c=>!["Complete","Lead"].includes(c.stage)).length;
+  let disputed=0,won=0,overdue=0;
+  clients.forEach(c=>{(c.items||[]).forEach(i=>{if(!["To dispute","Not disputable"].includes(i.status))disputed++;if(["Deleted","Corrected"].includes(i.status))won++});
+    clientEvents(c).forEach(e=>{if(e.kind==="due"&&diffDays(e.date)<0)overdue++})});
+  const rate=disputed?Math.round(won/disputed*100)+"%":"—";
+  $("#kpis").innerHTML=[["Active clients",active],["Items disputed",disputed],["Deleted / corrected",won],["Win rate",rate],["Overdue deadlines",overdue]].map(k=>`<div class="kpi"><b>${k[1]}</b><span>${k[0]}</span></div>`).join("");
+}
+function renderList(){
+  $("#stagebar").innerHTML=["All",...STAGES].map(s=>{const n=s==="All"?clients.length:clients.filter(c=>c.stage===s).length;return `<button aria-pressed="${s===stageFilter}" data-s="${s}">${s} · ${n}</button>`}).join("");
+  document.querySelectorAll("#stagebar button").forEach(b=>b.onclick=()=>{stageFilter=b.dataset.s;renderList()});
+  const q=$("#search").value.trim().toLowerCase();
+  const list=clients.filter(c=>(stageFilter==="All"||c.stage===stageFilter)&&(!q||(c.name||"").toLowerCase().includes(q))).sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+  $("#clist").innerHTML=list.length?list.map(c=>{const items=c.items||[];const w=items.filter(i=>["Deleted","Corrected"].includes(i.status)).length;
+    return `<button class="citem" data-id="${c.id}" aria-current="${c.id===selId}"><div class="top"><b>${esc(c.name||"Unnamed client")}</b>${stagePill(c.stage||"Lead")}</div><small>${esc(c.package||"No package")} · ${w}/${items.length} items won · Round ${(c.rounds||[]).length}</small></button>`}).join(""):`<div class="statusmsg" style="padding:6px 2px">No clients in this view.</div>`;
+  document.querySelectorAll(".citem").forEach(b=>b.onclick=()=>openClient(b.dataset.id));
+  const sel=$("#fillClient"),cur=sel.value;sel.innerHTML='<option value="">— none —</option>'+clients.map(c=>`<option value="${c.id}">${esc(c.name||"Unnamed")}</option>`).join("");sel.value=cur;
+}
+function renderAlerts(){
+  const all=[];clients.forEach(c=>clientEvents(c).forEach(e=>all.push({...e,c})));
+  all.sort((a,b)=>a.date.localeCompare(b.date));
+  const shown=all.filter(e=>diffDays(e.date)<=21).slice(0,14);
+  $("#alerts").innerHTML=shown.length?shown.map(e=>{const dd=diffDays(e.date);const cls=e.kind==="gate"?(dd<=0?"ok":"info"):(dd<0?"bad":dd<=5?"warn":"info");
+    const when=dd===0?"Today":dd<0?`${-dd}d late`:`in ${dd}d`;
+    return `<div class="alert"><div><span class="pill ${cls}">${when}</span></div><div><b>${esc(e.c.name)}</b> · ${esc(e.label)} <span class="statusmsg">(${fmt(e.date)})</span></div></div>`}).join(""):`<div class="statusmsg">Nothing due in the next 3 weeks. Add rounds with sent and delivered dates to start the clocks.</div>`;
+}
+function newClientObj(){return {id:uid(),name:"",phone:"",email:"",address:"",package:"$950",stage:"Lead",source:"",agent:"",enrolled:todayISO(),goal:"",start:{eq:"",ex:"",tu:""},current:{eq:"",ex:"",tu:""},items:[],rounds:[],notes:""}}
+function openClient(id,obj){
+  if(dirty&&draft&&id!==draft.id&&!confirmLeave())return;
+  const c=obj||clients.find(x=>x.id===id);if(!c)return;
+  selId=c.id;draft=JSON.parse(JSON.stringify(c));dirty=!!obj;delArm=false;renderPanel();renderList();
+}
+let leaveArmed=false;
+function confirmLeave(){if(leaveArmed){leaveArmed=false;return true}leaveArmed=true;setMsg("Unsaved changes. Save, or click again to discard.");setTimeout(()=>leaveArmed=false,4000);return false}
+function setMsg(t){const m=$("#saveMsg");if(m)m.textContent=t}
+function markDirty(){dirty=true;const d=$("#dirtyFlag");if(d)d.textContent="Unsaved changes"}
+
+function fieldsHTML(c){
+  const f=(k,label,type="text",cls="")=>`<label class="${cls}">${label}<input id="f-${k}" type="${type}" data-f="${k}" value="${esc(c[k]||"")}"></label>`;
+  const s=(k,label,opts)=>`<label>${label}<select id="f-${k}" data-f="${k}">${opts.map(o=>`<option ${o===c[k]?"selected":""}>${esc(o)}</option>`).join("")}</select></label>`;
+  const sc=(grp,b,label)=>`<label>${label}<input id="f-${grp}-${b}" type="number" inputmode="numeric" data-sc="${grp}.${b}" value="${esc((c[grp]||{})[b]||"")}"></label>`;
+  return `<div class="fields">${f("name","Full name")}${s("stage","Stage",STAGES)}${s("package","Package",PACKAGES)}
+   ${f("phone","Phone","tel")}${f("email","Email","email")}${f("enrolled","Enrolled","date")}
+   ${f("address","Mailing address","text","wide")}
+   ${f("source","Lead source")}${f("agent","Agent")}${f("goal","Goal (e.g., mortgage by spring)")}
+   ${sc("start","eq","Start · EQ")}${sc("start","ex","Start · EX")}${sc("start","tu","Start · TU")}
+   ${sc("current","eq","Current · EQ")}${sc("current","ex","Current · EX")}${sc("current","tu","Current · TU")}</div>`;
+}
+function itemsHTML(c){
+  if(!c.items.length)return `<div class="empty" style="padding:16px">No items yet. Add each negative item from the audit.</div>`;
+  return `<div class="tablewrap"><table class="grid-table"><thead><tr><th>Creditor</th><th>Last 4</th><th>Type</th><th>Bureaus</th><th>Reason</th><th>Status</th><th>Rd</th><th></th></tr></thead><tbody>${c.items.map((it,i)=>`<tr>
+   <td style="min-width:130px"><input id="it-${it.id}-cr" data-i="${i}" data-k="creditor" value="${esc(it.creditor)}" aria-label="Creditor"></td>
+   <td style="width:64px"><input id="it-${it.id}-l4" data-i="${i}" data-k="last4" maxlength="4" value="${esc(it.last4)}" aria-label="Last 4"></td>
+   <td style="min-width:110px"><select id="it-${it.id}-ty" data-i="${i}" data-k="type" aria-label="Type">${TYPES.map(o=>`<option ${o===it.type?"selected":""}>${o}</option>`).join("")}</select></td>
+   <td><div class="bcb">${["eq","ex","tu"].map(b=>`<label><input type="checkbox" id="it-${it.id}-${b}" data-i="${i}" data-b="${b}" ${it.b&&it.b[b]?"checked":""}>${b.toUpperCase()}</label>`).join("")}</div></td>
+   <td style="min-width:170px"><select id="it-${it.id}-rs" data-i="${i}" data-k="reason" aria-label="Reason">${REASONS.map(o=>`<option ${o===it.reason?"selected":""}>${o}</option>`).join("")}</select></td>
+   <td style="min-width:120px"><select id="it-${it.id}-st" data-i="${i}" data-k="status" aria-label="Status">${ISTAT.map(o=>`<option ${o===it.status?"selected":""}>${o}</option>`).join("")}</select> <span class="pill ${statusCls(it.status)}" style="margin-top:3px">${esc(it.status)}</span></td>
+   <td style="width:54px"><input id="it-${it.id}-rd" data-i="${i}" data-k="round" type="number" min="1" value="${esc(it.round||"")}" aria-label="Round"></td>
+   <td><button class="btn sm" data-delitem="${i}" aria-label="Remove item">✕</button></td></tr>`).join("")}</tbody></table></div>`;
+}
+function roundsHTML(c){
+  if(!c.rounds.length)return `<div class="empty" style="padding:16px">No rounds yet. Add Round 1 when letters go out.</div>`;
+  const d=(r,i,k,label)=>`<label>${label}<input type="date" id="rd-${r.id}-${k}" data-r="${i}" data-k="${k}" value="${esc(r[k]||"")}"></label>`;
+  return c.rounds.map((r,i)=>{
+    const base=r.delivered||(r.sent?addDays(r.sent,5):null);
+    const due=base?addDays(base,r.extended?45:30):null, dd=diffDays(due);
+    const dueTxt=r.responded?`<span class="pill ok">Results in ${fmt(r.responded)}</span>`:due?`<span class="pill ${dd<0?"bad":dd<=5?"warn":"info"}">Bureau due ${fmt(due)}${r.delivered?"":" (est.)"}</span>`:"";
+    return `<div class="card" style="margin-bottom:10px"><div class="panelhead" style="margin-bottom:8px"><h3 style="margin:0">Round ${r.n}</h3><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${dueTxt}${base?`<span class="pill">CFPB-eligible ${fmt(addDays(base,45))}</span>`:""}<button class="btn sm" data-delround="${i}">Remove</button></div></div>
+     <div class="fields">${d(r,i,"sent","Letters sent")}${d(r,i,"delivered","Bureau delivered (green card)")}${d(r,i,"responded","Bureau results received")}
+     ${d(r,i,"furnisherDelivered","Furnisher delivered")}${d(r,i,"furnisherResponded","Furnisher responded")}${d(r,i,"movRequested","MOV requested")}
+     ${d(r,i,"movReceived","MOV answer received")}<label>Tracking #<input id="rd-${r.id}-trk" data-r="${i}" data-k="tracking" value="${esc(r.tracking||"")}"></label>
+     <label style="flex-direction:row;align-items:center;gap:6px;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink);margin-top:16px"><input type="checkbox" id="rd-${r.id}-ext" data-r="${i}" data-k="extended" ${r.extended?"checked":""}> Client added info (45-day window)</label>
+     <label class="wide">Round notes<input id="rd-${r.id}-nt" data-r="${i}" data-k="notes" value="${esc(r.notes||"")}"></label></div></div>`}).join("");
+}
+function renderPanel(){
+  const p=$("#cpanel");
+  if(!draft){p.innerHTML=`<div class="empty"><h3>${clients.length?"Select a client":"No clients yet"}</h3><p>${clients.length?"Pick a client on the left to see items, rounds and deadlines.":"Add your first client with + New client. Each client tracks items, dispute rounds, and every FCRA deadline."}</p></div>`;return}
+  const c=draft, ev=clientEvents(c).sort((a,b)=>a.date.localeCompare(b.date));
+  const won=c.items.filter(i=>["Deleted","Corrected"].includes(i.status)).length;
+  p.innerHTML=`<div class="panelhead"><div><h2 style="margin:0">${esc(c.name||"New client")}</h2><span class="statusmsg">${won} of ${c.items.length} items deleted or corrected</span> <span class="dirty" id="dirtyFlag">${dirty?"Unsaved changes":""}</span></div>
+   <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="statusmsg" id="saveMsg"></span><button class="btn danger sm" id="delClient">${delArm?"Confirm delete":"Delete"}</button><button class="btn primary" id="saveClient">${saving?"Saving…":"Save client"}</button></div></div>
+   ${fieldsHTML(c)}
+   <div class="section"><div class="head"><h3 style="margin:0">Timeline &amp; next actions</h3></div>
+    <div class="timeline">${ev.length?ev.map(e=>{const dd=diffDays(e.date);const cls=e.kind==="gate"?(dd<=0?"ok":"info"):(dd<0?"bad":dd<=5?"warn":"info");return `<div class="tl"><span class="pill ${cls} tabular">${fmt(e.date)}</span>${esc(e.label)}</div>`}).join(""):`<span class="statusmsg">Add a round with dates to generate deadlines.</span>`}</div></div>
+   <div class="section"><div class="head"><h3 style="margin:0">Dispute items</h3><button class="btn sm gold" id="addItem">+ Add item</button></div>${itemsHTML(c)}</div>
+   <div class="section"><div class="head"><h3 style="margin:0">Dispute rounds</h3><button class="btn sm gold" id="addRound">+ Add round</button></div>${roundsHTML(c)}</div>
+   <div class="section"><h3>Notes</h3><textarea id="f-notes" data-f="notes" placeholder="Calls, client updates, CFPB complaint numbers, attorney referrals…">${esc(c.notes||"")}</textarea></div>`;
+  wirePanel();
+}
+function wirePanel(){
+  const p=$("#cpanel");
+  p.querySelectorAll("[data-f]").forEach(el=>el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>{draft[el.dataset.f]=el.value;markDirty()}));
+  p.querySelectorAll("[data-sc]").forEach(el=>el.addEventListener("input",()=>{const [g,b]=el.dataset.sc.split(".");draft[g]=draft[g]||{};draft[g][b]=el.value;markDirty()}));
+  p.querySelectorAll("[data-i]").forEach(el=>{const i=+el.dataset.i;
+    if(el.dataset.b){el.onchange=()=>{draft.items[i].b=draft.items[i].b||{};draft.items[i].b[el.dataset.b]=el.checked;markDirty()}}
+    else el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>{draft.items[i][el.dataset.k]=el.value;markDirty();if(el.dataset.k==="status")renderPanel()})});
+  p.querySelectorAll("[data-r]").forEach(el=>{const i=+el.dataset.r;
+    el.addEventListener(el.type==="checkbox"||el.type==="date"?"change":"input",()=>{draft.rounds[i][el.dataset.k]=el.type==="checkbox"?el.checked:el.value;markDirty();if(el.type!=="text")renderPanel()})});
+  p.querySelectorAll("[data-delitem]").forEach(b=>b.onclick=()=>{draft.items.splice(+b.dataset.delitem,1);markDirty();renderPanel()});
+  p.querySelectorAll("[data-delround]").forEach(b=>b.onclick=()=>{draft.rounds.splice(+b.dataset.delround,1);markDirty();renderPanel()});
+  $("#addItem").onclick=()=>{draft.items.push({id:uid(),creditor:"",last4:"",type:"Collection",b:{eq:true,ex:true,tu:true},reason:REASONS[0],status:"To dispute",round:""});markDirty();renderPanel()};
+  $("#addRound").onclick=()=>{const n=draft.rounds.length+1;draft.rounds.push({id:uid(),n,sent:todayISO()});draft.items.forEach(it=>{if(it.status==="To dispute"){it.status="Disputed";it.round=n}});if(["Lead","Enrolled","Audit"].includes(draft.stage))draft.stage="Round active";markDirty();renderPanel()};
+  $("#saveClient").onclick=saveDraft;
+  $("#delClient").onclick=async()=>{if(!delArm){delArm=true;renderPanel();return}
+    const id=draft.id;try{if(db)await db.collection("clients").doc(id).delete();clients=clients.filter(c=>c.id!==id)}catch(e){setMsg("Couldn't delete. Try again.");return}
+    draft=null;selId=null;dirty=false;delArm=false;renderAll()};
+}
+async function saveDraft(){
+  if(saving)return;
+  if(!draft.name.trim()){setMsg("Add the client's name first.");return}
+  saving=true;const {id,...body}=JSON.parse(JSON.stringify(draft));body.updatedAt=new Date().toISOString();
+  try{
+    if(db)await db.collection("clients").doc(id).set(body);
+    const i=clients.findIndex(c=>c.id===id);if(i>=0)clients[i]={id,...body};else clients.push({id,...body});
+    dirty=false;saving=false;renderAll();setMsg("Saved");setTimeout(()=>setMsg(""),2500);
+  }catch(e){saving=false;renderPanel();setMsg(e&&e.code==="invalid_argument"?"You don't have permission to save here.":e&&e.code==="quota_exceeded"?"Storage is full. Remove old clients to add more.":"Couldn't save. Try again.")}
+}
+function renderAll(){renderKPIs();renderList();renderAlerts();renderPanel()}
+$("#search").oninput=renderList;
+$("#newClient").onclick=()=>{const c=newClientObj();openClient(c.id,c);showTab("crm");setTimeout(()=>$("#f-name")?.focus(),0)};
+
+/* ---------- boot ---------- */
+drawFlow();selectNode("start");renderSOP();renderPlay();renderAll();
+showTab((()=>{const t=store.get("dd.tab","flow");return ["flow","sop","play","crm"].includes(t)?t:"flow"})());
+(async()=>{
+  try{db=window.claude?await window.claude.use("db"):null}catch(e){db=null}
+  if(!db){$("#offline").style.display="block";return}
+  db.collection("clients").onSnapshot(snap=>{
+    clients=snap.docs.map(d=>({id:d.id,...d.data()}));
+    if(draft&&!dirty){const fresh=clients.find(c=>c.id===draft.id);if(fresh)draft=JSON.parse(JSON.stringify(fresh))}
+    renderKPIs();renderList();renderAlerts();if(!dirty)renderPanel();
+  },err=>{$("#offline").style.display="block"});
+})();
+</script>
+
+</body></html>
