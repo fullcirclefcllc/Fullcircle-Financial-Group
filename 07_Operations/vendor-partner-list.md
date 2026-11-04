@@ -65,12 +65,13 @@
 | Tool | Purpose | Cost | Status |
 |---|---|---|---|
 | **Calendly** | Scheduling — https://calendly.com/fullcircle-credit/45mins | Free | Active |
-| **Stripe** | Payment links ($1,497 Audit, etc.) | Free (2.9% + 30¢) | Set up needed |
+| **Stripe** | Payment links ($1,497 Audit, Agency OS, etc.) | Free (2.9% + 30¢) | Spec in `phase2-intake-and-payments.md` |
+| **GoHighLevel Agency Pro** | Agency OS CRM, sub-accounts, membership, snapshots | ~$497/mo + sub-accounts | **Selected** for insurance distribution — see `web-setup/` |
+| **Formspree** | Website intake → email | Free/paid | Wire ID in `website/intake-form.html` |
 | **Cal.com** | Alternative to Calendly — unlimited event types on free tier | Free | Backup option |
 | **DisputeFox** | Credit repair fulfillment | Subscription | Active |
 | **Canva** | Design/PDF polish | Free/Pro | Available |
-| | CRM / Client tracking | | TBD |
-| | E-signature | | TBD |
+| | E-signature (DocuSign / HelloSign / GHL) | | TBD — path in phase2 doc |
 | | Document storage | | TBD |
 
 ## Notes

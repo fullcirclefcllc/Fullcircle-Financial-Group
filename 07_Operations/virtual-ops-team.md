@@ -143,7 +143,8 @@ Setup specs: [`.cursor/automations/`](../.cursor/automations/)
 
 Priority from [`gap-analysis.md`](gap-analysis.md):
 
-1. Intake form backend → [`website/intake-form.html`](../website/intake-form.html) + [`phase2-intake-and-payments.md`](phase2-intake-and-payments.md)
-2. Stripe payment links (PPA $1,497, Foundation $2,997)
-3. 3-touch follow-up sequence → [`onboarding-workflow.md`](onboarding-workflow.md)
-4. E-sign path for service agreements
+1. Intake form backend → [`website/intake-form.html`](../website/intake-form.html) + [`phase2-intake-and-payments.md`](phase2-intake-and-payments.md) — **code wired; paste Formspree + GHL IDs**
+2. Stripe payment links (PPA $1,497, Foundation $2,997) — **table in phase2 doc; create in Stripe**
+3. 3-touch follow-up sequence → [`onboarding-workflow.md`](onboarding-workflow.md) — **done**
+4. E-sign path for service agreements — **vendor choice still open**
+5. GHL Agency OS live snapshot — follow [`web-setup/ghl/snapshot-build-checklist.md`](../web-setup/ghl/snapshot-build-checklist.md) inside Agency Pro

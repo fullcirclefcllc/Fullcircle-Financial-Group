@@ -251,6 +251,10 @@ Six AI agents handle marketing, sales, fulfillment, content, ops, and automation
 **Project skills:** `.cursor/skills/fcfg-*/`  
 **GHL Agency OS (insurance):** `web-setup/README.md`
 
+### Insurance Agency OS (sell to agencies)
+
+Turnkey GoHighLevel snapshot for IMOs/agency principals — product tabs (Term, Whole, IUL), recruiting, training academy, MDRT-grade KPIs. Mission/values: `web-setup/agency/mission-vision-core-values.md`. 14-day build: `web-setup/ghl/snapshot-build-checklist.md`. Pricing: Starter $2,997 / Growth $7,500 / Enterprise $15,000+.
+
 ---
 
 ## Quick File Reference

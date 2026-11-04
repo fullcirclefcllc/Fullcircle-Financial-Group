@@ -36,14 +36,17 @@
 - [ ] Build Agent Recruitment pipeline
 - [ ] Build Agency Recruitment pipeline
 - [ ] Build Retention pipeline
+- [ ] (Phase 2) Annuities pipeline — after first agencies are live
 
 ### Day 4 — Forms
+Use [`forms/form-library.md`](forms/form-library.md) field-for-field.
 - [ ] Term Needs Analysis form
 - [ ] Whole Life Financial Discovery form
 - [ ] IUL Pre-Qualification + Needs Analysis form
 - [ ] Agent recruiting application form
 - [ ] Agency partner application form
 - [ ] Suitability acknowledgment form
+- [ ] TCPA checkbox + hidden UTM on every public form
 
 ### Day 5 — Workflows (Part 1)
 - [ ] New lead assignment (round-robin by certification)
@@ -76,11 +79,14 @@
 - [ ] Configure certification automations
 
 ### Day 9 — Marketing Assets
+Use [`funnels/funnel-library.md`](funnels/funnel-library.md) and [`templates/email-sms-library.md`](templates/email-sms-library.md).
 - [ ] Build Term lead capture funnel
-- [ ] Build IUL lead capture funnel
+- [ ] Build Whole Life funnel
+- [ ] Build IUL lead capture funnel (qualified vs not-qualified thank-you)
 - [ ] Build Agency recruitment landing page
 - [ ] Build Agent recruitment landing page
-- [ ] Email templates: welcome, quote follow-up, review reminder
+- [ ] Email + SMS templates from library
+- [ ] Calendars + round-robin per [`calendars-and-round-robin.md`](calendars-and-round-robin.md)
 
 ### Day 10 — Dashboards
 - [ ] Executive KPI dashboard per [`kpi-dashboard-spec.md`](kpi-dashboard-spec.md)
@@ -121,12 +127,12 @@
 
 | Asset | Count |
 |-------|-------|
-| Pipelines | 6 |
-| Custom fields | 40+ |
-| Tags | 30+ |
+| Pipelines | 6 (+ Annuity Phase 2) |
+| Custom fields | 40+ (CSV in `import/`) |
+| Tags | 40+ (CSV in `import/`) |
 | Workflows | 15+ |
-| Forms | 6 |
-| Funnels | 4 |
+| Forms | 7 |
+| Funnels | 6 |
 | Email templates | 20+ |
 | SMS templates | 10+ |
 | Membership courses | 7 categories |

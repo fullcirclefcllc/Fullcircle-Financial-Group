@@ -25,6 +25,9 @@
 | `agent_appointment_carriers` | Multi-select | Carrier list | Appointment tracking |
 | `agent_production_mtd` | Number | $ | Dashboard (manual or workflow) |
 | `agent_production_ytd` | Number | $ | Dashboard |
+| `agent_conversations_wtd` | Number | Count | Churn early-warning KPI |
+| `first_touch_at` | Date/time | — | Speed-to-lead |
+| `persistency_13mo` | Checkbox | — | 13th-month persistency flag |
 
 ---
 

@@ -23,3 +23,6 @@ Full Agency OS framework: `web-setup/README.md`
 
 ## Invoke
 "Wire intake form" or "Set up Stripe links" or "Deploy GHL snapshot step [n]"
+
+## Agency OS (when building GHL)
+Follow `web-setup/ghl/snapshot-build-checklist.md`. Do not skip TCPA, certification gates, or separated Term/Whole/IUL pipelines. Recruit **agencies** via `web-setup/agency/recruitment-playbook.md`.

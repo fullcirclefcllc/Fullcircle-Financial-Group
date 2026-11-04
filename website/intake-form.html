@@ -782,10 +782,45 @@ function prevSection(n){
 
 function submitForm(){
   if(!validateSection(5)) return;
-  document.getElementById('intake-form').style.display='none';
-  document.getElementById('success').style.display='block';
-  window.scrollTo({top:0,behavior:'smooth'});
+  var form = document.getElementById('intake-form');
+  var data = new FormData(form);
+  var payload = {};
+  data.forEach(function(value, key){
+    if(payload[key]){
+      payload[key] = [].concat(payload[key], value);
+    } else {
+      payload[key] = value;
+    }
+  });
+  payload._subject = 'FCFG Intake — ' + (payload.fullName || payload.name || 'New lead');
+
+  var posts = [];
+  if(window.FORMSPREE_FORM_ID && window.FORMSPREE_FORM_ID !== 'REPLACE_ME'){
+    posts.push(fetch('https://formspree.io/f/' + window.FORMSPREE_FORM_ID, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    }));
+  }
+  if(window.GHL_WEBHOOK_URL && window.GHL_WEBHOOK_URL !== 'REPLACE_ME'){
+    posts.push(fetch(window.GHL_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }));
+  }
+  if(!posts.length){
+    console.warn('Intake: set FORMSPREE_FORM_ID and/or GHL_WEBHOOK_URL — see 07_Operations/phase2-intake-and-payments.md');
+  }
+  Promise.allSettled(posts).then(function(){
+    document.getElementById('intake-form').style.display='none';
+    document.getElementById('success').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
 }
+
+window.FORMSPREE_FORM_ID = 'REPLACE_ME';
+window.GHL_WEBHOOK_URL = 'REPLACE_ME';
 
 function selectRadio(el, name, value){
   document.querySelectorAll(`[name=${name}]`).forEach(r=>{

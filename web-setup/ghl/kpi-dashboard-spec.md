@@ -42,20 +42,29 @@ These are the metrics top IMOs, BGAs, and large agencies track. Every widget inc
 | KPI | Definition | Formula | Target | GHL Source |
 |-----|------------|---------|--------|------------|
 | **Active Agents** | Licensed, appointed, producing | COUNT(contacts) WHERE tag=agent AND status=active | Grow 10%/qtr | Contacts |
-| **Agent Retention (2yr)** | Agents still after 24 months | Active at 24mo ÷ Hired 24mo ago × 100 | 60%+ | Custom field: hire_date |
+| **Agent Retention (annual)** | Same advisors still at year-end (MDRT 1:1) | Active YE ÷ Prior YE cohort × 100 | **75%+** (MDRT Culture of Excellence) | `agent_hire_date` |
+| **Agent Retention (2yr)** | Agents still after 24 months | Active at 24mo ÷ Hired 24mo ago × 100 | 60%+ (industry avg ~40%) | Custom field: hire_date |
+| **Recruitment Rate** | New advisors vs prior year headcount | New contracted ÷ Prior YE headcount × 100 | **20%+** (MDRT) | Agent pipeline |
+| **Time to First App** | Hire date → first placed/submitted | AVG(first app date − hire_date) | &lt;45 days | Custom dates |
 | **New Agents (MTD)** | Recruited this month | COUNT agent recruitment pipeline → Contracted | 2+/mo | Agent pipeline |
 | **New Agencies (QTD)** | Agency partners signed | COUNT agency pipeline → Provisioned | Tier-dependent | Agency pipeline |
-| **Production per Agent** | Average agent output | Total Premium ÷ Active Agents | $15K+/agent/mo | Calculated |
+| **Revenue per Producer** | Premium quality, not headcount | Total Premium ÷ Active Agents | $15K+/agent/mo | Calculated |
+| **Production Growth YoY** | MDRT-eligible / placed premium | This year ÷ last year − 1 | **+25%** | Opportunities Placed |
 
-### Lead & Marketing KPIs
+### Lead, Activity & Marketing KPIs
+
+These five activity numbers predict producer churn ~6–9 weeks before premium drops (field leadership pattern): weekly **conversations**, **minutes to first attempt**, **placement rate**, **13-month persistency by agent**, **lead spend / first-year commission**.
 
 | KPI | Definition | Formula | Target | GHL Source |
 |-----|------------|---------|--------|------------|
 | **Lead Conversion Rate** | Leads to appointments | Appointments ÷ Leads × 100 | 25%+ | Pipeline + Calendar |
 | **Appointment Show Rate** | Shows vs booked | Shows ÷ Booked × 100 | 70%+ | Calendar status |
 | **Lead-to-Close Rate** | Leads to placed app | Placed ÷ Leads × 100 | 15%+ | Full funnel |
+| **Quote-to-Bind / Placement** | Submitted apps that issue | Placed ÷ App Submitted × 100 | **80%+** IMO healthy; **75%** floor | Pipeline |
+| **Weekly Conversations** | Decision-point talks, not dials | COUNT connected calls/SMS | Coaching if 2-week drop | `agent_conversations_wtd` |
 | **Cost per Lead** | Ad spend efficiency | Ad Spend ÷ Leads | <$50 term, <$150 IUL | Manual / ad integration |
-| **Speed to First Touch** | Response time | AVG(first_contact - lead_created) | <5 min | Workflow timestamp |
+| **Lead $ to FYC** | Per-agent unit economics | Ad spend on that agent ÷ FYC | Payback &lt; 1.0 | Manual + production fields |
+| **Speed to First Touch** | Response time | AVG(`first_touch_at` − created) | **&lt;5 min** | Workflow timestamp |
 
 ### Compliance KPIs
 
@@ -134,20 +143,22 @@ Workflow: Every Monday 7am → email agency owner with:
 
 | KPI | Green | Yellow | Red |
 |-----|-------|--------|-----|
-| 13-Month Persistency | 90%+ | 80–89% | <80% |
-| Placement Ratio | 75%+ | 60–74% | <60% |
+| 13-Month Persistency | 90%+ | 85–89% | <85% (service/comms problem) |
+| Placement Ratio | 80%+ | 60–79% | <60% |
 | Lapse Ratio | <8% | 8–12% | >12% |
 | Lead Conversion | 25%+ | 15–24% | <15% |
 | License Compliance | 100% | 95–99% | <95% |
 | Time to Issue | <21 days | 21–35 days | >35 days |
+| Agent Retention (annual) | 75%+ | 60–74% | <60% |
 | Agent Retention (2yr) | 60%+ | 45–59% | <45% |
+| YoY Production Growth | 25%+ | 10–24% | <10% |
 
 ---
 
 ## Benchmark Sources
 
-Metrics aligned with IMO/FMO industry standards from:
-- Financialize IMO/FMO Playbook (2026)
-- AgencyBloc upline management benchmarks
-- Insurnest FMO IUL KPI framework
-- Vymo distribution management platform standards
+- **MDRT Center for Field Leadership — Culture of Excellence:** +25% production, 75% advisor retention, 20% recruitment, 90% 13-month persistency
+- **Life/health agency persistency:** 90–95% retained written premium strong; **&lt;85%** = service/communication issue (AgencyBloc-style benchmarks)
+- **IMO production dashboards:** new-business premium, quote-to-bind, activity-to-conversion, persistency, revenue per producer
+- **Career agencies (NYL / Northwestern Mutual):** persistency in compensation; multi-year curriculum; Development Manager / mentor seat (we replicate as Agency Admin + Case Design Lab)
+- **Placement:** 80%+ new-business placement healthy; lead-to-appointment 25%+

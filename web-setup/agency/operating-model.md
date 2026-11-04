@@ -1,6 +1,21 @@
 # Top Insurance Agency Operating Model — Research Synthesis
 
-**Purpose:** Duplicate what Symmetry Financial Group, PHP Agency, Family First Life, Integrity Marketing Group, and leading IMOs/FMOs run internally — adapted for GHL.
+**Purpose:** Duplicate the **systems** of career giants, IMOs/FMOs, and aggregators — not their hype or captive lock-in — then run them on GoHighLevel as FullCircle Agency OS.
+
+---
+
+## Four Distribution Models (What We Duplicate vs Discard)
+
+| Model | Examples | Duplicate | Discard |
+|-------|----------|-----------|---------|
+| **Career / captive** | Northwestern Mutual, New York Life | 3-year curriculum, mentors, persistency in the scorecard, path from producer → specialist → office builder | Single-carrier only; slow product flexibility |
+| **IMO / FMO (independent)** | Life IMOs; health FMOs (e.g. national FMOs) | Multi-carrier contracting, overrides 1–5 pts disclosed, case desk, tech as a benefit | Hidden points; “leads will save you” |
+| **Aggregator** | Integrity Marketing Group pattern | Centralized ops, agency-level P&amp;L, professionalize independents | Growth-by-acquisition only |
+| **Team-building independents** | Primerica, WFG-style | Repeatable onboarding, weekly training cadence, recruit **agencies/teams** | Product-first recruiting, residual hype, unlicensed “opportunity” pitches |
+
+**FullCircle Agency OS = career-grade training + IMO multi-carrier + aggregator ops + GHL sub-accounts.** Recruit **agency principals**, then their producers.
+
+FMO vs IMO (industry usage): labels overlap. FMOs often health/national contracting; IMOs often life. We operate as a **life-first IMO-style OS** with optional annuity Phase 2.
 
 ---
 
@@ -76,7 +91,12 @@ Annuities/FIA    → Retirement income stack (Phase 2 add-on)
 | Peer network | Community channel, weekly wins call |
 | Carrier access | Niche + retirement leaders, maintained appointments |
 
-**Target 2-year agent retention:** 60%+ (industry average ~40%)
+**Target 2-year agent retention:** 60%+ (industry average ~40%)  
+**Target annual advisor retention (MDRT 1:1):** 75%+  
+**Target recruitment (new vs prior headcount):** 20%+  
+**Target 13-month persistency:** 90%+  
+
+Producer early-warning (track in GHL, not gut): conversations down 2 weeks, first-attempt time drifting from minutes to hours, placement falling, persistency &lt;85%, lead spend &gt; FYC.
 
 ---
 

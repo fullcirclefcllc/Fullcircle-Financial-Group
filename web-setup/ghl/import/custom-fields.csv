@@ -1,0 +1,47 @@
+object,field_name,field_type,options,notes
+Contact,agent_npn,text,,Licensing
+Contact,agent_license_number,text,,
+Contact,agent_license_state,dropdown,AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC,
+Contact,agent_license_status,dropdown,Active|Expired|Pending|Suspended,KPI License Compliance
+Contact,agent_license_expiry,date,,90/60/30 alerts
+Contact,agent_eo_expiry,date,,
+Contact,agent_hire_date,date,,Retention KPI
+Contact,agent_archetype,dropdown,Digital Nomad|Community Pillar|Cross-Sell Pro|Agency Builder,
+Contact,agent_cert_term,checkbox,,Pipeline gate
+Contact,agent_cert_whole,checkbox,,
+Contact,agent_cert_iul,checkbox,,
+Contact,agent_cert_admin,checkbox,,
+Contact,agent_upline,text,,Hierarchy
+Contact,agent_override_pct,number,,
+Contact,agent_appointment_carriers,multiselect,TBD_CARRIER_LIST,Replace with appointed carriers
+Contact,agent_production_mtd,number,,
+Contact,agent_production_ytd,number,,
+Contact,agent_conversations_wtd,number,,Churn early warning
+Contact,first_touch_at,date,,Speed to lead
+Contact,client_dob,date,,
+Contact,client_age,number,,
+Contact,client_health_class,dropdown,Preferred|Standard|Substandard|Declined,
+Contact,client_smoker,dropdown,Yes|No,
+Contact,client_annual_income,number,,
+Contact,client_net_worth,number,,
+Contact,client_primary_goal,dropdown,Protection|Cash Value|Retirement|Estate|Business,
+Contact,client_existing_policies,textarea,,
+Contact,client_suitability_complete,checkbox,,
+Contact,client_persistency_status,dropdown,Active|At-Risk|Lapsed|Pending,
+Contact,client_products_owned,multiselect,Term|Whole|IUL|Annuity,Cross-sell
+Contact,persistency_13mo,checkbox,,13th month KPI
+Opportunity,product_type,dropdown,Term|Whole Life|IUL|Annuity,
+Opportunity,carrier_name,dropdown,TBD_CARRIER_LIST,
+Opportunity,target_premium,number,,Premium KPIs
+Opportunity,target_face_amount,number,,
+Opportunity,app_submitted_date,date,,Time to issue
+Opportunity,in_force_date,date,,
+Opportunity,policy_number,text,,
+Opportunity,underwriting_status,dropdown,Pending|Approved|Declined|Rated,
+Opportunity,illustration_requested,checkbox,,
+Opportunity,illustration_complete,checkbox,,
+Opportunity,suitability_doc_url,url,,
+Opportunity,nigo_flag,checkbox,,
+Opportunity,chargeback_flag,checkbox,,
+Opportunity,assigned_agent,text,,Leaderboard
+Opportunity,lost_reason,dropdown,Price / budget|Health / underwriting|Went with another agent|Timing|Not qualified|No response,

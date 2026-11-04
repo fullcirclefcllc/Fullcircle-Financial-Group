@@ -88,6 +88,17 @@ Aligns with FCFG IUL SOP and fulfillment playbook standards.
 
 ---
 
+### Annuities Track (Phase 2)
+
+| Course | Modules | Duration | Gate |
+|--------|---------|----------|------|
+| **Annuity Suitability** | Liquidity, surrender, senior rules, best interest | 60 min | IUL or Whole Certified |
+| **FIA Mechanics** | Caps, participation, income riders | 45 min | Annuity Suitability |
+
+**Certification:** Cross-Sell Certified → unlock Annuities pipeline. Do not launch this track until Term/Whole/IUL certs are producing.
+
+---
+
 ### Sales & Marketing
 
 | Course | Modules | Duration | Gate |

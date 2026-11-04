@@ -22,17 +22,25 @@ FullCircle Agency OS duplicates the operating model used by top IMOs/FMOs (Symme
 
 | Path | Purpose |
 |------|---------|
+| [`index.html`](index.html) | Clickable map of the OS (open in browser) |
 | [`agency/mission-vision-core-values.md`](agency/mission-vision-core-values.md) | Mission, vision, core values, agency promise |
-| [`agency/operating-model.md`](agency/operating-model.md) | IMO/FMO model research — what top agencies duplicate |
+| [`agency/operating-model.md`](agency/operating-model.md) | Career vs IMO vs aggregator vs team-building research |
 | [`agency/recruitment-playbook.md`](agency/recruitment-playbook.md) | Recruit agencies + agents — archetypes, comp, onboarding |
+| [`agency/sales-deck.md`](agency/sales-deck.md) | 45-min close talk track for agency principals |
 | [`ghl/tab-architecture.md`](ghl/tab-architecture.md) | **Master GHL menu — every tab, sub-account, permission** |
-| [`ghl/kpi-dashboard-spec.md`](ghl/kpi-dashboard-spec.md) | KPI definitions, formulas, dashboard widgets |
+| [`ghl/permissions-matrix.md`](ghl/permissions-matrix.md) | Role-by-role GHL access |
+| [`ghl/kpi-dashboard-spec.md`](ghl/kpi-dashboard-spec.md) | MDRT-grade KPIs, formulas, widgets |
 | [`ghl/snapshot-build-checklist.md`](ghl/snapshot-build-checklist.md) | Turnkey 14-day GHL build sequence |
 | [`ghl/custom-fields-and-tags.md`](ghl/custom-fields-and-tags.md) | All custom fields, tags, smart lists |
-| [`ghl/pipelines/`](ghl/pipelines/) | Term, Whole, IUL, recruitment, retention pipelines |
-| [`ghl/workflows/`](ghl/workflows/) | Agent onboarding, client acquisition, compliance |
+| [`ghl/import/`](ghl/import/) | CSV field + tag lists to key into GHL |
+| [`ghl/forms/form-library.md`](ghl/forms/form-library.md) | Needs analysis, recruiting, suitability forms |
+| [`ghl/funnels/funnel-library.md`](ghl/funnels/funnel-library.md) | Term, Whole, IUL, agency, agent funnels |
+| [`ghl/templates/email-sms-library.md`](ghl/templates/email-sms-library.md) | Copy-paste sequences |
+| [`ghl/calendars-and-round-robin.md`](ghl/calendars-and-round-robin.md) | Calendars + certification routing |
+| [`ghl/commission-and-overrides.md`](ghl/commission-and-overrides.md) | Comp template vs SaaS fees |
+| [`ghl/pipelines/`](ghl/pipelines/) | Term, Whole, IUL, Annuity, recruitment, retention |
+| [`ghl/workflows/`](ghl/workflows/) | Onboarding, acquisition, compliance, production |
 | [`ghl/membership-training-portal.md`](ghl/membership-training-portal.md) | Courses, certifications, product tracks |
-| [`index.html`](index.html) | Web portal — navigate the full system |
 
 ---
 
