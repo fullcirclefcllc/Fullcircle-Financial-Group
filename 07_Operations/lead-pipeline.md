@@ -27,6 +27,7 @@
 | Talita (family) | Existing | Active Client | Done With You — all 4 pillars | Yes | Milestone review TBD | Holding co + LLCs + IUL + credit + trust — full engagement underway |
 | Cullin | Existing | Warm — confirm | TBD | No | ASAP — reach out today | Status unknown — call/text to confirm relationship and interest |
 | Josie (Crystal Clear Motors) | AJ / Rize Mortgage | Warm | TBD | No | Jun 5–6 | Warm intro via AJ. Calendly booking experience set up. Reach out today. |
+| Peter | Existing | Warm | Trust Formation ($1,500–$3,000+) | No | Nov 19–20 | Meeting w/ Eugene being scheduled. Trust intake form sent. Folder: 02_Clients/Peter/ |
 | | | | | | | |
 | | | | | | | |
 

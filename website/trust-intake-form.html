@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Trust Setup Intake — FullCircle Financial Group">
+<title>Trust Setup Intake | FullCircle Financial Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0A1F44;--navy-deep:#06142E;--navy-card:#0E2550;
+  --gold:#C9A646;--gold-soft:rgba(201,166,70,0.18);--gold-line:rgba(201,166,70,0.28);
+  --cream:#F5EFE0;--muted:rgba(245,239,224,0.68);--muted2:rgba(245,239,224,0.4);
+  --error:#E58A7A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;background:var(--navy-deep);color:var(--cream);min-height:100vh;line-height:1.5;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(circle at 85% 10%, rgba(201,166,70,0.08), transparent 45%),
+             radial-gradient(circle at 10% 90%, rgba(201,166,70,0.05), transparent 40%);}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;background:rgba(6,20,46,0.95);border-bottom:1px solid var(--gold-line);position:sticky;top:0;z-index:100;}
+.nav-brand{font-family:'Cinzel',serif;font-size:0.9rem;font-weight:600;letter-spacing:0.12em;color:var(--cream);text-decoration:none;}
+.nav-brand span{color:var(--gold);}
+.nav-tag{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);}
+
+.page{position:relative;z-index:1;max-width:740px;margin:0 auto;padding:3rem 1.5rem 6rem;}
+
+/* Header + orbital motif */
+.form-header{text-align:center;margin-bottom:2.8rem;position:relative;}
+.orbit{width:88px;height:88px;margin:0 auto 1.4rem;position:relative;}
+.orbit i{position:absolute;inset:0;border:1px solid var(--gold);border-radius:50%;opacity:0.55;}
+.orbit i:nth-child(2){transform:rotate(60deg) scaleY(0.38);}
+.orbit i:nth-child(3){transform:rotate(-60deg) scaleY(0.38);}
+.orbit b{position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px var(--gold);}
+.eyebrow{font-size:0.8rem;font-weight:600;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
+.form-title{font-family:'Cinzel',serif;font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:400;line-height:1.2;margin-bottom:1rem;}
+.form-title em{font-style:normal;color:var(--gold);}
+.form-sub{font-size:1.1rem;color:var(--muted);max-width:540px;margin:0 auto;}
+.privacy-note{display:inline-flex;gap:0.5rem;align-items:center;margin-top:1.2rem;font-size:0.9rem;color:var(--muted);border:1px solid var(--gold-line);padding:0.45rem 0.9rem;border-radius:999px;}
+
+/* Progress */
+.progress-wrap{margin-bottom:2.6rem;}
+.progress-steps{display:flex;justify-content:space-between;margin-bottom:0.9rem;position:relative;}
+.progress-steps::before{content:'';position:absolute;top:15px;left:10%;right:10%;height:1px;background:var(--gold-line);}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:0.45rem;position:relative;z-index:1;flex:1;}
+.dot-circle{width:30px;height:30px;border-radius:50%;border:1px solid var(--gold-line);background:var(--navy-deep);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:0.75rem;color:var(--muted2);transition:all .35s;}
+.step-dot.active .dot-circle{border-color:var(--gold);color:var(--gold);background:var(--gold-soft);}
+.step-dot.done .dot-circle{border-color:var(--gold);background:var(--gold);color:var(--navy-deep);}
+.dot-label{font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);text-align:center;}
+.step-dot.active .dot-label{color:var(--gold);}
+.progress-bar{height:2px;background:var(--gold-line);overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width .45s ease;}
+
+/* Card */
+.card{background:linear-gradient(180deg,var(--navy-card),var(--navy));border:1px solid var(--gold-line);padding:2.4rem 2rem;}
+.form-section{display:none;animation:fadeIn .35s ease;}
+.form-section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.section-rule{width:44px;height:1px;background:var(--gold);margin-bottom:1rem;}
+.section-title{font-family:'Cinzel',serif;font-size:1.35rem;font-weight:600;margin-bottom:0.35rem;}
+.section-subtitle{font-size:1.02rem;color:var(--muted);margin-bottom:1.8rem;}
+.group-label{font-family:'Cinzel',serif;font-size:0.85rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin:2rem 0 1rem;padding-top:1.2rem;border-top:1px solid var(--gold-line);}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.2rem;}
+.full{grid-column:1/-1;}
+.field{margin-bottom:0.1rem;}
+label,.q{display:block;font-size:0.82rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.45rem;}
+.optional{color:var(--muted2);font-weight:500;letter-spacing:0;text-transform:none;font-size:0.9rem;}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
+  width:100%;background:rgba(6,20,46,0.6);border:1px solid var(--gold-line);color:var(--cream);
+  font-family:'Cormorant Garamond',serif;font-size:1.08rem;padding:0.7rem 0.85rem;outline:none;border-radius:2px;transition:border-color .25s, box-shadow .25s;}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft);}
+select option{background:var(--navy);}
+textarea{min-height:96px;resize:vertical;}
+input[type=date]{color-scheme:dark;}
+.err{display:none;font-size:0.92rem;color:var(--error);margin-top:0.3rem;}
+.has-error input,.has-error select,.has-error textarea{border-color:var(--error);}
+.has-error .err{display:block;}
+
+.options{display:flex;flex-wrap:wrap;gap:0.55rem;}
+.opt{position:relative;}
+.opt input{position:absolute;opacity:0;pointer-events:none;}
+.opt span{display:inline-block;padding:0.5rem 0.95rem;border:1px solid var(--gold-line);font-size:1.02rem;cursor:pointer;transition:all .2s;user-select:none;}
+.opt span:hover{border-color:var(--gold);}
+.opt input:checked + span{background:var(--gold);border-color:var(--gold);color:var(--navy-deep);font-weight:600;}
+.opt input:focus-visible + span{box-shadow:0 0 0 3px var(--gold-soft);}
+
+/* Repeating rows */
+.repeat-row{border:1px dashed var(--gold-line);padding:1rem;margin-bottom:0.8rem;position:relative;}
+.repeat-row .grid{gap:0.8rem;}
+.rm{position:absolute;top:0.4rem;right:0.6rem;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;line-height:1;}
+.rm:hover{color:var(--error);}
+.add-btn{background:none;border:1px solid var(--gold-line);color:var(--gold);font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.6rem 1rem;cursor:pointer;}
+.add-btn:hover{border-color:var(--gold);background:var(--gold-soft);}
+.hint{font-size:0.95rem;color:var(--muted);margin-top:0.35rem;font-style:italic;}
+
+/* Asset table */
+.asset-list{display:grid;gap:0.6rem;}
+.asset{display:grid;grid-template-columns:1.4fr 1fr;gap:0.8rem;align-items:center;padding:0.7rem 0.9rem;border:1px solid var(--gold-line);}
+.asset .name{display:flex;align-items:center;gap:0.6rem;font-size:1.05rem;}
+.asset input[type=checkbox]{accent-color:var(--gold);width:18px;height:18px;}
+.asset select{padding:0.45rem 0.6rem;font-size:1rem;}
+.asset select:disabled{opacity:0.35;}
+
+.consent{display:flex;gap:0.7rem;align-items:flex-start;font-size:1.02rem;color:var(--muted);margin-top:1rem;}
+.consent input{accent-color:var(--gold);width:18px;height:18px;margin-top:0.25rem;flex-shrink:0;}
+
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.4rem;padding-top:1.6rem;border-top:1px solid var(--gold-line);gap:1rem;}
+.btn{font-family:'Cinzel',serif;font-size:0.78rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.95rem 1.7rem;cursor:pointer;border:1px solid var(--gold);transition:all .25s;}
+.btn-back{background:none;color:var(--muted);border-color:var(--gold-line);}
+.btn-back:hover{color:var(--cream);border-color:var(--gold);}
+.btn-next{background:var(--gold);color:var(--navy-deep);}
+.btn-next:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.btn-next:disabled{opacity:0.55;cursor:wait;transform:none;}
+.step-counter{font-size:0.82rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted2);}
+
+.success{display:none;text-align:center;padding:3rem 1.5rem;}
+.success h2{font-family:'Cinzel',serif;font-weight:400;font-size:1.9rem;margin:1rem 0;}
+.success p{color:var(--muted);font-size:1.12rem;max-width:480px;margin:0 auto 1rem;}
+.success a{display:inline-block;margin-top:1rem;color:var(--navy-deep);background:var(--gold);padding:0.9rem 1.6rem;font-family:'Cinzel',serif;font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;}
+
+footer{position:relative;z-index:1;text-align:center;font-size:0.92rem;color:var(--muted2);padding:0 1.5rem 3rem;max-width:640px;margin:0 auto;}
+
+@media (max-width:620px){
+  nav{padding:1rem;}
+  .nav-tag{display:none;}
+  .page{padding:2rem 1rem 4rem;}
+  .card{padding:1.6rem 1.1rem;}
+  .grid{grid-template-columns:1fr;}
+  .dot-label{font-size:0.6rem;letter-spacing:0.06em;}
+  .asset{grid-template-columns:1fr;}
+  .btn{padding:0.85rem 1.1rem;}
+  .step-counter{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">FullCircle <span>Financial Group</span></a>
+  <div class="nav-tag">Protection · Structure · Leverage · Scale</div>
+</nav>
+
+<main class="page">
+  <header class="form-header">
+    <div class="orbit"><i></i><i></i><i></i><b></b></div>
+    <div class="eyebrow">Pillar I — Protection</div>
+    <h1 class="form-title">Trust Setup <em>Intake</em></h1>
+    <p class="form-sub">This takes about 10 minutes. With this information in hand, our meeting can focus on structuring your trust rather than paperwork.</p>
+    <div class="privacy-note">🔒 No Social Security or account numbers. We collect those securely at the meeting.</div>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="progress-steps" id="steps"></div>
+    <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+  </div>
+
+  <div class="card">
+  <form id="trust-form" novalidate>
+
+    <!-- 1. ABOUT YOU -->
+    <section class="form-section active" data-step="1">
+      <div class="section-rule"></div>
+      <h2 class="section-title">About You</h2>
+      <p class="section-subtitle">The grantor is the person creating the trust. If you're setting it up jointly with a spouse, you can add them below.</p>
+      <div class="grid">
+        <div class="field full" data-req><label for="fullName">Full legal name</label><input type="text" id="fullName" name="fullName" autocomplete="name"><div class="err">Please enter your full legal name.</div></div>
+        <div class="field" data-req><label for="dob">Date of birth</label><input type="date" id="dob" name="dob"><div class="err">Required.</div></div>
+        <div class="field" data-req><label for="phone">Phone</label><input type="tel" id="phone" name="phone" autocomplete="tel"><div class="err">Please enter a phone number.</div></div>
+        <div class="field full" data-req data-type="email"><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email"><div class="err">Please enter a valid email.</div></div>
+        <div class="field full" data-req><label for="address">Home address</label><input type="text" id="address" name="address" autocomplete="street-address"><div class="err">Required.</div></div>
+        <div class="field" data-req><label for="city">City</label><input type="text" id="city" name="city" autocomplete="address-level2"><div class="err">Required.</div></div>
+        <div class="field" data-req><label for="state">State of residence</label><input type="text" id="state" name="state" autocomplete="address-level1"><div class="err">Required.</div></div>
+        <div class="field"><label for="occupation">Occupation / business <span class="optional">(optional)</span></label><input type="text" id="occupation" name="occupation"></div>
+        <div class="field"><label for="citizenship">U.S. citizen?</label>
+          <select id="citizenship" name="citizenship"><option value="">Select</option><option>Yes</option><option>No — permanent resident</option><option>No — other</option></select></div>
+      </div>
+
+      <div class="group-label">Marital Status</div>
+      <div class="field" data-req data-radio="marital">
+        <div class="options">
+          <label class="opt"><input type="radio" name="marital" value="Single"><span>Single</span></label>
+          <label class="opt"><input type="radio" name="marital" value="Married"><span>Married</span></label>
+          <label class="opt"><input type="radio" name="marital" value="Domestic partnership"><span>Domestic partnership</span></label>
+          <label class="opt"><input type="radio" name="marital" value="Divorced"><span>Divorced</span></label>
+          <label class="opt"><input type="radio" name="marital" value="Widowed"><span>Widowed</span></label>
+        </div>
+        <div class="err">Please select one.</div>
+      </div>
+
+      <div id="spouseBlock" style="display:none">
+        <div class="group-label">Spouse / Partner</div>
+        <div class="grid">
+          <div class="field"><label for="spouseName">Spouse's full legal name</label><input type="text" id="spouseName" name="spouseName"></div>
+          <div class="field"><label for="spouseDob">Spouse's date of birth</label><input type="date" id="spouseDob" name="spouseDob"></div>
+          <div class="field full"><span class="q">Is your spouse joining the trust as co-grantor?</span>
+            <div class="options">
+              <label class="opt"><input type="radio" name="jointTrust" value="Yes — joint trust"><span>Yes, joint trust</span></label>
+              <label class="opt"><input type="radio" name="jointTrust" value="No — individual trust"><span>No, just me</span></label>
+              <label class="opt"><input type="radio" name="jointTrust" value="Not sure"><span>Not sure</span></label>
+            </div></div>
+          <div class="field full"><span class="q">Prenuptial or postnuptial agreement?</span>
+            <div class="options">
+              <label class="opt"><input type="radio" name="prenup" value="Yes"><span>Yes</span></label>
+              <label class="opt"><input type="radio" name="prenup" value="No"><span>No</span></label>
+            </div></div>
+        </div>
+      </div>
+      <div class="form-nav"><span></span><span class="step-counter">Step 1 of 5</span><button type="button" class="btn btn-next" data-next>Continue →</button></div>
+    </section>
+
+    <!-- 2. FAMILY & BENEFICIARIES -->
+    <section class="form-section" data-step="2">
+      <div class="section-rule"></div>
+      <h2 class="section-title">Family &amp; Beneficiaries</h2>
+      <p class="section-subtitle">Who should the trust provide for? List children first (including from prior relationships), then anyone else you want to include.</p>
+
+      <div class="field"><span class="q">Do you have children?</span>
+        <div class="options">
+          <label class="opt"><input type="radio" name="hasChildren" value="Yes"><span>Yes</span></label>
+          <label class="opt"><input type="radio" name="hasChildren" value="No"><span>No</span></label>
+        </div></div>
+
+      <div class="group-label">Beneficiaries</div>
+      <div id="beneficiaries"></div>
+      <button type="button" class="add-btn" data-add="beneficiaries">+ Add beneficiary</button>
+      <p class="hint">Include children, grandchildren, other family, or a charity. Leave the share blank if you're undecided.</p>
+
+      <div class="group-label">Special Considerations</div>
+      <div class="field"><span class="q">Check any that apply <span class="optional">(optional)</span></span>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="special" value="Minor children"><span>Minor children</span></label>
+          <label class="opt"><input type="checkbox" name="special" value="Beneficiary with special needs"><span>Special needs</span></label>
+          <label class="opt"><input type="checkbox" name="special" value="Blended family"><span>Blended family</span></label>
+          <label class="opt"><input type="checkbox" name="special" value="Concerns about a beneficiary's spending, creditors, or divorce"><span>Spendthrift concerns</span></label>
+          <label class="opt"><input type="checkbox" name="special" value="Someone intentionally excluded"><span>Someone excluded</span></label>
+          <label class="opt"><input type="checkbox" name="special" value="Charitable giving"><span>Charitable giving</span></label>
+        </div></div>
+      <div class="field" style="margin-top:1rem"><label for="specialNotes">Anything we should know? <span class="optional">(optional)</span></label><textarea id="specialNotes" name="specialNotes" placeholder="e.g. I want my kids to receive funds in stages at 25, 30 and 35."></textarea></div>
+
+      <div class="form-nav"><button type="button" class="btn btn-back" data-back>← Back</button><span class="step-counter">Step 2 of 5</span><button type="button" class="btn btn-next" data-next>Continue →</button></div>
+    </section>
+
+    <!-- 3. ASSETS -->
+    <section class="form-section" data-step="3">
+      <div class="section-rule"></div>
+      <h2 class="section-title">Assets to Protect</h2>
+      <p class="section-subtitle">Check what you own and give a rough value. Ballpark figures are fine; this tells us how to fund the trust.</p>
+
+      <div class="asset-list" id="assetList"></div>
+
+      <div class="group-label">Real Estate</div>
+      <div id="properties"></div>
+      <button type="button" class="add-btn" data-add="properties">+ Add property</button>
+
+      <div class="group-label">Business Interests</div>
+      <div id="businesses"></div>
+      <button type="button" class="add-btn" data-add="businesses">+ Add business / LLC</button>
+
+      <div class="grid" style="margin-top:1.6rem">
+        <div class="field full"><label for="netWorth">Estimated total net worth</label>
+          <select id="netWorth" name="netWorth"><option value="">Select a range</option><option>Under $250K</option><option>$250K – $500K</option><option>$500K – $1M</option><option>$1M – $3M</option><option>$3M – $7M</option><option>$7M – $14M</option><option>Over $14M</option><option>Prefer to discuss</option></select></div>
+        <div class="field full"><label for="debts">Significant debts or liabilities <span class="optional">(optional)</span></label><textarea id="debts" name="debts" placeholder="Mortgages, business loans, pending lawsuits, judgments…"></textarea></div>
+      </div>
+
+      <div class="form-nav"><button type="button" class="btn btn-back" data-back>← Back</button><span class="step-counter">Step 3 of 5</span><button type="button" class="btn btn-next" data-next>Continue →</button></div>
+    </section>
+
+    <!-- 4. TRUSTEES & GOALS -->
+    <section class="form-section" data-step="4">
+      <div class="section-rule"></div>
+      <h2 class="section-title">Trustees &amp; Goals</h2>
+      <p class="section-subtitle">Who manages the trust if you can't, and what you want it to accomplish.</p>
+
+      <div class="field" data-req data-radio="goals"><span class="q">What's most important to you? <span class="optional">(check all that apply)</span></span>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="goals" value="Avoid probate"><span>Avoid probate</span></label>
+          <label class="opt"><input type="checkbox" name="goals" value="Privacy"><span>Keep things private</span></label>
+          <label class="opt"><input type="checkbox" name="goals" value="Asset protection from lawsuits/creditors"><span>Lawsuit &amp; creditor protection</span></label>
+          <label class="opt"><input type="checkbox" name="goals" value="Provide for children"><span>Provide for my children</span></label>
+          <label class="opt"><input type="checkbox" name="goals" value="Reduce estate taxes"><span>Reduce estate taxes</span></label>
+          <label class="opt"><input type="checkbox" name="goals" value="Business succession"><span>Business succession</span></label>
+          <label class="opt"><input type="checkbox" name="goals" value="Hold real estate anonymously"><span>Hold real estate anonymously</span></label>
+          <label class="opt"><input type="checkbox" name="goals" value="Incapacity planning"><span>Plan for incapacity</span></label>
+          <label class="opt"><input type="checkbox" name="goals" value="Own life insurance / IUL in trust"><span>Hold life insurance in trust</span></label>
+        </div>
+        <div class="err">Please choose at least one.</div>
+      </div>
+
+      <div class="field" style="margin-top:1.4rem"><label for="trustType">Type of trust you have in mind</label>
+        <select id="trustType" name="trustType">
+          <option value="">Not sure. Help me decide.</option>
+          <option>Revocable Living Trust</option>
+          <option>Irrevocable Trust</option>
+          <option>Land Trust</option>
+          <option>Irrevocable Life Insurance Trust (ILIT)</option>
+          <option>Special Needs Trust</option>
+        </select></div>
+
+      <div class="group-label">Successor Trustee</div>
+      <p class="hint" style="margin:-0.4rem 0 1rem">The person who steps in to manage the trust if you pass away or become incapacitated.</p>
+      <div class="grid">
+        <div class="field" data-req><label for="trustee1">First choice: name</label><input type="text" id="trustee1" name="trustee1"><div class="err">Please name at least one person. You can change it later.</div></div>
+        <div class="field"><label for="trustee1Rel">Relationship</label><input type="text" id="trustee1Rel" name="trustee1Rel"></div>
+        <div class="field"><label for="trustee1Phone">Phone or email <span class="optional">(optional)</span></label><input type="text" id="trustee1Phone" name="trustee1Contact"></div>
+        <div class="field"><label for="trustee1City">City / state <span class="optional">(optional)</span></label><input type="text" id="trustee1City" name="trustee1Location"></div>
+        <div class="field"><label for="trustee2">Backup choice: name <span class="optional">(optional)</span></label><input type="text" id="trustee2" name="trustee2"></div>
+        <div class="field"><label for="trustee2Rel">Relationship</label><input type="text" id="trustee2Rel" name="trustee2Rel"></div>
+      </div>
+
+      <div class="group-label">Guardian for Minor Children <span class="optional" style="text-transform:none;letter-spacing:0">(if applicable)</span></div>
+      <div class="grid">
+        <div class="field"><label for="guardian1">Guardian: name</label><input type="text" id="guardian1" name="guardian1"></div>
+        <div class="field"><label for="guardian2">Backup guardian</label><input type="text" id="guardian2" name="guardian2"></div>
+      </div>
+
+      <div class="group-label">Existing Documents</div>
+      <div class="field"><span class="q">Which of these do you already have?</span>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="existingDocs" value="Will"><span>Will</span></label>
+          <label class="opt"><input type="checkbox" name="existingDocs" value="Existing trust"><span>Existing trust</span></label>
+          <label class="opt"><input type="checkbox" name="existingDocs" value="Financial power of attorney"><span>Financial POA</span></label>
+          <label class="opt"><input type="checkbox" name="existingDocs" value="Healthcare directive"><span>Healthcare directive</span></label>
+          <label class="opt"><input type="checkbox" name="existingDocs" value="LLC operating agreement"><span>Operating agreement</span></label>
+          <label class="opt"><input type="checkbox" name="existingDocs" value="None"><span>None yet</span></label>
+        </div></div>
+      <div class="field" style="margin-top:1rem"><label for="docNotes">Date or details of existing documents <span class="optional">(optional)</span></label><input type="text" id="docNotes" name="docNotes" placeholder="e.g. Will from 2015, before our second child"></div>
+
+      <div class="form-nav"><button type="button" class="btn btn-back" data-back>← Back</button><span class="step-counter">Step 4 of 5</span><button type="button" class="btn btn-next" data-next>Continue →</button></div>
+    </section>
+
+    <!-- 5. MEETING -->
+    <section class="form-section" data-step="5">
+      <div class="section-rule"></div>
+      <h2 class="section-title">Your Meeting</h2>
+      <p class="section-subtitle">Last step. Tell us how you'd like to meet and anything you want covered.</p>
+
+      <div class="field" data-req data-radio="meetingFormat"><span class="q">Meeting format</span>
+        <div class="options">
+          <label class="opt"><input type="radio" name="meetingFormat" value="Virtual (Zoom)"><span>Virtual</span></label>
+          <label class="opt"><input type="radio" name="meetingFormat" value="In person"><span>In person</span></label>
+          <label class="opt"><input type="radio" name="meetingFormat" value="Either"><span>Either works</span></label>
+        </div>
+        <div class="err">Please select one.</div>
+      </div>
+      <div class="grid" style="margin-top:1.2rem">
+        <div class="field"><label for="meetDate">Preferred date</label><input type="date" id="meetDate" name="meetDate"></div>
+        <div class="field"><label for="meetTime">Preferred time</label>
+          <select id="meetTime" name="meetTime"><option value="">Select</option><option>Morning (9–12)</option><option>Afternoon (12–4)</option><option>Evening (4–7)</option></select></div>
+        <div class="field full"><label for="questions">Questions or concerns for the meeting <span class="optional">(optional)</span></label><textarea id="questions" name="questions"></textarea></div>
+        <div class="field full"><label for="referredBy">Referred by <span class="optional">(optional)</span></label><input type="text" id="referredBy" name="referredBy"></div>
+      </div>
+
+      <div class="group-label">Please Bring to the Meeting</div>
+      <ul style="list-style:none;color:var(--muted);font-size:1.05rem;display:grid;gap:0.35rem">
+        <li>◦ Government-issued photo ID</li>
+        <li>◦ Copies of property deeds</li>
+        <li>◦ Any existing will, trust, or POA documents</li>
+        <li>◦ LLC / business formation documents (if applicable)</li>
+        <li>◦ Recent life insurance policy statements</li>
+      </ul>
+
+      <div class="field" data-req data-check="consent">
+        <label class="consent"><input type="checkbox" name="consent" value="Agreed"><span>I confirm this information is accurate to the best of my knowledge. I understand FullCircle Financial Group coordinates with a licensed estate planning attorney, who prepares the final trust documents, and that this form isn't legal advice.</span></label>
+        <div class="err">Please confirm to submit.</div>
+      </div>
+
+      <div class="form-nav"><button type="button" class="btn btn-back" data-back>← Back</button><span class="step-counter">Step 5 of 5</span><button type="submit" class="btn btn-next" id="submitBtn">Submit Intake</button></div>
+    </section>
+  </form>
+
+  <div class="success" id="success">
+    <div class="orbit"><i></i><i></i><i></i><b></b></div>
+    <div class="eyebrow">Received</div>
+    <h2>Thank you.</h2>
+    <p>Your intake is with Breyon. We'll review it before we meet so we can go straight to structuring your trust.</p>
+    <p>If you haven't confirmed a time yet, you can book here:</p>
+    <a href="https://calendly.com/fullcircle-credit/45mins" target="_blank" rel="noopener">Confirm Meeting Time</a>
+  </div>
+  </div>
+</main>
+
+<footer>FullCircle Financial Group · The Financial Architect<br>Your information is kept confidential and used only to prepare your trust. FCFG does not provide legal advice; trust documents are drafted by a licensed attorney.</footer>
+
+<script>
+// Integration: set one or both (see 07_Operations/phase2-intake-and-payments.md)
+window.FORMSPREE_FORM_ID = 'REPLACE_ME';
+window.GHL_WEBHOOK_URL = 'REPLACE_ME';
+
+const LABELS = ['About You','Family','Assets','Trustees','Meeting'];
+const sections = [...document.querySelectorAll('.form-section')];
+const total = sections.length;
+let current = 1;
+
+// Progress
+const stepsEl = document.getElementById('steps');
+LABELS.forEach((l,i)=>{stepsEl.insertAdjacentHTML('beforeend',`<div class="step-dot"><div class="dot-circle">${i+1}</div><div class="dot-label">${l}</div></div>`);});
+function show(n){
+  sections.forEach(s=>s.classList.toggle('active', +s.dataset.step===n));
+  [...stepsEl.children].forEach((d,i)=>{d.classList.toggle('active',i+1===n);d.classList.toggle('done',i+1<n);});
+  document.getElementById('fill').style.width = ((n-1)/(total-1)*100)+'%';
+  current=n; window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Validation
+function validate(n){
+  const sec = sections[n-1]; let ok = true, first=null;
+  sec.querySelectorAll('[data-req]').forEach(f=>{
+    let valid;
+    if(f.dataset.radio){ valid = !!sec.querySelector(`[name=${f.dataset.radio}]:checked`); }
+    else if(f.dataset.check){ valid = sec.querySelector(`[name=${f.dataset.check}]`).checked; }
+    else {
+      const inp = f.querySelector('input,select,textarea'); const v = inp.value.trim();
+      valid = !!v && (f.dataset.type!=='email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    }
+    f.classList.toggle('has-error', !valid);
+    if(!valid){ ok=false; first = first||f; }
+  });
+  if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+  return ok;
+}
+document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>{ if(validate(current)) show(current+1); }));
+document.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',()=>show(current-1)));
+document.addEventListener('input',e=>{const f=e.target.closest('.has-error'); if(f) f.classList.remove('has-error');});
+document.addEventListener('change',e=>{const f=e.target.closest('.has-error'); if(f) f.classList.remove('has-error');});
+
+// Spouse block
+document.querySelectorAll('[name=marital]').forEach(r=>r.addEventListener('change',()=>{
+  document.getElementById('spouseBlock').style.display = /Married|partnership/.test(r.value) ? 'block':'none';
+}));
+
+// Assets
+const ASSETS = ['Primary residence','Investment / rental property','Bank & savings accounts','Brokerage / investment accounts','Retirement accounts (401k, IRA)','Life insurance / IUL','Business ownership (LLC / corp)','Vehicles, boats, collectibles','Crypto / digital assets'];
+const RANGES = ['Under $50K','$50K – $250K','$250K – $500K','$500K – $1M','$1M – $3M','Over $3M'];
+document.getElementById('assetList').innerHTML = ASSETS.map((a,i)=>`
+  <div class="asset">
+    <label class="name" style="text-transform:none;letter-spacing:0;color:var(--cream);font-weight:500;font-size:1.05rem;margin:0"><input type="checkbox" name="asset_${i}" value="${a}" data-asset="${i}"> ${a}</label>
+    <select name="asset_${i}_value" disabled aria-label="${a} value"><option value="">Approx. value</option>${RANGES.map(r=>`<option>${r}</option>`).join('')}</select>
+  </div>`).join('');
+document.querySelectorAll('[data-asset]').forEach(c=>c.addEventListener('change',()=>{
+  const s = document.querySelector(`[name=asset_${c.dataset.asset}_value]`); s.disabled=!c.checked; if(!c.checked) s.value='';
+}));
+
+// Repeating rows
+const TEMPLATES = {
+  beneficiaries: i=>`
+    <div class="field"><label>Full name</label><input type="text" name="ben_${i}_name"></div>
+    <div class="field"><label>Relationship</label><input type="text" name="ben_${i}_rel" placeholder="Son, daughter, niece…"></div>
+    <div class="field"><label>Date of birth <span class="optional">(if minor)</span></label><input type="date" name="ben_${i}_dob"></div>
+    <div class="field"><label>Share <span class="optional">(%)</span></label><input type="number" min="0" max="100" name="ben_${i}_share"></div>`,
+  properties: i=>`
+    <div class="field full"><label>Property address</label><input type="text" name="prop_${i}_addr"></div>
+    <div class="field"><label>Type</label><select name="prop_${i}_type"><option>Primary residence</option><option>Rental</option><option>Vacation / second home</option><option>Land</option><option>Commercial</option></select></div>
+    <div class="field"><label>Currently titled in</label><select name="prop_${i}_title"><option>My name</option><option>Joint with spouse</option><option>An LLC</option><option>An existing trust</option><option>Not sure</option></select></div>
+    <div class="field"><label>Est. value</label><input type="text" name="prop_${i}_value" placeholder="$"></div>
+    <div class="field"><label>Mortgage balance</label><input type="text" name="prop_${i}_mortgage" placeholder="$"></div>`,
+  businesses: i=>`
+    <div class="field"><label>Business / entity name</label><input type="text" name="biz_${i}_name"></div>
+    <div class="field"><label>Entity type</label><select name="biz_${i}_type"><option>LLC</option><option>S-Corp</option><option>C-Corp</option><option>Sole proprietor</option><option>Partnership</option><option>Holding company</option></select></div>
+    <div class="field"><label>Your ownership %</label><input type="number" min="0" max="100" name="biz_${i}_pct"></div>
+    <div class="field"><label>State formed</label><input type="text" name="biz_${i}_state"></div>`
+};
+const counters = {beneficiaries:0,properties:0,businesses:0};
+function addRow(key){
+  const i = ++counters[key];
+  const row = document.createElement('div'); row.className='repeat-row';
+  row.innerHTML = `<button type="button" class="rm" aria-label="Remove">×</button><div class="grid">${TEMPLATES[key](i)}</div>`;
+  row.querySelector('.rm').onclick = ()=>row.remove();
+  document.getElementById(key).appendChild(row);
+}
+document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>addRow(b.dataset.add)));
+addRow('beneficiaries');
+
+// Submit
+document.getElementById('trust-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  if(!validate(total)) return;
+  const btn = document.getElementById('submitBtn'); btn.disabled=true; btn.textContent='Submitting…';
+  const form = e.target; const data = new FormData(form);
+  // Drop empty values so the submission stays readable
+  [...data.keys()].forEach(k=>{ if(data.getAll(k).every(v=>!String(v).trim())) data.delete(k); });
+  const payload = {};
+  data.forEach((v,k)=>{ payload[k] = k in payload ? [].concat(payload[k], v) : v; });
+  payload.formType = 'Trust Setup Intake';
+  payload._subject = 'FCFG Trust Intake — ' + (payload.fullName || 'New client');
+  data.append('_subject', payload._subject);
+
+  const posts = [];
+  if(window.FORMSPREE_FORM_ID !== 'REPLACE_ME')
+    posts.push(fetch('https://formspree.io/f/'+window.FORMSPREE_FORM_ID,{method:'POST',headers:{Accept:'application/json'},body:data}));
+  if(window.GHL_WEBHOOK_URL !== 'REPLACE_ME')
+    posts.push(fetch(window.GHL_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}));
+  if(!posts.length) console.warn('Trust intake: set FORMSPREE_FORM_ID and/or GHL_WEBHOOK_URL', payload);
+
+  Promise.allSettled(posts).then(()=>{
+    form.style.display='none';
+    document.getElementById('success').style.display='block';
+    [...stepsEl.children].forEach(d=>{d.classList.remove('active');d.classList.add('done');});
+    document.getElementById('fill').style.width='100%';
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+show(1);
+</script>
+</body>
+</html>
