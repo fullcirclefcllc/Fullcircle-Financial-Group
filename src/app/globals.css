@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-cormorant: "Cormorant Garamond";
+  --font-cinzel: "Cinzel";
+  --font-inter: "Inter";
+}
+
+html, body { background: #0A1F44; }
+body { margin: 0; color: #0A1F44; -webkit-font-smoothing: antialiased; }
+
+@layer components {
+  .btn-gold { @apply inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-gold px-6 text-base font-semibold text-navy transition hover:bg-gold-soft disabled:opacity-50; }
+  .btn-navy { @apply inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-navy px-6 text-base font-semibold text-cream transition hover:bg-navy-light disabled:opacity-50; }
+  .btn-ghost { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-cream-border bg-white px-4 text-sm font-semibold text-navy hover:bg-cream; }
+  .card { @apply rounded-2xl bg-white; }
+  .input { @apply h-12 w-full rounded-xl border border-cream-border bg-white px-4 text-[15px] text-navy placeholder:text-muted/70 focus:border-navy focus:outline-none focus:ring-2 focus:ring-gold/40; }
+  .label { @apply mb-1.5 block text-sm font-semibold text-navy; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.08em] text-muted; }
+}
+
+/* App column: phone-width on desktop, full on mobile */
+.app-shell { @apply mx-auto min-h-[100dvh] w-full max-w-[480px] shadow-2xl; }
