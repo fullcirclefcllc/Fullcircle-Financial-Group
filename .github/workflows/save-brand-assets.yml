@@ -1,0 +1,38 @@
+# One-time job: copies the Higgsfield brand images into public/brand so the app never depends on outside links.
+name: Save brand assets
+on:
+  push:
+    branches: [full-circle-formations]
+    paths: [".github/workflows/save-brand-assets.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download images
+        run: |
+          set -e
+          mkdir -p public/brand
+          B=https://d8j0ntlcm91z4.cloudfront.net/user_3GsTJb4eUAW6rBjlFnmvNBNDr63
+          curl -fsSL "$B/hf_20261120_190758_6d65b8f0-1b6c-4347-a2a0-188be5421f6d.png" -o public/emblem.png
+          curl -fsSL "$B/hf_20261120_190903_f3a8e321-f208-4b3c-9823-e2c45fcb9f1f.png" -o public/brand/app-icon.png
+          curl -fsSL "$B/hf_20261120_183317_849a2be6-827b-4fe9-a147-f631edbe0fdd.png" -o public/brand/seal-gold-foil-navy.png
+          curl -fsSL "$B/hf_20261120_190940_8096da54-494f-4fd9-bbb9-08900f51e32f.png" -o public/brand/seal-gold-foil-cream.png
+          curl -fsSL "$B/hf_20261120_183207_87b3b1f3-4324-4391-9560-5c3790da1c02.png" -o public/brand/seal-refined-cream.png
+          curl -fsSL "$B/hf_20261120_183247_c4740654-fa4c-46e0-8baa-dbfe61e01b38.png" -o public/brand/seal-reversed-navy.png
+          curl -fsSL "$B/hf_20261120_183056_6e93cf52-25c6-4829-af6c-e00f5ddaee4e.png" -o public/brand/seal-horizontal.png
+          curl -fsSL "$B/hf_20261120_183359_52ff9f59-65dc-4f46-8b1f-731d08f136a9.png" -o public/brand/seal-pillar-icons.png
+          curl -fsSL "$B/hf_20261120_183430_a31efa7b-46e6-4d5a-aba3-de4d7f3da56b.png" -o public/brand/seal-minimal-white.png
+          curl -fsSL "$B/hf_20261120_190832_18daf115-4b5f-4c0b-9d1b-6615df949e7a.png" -o public/brand/business-card-mockup.png
+          cp public/brand/app-icon.png src/app/icon.png
+          ls -la public public/brand
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add public src/app/icon.png
+          git diff --cached --quiet || git commit -m "Save Full Circle brand images into the app"
+          git push

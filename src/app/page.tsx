@@ -17,15 +17,13 @@ async function getPrices() {
 
 const usd = (c: number) => `$${Math.round(c / 100)}`;
 
-const HERO =
-  process.env.NEXT_PUBLIC_HERO_IMAGE ||
-  "https://d8j0ntlcm91z4.cloudfront.net/user_3GsTJb4eUAW6rBjlFnmvNBNDr63/hf_20261120_190758_6d65b8f0-1b6c-4347-a2a0-188be5421f6d.png";
+const HERO = process.env.NEXT_PUBLIC_HERO_IMAGE || "/emblem.png";
 
 export default async function Welcome() {
   const p = await getPrices();
   return (
     <main className="app-shell relative flex flex-col gap-7 overflow-hidden bg-navy px-6 pb-8 pt-14 text-cream">
-      {/* 3D Full Circle emblem (made in Higgsfield). Set NEXT_PUBLIC_HERO_IMAGE=/emblem.png after saving it into /public. */}
+      {/* 3D Full Circle seal (made in Higgsfield), saved in /public/emblem.png */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={HERO}
