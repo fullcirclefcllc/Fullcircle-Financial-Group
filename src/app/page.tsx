@@ -19,7 +19,7 @@ const usd = (c: number) => `$${Math.round(c / 100)}`;
 
 const HERO =
   process.env.NEXT_PUBLIC_HERO_IMAGE ||
-  "https://d8j0ntlcm91z4.cloudfront.net/user_3GsTJb4eUAW6rBjlFnmvNBNDr63/hf_20261120_182340_e64cdb7a-19a5-4860-af85-a2cb6519693a.png";
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3GsTJb4eUAW6rBjlFnmvNBNDr63/hf_20261120_190758_6d65b8f0-1b6c-4347-a2a0-188be5421f6d.png";
 
 export default async function Welcome() {
   const p = await getPrices();
