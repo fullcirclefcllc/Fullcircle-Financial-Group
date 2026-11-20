@@ -17,13 +17,25 @@ async function getPrices() {
 
 const usd = (c: number) => `$${Math.round(c / 100)}`;
 
+const HERO =
+  process.env.NEXT_PUBLIC_HERO_IMAGE ||
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3GsTJb4eUAW6rBjlFnmvNBNDr63/hf_20261120_175559_a5a12af4-7c95-42d9-a507-968edbd08d21.png";
+
 export default async function Welcome() {
   const p = await getPrices();
   return (
     <main className="app-shell relative flex flex-col gap-7 overflow-hidden bg-navy px-6 pb-8 pt-14 text-cream">
-      <Orbit className="pointer-events-none absolute -right-[170px] -top-[120px] h-[420px] w-[420px] opacity-35" />
-      <Wordmark />
-      <div className="mt-6 flex flex-col gap-3">
+      {/* 3D Full Circle emblem (made in Higgsfield). Set NEXT_PUBLIC_HERO_IMAGE=/emblem.png after saving it into /public. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={HERO}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[460px] w-full object-cover object-center opacity-90 [mask-image:linear-gradient(to_bottom,black_55%,transparent)]"
+      />
+      <Orbit className="pointer-events-none absolute -right-[170px] -top-[120px] h-[420px] w-[420px] opacity-20" />
+      <div className="relative"><Wordmark /></div>
+      <div className="relative mt-[230px] flex flex-col gap-3">
         <h1 className="font-display text-[40px] font-semibold leading-[1.05]">
           Build the structure.
           <br />
@@ -34,7 +46,7 @@ export default async function Welcome() {
         </p>
       </div>
 
-      <nav aria-label="Choose your path" className="flex flex-col gap-3">
+      <nav aria-label="Choose your path" className="relative flex flex-col gap-3">
         <Link href="/start/new_llc" className="flex items-center gap-3.5 rounded-2xl bg-gold p-[18px] text-navy transition hover:bg-gold-soft">
           <div className="flex-1">
             <div className="text-base font-semibold">Start a new LLC</div>
