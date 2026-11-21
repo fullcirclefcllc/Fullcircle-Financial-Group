@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Orbit, Wordmark, Icon } from "@/components/brand";
+import { Icon } from "@/components/brand";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -23,17 +23,13 @@ export default async function Welcome() {
   const p = await getPrices();
   return (
     <main className="app-shell relative flex flex-col gap-7 overflow-hidden bg-navy px-6 pb-8 pt-14 text-cream">
-      {/* 3D Full Circle seal (made in Higgsfield), saved in /public/emblem.png */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={HERO}
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[460px] w-full object-cover object-center opacity-90 [mask-image:linear-gradient(to_bottom,black_55%,transparent)]"
-      />
-      <Orbit className="pointer-events-none absolute -right-[170px] -top-[120px] h-[420px] w-[420px] opacity-20" />
-      <div className="relative"><Wordmark /></div>
-      <div className="relative mt-[230px] flex flex-col gap-3">
+      {/* 3D Full Circle seal (made in Higgsfield), saved in /public/emblem.png. The seal carries the brand, so the wordmark is for screen readers only. */}
+      <h2 className="sr-only">Full Circle Formations</h2>
+      <div aria-hidden="true" className="relative -mx-6 -mt-14 h-[430px] overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={HERO} alt="" className="absolute inset-x-0 top-0 w-full [mask-image:linear-gradient(to_bottom,black_85%,transparent)]" />
+      </div>
+      <div className="relative -mt-6 flex flex-col gap-3">
         <h1 className="font-display text-[40px] font-semibold leading-[1.05]">
           Build the structure.
           <br />
