@@ -23,9 +23,14 @@ export type AddonPrice = {
   description: string | null;
   price_cents: number | null; // null = quoted later, not charged at checkout
   kind: "package" | "addon";
+  grp?: "launch" | "growth"; // growth = business credit and free reviews
   sort: number;
   active: boolean;
 };
+
+/** Offers a welcome-screen card can pre-select (e.g. /start/existing?offer=business_credit). */
+export const OFFERS = ["business_credit"] as const;
+export type Offer = (typeof OFFERS)[number];
 
 export type StateFee = { code: string; name: string; llc_fee_cents: number | null; holding_allowed: boolean };
 
@@ -36,6 +41,7 @@ export const PACKAGE_FOR_PATH: Record<Path, string | null> = {
 };
 
 export const ORDER_STATUSES = [
+  { key: "requested", label: "Request received" },
   { key: "awaiting_payment", label: "Awaiting payment" },
   { key: "paid", label: "Order received" },
   { key: "filed", label: "Filed with the state" },
@@ -54,7 +60,8 @@ export const TRACKER: { key: OrderStatus; label: string }[] = [
   { key: "scorp_filed", label: "S-corp election filed" },
 ];
 
-export function emptyFlow(path: Path): FlowData {
+export function emptyFlow(path: Path, offer?: Offer | null): FlowData {
+  const addons = offer ? [offer] : path === "existing" ? ["holding_addon"] : [];
   return {
     path,
     businessName: "",
@@ -63,7 +70,7 @@ export function emptyFlow(path: Path): FlowData {
     members: [{ name: "", percent: 100 }],
     management: "member",
     holdingState: "WY",
-    addons: path === "existing" ? ["holding_addon"] : [],
+    addons,
     contactName: "",
     contactPhone: "",
   };
@@ -131,7 +138,7 @@ export function packageLabel(flow: FlowData, fees: StateFee[]) {
 }
 
 export const money = (cents: number | null | undefined) =>
-  cents == null ? "Quoted" : `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: cents % 100 ? 2 : 0 })}`;
+  cents == null ? "Quoted" : cents === 0 ? "Free" : `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: cents % 100 ? 2 : 0 })}`;
 
 /** Validation per step. Returns an error message or null. */
 export function validateStep(step: number, f: FlowData): string | null {
@@ -152,6 +159,24 @@ export function validateStep(step: number, f: FlowData): string | null {
   return null;
 }
 
-export const STEP_TITLES = ["Business basics", "Your state", "Owners", "Privacy & add-ons", "Review"];
+export const STEP_TITLES = ["Business basics", "Your state", "Owners", "Add-ons & growth", "Review"];
+
+/** Labels for the growth sign-ups, used in the portal and admin. */
+export const GROWTH_KEYS = ["business_credit", "funding_review", "credit_review", "protection_quote"] as const;
+export const GROWTH_LABEL: Record<string, string> = {
+  business_credit: "Business credit",
+  funding_review: "Funding review",
+  credit_review: "Credit review",
+  protection_quote: "Protection quote",
+  holding_addon: "Holding company",
+  expedite: "Expedite",
+  identity_kit: "Identity kit",
+  virtual_office: "Virtual office",
+};
+
+/** True when the order has something to do but nothing to charge (only free reviews or quoted items). */
+export function isFreeRequest(t: Totals) {
+  return t.totalCents === 0 && (t.lines.length > 0 || t.quoted.length > 0);
+}
 
 export const DRAFT_KEY = "fcf-draft-v1";

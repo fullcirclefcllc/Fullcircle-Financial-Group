@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { stripe } from "@/lib/stripe";
-import { computeTotals, emptyFlow, validateStep, type AddonPrice, type FlowData, type Path, type StateFee } from "@/lib/formation";
+import { computeTotals, emptyFlow, isFreeRequest, OFFERS, validateStep, type AddonPrice, type FlowData, type Offer, type Path, type StateFee } from "@/lib/formation";
 
 const PATHS: Path[] = ["new_llc", "holding", "existing"];
 
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Please sign in first." }, { status: 401 });
 
-  let raw: { flow?: Partial<FlowData> };
+  let raw: { flow?: Partial<FlowData>; offer?: string | null };
   try { raw = await req.json(); } catch { return NextResponse.json({ error: "Bad request" }, { status: 400 }); }
   const path = raw.flow?.path as Path;
   if (!PATHS.includes(path)) return NextResponse.json({ error: "Unknown order type." }, { status: 400 });
@@ -49,7 +49,9 @@ export async function POST(req: Request) {
   }
 
   const totals = computeTotals(flow, (prices ?? []) as AddonPrice[], feeList);
-  if (totals.totalCents <= 0) return NextResponse.json({ error: "Nothing to charge yet. Choose a paid item." }, { status: 400 });
+  const free = isFreeRequest(totals);
+  if (totals.totalCents <= 0 && !free) return NextResponse.json({ error: "Choose at least one item to continue." }, { status: 400 });
+  const source = OFFERS.includes(raw.offer as Offer) ? `welcome:${raw.offer}` : `start:${path}`;
 
   const admin = createAdminClient();
   const { data: order, error } = await admin
@@ -68,7 +70,8 @@ export async function POST(req: Request) {
       total_cents: totals.totalCents,
       contact_name: flow.contactName,
       contact_phone: flow.contactPhone,
-      status: "awaiting_payment",
+      status: free ? "requested" : "awaiting_payment",
+      source,
     })
     .select("id")
     .single();
@@ -76,10 +79,12 @@ export async function POST(req: Request) {
     console.error(error);
     return NextResponse.json({ error: "We couldn't save your order. Please try again." }, { status: 500 });
   }
-  await admin.from("order_status_history").insert({ order_id: order.id, status: "awaiting_payment" });
+  await admin.from("order_status_history").insert({ order_id: order.id, status: free ? "requested" : "awaiting_payment" });
   await admin.from("profiles").update({ full_name: flow.contactName, phone: flow.contactPhone }).eq("id", user.id);
 
   const site = process.env.NEXT_PUBLIC_SITE_URL || new URL(req.url).origin;
+  // Free reviews only: no payment, go straight to the portal.
+  if (free) return NextResponse.json({ url: `${site}/portal?requested=${order.id}` });
   const chargeable = [...totals.lines, ...(totals.stateFee?.cents ? [totals.stateFee] : [])].filter((l) => (l.cents ?? 0) > 0);
 
   try {

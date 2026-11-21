@@ -7,11 +7,11 @@ export const dynamic = "force-dynamic";
 async function getPrices() {
   try {
     const supabase = await createClient();
-    const { data } = await supabase.from("addon_prices").select("key, price_cents").in("key", ["llc_package", "holding_package"]);
+    const { data } = await supabase.from("addon_prices").select("key, price_cents").in("key", ["llc_package", "holding_package", "business_credit"]);
     const m = new Map((data ?? []).map((r) => [r.key, r.price_cents as number | null]));
-    return { llc: m.get("llc_package") ?? 19900, holding: m.get("holding_package") ?? 25000 };
+    return { llc: m.get("llc_package") ?? 19900, holding: m.get("holding_package") ?? 25000, credit: m.get("business_credit") ?? 50000 };
   } catch {
-    return { llc: 19900, holding: 25000 };
+    return { llc: 19900, holding: 25000, credit: 50000 };
   }
 }
 
@@ -58,6 +58,16 @@ export default async function Welcome() {
             <div className="mt-0.5 text-[13px] text-mist">Wyoming or Delaware, built for privacy</div>
           </div>
           <div className="font-display text-[26px] font-semibold text-gold">{usd(p.holding)}</div>
+        </Link>
+        <Link href="/start/existing?offer=business_credit" className="flex items-center gap-3.5 rounded-2xl border border-gold/60 bg-navy-light p-[18px] transition hover:border-gold">
+          <div className="flex-1">
+            <div className="text-base font-semibold">Build business credit</div>
+            <div className="mt-0.5 text-[13px] text-mist">Already have an LLC? Build credit in its name</div>
+          </div>
+          <div className="text-right">
+            <div className="text-[11px] uppercase tracking-wider text-mist">Start for</div>
+            <div className="font-display text-[26px] font-semibold leading-none text-gold">{usd(p.credit)}</div>
+          </div>
         </Link>
         <Link href="/start/existing" className="flex items-center gap-3.5 rounded-2xl border border-navy-line bg-navy-light p-[18px] transition hover:border-gold">
           <div className="flex-1">

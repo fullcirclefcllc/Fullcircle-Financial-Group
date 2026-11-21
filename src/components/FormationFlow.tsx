@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { GuideAvatar, Icon } from "@/components/brand";
 import {
-  addonsForPath, computeTotals, DRAFT_KEY, emptyFlow, money, packageLabel, STEP_TITLES, validateStep,
-  type AddonPrice, type FlowData, type Path, type StateFee,
+  addonsForPath, computeTotals, DRAFT_KEY, emptyFlow, isFreeRequest, money, packageLabel, STEP_TITLES, validateStep,
+  type AddonPrice, type FlowData, type Offer, type Path, type StateFee,
 } from "@/lib/formation";
 
 type Msg = { role: "user" | "assistant"; content: string; offerHolding?: boolean };
@@ -15,31 +15,31 @@ const STEP_INTROS: Record<Path, string[]> = {
     "Let's start with the basics. What's the name of your business, and what will it do? Don't worry about adding \"LLC\" — we handle that.",
     "Where will your business operate day to day? That's usually where your LLC should be formed.",
     "Who owns the business? Add each owner and their share. Most single-owner LLCs are member-managed.",
-    "Your package includes a registered agent for the first year, so your home address stays off the public record. Want more privacy or speed? Pick any extras here.",
+    "Your package includes a registered agent for the first year, so your home address stays off the public record. Add any extras, and tap the free reviews you'd like. No commitment.",
     "Here's everything in one place. Add your contact details and you're ready to file.",
   ],
   holding: [
     "A holding company owns your other businesses and assets. What should we name it?",
     "Wyoming and Delaware are the two most popular homes for holding companies. Which fits you?",
     "Who owns the holding company? Add each owner and their share.",
-    "Your holding company comes with privacy built in. Add anything else you need.",
+    "Your holding company comes with privacy built in. Add anything else you need, including free reviews.",
     "Here's your holding company order. Add your contact details and you're ready to file.",
   ],
   existing: [
     "Welcome back to structure. What's the legal name of your current LLC?",
     "Which state is your LLC registered in?",
     "Who owns the LLC today? This helps us set up the holding company correctly.",
-    "Here's what we can add to your existing LLC. A holding company is the most popular next step.",
+    "Here's what we can add to your existing LLC. Pick anything that fits. The reviews are free.",
     "Review your order and add your contact details.",
   ],
 };
 
 export default function FormationFlow({
-  path, prices, fees, signedIn, bookingUrl,
-}: { path: Path; prices: AddonPrice[]; fees: StateFee[]; signedIn: boolean; bookingUrl: string }) {
+  path, prices, fees, signedIn, bookingUrl, offer,
+}: { path: Path; prices: AddonPrice[]; fees: StateFee[]; signedIn: boolean; bookingUrl: string; offer?: Offer | null }) {
   const router = useRouter();
   const [step, setStep] = useState(0);
-  const [flow, setFlow] = useState<FlowData>(() => emptyFlow(path));
+  const [flow, setFlow] = useState<FlowData>(() => emptyFlow(path, offer));
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [ask, setAsk] = useState("");
   const [thinking, setThinking] = useState(false);
@@ -55,14 +55,16 @@ export default function FormationFlow({
       if (raw) {
         const d = JSON.parse(raw);
         if (d?.flow?.path === path) {
-          setFlow({ ...emptyFlow(path), ...d.flow });
+          const saved: FlowData = { ...emptyFlow(path, offer), ...d.flow };
+          if (offer && !saved.addons.includes(offer)) saved.addons = [...saved.addons, offer];
+          setFlow(saved);
           setStep(Math.min(Number(d.step) || 0, 4));
           setMsgs(Array.isArray(d.msgs) ? d.msgs.slice(-30) : []);
         }
       }
     } catch {}
     setLoaded(true);
-  }, [path]);
+  }, [path, offer]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -76,6 +78,9 @@ export default function FormationFlow({
 
   const totals = useMemo(() => computeTotals(flow, prices, fees), [flow, prices, fees]);
   const addons = useMemo(() => addonsForPath(path, prices), [path, prices]);
+  const launchAddons = addons.filter((a) => (a.grp ?? "launch") === "launch");
+  const growthAddons = addons.filter((a) => a.grp === "growth");
+  const freeRequest = isFreeRequest(totals);
   const holdingPrice = prices.find((p) => p.key === "holding_addon")?.price_cents ?? null;
   const set = (patch: Partial<FlowData>) => { setError(null); setFlow((f) => ({ ...f, ...patch })); };
   const toggleAddon = (key: string, on?: boolean) =>
@@ -131,7 +136,7 @@ export default function FormationFlow({
       if (err) { setStep(s); return setError(err); }
     }
     if (!signedIn) {
-      router.push(`/login?next=${encodeURIComponent(`/start/${path}`)}`);
+      router.push(`/login?next=${encodeURIComponent(`/start/${path}${offer ? `?offer=${offer}` : ""}`)}`);
       return;
     }
     setPaying(true);
@@ -140,7 +145,7 @@ export default function FormationFlow({
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ flow }),
+        body: JSON.stringify({ flow, offer: offer ?? null }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) throw new Error(data.error || "Checkout couldn't start.");
@@ -256,9 +261,45 @@ export default function FormationFlow({
 
         {step === 3 && (
           <div className="flex flex-col gap-3">
-            <div className="eyebrow">Add-ons</div>
+            {growthAddons.length > 0 && (
+              <>
+                <div className="eyebrow">Grow after you file</div>
+                {growthAddons.filter((a) => a.key === "business_credit").map((a) => {
+                  const on = flow.addons.includes(a.key);
+                  return (
+                    <label key={a.key} className={`flex cursor-pointer flex-col gap-3 rounded-2xl p-4 ${on ? "bg-navy text-cream ring-2 ring-gold" : "bg-navy text-cream"}`}>
+                      <div className="flex items-start gap-3">
+                        <input type="checkbox" className="mt-1 h-5 w-5 accent-gold" checked={on} onChange={() => toggleAddon(a.key)} />
+                        <div className="flex-1">
+                          <div className="font-brand text-[13px] tracking-[0.12em] text-gold">BUSINESS CREDIT</div>
+                          <div className="mt-1 text-base font-semibold">{a.label}</div>
+                          {a.description && <div className="mt-1 text-[13px] leading-relaxed text-mist">{a.description}</div>}
+                        </div>
+                      </div>
+                      <div className="flex items-baseline justify-between border-t border-navy-line pt-3">
+                        <span className="text-[13px] text-mist">Get started for</span>
+                        <span className="font-display text-[28px] font-semibold text-gold">{money(a.price_cents)}</span>
+                      </div>
+                    </label>
+                  );
+                })}
+                <div className="card flex flex-col divide-y divide-cream-line">
+                  {growthAddons.filter((a) => a.key !== "business_credit").map((a) => (
+                    <label key={a.key} className="flex min-h-[44px] cursor-pointer items-center gap-3 px-4 py-3.5">
+                      <input type="checkbox" className="h-5 w-5 accent-navy" checked={flow.addons.includes(a.key)} onChange={() => toggleAddon(a.key)} />
+                      <div className="flex-1">
+                        <div className="text-sm font-semibold">{a.label}</div>
+                        {a.description && <div className="text-xs text-muted">{a.description}</div>}
+                      </div>
+                      <div className="rounded-full bg-cream px-2.5 py-1 text-xs font-semibold">{money(a.price_cents)}</div>
+                    </label>
+                  ))}
+                </div>
+              </>
+            )}
+            {launchAddons.length > 0 && <div className="eyebrow mt-2">Launch kit</div>}
             <div className="card flex flex-col divide-y divide-cream-line">
-              {addons.map((a) => (
+              {launchAddons.map((a) => (
                 <label key={a.key} className="flex min-h-[44px] cursor-pointer items-center gap-3 px-4 py-3.5">
                   <input type="checkbox" className="h-5 w-5 accent-navy" checked={flow.addons.includes(a.key)} onChange={() => toggleAddon(a.key)} />
                   <div className="flex-1">
@@ -386,11 +427,20 @@ export default function FormationFlow({
                 {totals.stateFee?.cents == null && path !== "existing" && <span className="font-sans text-xs font-normal text-muted">+ state fee</span>}
               </span>
             </div>
-            <button onClick={pay} disabled={paying || totals.totalCents <= 0} className="btn-gold w-full">
-              <Icon.Lock size={18} /> {paying ? "Opening secure checkout…" : signedIn ? "Pay and file" : "Sign in to pay and file"}
+            <button onClick={pay} disabled={paying || (totals.totalCents <= 0 && !freeRequest)} className="btn-gold w-full">
+              <Icon.Lock size={18} />{" "}
+              {paying
+                ? freeRequest ? "Sending…" : "Opening secure checkout…"
+                : freeRequest
+                  ? signedIn ? "Send my request" : "Sign in to send my request"
+                  : signedIn ? "Pay and get started" : "Sign in to pay and get started"}
             </button>
             <p className="text-center text-xs text-muted">
-              {totals.totalCents <= 0 ? "Choose at least one paid item to continue." : "Filed in 3–5 business days, depending on the state"}
+              {totals.totalCents <= 0 && !freeRequest
+                ? "Choose at least one item to continue."
+                : freeRequest
+                  ? "No payment needed. We'll reach out to schedule your review."
+                  : path === "existing" ? "We'll reach out within one business day to get started." : "Filed in 3–5 business days, depending on the state"}
             </p>
           </>
         )}

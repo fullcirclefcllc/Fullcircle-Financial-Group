@@ -10,7 +10,7 @@ The LLC formation app for Full Circle Financial Group. Clients pick a path (new 
 
 ### 1. Supabase: database and sign-in
 1. Create a free project at **supabase.com**.
-2. Open **SQL Editor → New query**, paste everything in `supabase/migrations/0001_init.sql`, and click **Run**.
+2. Open **SQL Editor → New query**, paste everything in `supabase/migrations/0001_init.sql`, and click **Run**. Then do the same with `0002_growth_offers.sql`.
 3. **Authentication → URL Configuration**: set *Site URL* to your live address (for example `https://formations.fullcircle-credit.com`), and add `https://YOUR-SITE/auth/callback` under *Redirect URLs*.
 4. Optional, for Google sign-in: **Authentication → Providers → Google**. Follow Supabase's steps to paste in a Google client ID and secret.
 5. **Project Settings → API**: copy the *Project URL*, the *anon* key and the *service_role* key for step 4 below.
@@ -54,9 +54,10 @@ update public.profiles set role = 'admin' where email = 'Breyon@fullcircle-credi
 | `/portal` | Filing tracker + "Your next moves" (business credit, protection, personal credit → your booking link) |
 | `/portal/documents` | Files you upload for the client (private, opened with short-lived links) |
 | `/admin` | All orders, status updates (these drive the client's tracker), document uploads, notes |
-| `/admin/prices` | Package, add-on and state-fee prices |
+| `/admin/clients` | Every client who signed up: contact info, what they signed up for, status, amount paid, where they came from. Filter by service, search, and **download a spreadsheet (CSV)** |
+| `/admin/prices` | Package, add-on and state-fee prices (including the business credit start price) |
 
-**Order statuses:** Awaiting payment → Order received (set automatically when Stripe confirms payment) → Filed with the state → Approved + EIN → S-corp election filed → Complete.
+**Order statuses:** Request received (free reviews only, no payment) · Awaiting payment → Order received (set automatically when Stripe confirms payment) → Filed with the state → Approved + EIN → S-corp election filed → Complete.
 
 **Security:** row-level security means clients can only ever read their own orders and documents. Prices are always recalculated on the server from the database, never taken from the browser.
 
@@ -66,3 +67,11 @@ npm install
 cp .env.example .env.local   # fill in values
 npm run dev                   # http://localhost:3000
 ```
+
+## Growth offers
+- **Business credit builder:** "Get started for $500" on the welcome screen and in step 4. Change the amount in Admin → Prices.
+- **Free sign-ups:** funding readiness review, personal credit review and protection plan quote. Clients tap to add them; if that's all they choose, no payment is needed and the request lands in Admin → Clients.
+- Each order records where it came from (`source`), e.g. `welcome:business_credit` for the welcome-screen card.
+
+## Tracking clients
+Every sign-up is saved in Supabase (`orders` + `profiles`). See it in **Admin → Clients**, or download it as a CSV for Excel or Google Sheets. Payments also show in your Stripe dashboard. Clients who started checkout but didn't pay show as "Awaiting payment" — good follow-up calls.

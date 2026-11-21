@@ -3,23 +3,27 @@ import { redirect } from "next/navigation";
 import { getUserAndProfile } from "@/lib/supabase/server";
 import { Icon, Orbit } from "@/components/brand";
 import { ClearDraft } from "@/components/ClearDraft";
-import { TRACKER, type OrderStatus } from "@/lib/formation";
+import { GROWTH_LABEL, money, TRACKER, type OrderStatus } from "@/lib/formation";
 
 export const dynamic = "force-dynamic";
 
-type Order = { id: string; business_name: string; path: string; state: string; status: OrderStatus; created_at: string };
+type Order = { id: string; business_name: string; path: string; state: string; status: OrderStatus; created_at: string; addons: string[] };
 
-export default async function PortalHome({ searchParams }: { searchParams: Promise<{ paid?: string; order?: string }> }) {
-  const { paid, order: orderParam } = await searchParams;
+export default async function PortalHome({ searchParams }: { searchParams: Promise<{ paid?: string; requested?: string; order?: string }> }) {
+  const { paid, requested, order: orderParam } = await searchParams;
   const { supabase, user, profile } = await getUserAndProfile();
   if (!user) redirect("/login?next=/portal");
 
-  const { data } = await supabase.from("orders").select("id, business_name, path, state, status, created_at")
+  const { data } = await supabase.from("orders").select("id, business_name, path, state, status, created_at, addons")
     .neq("status", "cancelled").order("created_at", { ascending: false });
   const orders = (data ?? []) as Order[];
-  const current = orders.find((o) => o.id === (orderParam ?? paid)) ?? orders.find((o) => o.status !== "awaiting_payment") ?? orders[0];
+  const current = orders.find((o) => o.id === (orderParam ?? paid ?? requested)) ?? orders.find((o) => o.status !== "awaiting_payment") ?? orders[0];
   const booking = process.env.NEXT_PUBLIC_BOOKING_URL ?? "#";
+  const { data: bc } = await supabase.from("addon_prices").select("price_cents").eq("key", "business_credit").maybeSingle();
+  const creditStart = money((bc?.price_cents as number | null) ?? 50000);
   const firstName = profile?.full_name?.split(" ")[0];
+  const services = (current?.addons ?? []).filter((k) => GROWTH_LABEL[k]);
+  const enrolled = new Set(orders.filter((o) => !["awaiting_payment", "cancelled"].includes(o.status)).flatMap((o) => o.addons ?? []));
 
   const reached = (key: OrderStatus) => {
     if (!current) return "todo";
@@ -35,15 +39,25 @@ export default async function PortalHome({ searchParams }: { searchParams: Promi
 
   return (
     <div>
-      {paid && <ClearDraft />}
+      {(paid || requested) && <ClearDraft />}
       <section className="relative flex flex-col gap-4 overflow-hidden rounded-b-[26px] bg-navy px-5 pb-6 pt-12 text-cream">
         <Orbit className="pointer-events-none absolute -right-[90px] -top-[60px] h-[260px] w-[260px] opacity-30" />
         <div className="text-[13px] text-mist">Welcome back{firstName ? `, ${firstName}` : ""}</div>
         {current ? (
           <>
             <h1 className="font-display text-[30px] font-semibold leading-tight">{current.business_name}</h1>
-            {paid && <p role="status" className="rounded-xl bg-navy-light px-3 py-2 text-sm">Payment received. We&apos;ll start your filing right away.</p>}
-            {current.status === "awaiting_payment" ? (
+            {paid && <p role="status" className="rounded-xl bg-navy-light px-3 py-2 text-sm">Payment received. We&apos;ll get started right away.</p>}
+            {requested && <p role="status" className="rounded-xl bg-navy-light px-3 py-2 text-sm">Request received. We&apos;ll reach out within one business day.</p>}
+            {services.length > 0 && (
+              <ul aria-label="Your services" className="flex flex-wrap gap-1.5">
+                {services.map((k) => (
+                  <li key={k} className="rounded-full border border-gold/60 px-2.5 py-1 text-xs text-gold">{GROWTH_LABEL[k] ?? k}</li>
+                ))}
+              </ul>
+            )}
+            {current.status === "requested" ? (
+              <p className="text-sm text-mist">Your request is in. A Full Circle specialist will contact you to schedule.</p>
+            ) : current.status === "awaiting_payment" ? (
               <div className="flex flex-col gap-2 text-sm text-mist">
                 <p>This order is waiting for payment.</p>
                 <Link href={`/start/${current.path}`} className="btn-gold self-start">Finish checkout</Link>
@@ -91,17 +105,18 @@ export default async function PortalHome({ searchParams }: { searchParams: Promi
 
       <section className="flex flex-col gap-3 p-5">
         <h2 className="font-brand text-[13px] font-bold tracking-[0.14em]">YOUR NEXT MOVES</h2>
-        <NextMove href={booking} highlight I={Icon.Chart} title="Build business credit" sub="Start your tradelines as soon as your EIN arrives" />
-        <NextMove href={booking} I={Icon.Shield} title="Protect what you're building" sub="Book a life insurance strategy call" />
-        <NextMove href={booking} I={Icon.Clock} title="Strengthen personal credit" sub="Get ready for funding" />
+        <NextMove href={enrolled.has("business_credit") ? booking : "/start/existing?offer=business_credit"} external={enrolled.has("business_credit")} highlight I={Icon.Chart}
+          title="Build business credit" sub={enrolled.has("business_credit") ? "You're enrolled. Book your strategy call" : `Get started for ${creditStart}`} />
+        <NextMove href={booking} external I={Icon.Shield} title="Protect what you're building" sub={enrolled.has("protection_quote") ? "Quote requested. We'll be in touch" : "Free protection plan quote"} />
+        <NextMove href={booking} external I={Icon.Clock} title="Strengthen personal credit" sub={enrolled.has("credit_review") ? "Review requested. We'll be in touch" : "Free personal credit review"} />
       </section>
     </div>
   );
 }
 
-function NextMove({ href, title, sub, I, highlight }: { href: string; title: string; sub: string; I: (p: { size?: number; className?: string }) => React.ReactElement; highlight?: boolean }) {
+function NextMove({ href, title, sub, I, highlight, external }: { href: string; title: string; sub: string; I: (p: { size?: number; className?: string }) => React.ReactElement; highlight?: boolean; external?: boolean }) {
   return (
-    <a href={href} target="_blank" rel="noreferrer"
+    <a href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
       className={`flex items-center gap-3.5 rounded-2xl bg-white p-4 ${highlight ? "border-2 border-gold" : ""}`}>
       <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy text-gold"><I size={22} /></span>
       <span className="flex-1">
